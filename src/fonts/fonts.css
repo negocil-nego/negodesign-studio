@@ -1,0 +1,25 @@
+/* Commissioner */
+@font-face {
+  font-family: 'Commissioner';
+  src: url('./commissioner/Commissioner-VariableFont_FLAR,VOLM,slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commissioner';
+  src: url('./commissioner/Commissioner-VariableFont_FLAR,VOLM,slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Comfortaa */
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('./comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

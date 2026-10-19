@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import "../fonts/fonts.css";
+
+@theme {
+  --font-sans: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-commissioner: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-comfortaa: 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Paleta semântica do Design System Desktop (Blender Theme) */
+  --color-blender-base: #141619;
+  --color-blender-surface: #181a1d;
+  --color-blender-sidebar: #1e2024;
+  --color-blender-card: #1d1f23;
+  --color-blender-hover: #2d3036;
+  --color-blender-active: #383d46;
+  --color-blender-border: #2d3036;
+  --color-blender-border-light: #3a3f48;
+}
+
+html,
+body {
+  font-family: var(--font-comfortaa);
+}
+
+.font-commissioner {
+  font-family: var(--font-commissioner);
+}
+
+.font-comfortaa {
+  font-family: var(--font-comfortaa);
+}
+
+/* Classes utilitárias reutilizáveis com @apply no Tailwind v4 */
+@utility blender-app {
+  @apply w-screen h-screen overflow-hidden bg-blender-base text-zinc-200 font-commissioner select-none;
+}
+
+@utility blender-workspace {
+  @apply flex-1 h-screen p-3 md:p-6 lg:p-8 bg-blender-base overflow-y-auto flex items-center justify-center;
+}
+
+@utility blender-sidebar {
+  @apply bg-blender-sidebar border-r border-blender-border text-zinc-300 select-none;
+}
+
+@utility blender-topbar {
+  @apply h-11 px-4 bg-blender-sidebar border-b border-blender-border flex items-center justify-between select-none;
+}
+
+@utility blender-card {
+  @apply bg-blender-card text-zinc-200 border border-zinc-700/60 rounded-lg shadow-2xl overflow-hidden font-commissioner select-none;
+}
+
+@utility blender-panel {
+  @apply bg-zinc-800/40 border border-zinc-700/60 rounded p-3 transition-colors;
+}
+
+@utility blender-header {
+  @apply text-[11px] font-semibold uppercase tracking-wider text-zinc-400 select-none flex items-center gap-1.5;
+}
+
+@utility blender-item {
+  @apply flex items-center gap-2.5 px-2.5 py-1.5 rounded text-xs text-zinc-300 hover:text-white hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer select-none;
+}
+
+@utility blender-action {
+  @apply flex items-center justify-between p-3 rounded bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/60 hover:border-blue-500/50 transition-all text-left;
+}
+
+@utility blender-badge {
+  @apply text-[10px] px-1.5 py-0.5 rounded font-mono shrink-0 bg-zinc-700/50 text-zinc-300;
+}
+
+@utility blender-footer {
+  @apply px-5 py-2.5 bg-blender-base border-t border-blender-border flex flex-wrap items-center justify-between gap-3 text-[11px] text-zinc-400 select-none;
+}
+
+@utility blender-icon-btn {
+  @apply w-8 h-8 rounded flex items-center justify-center bg-zinc-800 hover:bg-blender-hover active:bg-blender-active text-zinc-300 hover:text-white transition-colors cursor-pointer border border-zinc-700/60;
+}
+
+@utility blender-circuit-bg {
+  background-image:
+    linear-gradient(to bottom, rgba(20, 22, 25, 0.85), rgba(20, 22, 25, 0.92)),
+    url('/img/pawel-d-browski-circuit-7447920.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
