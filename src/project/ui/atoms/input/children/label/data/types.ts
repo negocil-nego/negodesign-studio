@@ -5,3 +5,8 @@ export type InputLabelProps = {
     labelProps: LabelProps;
     inputProps: InputProps;
 };
+
+export type InputWithoutLabelProps = {
+    labelProps?: LabelProps;
+    inputProps: InputProps;
+};
