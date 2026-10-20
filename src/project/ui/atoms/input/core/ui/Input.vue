@@ -17,9 +17,8 @@ const InputField = () =>
 </script>
 
 <template>
-    <div v-if="icon" class="flex items-center">
-        <img :src="`/icons/${icon}`" alt="icon" />
+    <div class="input-form">
+        <img v-if="icon" :src="`/icons/${icon}`" alt="icon" />
         <InputField />
     </div>
-    <InputField v-else />
 </template>

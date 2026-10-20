@@ -17,14 +17,10 @@ function InputField({ type, required, disabled, placeholder, value }) {
 export default function Input({ icon, type, required, disabled, placeholder, value }: InputProps) {
     const fieldProps = { type, required, disabled, placeholder, value };
 
-    if (icon) {
-        return (
-            <div className="flex items-center">
-                <img src={`/icons/${icon}`} alt="icon" />
-                <InputField {...fieldProps} />
-            </div>
-        );
-    }
-
-    return <InputField {...fieldProps} />;
+    return (
+        <div className="input-form">
+            {icon && <img src={`/icons/${icon}`} alt="icon" />}
+            <InputField {...fieldProps} />
+        </div>
+    );
 }

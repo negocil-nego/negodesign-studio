@@ -16,11 +16,7 @@
   />
 {/snippet}
 
-{#if icon}
-  <div class="flex items-center">
-    <img src="/icons/{icon}" alt="icon" />
-    {@render inputField()}
-  </div>
-{:else}
+<div class="input-form">
+  {#if icon}<img src="/icons/{icon}" alt="icon" />{/if}
   {@render inputField()}
-{/if}
+</div>

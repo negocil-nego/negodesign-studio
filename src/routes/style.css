@@ -1,0 +1,25 @@
+@import "../../styles/popover.css";
+
+@utility input-form {
+  @apply flex w-full min-w-0 items-center gap-2 rounded-md border border-blender-border bg-blender-surface px-3 py-2 text-sm text-zinc-200;
+  &:focus-within {
+    @apply border-blue-500 ring-1 ring-blue-500;
+  }
+  & > input {
+    @apply w-full min-w-0 border-0 bg-transparent p-0 text-inherit outline-none;
+  }
+  & > input::placeholder {
+    @apply text-zinc-500;
+  }
+  & > input:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+@utility input-phone-flag {
+  @apply flex items-center gap-2;
+  & > img {
+    @apply h-4 w-6 object-cover;
+  }
+}
+
