@@ -1,3 +1,4 @@
+import type { IconNamed } from "../../../../../../hooks/icon.svelte";
 
 
 export type InputType =
@@ -15,6 +16,7 @@ export type InputType =
     | 'time';
 
 export type InputProps = {
+    icon?: IconNamed;
     type: InputType;
     required?: boolean
     disabled?: boolean

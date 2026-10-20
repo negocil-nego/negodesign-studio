@@ -1,3 +1,11 @@
 {
-  "svelte.enable-ts-plugin": true
+  "svelte.enable-ts-plugin": true,
+
+  // Reference files for other frameworks (Vue, React, Flutter).
+  // Treated as plaintext so no language server runs on them.
+  "files.associations": {
+    "src/project/**/*.vue": "plaintext",
+    "src/project/**/*.tsx": "plaintext",
+    "src/project/**/*.dart": "plaintext"
+  }
 }

@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import { h } from "vue";
 import type { InputProps } from "../data/types";
 
-const { type, required, disabled, placeholder, value } = defineProps<InputProps>();
+const { icon, type, required, disabled, placeholder, value } = defineProps<InputProps>();
+
+// snippet: componente funcional interno reutilizável
+const InputField = () =>
+    h("input", {
+        type,
+        required,
+        disabled,
+        placeholder,
+        value,
+        "data-name": "label",
+    });
 </script>
 
 <template>
-    <input :type="type" :required="required" :disabled="disabled" :placeholder="placeholder" :value="value"
-        data-name="label" />
+    <div v-if="icon" class="flex items-center">
+        <img :src="`/icons/${icon}`" alt="icon" />
+        <InputField />
+    </div>
+    <InputField v-else />
 </template>

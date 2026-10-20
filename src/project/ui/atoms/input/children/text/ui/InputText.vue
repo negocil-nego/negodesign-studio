@@ -6,14 +6,14 @@ import type { InputTextProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputTextProps>();
 
-const phoneProps = computed(() => ({ ...inputProps, type: "tel" as const }));
+const textProps = computed(() => ({ ...inputProps, type: "text" as const }));
 </script>
 
 <template>
     <template v-if="labelProps">
-        <InputLabel :labelProps="labelProps" :inputProps="phoneProps" />
+        <InputLabel :labelProps="labelProps" :inputProps="textProps" />
     </template>
     <template v-else>
-        <Input v-bind="phoneProps" />
+        <Input v-bind="textProps" />
     </template>
 </template>

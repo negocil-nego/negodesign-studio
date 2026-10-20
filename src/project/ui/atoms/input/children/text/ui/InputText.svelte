@@ -5,11 +5,11 @@
 
   let { labelProps, inputProps }: InputTextProps = $props();
 
-  const phoneProps = $derived({ ...inputProps, type: "tel" as const });
+  const textProps = $derived({ ...inputProps, type: "text" as const });
 </script>
 
 {#if labelProps}
-  <InputLabel {labelProps} inputProps={phoneProps} />
+  <InputLabel {labelProps} inputProps={textProps} />
 {:else}
-  <Input {...phoneProps} />
+  <Input {...textProps} />
 {/if}

@@ -10,14 +10,14 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final phoneProps = props.inputProps.copyWith(type: 'tel');
+    final textProps = props.inputProps.copyWith(type: 'text');
 
     if (props.labelProps != null) {
       return InputLabel(
-        InputLabelProps(labelProps: props.labelProps!, inputProps: phoneProps),
+        InputLabelProps(labelProps: props.labelProps!, inputProps: textProps),
       );
     } else {
-      return Input(phoneProps);
+      return Input(textProps);
     }
   }
 }

@@ -4,14 +4,14 @@ import InputLabel from "../../label/ui/InputLabel";
 import type { InputTextProps } from "../data/types";
 
 export default function InputText({ labelProps, inputProps }: InputTextProps) {
-    const phoneProps = { ...inputProps, type: "tel" };
+    const textProps = { ...inputProps, type: "text" };
 
     return (
         <>
             {labelProps ? (
-                <InputLabel labelProps={labelProps} inputProps={phoneProps} />
+                <InputLabel labelProps={labelProps} inputProps={textProps} />
             ) : (
-                <Input {...phoneProps} />
+                <Input {...textProps} />
             )}
         </>
     );

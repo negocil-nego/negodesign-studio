@@ -1,7 +1,7 @@
 // @ts-nocheck
 import type { InputProps } from "../data/types";
 
-export default function Input({ type, required, disabled, placeholder, value }: InputProps) {
+function InputField({ type, required, disabled, placeholder, value }) {
     return (
         <input
             type={type}
@@ -12,4 +12,19 @@ export default function Input({ type, required, disabled, placeholder, value }: 
             data-name="label"
         />
     );
+}
+
+export default function Input({ icon, type, required, disabled, placeholder, value }: InputProps) {
+    const fieldProps = { type, required, disabled, placeholder, value };
+
+    if (icon) {
+        return (
+            <div className="flex items-center">
+                <img src={`/icons/${icon}`} alt="icon" />
+                <InputField {...fieldProps} />
+            </div>
+        );
+    }
+
+    return <InputField {...fieldProps} />;
 }

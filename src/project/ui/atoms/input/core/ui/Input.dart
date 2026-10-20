@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'data/types.dart';
+import '../data/types.dart';
 
-class Input extends StatelessWidget {
+// snippet: widget privado reutilizável internamente
+class _InputField extends StatelessWidget {
   final InputProps props;
 
-  const Input({super.key, required this.props});
+  const _InputField({required this.props});
 
   TextInputType _mapInputType(InputType type) {
     return switch (type) {
@@ -36,5 +37,27 @@ class Input extends StatelessWidget {
         hintText: props.placeholder,
       ),
     );
+  }
+}
+
+// render: compõe com ou sem ícone
+class Input extends StatelessWidget {
+  final InputProps props;
+
+  const Input({super.key, required this.props});
+
+  @override
+  Widget build(BuildContext context) {
+    if (props.icon != null) {
+      return Row(
+        children: [
+          Image.asset('assets/icons/${props.icon}'),
+          const SizedBox(width: 8),
+          Expanded(child: _InputField(props: props)),
+        ],
+      );
+    }
+
+    return _InputField(props: props);
   }
 }
