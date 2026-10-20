@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   type PropRow = {
     label: string;
     value: string;
@@ -55,12 +55,13 @@
         >
       </div>
       {#each section.rows as row, i (i)}
+        {@const inputId = `prop-${section.title}-${i}`}
         <div
           class="flex items-center gap-2 px-2 py-1 hover:bg-blender-hover/40 transition-colors group"
         >
-          <!-- svelte-ignore a11y_label_has_associated_control -->
           <label
-            class="text-[10px] text-blue-400 w-32.51 shrink-0 truncate"
+            for={inputId}
+            class="text-[10px] text-blue-400 w-[130px] shrink-0 truncate cursor-pointer"
             title={row.label}
           >
             {row.label}
@@ -68,6 +69,7 @@
           <div class="flex items-center gap-1 flex-1 min-w-0">
             <span class="text-zinc-600 text-[10px]">#</span>
             <input
+              id={inputId}
               bind:value={row.value}
               placeholder=""
               class="flex-1 min-w-0 bg-blender-base border border-blender-border/60 rounded px-1.5 py-0.5

@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   type LayoutProp = { label: string; value: string; type?: 'text'|'select'|'number'; options?: string[] };
   type LayoutSection = { title: string; props: LayoutProp[] };
 
@@ -43,10 +43,16 @@
       <div class="px-3 py-1 bg-blender-base/60 text-right">
         <span class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">{section.title}</span>
       </div>
-      {#each section.props as prop}
+      {#each section.props as prop, i (i)}
+        {@const inputId = `layout-${section.title}-${i}`}
         <div class="flex items-center gap-2 px-2 py-1 hover:bg-blender-hover/40 transition-colors">
-          <label class="text-[10px] text-zinc-400 flex-1 truncate" title={prop.label}>{prop.label}</label>
+          <label
+            for={inputId}
+            class="text-[10px] text-zinc-400 flex-1 truncate cursor-pointer"
+            title={prop.label}
+          >{prop.label}</label>
           <input
+            id={inputId}
             bind:value={prop.value}
             type={prop.type === 'number' ? 'number' : 'text'}
             class="w-[90px] bg-blender-base border border-blender-border/60 rounded px-1.5 py-0.5

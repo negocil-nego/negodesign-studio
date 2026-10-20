@@ -1,0 +1,4 @@
+# Reference files for other frameworks — not part of this project's build
+**/*.dart
+**/*.vue
+src/project/**/*.tsx
