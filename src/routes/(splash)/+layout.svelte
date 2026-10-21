@@ -9,7 +9,8 @@
   let theme = $state<"light" | "dark">("light");
 
   onMount(() => {
-    theme = localStorage.getItem("negodesign-theme") === "dark" ? "dark" : "light";
+    theme =
+      localStorage.getItem("negodesign-theme") === "dark" ? "dark" : "light";
     document.documentElement.dataset.theme = theme;
   });
 
@@ -20,82 +21,85 @@
   }
 </script>
 
-<main class="blender-app flex">
-  <aside
-    class="blender-sidebar w-64 h-screen p-4 flex flex-col justify-between shrink-0"
-  >
-    <div class="space-y-4">
-      <div class="flex items-start gap-2">
-        <div class="min-w-0 flex-1"><LogoApp /></div>
-        <button
-          type="button"
-          class="blender-icon-btn h-8 w-8 shrink-0"
-          onclick={toggleTheme}
-          title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-          aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-        >{theme === "light" ? "☾" : "☀"}</button>
-      </div>
-
+<main class="blender-app flex flex-col">
+  <div class="flex min-h-0 flex-1">
+    <aside
+      class="blender-sidebar h-full w-64 shrink-0 p-4 flex flex-col justify-between"
+    >
       <div class="space-y-4">
-        <MenuGroup
-          name="Menu"
-          items={[
-            {
-              name: "Novo Projecto",
-              path: "/main/project",
-              icon: IconNamed.FolderAdd,
-            },
-            {
-              name: "Templates",
-              path: "/main/template",
-              icon: IconNamed.Layout04,
-            },
-          ]}
-        />
+        <div class="flex items-start gap-2">
+          <div class="min-w-0 flex-1"><LogoApp /></div>
+          <button
+            type="button"
+            class="blender-icon-btn h-8 w-8 shrink-0"
+            onclick={toggleTheme}
+            title={theme === "light"
+              ? "Ativar modo escuro"
+              : "Ativar modo claro"}
+            aria-label={theme === "light"
+              ? "Ativar modo escuro"
+              : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
+          >
+        </div>
 
-        <MenuGroup
-          name="Configurações"
-          items={[
-            {
-              name: "Idioma",
-              path: "/settings/language",
-              icon: IconNamed.Languages,
-            },
-            {
-              name: "Segurança",
-              path: "/settings/security",
-              icon: IconNamed.Security,
-            },
-          ]}
-        />
+        <div class="space-y-4">
+          <MenuGroup
+            name="Menu"
+            items={[
+              {
+                name: "Novo Projecto",
+                path: "/main/project",
+                icon: IconNamed.FolderAdd,
+              },
+              {
+                name: "Templates",
+                path: "/main/template",
+                icon: IconNamed.Layout04,
+              },
+            ]}
+          />
 
-        <MenuGroup
-          name="Página"
-          items={[
-            {
-              name: "Documentação",
-              path: "/page/docs",
-              icon: IconNamed.DocumentValidation,
-            },
-            {
-              name: "Ajuda",
-              path: "/page/help",
-              icon: IconNamed.HelpSquare,
-            },
-          ]}
-        />
+          <MenuGroup
+            name="Configurações"
+            items={[
+              {
+                name: "Idioma",
+                path: "/settings/language",
+                icon: IconNamed.Languages,
+              },
+              {
+                name: "Segurança",
+                path: "/settings/security",
+                icon: IconNamed.Security,
+              },
+            ]}
+          />
 
-        <MenuGroup name="Projectos Recentes" items={[]} />
+          <MenuGroup
+            name="Página"
+            items={[
+              {
+                name: "Documentação",
+                path: "/page/docs",
+                icon: IconNamed.DocumentValidation,
+              },
+              {
+                name: "Ajuda",
+                path: "/page/help",
+                icon: IconNamed.HelpSquare,
+              },
+            ]}
+          />
+
+          <MenuGroup name="Projectos Recentes" items={[]} />
+        </div>
       </div>
-    </div>
 
-    <VersionApp />
-  </aside>
+      <VersionApp />
+    </aside>
 
-  <section class="blender-workspace blender-circuit-bg">
-    {@render children()}
-  </section>
+    <section class="blender-workspace blender-circuit-bg">
+      {@render children()}
+    </section>
+  </div>
 </main>
-
-
-

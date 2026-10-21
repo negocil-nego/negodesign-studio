@@ -1,73 +1,18 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
+  import {
+    componentNavigationGroups,
+    type ComponentDefinition,
+    type ComponentNavigationGroup,
+  } from "../data/components";
 
-  type ComponentItem = { name: string; icon: IconNamed; href?: string };
-  type ComponentGroup = {
-    label: string;
-    items: ComponentItem[];
-    open?: boolean;
-  };
-
-  let groups = $state<ComponentGroup[]>([
-    {
-      label: "Input",
-      open: true,
-      items: [
-        { name: "Text", icon: IconNamed.Layout04, href: "/main/project/input#input-text" },
-        { name: "Email", icon: IconNamed.DocumentValidation, href: "/main/project/input#input-email" },
-        { name: "Phone", icon: IconNamed.Home, href: "/main/project/input#input-phone" },
-        { name: "Phone Flag", icon: IconNamed.Home, href: "/main/project/input#input-phone-flag" },
-        { name: "Password", icon: IconNamed.Security, href: "/main/project/input#input-password" },
-        { name: "Number", icon: IconNamed.CheckmarkSquare01, href: "/main/project/input#input-number" },
-        { name: "Age", icon: IconNamed.CheckmarkSquare01, href: "/main/project/input#input-age" },
-        { name: "Date", icon: IconNamed.Languages, href: "/main/project/input#input-date" },
-        { name: "Time", icon: IconNamed.Settings01, href: "/main/project/input#input-time" },
-      ],
-    },
-    {
-      label: "Controls",
-      open: false,
-      items: [
-        { name: "Textarea", icon: IconNamed.Layout04 },
-        { name: "Select", icon: IconNamed.CheckmarkSquare01 },
-        { name: "Toggle", icon: IconNamed.Settings01 },
-        { name: "Slider", icon: IconNamed.Languages },
-        { name: "Rating", icon: IconNamed.HelpSquare },
-      ],
-    },
-    {
-      label: "Typography",
-      open: false,
-      items: [
-        { name: "Heading", icon: IconNamed.DocumentValidation },
-        { name: "Text", icon: IconNamed.Layout04 },
-        { name: "Label", icon: IconNamed.CheckmarkSquare01 },
-        { name: "Badge", icon: IconNamed.HelpSquare },
-      ],
-    },
-    {
-      label: "Media",
-      open: false,
-      items: [
-        { name: "Image", icon: IconNamed.Layout04 },
-        { name: "Icon", icon: IconNamed.HelpSquare },
-        { name: "Avatar", icon: IconNamed.Home },
-        { name: "Video", icon: IconNamed.DocumentValidation },
-      ],
-    },
-    {
-      label: "Navigation",
-      open: false,
-      items: [
-        { name: "Navbar", icon: IconNamed.Layout04 },
-        { name: "Sidebar", icon: IconNamed.FolderAdd },
-        { name: "Tabs", icon: IconNamed.Languages },
-        { name: "Breadcrumb", icon: IconNamed.DocumentValidation },
-      ],
-    },
-  ]);
-
+  let groups = $state<ComponentNavigationGroup[]>(
+    componentNavigationGroups.map((group) => ({
+      ...group,
+      items: [...group.items],
+    })),
+  );
   let search = $state("");
   let theme = $state<"light" | "dark">("light");
 
@@ -82,13 +27,19 @@
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("negodesign-theme", theme);
   }
-  function toggle(g: ComponentGroup) {
-    g.open = !g.open;
+
+  function toggle(group: ComponentNavigationGroup) {
+    group.open = !group.open;
   }
-  function filtered(items: ComponentItem[]) {
+
+  function displayName(item: ComponentDefinition) {
+    return item.label?.trim() || item.name;
+  }
+
+  function filtered(items: ComponentNavigationGroup["items"]) {
     if (!search.trim()) return items;
-    return items.filter((i) =>
-      i.name.toLowerCase().includes(search.toLowerCase()),
+    return items.filter((item) =>
+      displayName(item).toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()),
     );
   }
 </script>
@@ -97,8 +48,7 @@
   class="blender-sidebar flex flex-col w-50 min-w-40 h-full overflow-hidden"
 >
   <div class="blender-topbar px-3 border-b border-blender-border">
-    <span
-      class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
+    <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Library</span
     >
     <div class="flex items-center gap-1">
@@ -107,8 +57,10 @@
         type="button"
         onclick={toggleTheme}
         title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-        aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-      >{theme === "light" ? "☾" : "☀"}</button>
+        aria-label={theme === "light"
+          ? "Ativar modo escuro"
+          : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
+      >
       <button class="blender-icon-btn h-7 w-7" title="Settings">
         <img
           src={getIconUrl(IconNamed.Settings01)}
@@ -155,19 +107,27 @@
                     <a
                       href={item.href}
                       class="blender-item w-full text-left gap-2 px-3 py-2"
-                      title={item.name}
+                      title={displayName(item)}
                     >
-                      <img src={getIconUrl(item.icon)} alt="" class="h-5 w-5 opacity-75 shrink-0" />
-                      <span class="text-sm truncate">{item.name}</span>
+                      <img
+                        src={getIconUrl(item.icon)}
+                        alt=""
+                        class="h-5 w-5 opacity-75 shrink-0"
+                      />
+                      <span class="text-sm truncate">{displayName(item)}</span>
                     </a>
                   {:else}
                     <button
                       class="blender-item w-full text-left gap-2 px-3 py-2"
                       draggable="true"
-                      title={item.name}
+                      title={displayName(item)}
                     >
-                      <img src={getIconUrl(item.icon)} alt="" class="h-5 w-5 opacity-75 shrink-0" />
-                      <span class="text-sm truncate">{item.name}</span>
+                      <img
+                        src={getIconUrl(item.icon)}
+                        alt=""
+                        class="h-5 w-5 opacity-75 shrink-0"
+                      />
+                      <span class="text-sm truncate">{displayName(item)}</span>
                     </button>
                   {/if}
                 </li>
@@ -179,5 +139,3 @@
     {/each}
   </div>
 </aside>
-
-
