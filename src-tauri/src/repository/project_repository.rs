@@ -283,6 +283,11 @@ fn build_index(language: &str, components: &mut [ComponentExport]) -> Result<Str
             ));
         }
     }
+    if language != "Flutter" {
+        index.push_str(
+            "\nif (typeof document !== \"undefined\" && !document.querySelector('link[data-negodesign-hugeicons]')) {\n  const hugeiconsStylesheet = document.createElement(\"link\");\n  hugeiconsStylesheet.rel = \"stylesheet\";\n  hugeiconsStylesheet.href = \"/hugeicons/css/icons.css\";\n  hugeiconsStylesheet.dataset.negodesignHugeicons = \"true\";\n  document.head.append(hugeiconsStylesheet);\n}\n",
+        );
+    }
     Ok(index)
 }
 
