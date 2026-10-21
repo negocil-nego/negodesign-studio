@@ -16,6 +16,7 @@ export type InputType =
     | 'time';
 
 export type InputProps = {
+    id?: string;
     icon?: IconNamed;
     type: InputType;
     required?: boolean

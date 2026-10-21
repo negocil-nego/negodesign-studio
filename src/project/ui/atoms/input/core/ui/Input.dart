@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
 
-// snippet: widget privado reutilizável internamente
 class _InputField extends StatelessWidget {
   final InputProps props;
 
@@ -40,7 +39,6 @@ class _InputField extends StatelessWidget {
   }
 }
 
-// render: compõe com ou sem ícone
 class Input extends StatelessWidget {
   final InputProps props;
 

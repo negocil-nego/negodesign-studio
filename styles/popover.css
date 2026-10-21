@@ -1,9 +1,9 @@
 .popover{position:relative;display:inline-flex}
-.popover>button{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem;color:#e4e4e7;background:#181a1d;border:1px solid #2d3036;border-radius:.375rem;cursor:pointer}
+.popover>button{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem;color:#334155;background:#fff;border:1px solid #dce2ea;border-radius:.375rem;cursor:pointer}
 .popover img{width:1.5rem;height:1rem;object-fit:cover}
-.popover [popover]{position:fixed;position-area:bottom span-right;z-index:50;width:18rem;margin-top:.25rem;padding:.5rem;color:#e4e4e7;background:#181a1d;border:1px solid #2d3036;border-radius:.5rem;box-shadow:0 8px 24px #0008}
-.popover [popover] input{box-sizing:border-box;width:100%;padding:.5rem;color:inherit;background:#141619;border:1px solid #2d3036;border-radius:.375rem}
+.popover [popover]{position:fixed;position-area:bottom span-right;z-index:50;width:18rem;margin-top:.25rem;padding:.5rem;color:#334155;background:#fff;border:1px solid #dce2ea;border-radius:.5rem;box-shadow:0 8px 24px #0f172a1a}
+.popover [popover] input{box-sizing:border-box;width:100%;padding:.5rem;color:inherit;background:#f8fafc;border:1px solid #dce2ea;border-radius:.375rem}
 .popover ul{max-height:16rem;overflow:auto;list-style:none;padding:0;margin:.5rem 0 0}
 .popover li button{display:flex;align-items:center;gap:.5rem;width:100%;padding:.5rem;color:inherit;text-align:left;background:transparent;border:0;border-radius:.25rem;cursor:pointer}
-.popover li button:hover{background:#2d3036}
+.popover li button:hover{background:#eef2f7}
 .popover li button span:first-of-type{flex:1}

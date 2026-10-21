@@ -23,7 +23,7 @@
             <img
               src={getIconUrl(item.icon)}
               alt={item.name}
-              class="w-4 h-4 brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
+            class="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity"
             />
             <span class="truncate">{item.name}</span>
           </a>

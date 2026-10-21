@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { InputProps } from "../data/types";
 
-  let { icon, type, required, disabled, placeholder, value }: InputProps =
-    $props();
+  let { id, icon, type, required, disabled, placeholder, value }: InputProps = $props();
 </script>
 
 {#snippet inputField()}
   <input
+    {id}
     {type}
     {required}
     {disabled}

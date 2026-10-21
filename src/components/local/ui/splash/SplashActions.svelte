@@ -41,7 +41,7 @@
               <img
                 src={getIconUrl(item.icon)}
                 alt={item.title}
-                class="w-4 h-4 brightness-0 invert opacity-80 group-hover:opacity-100"
+                class="w-5 h-5 opacity-80 group-hover:opacity-100"
               />
             </div>
             <div class="min-w-0">
@@ -65,7 +65,7 @@
   <div class="pt-2">
     <a
       href="/main/project"
-      class="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 p-1 transition-colors"
+      class="text-sm text-zinc-400 hover:text-slate-900 flex items-center gap-1.5 p-1 transition-colors"
     >
       <span>📂 Abrir pasta de projecto existente...</span>
     </a>

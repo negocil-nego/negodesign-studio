@@ -50,7 +50,7 @@
     <div class="border-b border-blender-border/40">
       <div class="px-3 py-1 bg-blender-base/60 text-right">
         <span
-          class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500"
+          class="text-xs font-semibold uppercase tracking-wider text-zinc-500"
           >{section.title}</span
         >
       </div>
@@ -61,19 +61,19 @@
         >
           <label
             for={inputId}
-            class="text-[10px] text-blue-400 w-[130px] shrink-0 truncate cursor-pointer"
+            class="text-xs text-blue-600 w-[130px] shrink-0 truncate cursor-pointer"
             title={row.label}
           >
             {row.label}
           </label>
           <div class="flex items-center gap-1 flex-1 min-w-0">
-            <span class="text-zinc-600 text-[10px]">#</span>
+            <span class="text-zinc-500 text-xs">#</span>
             <input
               id={inputId}
               bind:value={row.value}
               placeholder=""
               class="flex-1 min-w-0 bg-blender-base border border-blender-border/60 rounded px-1.5 py-0.5
-                     text-[10px] text-zinc-300 focus:outline-none focus:border-blue-500/50 transition-colors"
+                     text-xs text-zinc-300 focus:outline-none focus:border-blue-500/50 transition-colors"
             />
           </div>
         </div>

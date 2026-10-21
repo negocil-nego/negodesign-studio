@@ -12,7 +12,7 @@
     <div class="flex items-center gap-3">
       <a
         href="/"
-        class="flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors"
+        class="flex items-center gap-2 text-sm text-zinc-400 hover:text-slate-900 transition-colors"
       >
         <span class="text-sm">←</span>
         <span>Voltar ao Studio</span>

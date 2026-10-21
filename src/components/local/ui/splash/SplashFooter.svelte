@@ -11,7 +11,7 @@
     <input
       type="checkbox"
       bind:checked={showOnStartup}
-      class="w-3.5 h-3.5 rounded border-zinc-750 bg-zinc-800 text-blue-600 focus:ring-0 cursor-pointer"
+      class="h-4 w-4 rounded border-slate-300 bg-slate-100 text-blue-600 focus:ring-0 cursor-pointer"
     />
     <span>Mostrar tela ao iniciar o NegoDesign</span>
   </label>

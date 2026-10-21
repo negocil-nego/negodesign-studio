@@ -16,5 +16,5 @@
   {title}
   class="blender-icon-btn active:scale-95 shadow-sm"
 >
-  <img src={getIconUrl(icon)} alt={title} class="w-4 h-4 brightness-0 invert opacity-80 hover:opacity-100 transition-opacity" />
+  <img src={getIconUrl(icon)} alt={title} class="w-5 h-5 opacity-80 hover:opacity-100 transition-opacity" />
 </button>

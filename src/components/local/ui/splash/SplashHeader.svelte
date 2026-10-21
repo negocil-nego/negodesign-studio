@@ -33,12 +33,12 @@
 
       <a
         href="/page/docs"
-        class="text-xs text-zinc-300 hover:text-white bg-zinc-800/80 hover:bg-zinc-700/80 px-3 py-1.5 rounded border border-zinc-750 transition-colors flex items-center gap-1.5 shadow"
+        class="text-xs text-zinc-300 hover:text-slate-900 bg-white/90 hover:bg-slate-100 px-3 py-1.5 rounded border border-blender-border transition-colors flex items-center gap-1.5 shadow-sm"
       >
         <img
           src={getIconUrl(IconNamed.DocumentValidation)}
           alt="Docs"
-          class="w-3.5 h-3.5 brightness-0 invert opacity-80"
+          class="w-4 h-4 opacity-80"
         />
         <span>Documentação</span>
       </a>
@@ -46,10 +46,10 @@
 
     <div>
       <h1
-        class="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-white flex items-center gap-2.5"
+        class="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2.5"
       >
         <span>NegoDesign</span>
-        <span class="text-zinc-400 font-normal text-lg md:text-xl lg:text-2xl"
+        <span class="text-slate-700 font-normal text-lg md:text-xl lg:text-2xl"
           >Desktop</span
         >
       </h1>

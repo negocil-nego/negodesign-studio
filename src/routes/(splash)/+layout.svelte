@@ -1,10 +1,23 @@
-<script>
+<script lang="ts">
+  import { onMount } from "svelte";
   import MenuGroup from "../../components/local/ui/MenuGroup.svelte";
   import LogoApp from "../../components/local/ui/varients/LogoApp.svelte";
   import VersionApp from "../../components/local/ui/varients/VersionApp.svelte";
   import { IconNamed } from "../../hooks/icon.svelte";
 
   const { children } = $props();
+  let theme = $state<"light" | "dark">("light");
+
+  onMount(() => {
+    theme = localStorage.getItem("negodesign-theme") === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+  });
+
+  function toggleTheme() {
+    theme = theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("negodesign-theme", theme);
+  }
 </script>
 
 <main class="blender-app flex">
@@ -12,7 +25,16 @@
     class="blender-sidebar w-64 h-screen p-4 flex flex-col justify-between shrink-0"
   >
     <div class="space-y-4">
-      <LogoApp />
+      <div class="flex items-start gap-2">
+        <div class="min-w-0 flex-1"><LogoApp /></div>
+        <button
+          type="button"
+          class="blender-icon-btn h-8 w-8 shrink-0"
+          onclick={toggleTheme}
+          title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+          aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+        >{theme === "light" ? "☾" : "☀"}</button>
+      </div>
 
       <div class="space-y-4">
         <MenuGroup
@@ -74,3 +96,6 @@
     {@render children()}
   </section>
 </main>
+
+
+

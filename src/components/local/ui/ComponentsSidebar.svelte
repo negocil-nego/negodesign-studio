@@ -1,5 +1,8 @@
-﻿<script lang="ts">
-  type ComponentItem = { name: string; icon: string };
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
+
+  type ComponentItem = { name: string; icon: IconNamed };
   type ComponentGroup = {
     label: string;
     items: ComponentItem[];
@@ -11,59 +14,72 @@
       label: "Input",
       open: true,
       items: [
-        { name: "Text", icon: "▣" },
-        { name: "Email", icon: "⊞" },
-        { name: "Phone", icon: "🃏" },
-        { name: "Password", icon: "🃏" },
-        { name: "Number", icon: "🃏" },
-        { name: "Date", icon: "🃏" },
-        { name: "Time", icon: "🃏" },
+        { name: "Text", icon: IconNamed.Layout04 },
+        { name: "Email", icon: IconNamed.DocumentValidation },
+        { name: "Phone", icon: IconNamed.Home },
+        { name: "Password", icon: IconNamed.Security },
+        { name: "Number", icon: IconNamed.CheckmarkSquare01 },
+        { name: "Date", icon: IconNamed.Languages },
+        { name: "Time", icon: IconNamed.Settings01 },
       ],
     },
     {
       label: "Controls",
       open: false,
       items: [
-        { name: "Textarea", icon: "▭" },
-        { name: "Select", icon: "⬽" },
-        { name: "Toggle", icon: "⏻" },
-        { name: "Slider", icon: "▬" },
-        { name: "Rating", icon: "▬" },
+        { name: "Textarea", icon: IconNamed.Layout04 },
+        { name: "Select", icon: IconNamed.CheckmarkSquare01 },
+        { name: "Toggle", icon: IconNamed.Settings01 },
+        { name: "Slider", icon: IconNamed.Languages },
+        { name: "Rating", icon: IconNamed.HelpSquare },
       ],
     },
     {
       label: "Typography",
       open: false,
       items: [
-        { name: "Heading", icon: "H" },
-        { name: "Text", icon: "T" },
-        { name: "Label", icon: "L" },
-        { name: "Badge", icon: "●" },
+        { name: "Heading", icon: IconNamed.DocumentValidation },
+        { name: "Text", icon: IconNamed.Layout04 },
+        { name: "Label", icon: IconNamed.CheckmarkSquare01 },
+        { name: "Badge", icon: IconNamed.HelpSquare },
       ],
     },
     {
       label: "Media",
       open: false,
       items: [
-        { name: "Image", icon: "🖼" },
-        { name: "Icon", icon: "★" },
-        { name: "Avatar", icon: "👤" },
-        { name: "Video", icon: "▶" },
+        { name: "Image", icon: IconNamed.Layout04 },
+        { name: "Icon", icon: IconNamed.HelpSquare },
+        { name: "Avatar", icon: IconNamed.Home },
+        { name: "Video", icon: IconNamed.DocumentValidation },
       ],
     },
     {
       label: "Navigation",
       open: false,
       items: [
-        { name: "Navbar", icon: "≡" },
-        { name: "Sidebar", icon: "▐" },
-        { name: "Tabs", icon: "⊟" },
-        { name: "Breadcrumb", icon: "›" },
+        { name: "Navbar", icon: IconNamed.Layout04 },
+        { name: "Sidebar", icon: IconNamed.FolderAdd },
+        { name: "Tabs", icon: IconNamed.Languages },
+        { name: "Breadcrumb", icon: IconNamed.DocumentValidation },
       ],
     },
   ]);
 
   let search = $state("");
+  let theme = $state<"light" | "dark">("light");
+
+  onMount(() => {
+    const savedTheme = localStorage.getItem("negodesign-theme");
+    theme = savedTheme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+  });
+
+  function toggleTheme() {
+    theme = theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("negodesign-theme", theme);
+  }
   function toggle(g: ComponentGroup) {
     g.open = !g.open;
   }
@@ -80,13 +96,24 @@
 >
   <div class="blender-topbar px-3 border-b border-blender-border">
     <span
-      class="text-[10px] font-semibold uppercase tracking-widest text-zinc-400"
+      class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Library</span
     >
     <div class="flex items-center gap-1">
-      <button class="blender-icon-btn w-5 h-5 text-[10px]" title="Settings"
-        >⚙</button
-      >
+      <button
+        class="blender-icon-btn h-7 w-7 text-base"
+        type="button"
+        onclick={toggleTheme}
+        title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+        aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+      >{theme === "light" ? "☾" : "☀"}</button>
+      <button class="blender-icon-btn h-7 w-7" title="Settings">
+        <img
+          src={getIconUrl(IconNamed.Settings01)}
+          alt=""
+          class="h-4 w-4 opacity-75"
+        />
+      </button>
     </div>
   </div>
 
@@ -94,8 +121,8 @@
     <input
       bind:value={search}
       placeholder="Search…"
-      class="w-full bg-blender-base border border-blender-border rounded px-2 py-1 text-[11px]
-             text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors"
+      class="w-full bg-blender-base border border-blender-border rounded px-2.5 py-2 text-sm
+             text-zinc-300 placeholder:text-zinc-500 focus:outline-none focus:border-blue-500/50 transition-colors"
     />
   </div>
 
@@ -106,12 +133,12 @@
         <div class="border-b border-blender-border/40">
           <button
             onclick={() => toggle(group)}
-            class="w-full flex items-center justify-between px-3 py-1.5 text-[10px] font-semibold
-                   uppercase tracking-widest text-zinc-500 hover:text-zinc-200 hover:bg-blender-hover transition-colors"
+            class="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold
+                   uppercase tracking-widest text-zinc-500 hover:text-slate-900 hover:bg-blender-hover transition-colors"
           >
             <span>{group.label}</span>
             <span
-              class="text-[8px]"
+              class="text-[10px]"
               style="transform: rotate({group.open
                 ? 0
                 : -90}deg); display:inline-block; transition: transform .2s"
@@ -123,15 +150,16 @@
               {#each vis as item}
                 <li>
                   <button
-                    class="blender-item w-full text-left gap-2 px-3 py-1"
+                    class="blender-item w-full text-left gap-2 px-3 py-2"
                     draggable="true"
                     title={item.name}
                   >
-                    <span
-                      class="text-[11px] w-4 text-center text-blue-400 shrink-0"
-                      >{item.icon}</span
-                    >
-                    <span class="text-[11px] truncate">{item.name}</span>
+                    <img
+                      src={getIconUrl(item.icon)}
+                      alt=""
+                      class="h-5 w-5 opacity-75 shrink-0"
+                    />
+                    <span class="text-sm truncate">{item.name}</span>
                   </button>
                 </li>
               {/each}
@@ -142,3 +170,4 @@
     {/each}
   </div>
 </aside>
+

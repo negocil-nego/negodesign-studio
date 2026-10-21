@@ -7,19 +7,122 @@
   --font-commissioner: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --font-comfortaa: 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Paleta semântica do Design System Desktop (Blender Theme) */
-  --color-blender-base: #141619;
-  --color-blender-surface: #181a1d;
-  --color-blender-sidebar: #1e2024;
-  --color-blender-card: #1d1f23;
-  --color-blender-hover: #2d3036;
-  --color-blender-active: #383d46;
-  --color-blender-border: #2d3036;
-  --color-blender-border-light: #3a3f48;
+  /* Paleta clara da interface */
+  --color-blender-base: var(--theme-blender-base);
+  --color-blender-surface: var(--theme-blender-surface);
+  --color-blender-sidebar: var(--theme-blender-sidebar);
+  --color-blender-card: var(--theme-blender-card);
+  --color-blender-hover: var(--theme-blender-hover);
+  --color-blender-active: var(--theme-blender-active);
+  --color-blender-border: var(--theme-blender-border);
+  --color-blender-border-light: var(--theme-blender-border-light);
+
+  /* Ajusta a paleta zinc para fundos e textos legíveis no tema claro. */
+  --color-zinc-50: var(--theme-zinc-50);
+  --color-zinc-100: var(--theme-zinc-100);
+  --color-zinc-200: var(--theme-zinc-200);
+  --color-zinc-300: var(--theme-zinc-300);
+  --color-zinc-400: var(--theme-zinc-400);
+  --color-zinc-500: var(--theme-zinc-500);
+  --color-zinc-600: var(--theme-zinc-600);
+  --color-zinc-700: var(--theme-zinc-700);
+  --color-zinc-800: var(--theme-zinc-800);
+  --color-zinc-900: var(--theme-zinc-900);
 }
 
+:root {
+  color-scheme: light;
+  --theme-blender-base: #f4f6f9;
+  --theme-blender-surface: #ffffff;
+  --theme-blender-sidebar: #ffffff;
+  --theme-blender-card: #ffffff;
+  --theme-blender-hover: #eef2f7;
+  --theme-blender-active: #e2e8f0;
+  --theme-blender-border: #dce2ea;
+  --theme-blender-border-light: #cbd5e1;
+  --theme-zinc-50: #ffffff;
+  --theme-zinc-100: #1e293b;
+  --theme-zinc-200: #334155;
+  --theme-zinc-300: #475569;
+  --theme-zinc-400: #64748b;
+  --theme-zinc-500: #64748b;
+  --theme-zinc-600: #64748b;
+  --theme-zinc-700: #475569;
+  --theme-zinc-800: #334155;
+  --theme-zinc-900: #0f172a;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-blender-base: #18181b;
+  --theme-blender-surface: #202024;
+  --theme-blender-sidebar: #202024;
+  --theme-blender-card: #27272a;
+  --theme-blender-hover: #3f3f46;
+  --theme-blender-active: #52525b;
+  --theme-blender-border: #3f3f46;
+  --theme-blender-border-light: #52525b;
+  --theme-zinc-50: #fafafa;
+  --theme-zinc-100: #f4f4f5;
+  --theme-zinc-200: #e4e4e7;
+  --theme-zinc-300: #d4d4d8;
+  --theme-zinc-400: #a1a1aa;
+  --theme-zinc-500: #71717a;
+  --theme-zinc-600: #52525b;
+  --theme-zinc-700: #3f3f46;
+  --theme-zinc-800: #27272a;
+  --theme-zinc-900: #18181b;
+}
+
+:root[data-theme="dark"] .blender-app {
+  color: #f4f4f5;
+}
+
+:root[data-theme="dark"] .blender-panel,
+:root[data-theme="dark"] .blender-action,
+:root[data-theme="dark"] .blender-icon-btn {
+  background-color: var(--theme-blender-card);
+  color: var(--theme-zinc-300);
+}
+
+:root[data-theme="dark"] .blender-action:hover,
+:root[data-theme="dark"] .blender-icon-btn:hover {
+  background-color: var(--theme-blender-hover);
+  color: var(--theme-zinc-100);
+}
+:root[data-theme="dark"] .blender-item:hover {
+  color: var(--theme-zinc-100);
+}
+
+:root[data-theme="dark"] .blender-sidebar img {
+  filter: invert(1) brightness(1.35);
+}
+
+:root[data-theme="dark"] .blender-app .text-slate-900 {
+  color: var(--theme-zinc-100);
+}
+
+:root[data-theme="dark"] .blender-app .text-slate-700,
+:root[data-theme="dark"] .blender-app .text-slate-600 {
+  color: var(--theme-zinc-300);
+}
+
+:root[data-theme="dark"] .blender-circuit-bg {
+  background-image:
+    linear-gradient(to bottom, rgba(24, 24, 27, 0.88), rgba(24, 24, 27, 0.96)),
+    url('/img/pawel-d-browski-circuit-7447920.png');
+}
+
+:root[data-theme="dark"] .blender-circuit-bg h1 {
+  color: var(--theme-zinc-100);
+}
+
+:root[data-theme="dark"] .blender-circuit-bg h1 span {
+  color: var(--theme-zinc-200);
+}
 html,
 body {
+  min-height: 100%;
   font-family: var(--font-comfortaa);
 }
 
@@ -33,7 +136,7 @@ body {
 
 /* Classes utilitárias reutilizáveis com @apply no Tailwind v4 */
 @utility blender-app {
-  @apply w-screen h-screen overflow-hidden bg-blender-base text-zinc-200 font-commissioner select-none;
+  @apply w-screen h-screen overflow-hidden bg-blender-base text-slate-900 font-commissioner select-none;
 }
 
 @utility blender-workspace {
@@ -49,42 +152,47 @@ body {
 }
 
 @utility blender-card {
-  @apply bg-blender-card text-zinc-200 border border-zinc-700/60 rounded-lg shadow-2xl overflow-hidden font-commissioner select-none;
+  @apply bg-blender-card text-zinc-200 border border-blender-border rounded-lg shadow-sm overflow-hidden font-commissioner select-none;
 }
 
 @utility blender-panel {
-  @apply bg-zinc-800/40 border border-zinc-700/60 rounded p-3 transition-colors;
+  @apply bg-white border border-blender-border rounded p-3 transition-colors;
 }
 
 @utility blender-header {
-  @apply text-[11px] font-semibold uppercase tracking-wider text-zinc-400 select-none flex items-center gap-1.5;
+  @apply text-xs font-semibold uppercase tracking-wider text-zinc-500 select-none flex items-center gap-1.5;
 }
 
 @utility blender-item {
-  @apply flex items-center gap-2.5 px-2.5 py-1.5 rounded text-xs text-zinc-300 hover:text-white hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer select-none;
+  @apply flex items-center gap-2.5 px-2.5 py-1.5 rounded text-sm text-zinc-300 hover:text-slate-900 hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer select-none;
 }
 
 @utility blender-action {
-  @apply flex items-center justify-between p-3 rounded bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/60 hover:border-blue-500/50 transition-all text-left;
+  @apply flex items-center justify-between p-3 rounded bg-white hover:bg-slate-50 border border-blender-border hover:border-blue-500/50 transition-all text-left;
 }
 
 @utility blender-badge {
-  @apply text-[10px] px-1.5 py-0.5 rounded font-mono shrink-0 bg-zinc-700/50 text-zinc-300;
+  @apply text-[11px] px-1.5 py-0.5 rounded font-mono shrink-0 bg-slate-100 text-zinc-400;
 }
 
 @utility blender-footer {
-  @apply px-5 py-2.5 bg-blender-base border-t border-blender-border flex flex-wrap items-center justify-between gap-3 text-[11px] text-zinc-400 select-none;
+  @apply px-5 py-2.5 bg-white border-t border-blender-border flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 select-none;
 }
 
 @utility blender-icon-btn {
-  @apply w-8 h-8 rounded flex items-center justify-center bg-zinc-800 hover:bg-blender-hover active:bg-blender-active text-zinc-300 hover:text-white transition-colors cursor-pointer border border-zinc-700/60;
+  @apply w-8 h-8 rounded flex items-center justify-center bg-white hover:bg-blender-hover active:bg-blender-active text-zinc-600 hover:text-slate-900 transition-colors cursor-pointer border border-blender-border;
 }
 
 @utility blender-circuit-bg {
   background-image:
-    linear-gradient(to bottom, rgba(20, 22, 25, 0.85), rgba(20, 22, 25, 0.92)),
+    linear-gradient(to bottom, rgba(248, 250, 252, 0.82), rgba(248, 250, 252, 0.92)),
     url('/img/pawel-d-browski-circuit-7447920.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
+
+
+
+

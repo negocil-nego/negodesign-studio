@@ -4,7 +4,6 @@ import type { InputProps } from "../data/types";
 
 const { icon, type, required, disabled, placeholder, value } = defineProps<InputProps>();
 
-// snippet: componente funcional interno reutilizável
 const InputField = () =>
     h("input", {
         type,
