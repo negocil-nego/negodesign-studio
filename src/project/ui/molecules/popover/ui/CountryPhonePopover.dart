@@ -4,8 +4,9 @@ import '../data/country-phone.dart';
 class CountryPhonePopover extends StatefulWidget {
   final String flag;
   final ValueChanged<CountryPhoneOption>? onSelect;
+  final bool embedded;
 
-  const CountryPhonePopover({required this.flag, this.onSelect, super.key});
+  const CountryPhonePopover({required this.flag, this.onSelect, this.embedded = false, super.key});
 
   @override
   State<CountryPhonePopover> createState() => _CountryPhonePopoverState();
@@ -32,6 +33,13 @@ class _CountryPhonePopoverState extends State<CountryPhonePopover> {
   @override
   Widget build(BuildContext context) => OutlinedButton(
     onPressed: _openPicker,
+    style: widget.embedded
+        ? OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            side: BorderSide.none,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          )
+        : null,
     child: Row(mainAxisSize: MainAxisSize.min, children: [
       Text(_emoji(selected.iso2), style: const TextStyle(fontSize: 18)),
       const SizedBox(width: 6),
@@ -75,3 +83,5 @@ class _CountryPhoneDialogState extends State<_CountryPhoneDialog> {
     );
   }
 }
+
+

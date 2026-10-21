@@ -1,9 +1,123 @@
-.popover{position:relative;display:inline-flex}
-.popover>button{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem;color:#334155;background:#fff;border:1px solid #dce2ea;border-radius:.375rem;cursor:pointer}
-.popover img{width:1.5rem;height:1rem;object-fit:cover}
-.popover [popover]{position:fixed;position-area:bottom span-right;z-index:50;width:18rem;margin-top:.25rem;padding:.5rem;color:#334155;background:#fff;border:1px solid #dce2ea;border-radius:.5rem;box-shadow:0 8px 24px #0f172a1a}
-.popover [popover] input{box-sizing:border-box;width:100%;padding:.5rem;color:inherit;background:#f8fafc;border:1px solid #dce2ea;border-radius:.375rem}
-.popover ul{max-height:16rem;overflow:auto;list-style:none;padding:0;margin:.5rem 0 0}
-.popover li button{display:flex;align-items:center;gap:.5rem;width:100%;padding:.5rem;color:inherit;text-align:left;background:transparent;border:0;border-radius:.25rem;cursor:pointer}
-.popover li button:hover{background:#eef2f7}
-.popover li button span:first-of-type{flex:1}
+.popover {
+  position: relative;
+  display: inline-flex;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] .popover {
+  color-scheme: dark;
+}
+
+.popover > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  color: var(--theme-zinc-200);
+  background: var(--theme-blender-surface);
+  border: 1px solid var(--theme-blender-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.popover > button:hover {
+  background: var(--theme-blender-hover);
+  border-color: var(--theme-blender-border-light);
+}
+
+.popover > button:focus-visible,
+.popover li button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.popover img {
+  width: 1.5rem;
+  height: 1rem;
+  object-fit: cover;
+  flex: none;
+  border-radius: 0.125rem;
+}
+
+.popover [popover] {
+  position: fixed;
+  position-area: bottom span-right;
+  z-index: 50;
+  width: min(18rem, calc(100vw - 2rem));
+  max-height: min(22rem, calc(100vh - 2rem));
+  margin-top: 0.375rem;
+  padding: 0.625rem;
+  overflow: hidden;
+  color: var(--theme-zinc-200);
+  background: var(--theme-blender-card);
+  border: 1px solid var(--theme-blender-border);
+  border-radius: 0.625rem;
+  box-shadow: 0 12px 32px rgb(15 23 42 / 18%);
+}
+
+.popover [popover] input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  color: var(--theme-zinc-200);
+  background: var(--theme-blender-base);
+  border: 1px solid var(--theme-blender-border);
+  border-radius: 0.375rem;
+  outline: none;
+}
+
+.popover [popover] input::placeholder {
+  color: var(--theme-zinc-500);
+}
+
+.popover [popover] input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgb(59 130 246 / 18%);
+}
+
+.popover ul {
+  max-height: 16rem;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.popover li {
+  color: var(--theme-zinc-200);
+  font-size: 0.875rem;
+}
+
+.popover li button {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.55rem 0.5rem;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.popover li button:hover,
+.popover li button[aria-selected="true"] {
+  color: var(--theme-zinc-100);
+  background: var(--theme-blender-hover);
+}
+
+.popover li button span:first-of-type {
+  flex: 1;
+}
+
+.popover li button span:last-child {
+  color: var(--theme-zinc-500);
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+

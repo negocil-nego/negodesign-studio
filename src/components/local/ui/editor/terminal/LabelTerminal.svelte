@@ -8,7 +8,7 @@
   import flutterSource from "../../../../../project/ui/atoms/label/ui/Label.dart?raw";
 </script>
 
-<Terminal>
+<Terminal id="label">
   {#snippet preview()}
     <div class="space-y-2">
       <Label label="Nome completo" for="docs-label-name" />
@@ -37,3 +37,4 @@
     <SourceCode path="src/project/ui/atoms/label/ui/Label.dart" source={flutterSource} />
   {/snippet}
 </Terminal>
+

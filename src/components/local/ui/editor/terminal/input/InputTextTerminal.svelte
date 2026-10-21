@@ -8,7 +8,7 @@
   import SourceCode from "../SourceCode.svelte";
 </script>
 
-<Terminal>
+<Terminal id="input-text">
   {#snippet preview()}
     <InputText
       labelProps={{ label: "Texto", for: "docs-input-text" }}
@@ -49,3 +49,4 @@
     />
   {/snippet}
 </Terminal>
+

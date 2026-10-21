@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
 
-  type ComponentItem = { name: string; icon: IconNamed };
+  type ComponentItem = { name: string; icon: IconNamed; href?: string };
   type ComponentGroup = {
     label: string;
     items: ComponentItem[];
@@ -14,13 +14,15 @@
       label: "Input",
       open: true,
       items: [
-        { name: "Text", icon: IconNamed.Layout04 },
-        { name: "Email", icon: IconNamed.DocumentValidation },
-        { name: "Phone", icon: IconNamed.Home },
-        { name: "Password", icon: IconNamed.Security },
-        { name: "Number", icon: IconNamed.CheckmarkSquare01 },
-        { name: "Date", icon: IconNamed.Languages },
-        { name: "Time", icon: IconNamed.Settings01 },
+        { name: "Text", icon: IconNamed.Layout04, href: "/main/project/input#input-text" },
+        { name: "Email", icon: IconNamed.DocumentValidation, href: "/main/project/input#input-email" },
+        { name: "Phone", icon: IconNamed.Home, href: "/main/project/input#input-phone" },
+        { name: "Phone Flag", icon: IconNamed.Home, href: "/main/project/input#input-phone-flag" },
+        { name: "Password", icon: IconNamed.Security, href: "/main/project/input#input-password" },
+        { name: "Number", icon: IconNamed.CheckmarkSquare01, href: "/main/project/input#input-number" },
+        { name: "Age", icon: IconNamed.CheckmarkSquare01, href: "/main/project/input#input-age" },
+        { name: "Date", icon: IconNamed.Languages, href: "/main/project/input#input-date" },
+        { name: "Time", icon: IconNamed.Settings01, href: "/main/project/input#input-time" },
       ],
     },
     {
@@ -149,18 +151,25 @@
             <ul class="pb-1">
               {#each vis as item}
                 <li>
-                  <button
-                    class="blender-item w-full text-left gap-2 px-3 py-2"
-                    draggable="true"
-                    title={item.name}
-                  >
-                    <img
-                      src={getIconUrl(item.icon)}
-                      alt=""
-                      class="h-5 w-5 opacity-75 shrink-0"
-                    />
-                    <span class="text-sm truncate">{item.name}</span>
-                  </button>
+                  {#if item.href}
+                    <a
+                      href={item.href}
+                      class="blender-item w-full text-left gap-2 px-3 py-2"
+                      title={item.name}
+                    >
+                      <img src={getIconUrl(item.icon)} alt="" class="h-5 w-5 opacity-75 shrink-0" />
+                      <span class="text-sm truncate">{item.name}</span>
+                    </a>
+                  {:else}
+                    <button
+                      class="blender-item w-full text-left gap-2 px-3 py-2"
+                      draggable="true"
+                      title={item.name}
+                    >
+                      <img src={getIconUrl(item.icon)} alt="" class="h-5 w-5 opacity-75 shrink-0" />
+                      <span class="text-sm truncate">{item.name}</span>
+                    </button>
+                  {/if}
                 </li>
               {/each}
             </ul>
@@ -170,4 +179,5 @@
     {/each}
   </div>
 </aside>
+
 

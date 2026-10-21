@@ -4,6 +4,11 @@
   import InputEmail from "../../../../../project/ui/atoms/input/children/email/ui/InputEmail.svelte";
   import InputPhone from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhone.svelte";
   import InputPhoneFlag from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhoneFlag.svelte";
+  import InputPassword from "../../../../../project/ui/atoms/input/children/password/ui/InputPassword.svelte";
+  import InputDate from "../../../../../project/ui/atoms/input/children/date/ui/InputDate.svelte";
+  import InputTime from "../../../../../project/ui/atoms/input/children/time/ui/InputTime.svelte";
+  import InputNumber from "../../../../../project/ui/atoms/input/children/number/ui/InputNumber.svelte";
+  import InputAge from "../../../../../project/ui/atoms/input/children/age/ui/InputAge.svelte";
   import InputLabel from "../../../../../project/ui/atoms/input/children/label/ui/InputLabel.svelte";
   import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
   import CountryPhonePopover from "../../../../../project/ui/molecules/popover/ui/CountryPhonePopover.svelte";
@@ -14,6 +19,7 @@
       id: "input",
       name: "Input",
       category: "Input",
+      href: "/main/project/input#input-text",
       group: "Atom",
       description: "Campo de entrada base.",
     },
@@ -21,6 +27,7 @@
       id: "text",
       name: "InputText",
       category: "Input",
+      href: "/main/project/input#input-text",
       group: "Atom · Input",
       description: "Campo de texto simples.",
     },
@@ -28,6 +35,7 @@
       id: "email",
       name: "InputEmail",
       category: "Input",
+      href: "/main/project/input#input-email",
       group: "Atom · Input",
       description: "Campo para endereços de email.",
     },
@@ -35,6 +43,7 @@
       id: "phone",
       name: "InputPhone",
       category: "Input",
+      href: "/main/project/input#input-phone",
       group: "Atom · Input",
       description: "Campo para números de telefone.",
     },
@@ -42,6 +51,7 @@
       id: "phone-flag",
       name: "InputPhoneFlag",
       category: "Input",
+      href: "/main/project/input#input-phone-flag",
       group: "Atom · Input",
       description: "Telefone com selector de país.",
     },
@@ -49,8 +59,49 @@
       id: "input-label",
       name: "InputLabel",
       category: "Input",
+      href: "/main/project/input#input-text",
       group: "Atom · Input",
       description: "Campo de entrada associado a um rótulo.",
+    },
+    {
+      id: "password",
+      name: "InputPassword",
+      category: "Input",
+      group: "Atom · Input",
+      href: "/main/project/input#input-password",
+      description: "Campo para palavras-passe.",
+    },
+    {
+      id: "date",
+      name: "InputDate",
+      category: "Input",
+      group: "Atom · Input",
+      href: "/main/project/input#input-date",
+      description: "Campo para seleccionar uma data.",
+    },
+    {
+      id: "time",
+      name: "InputTime",
+      category: "Input",
+      group: "Atom · Input",
+      href: "/main/project/input#input-time",
+      description: "Campo para seleccionar uma hora.",
+    },
+    {
+      id: "number",
+      name: "InputNumber",
+      category: "Input",
+      group: "Atom · Input",
+      href: "/main/project/input#input-number",
+      description: "Campo para valores numéricos.",
+    },
+    {
+      id: "age",
+      name: "InputAge",
+      category: "Input",
+      group: "Atom · Input",
+      href: "/main/project/input#input-age",
+      description: "Campo numérico para idade.",
     },
     {
       id: "label",
@@ -144,6 +195,33 @@
                 }}
               />
             </div>
+          {:else if component.id === "password"}
+            <div class="w-full max-w-xs">
+              <InputPassword
+                inputProps={{ id: "gallery-password", placeholder: "Palavra-passe" }}
+              />
+            </div>
+          {:else if component.id === "date"}
+            <div class="w-full max-w-xs">
+              <InputDate inputProps={{ id: "gallery-date" }} />
+            </div>
+          {:else if component.id === "time"}
+            <div class="w-full max-w-xs">
+              <InputTime inputProps={{ id: "gallery-time" }} />
+            </div>
+          {:else if component.id === "number"}
+            <div class="w-full max-w-xs">
+              <InputNumber
+                inputProps={{ id: "gallery-number", placeholder: "0" }}
+              />
+            </div>
+          {:else if component.id === "age"}
+            <div class="w-full max-w-xs">
+              <InputAge
+                labelProps={{ label: "Idade", for: "gallery-age" }}
+                inputProps={{ id: "gallery-age", placeholder: "18" }}
+              />
+            </div>
           {:else if component.id === "input-label"}
             <div class="w-full max-w-xs">
               <InputLabel
@@ -172,7 +250,13 @@
         <div class="space-y-1.5 p-4">
           <div class="flex items-center justify-between gap-3">
             <h2 class="truncate text-sm font-semibold text-zinc-100">
-              {component.name}
+              {#if component.href}
+                <a class="hover:text-blue-500" href={component.href}>
+                  {component.name}
+                </a>
+              {:else}
+                {component.name}
+              {/if}
             </h2>
             <span
               class="shrink-0 text-[10px] font-medium uppercase tracking-wide text-zinc-400"
@@ -189,6 +273,8 @@
     </section>
   {/each}
 </main>
+
+
 
 
 

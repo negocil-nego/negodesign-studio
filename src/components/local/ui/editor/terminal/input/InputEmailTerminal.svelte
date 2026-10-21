@@ -8,7 +8,7 @@
   import flutterSource from "../../../../../../project/ui/atoms/input/children/email/ui/InputEmail.dart?raw";
 </script>
 
-<Terminal>
+<Terminal id="input-email">
   {#snippet preview()}
     <InputEmail
       labelProps={{ label: "Email", for: "docs-input-email" }}
@@ -49,3 +49,4 @@
     />
   {/snippet}
 </Terminal>
+

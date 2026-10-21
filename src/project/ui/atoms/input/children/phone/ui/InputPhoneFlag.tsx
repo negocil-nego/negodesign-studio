@@ -1,31 +1,38 @@
 // @ts-nocheck
 import { useState } from "react";
-import { getFlagUrl } from "../../../../../../../hooks/flag.svelte";
-import Input from "../../../core/ui/Input";
-import InputLabel from "../../label/ui/InputLabel";
-import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
 import type { InputPhoneFlagProps } from "../data/types";
+import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
+import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
+import Label from "../../../../label/ui/Label";
 
 export default function InputPhoneFlag({ labelProps, inputProps, flag, locale, onCountrySelect }: InputPhoneFlagProps) {
-    const phoneProps = { ...inputProps, type: "tel" };
     const [selectedFlag, setSelectedFlag] = useState(flag[0] ?? "ao.svg");
-    const [selectedDialCode, setSelectedDialCode] = useState("");
+    const inputValue = inputProps.value;
 
-    function selectCountry(country) {
+    function selectCountry(country: CountryPhoneOption) {
         setSelectedFlag(country.flag);
-        setSelectedDialCode(country.dialCode);
         onCountrySelect?.(country);
     }
 
     return (
-        <div className="input-phone-flag">
-            <CountryPhonePopover flag={selectedFlag} locale={locale} onselect={selectCountry} />
-            {flag.slice(1).map((selectedFlagItem) => <img key={selectedFlagItem} src={getFlagUrl(selectedFlagItem)} alt={selectedFlagItem} />)}
-            {labelProps ? (
-                <InputLabel labelProps={labelProps} inputProps={{ ...phoneProps, value: selectedDialCode ? `+${selectedDialCode} ${inputProps.value ?? ""}` : inputProps.value }} />
-            ) : (
-                <Input {...phoneProps} value={selectedDialCode ? `+${selectedDialCode} ${inputProps.value ?? ""}` : inputProps.value} />
-            )}
+        <div className="input-phone-field">
+            {labelProps && <Label {...labelProps} />}
+            <div className="input-form input-phone-flag">
+                <CountryPhonePopover flag={selectedFlag} locale={locale} onselect={selectCountry} />
+                {inputProps.icon && <img src={`/icons/${inputProps.icon}`} alt="" />}
+                <input
+                    id={inputProps.id}
+                    type="tel"
+                    required={inputProps.required}
+                    disabled={inputProps.disabled}
+                    placeholder={inputProps.placeholder}
+                    defaultValue={inputValue}
+                    data-name="label"
+                />
+            </div>
         </div>
     );
 }
+
+
+

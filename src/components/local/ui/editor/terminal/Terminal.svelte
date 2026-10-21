@@ -3,6 +3,7 @@
 
   type Language = "svelte" | "react" | "vue" | "flutter";
   type TerminalProps = {
+    id: string;
     preview?: Snippet;
     svelte?: Snippet;
     react?: Snippet;
@@ -10,7 +11,7 @@
     flutter?: Snippet;
   };
 
-  let { preview, svelte, react, vue, flutter }: TerminalProps = $props();
+  let { id, preview, svelte, react, vue, flutter }: TerminalProps = $props();
   let activeTab = $state<"preview" | Language>("preview");
 
   const languageLabels: Record<Language, string> = {
@@ -28,13 +29,14 @@
 </script>
 
 <section
-  class="overflow-hidden rounded-lg border border-blender-border bg-white shadow-sm"
+  {id}
+  class="overflow-hidden rounded-lg border border-blender-border bg-blender-card text-zinc-300 shadow-sm"
 >
-  <div class="flex items-center gap-2 border-b border-white/5 px-3 py-2">
+  <div class="flex items-center gap-2 border-b border-blender-border px-3 py-2">
     <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
     <span class="h-2.5 w-2.5 rounded-full bg-blue-400"></span>
     <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
-    <span class="ml-2 truncate text-[10px] text-slate-400">
+    <span class="ml-2 truncate text-[10px] text-zinc-500">
       {activeTab === "preview" ? "Preview" : languageLabels[activeTab]}
     </span>
     {#if activeTab !== "preview"}
@@ -79,7 +81,7 @@
   </div>
 
   <nav
-    class="flex flex-wrap gap-1 border-t border-white/5 p-2"
+    class="flex flex-wrap gap-1 border-t border-blender-border p-2"
     aria-label="Preview e código-fonte"
   >
     <button
@@ -88,7 +90,7 @@
       onclick={() => (activeTab = "preview")}
       class="rounded px-2 py-1 text-[10px] {activeTab === 'preview'
         ? 'bg-amber-700 text-white'
-        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}">Preview</button
+        : 'text-zinc-500 hover:bg-blender-hover hover:text-zinc-100'}">Preview</button
     >
     <button
       type="button"
@@ -97,7 +99,7 @@
       class="inline-flex items-center gap-1.5 rounded px-2 py-1 text-[10px] {activeTab ===
       'svelte'
         ? 'bg-amber-700 text-white'
-        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
+        : 'text-zinc-500 hover:bg-blender-hover hover:text-zinc-100'}"
       ><img
         src={languageLogos.svelte}
         alt=""
@@ -111,7 +113,7 @@
       class="inline-flex items-center gap-1.5 rounded px-2 py-1 text-[10px] {activeTab ===
       'react'
         ? 'bg-amber-700 text-white'
-        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
+        : 'text-zinc-500 hover:bg-blender-hover hover:text-zinc-100'}"
       ><img
         src={languageLogos.react}
         alt=""
@@ -125,7 +127,7 @@
       class="inline-flex items-center gap-1.5 rounded px-2 py-1 text-[10px] {activeTab ===
       'vue'
         ? 'bg-amber-700 text-white'
-        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
+        : 'text-zinc-500 hover:bg-blender-hover hover:text-zinc-100'}"
       ><img
         src={languageLogos.vue}
         alt=""
@@ -139,7 +141,7 @@
       class="inline-flex items-center gap-1.5 rounded px-2 py-1 text-[10px] {activeTab ===
       'flutter'
         ? 'bg-amber-700 text-white'
-        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
+        : 'text-zinc-500 hover:bg-blender-hover hover:text-zinc-100'}"
       ><img
         src={languageLogos.flutter}
         alt=""

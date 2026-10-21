@@ -1,0 +1,57 @@
+.input-phone-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.input-phone-field > label {
+  color: var(--theme-zinc-200);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.input-form.input-phone-flag {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+}
+
+.input-phone-flag > .popover {
+  flex: none;
+}
+
+.input-phone-flag > .popover > button {
+  padding: 0;
+  margin-right: 0.75rem;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.input-phone-flag > .popover > button:hover {
+  background: transparent;
+}
+
+.input-phone-flag > img {
+  width: 1rem;
+  height: 1rem;
+  object-fit: contain;
+  flex: none;
+  margin-right: 0.5rem;
+}
+
+.input-form.input-phone-flag > input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+}
+
+
+
+
