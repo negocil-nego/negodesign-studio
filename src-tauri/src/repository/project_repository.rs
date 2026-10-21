@@ -291,6 +291,33 @@ fn build_index(language: &str, components: &mut [ComponentExport]) -> Result<Str
     Ok(index)
 }
 
+fn decode_base64(input: &str) -> Result<Vec<u8>, String> {
+    let mut decoded = Vec::with_capacity(input.len() * 3 / 4);
+    let mut buffer = 0_u32;
+    let mut bits = 0_u8;
+
+    for byte in input.bytes() {
+        let value = match byte {
+            b'A'..=b'Z' => byte - b'A',
+            b'a'..=b'z' => byte - b'a' + 26,
+            b'0'..=b'9' => byte - b'0' + 52,
+            b'+' => 62,
+            b'/' => 63,
+            b'=' => break,
+            _ => return Err("O conteúdo binário em base64 é inválido.".to_string()),
+        };
+
+        buffer = (buffer << 6) | u32::from(value);
+        bits += 6;
+        if bits >= 8 {
+            bits -= 8;
+            decoded.push((buffer >> bits) as u8);
+        }
+    }
+
+    Ok(decoded)
+}
+
 fn ensure_flutter_icons_registered(project_root: &Path) -> Result<bool, String> {
     let pubspec_path = project_root.join("pubspec.yaml");
     let source = fs::read_to_string(&pubspec_path).map_err(|error| error.to_string())?;
@@ -370,11 +397,18 @@ pub fn install_component(
 
     for file in files {
         let relative_path = validate_relative_path(&file.path)?;
-        if language == "Flutter" && relative_path.starts_with("static/icons") {
+        if language == "Flutter" && relative_path.starts_with("static/hugeicons/svg") {
             needs_flutter_icons = true;
         }
         let destination = if let Ok(asset_path) = relative_path.strip_prefix("static") {
-            public_root.join(asset_path)
+            if language == "Flutter" && relative_path.starts_with("static/hugeicons/svg/") {
+                let file_name = asset_path
+                    .file_name()
+                    .ok_or_else(|| "O asset SVG não tem um nome de ficheiro.".to_string())?;
+                public_root.join("icons").join(file_name)
+            } else {
+                public_root.join(asset_path)
+            }
         } else if relative_path.starts_with("project") || relative_path.starts_with("hooks") {
             package_root.join(&relative_path)
         } else {
@@ -387,7 +421,11 @@ pub fn install_component(
         if let Some(parent) = destination.parent() {
             fs::create_dir_all(parent).map_err(|error| error.to_string())?;
         }
-        fs::write(destination, file.content).map_err(|error| error.to_string())?;
+        let content = match file.content.strip_prefix("base64:") {
+            Some(encoded) => decode_base64(encoded)?,
+            None => file.content.into_bytes(),
+        };
+        fs::write(destination, content).map_err(|error| error.to_string())?;
         copied += 1;
     }
 

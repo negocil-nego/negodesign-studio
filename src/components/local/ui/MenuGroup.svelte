@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
+  import { type IconNamed, getIconClass } from "../../../hooks/icon.svelte";
 
   type Props = {
     name: string;
@@ -20,11 +20,7 @@
       {#each items as item}
         <li>
           <a href={item.path} class="blender-item group">
-            <img
-              src={getIconUrl(item.icon)}
-              alt={item.name}
-            class="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity"
-            />
+            <i class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`} aria-label={item.name}></i>
             <span class="truncate">{item.name}</span>
           </a>
         </li>

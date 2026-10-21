@@ -1,36 +1,56 @@
+export type IconDefinition = {
+  /** Semantic name used by components and icon pickers. */
+  name: string;
+  /** Hugeicons classes passed directly to an <i> element. */
+  tag: string;
+  /** Optional local SVG fallback in static/hugeicons/svg. */
+  path?: string;
+};
+
+const icon = (name: string, hugeicons: string, file?: string): IconDefinition => ({
+  name,
+  tag: `hgi-stroke hgi-${hugeicons}`,
+  ...(file ? { path: `/hugeicons/svg/${file}.svg` } : {}),
+});
+
+/** Central list of icon definitions available to Negodesign components. */
 export const IconNamed = {
-  FolderAdd: "folder-add-stroke-rounded.svg",
-  Layout04: "layout-04-stroke-rounded.svg",
-  Settings01: "settings-01-stroke-rounded.svg",
-  DocumentValidation: "document-validation-stroke-rounded.svg",
-  HelpSquare: "help-square-stroke-rounded.svg",
-  CheckmarkSquare01: "checkmark-square-01-stroke-rounded.svg",
-  Languages: "languages-stroke-rounded.svg",
-  Security: "security-stroke-rounded.svg",
-  Home: "home-04-stroke-rounded.svg",
+  FolderAdd: icon("folder-add", "folder-add", "folder-add-stroke-rounded"),
+  Layout04: icon("layout", "layout-04", "layout-04-stroke-rounded"),
+  Settings01: icon("settings", "settings-01", "settings-01-stroke-rounded"),
+  DocumentValidation: icon("document", "document-validation", "document-validation-stroke-rounded"),
+  HelpSquare: icon("help", "help-square", "help-square-stroke-rounded"),
+  CheckmarkSquare01: icon("checkmark", "checkmark-square-01", "checkmark-square-01-stroke-rounded"),
+  Languages: icon("languages", "languages", "languages-stroke-rounded"),
+  Security: icon("security", "security", "security-stroke-rounded"),
+  Home: icon("home", "home-04", "home-04-stroke-rounded"),
+  Email: icon("email", "mail-01"),
+  Phone: icon("phone", "call"),
+  Password: icon("password", "security-password"),
+  Date: icon("date", "calendar-03"),
+  Time: icon("time", "clock-01"),
+  Number: icon("number", "square-01"),
+  Age: icon("age", "user-02"),
+  Text: icon("text", "text-font"),
+  Label: icon("label", "tag-01"),
+} as const satisfies Record<string, IconDefinition>;
 
-  FOLDER_ADD: "folder-add-stroke-rounded.svg",
-  LAYOUT_04: "layout-04-stroke-rounded.svg",
-  SETTINGS_01: "settings-01-stroke-rounded.svg",
-  DOCUMENT_VALIDATION: "document-validation-stroke-rounded.svg",
-  HELP_SQUARE: "help-square-stroke-rounded.svg",
-  CHECKMARK_SQUARE_01: "checkmark-square-01-stroke-rounded.svg",
-} as const;
+export type IconNamed = (typeof IconNamed)[keyof typeof IconNamed];
 
-export type IconNamed =
-  | "folder-add-stroke-rounded.svg"
-  | "layout-04-stroke-rounded.svg"
-  | "settings-01-stroke-rounded.svg"
-  | "document-validation-stroke-rounded.svg"
-  | "help-square-stroke-rounded.svg"
-  | "checkmark-square-01-stroke-rounded.svg"
-  | "languages-stroke-rounded.svg"
-  | "home-04-stroke-rounded.svg"
-  | "security-stroke-rounded.svg";
+const hugeiconsNames: Record<string, string> = {
+  email: "mail-01",
+  phone: "call",
+  password: "security-password",
+  date: "calendar-03",
+  time: "clock-01",
+  number: "square-01",
+  age: "user-02",
+  text: "text-font",
+  label: "tag-01",
+};
 
-/**
- * Helper para obter o caminho completo do ícone em /icons/
- */
-export function getIconUrl(icon: IconNamed): string {
-  return `/icons/${icon}`;
+/** Accepts either a registry entry or a Hugeicons name. */
+export function getIconClass(icon: IconNamed | string): string {
+  if (typeof icon !== "string") return icon.tag;
+  return `hgi-stroke hgi-${hugeiconsNames[icon] ?? icon}`;
 }

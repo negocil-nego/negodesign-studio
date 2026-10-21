@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getIconUrl, IconNamed } from "../../../../hooks/icon.svelte";
+  import { getIconClass, IconNamed } from "../../../../hooks/icon.svelte";
 </script>
 
 <div
@@ -35,11 +35,7 @@
         href="/page/docs"
         class="text-xs text-zinc-300 hover:text-slate-900 bg-white/90 hover:bg-slate-100 px-3 py-1.5 rounded border border-blender-border transition-colors flex items-center gap-1.5 shadow-sm"
       >
-        <img
-          src={getIconUrl(IconNamed.DocumentValidation)}
-          alt="Docs"
-          class="w-4 h-4 opacity-80"
-        />
+        <i class={`${getIconClass(IconNamed.DocumentValidation)} w-4 h-4 text-base opacity-80`} aria-hidden="true"></i>
         <span>Documentação</span>
       </a>
     </div>

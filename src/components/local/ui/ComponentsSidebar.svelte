@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
+  import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
   import {
     componentNavigationGroups,
     type ComponentDefinition,
@@ -62,11 +62,7 @@
           : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
       >
       <button class="blender-icon-btn h-7 w-7" title="Settings">
-        <img
-          src={getIconUrl(IconNamed.Settings01)}
-          alt=""
-          class="h-4 w-4 opacity-75"
-        />
+        <i class={`${getIconClass(IconNamed.Settings01)} text-base opacity-75`} aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -109,11 +105,7 @@
                       class="blender-item w-full text-left gap-2 px-3 py-2"
                       title={displayName(item)}
                     >
-                      <img
-                        src={getIconUrl(item.icon)}
-                        alt=""
-                        class="h-5 w-5 opacity-75 shrink-0"
-                      />
+                      <i class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`} aria-hidden="true"></i>
                       <span class="text-sm truncate">{displayName(item)}</span>
                     </a>
                   {:else}
@@ -122,11 +114,7 @@
                       draggable="true"
                       title={displayName(item)}
                     >
-                      <img
-                        src={getIconUrl(item.icon)}
-                        alt=""
-                        class="h-5 w-5 opacity-75 shrink-0"
-                      />
+                      <i class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`} aria-hidden="true"></i>
                       <span class="text-sm truncate">{displayName(item)}</span>
                     </button>
                   {/if}

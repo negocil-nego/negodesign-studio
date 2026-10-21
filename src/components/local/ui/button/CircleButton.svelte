@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type IconNamed, getIconUrl } from "../../../../hooks/icon.svelte";
+  import { type IconNamed, getIconClass } from "../../../../hooks/icon.svelte";
 
   type Props = {
     icon: IconNamed;
@@ -16,5 +16,5 @@
   {title}
   class="blender-icon-btn active:scale-95 shadow-sm"
 >
-  <img src={getIconUrl(icon)} alt={title} class="w-5 h-5 opacity-80 hover:opacity-100 transition-opacity" />
+  <i class={`${getIconClass(icon)} w-5 h-5 text-lg opacity-80 hover:opacity-100 transition-opacity`} aria-label={title}></i>
 </button>

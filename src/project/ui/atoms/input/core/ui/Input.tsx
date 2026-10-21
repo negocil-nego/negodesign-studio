@@ -1,5 +1,6 @@
 // @ts-nocheck
 import type { InputProps } from "../data/types";
+import { getIconClass } from "../../../../../../hooks/icon.svelte";
 
 function InputField({ type, required, disabled, placeholder, value }) {
     return (
@@ -19,7 +20,7 @@ export default function Input({ icon, type, required, disabled, placeholder, val
 
     return (
         <div className="input-form">
-            {icon && <img src={`/icons/${icon}`} alt="icon" />}
+            {icon && <i className={getIconClass(icon)} aria-hidden="true" />}
             <InputField {...fieldProps} />
         </div>
     );

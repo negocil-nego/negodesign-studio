@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from "react";
 import type { InputPhoneFlagProps } from "../data/types";
+import { getIconClass } from "../../../../../../hooks/icon.svelte";
 import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
 import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
 import Label from "../../../../label/ui/Label";
@@ -19,7 +20,7 @@ export default function InputPhoneFlag({ labelProps, inputProps, flag, locale, o
             {labelProps && <Label {...labelProps} />}
             <div className="input-form input-phone-flag">
                 <CountryPhonePopover flag={selectedFlag} locale={locale} onselect={selectCountry} />
-                {inputProps.icon && <img src={`/icons/${inputProps.icon}`} alt="" />}
+                {inputProps.icon && <i className={getIconClass(inputProps.icon)} aria-hidden="true" />}
                 <input
                     id={inputProps.id}
                     type="tel"

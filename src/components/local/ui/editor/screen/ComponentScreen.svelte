@@ -22,7 +22,7 @@
   let copyMessage = $state("");
 
   async function copyComponent(component: (typeof components)[number]) {
-    if (!component.sourceDirectory) return;
+    if (!component.dependence) return;
     copyingId = component.id;
     copyMessage = "";
     try {
@@ -153,29 +153,30 @@
                   <InputPassword
                     inputProps={{
                       id: "gallery-password",
+                      type: "password",
                       placeholder: "Palavra-passe",
                     }}
                   />
                 </div>
               {:else if component.id === "input-date"}
                 <div class="w-full max-w-xs">
-                  <InputDate inputProps={{ id: "gallery-date" }} />
+                  <InputDate inputProps={{ id: "gallery-date", type: "date" }} />
                 </div>
               {:else if component.id === "input-time"}
                 <div class="w-full max-w-xs">
-                  <InputTime inputProps={{ id: "gallery-time" }} />
+                  <InputTime inputProps={{ id: "gallery-time", type: "time" }} />
                 </div>
               {:else if component.id === "input-number"}
                 <div class="w-full max-w-xs">
                   <InputNumber
-                    inputProps={{ id: "gallery-number", placeholder: "0" }}
+                    inputProps={{ id: "gallery-number", type: "number", placeholder: "0" }}
                   />
                 </div>
               {:else if component.id === "input-age"}
                 <div class="w-full max-w-xs">
                   <InputAge
                     labelProps={{ label: "Idade", for: "gallery-age" }}
-                    inputProps={{ id: "gallery-age", placeholder: "18" }}
+                    inputProps={{ id: "gallery-age", type: "number", placeholder: "18" }}
                   />
                 </div>
               {:else if component.id === "input-label"}
@@ -222,7 +223,7 @@
               <p class="text-xs leading-5 text-zinc-400">
                 {component.description}
               </p>
-              {#if component.href || component.sourceDirectory}
+              {#if component.href || component.dependence}
                 <div class="flex flex-wrap gap-2 pt-2">
                   {#if component.href}
                     <a
@@ -231,7 +232,7 @@
                       >Ver terminal</a
                     >
                   {/if}
-                  {#if component.sourceDirectory}
+                  {#if component.dependence}
                     <button
                       type="button"
                       class="rounded bg-blue-600 px-2.5 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"

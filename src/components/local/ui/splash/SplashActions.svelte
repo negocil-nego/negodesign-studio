@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getIconUrl, IconNamed } from "../../../../hooks/icon.svelte";
+  import { getIconClass, IconNamed } from "../../../../hooks/icon.svelte";
 
   const actions = [
     {
@@ -38,11 +38,10 @@
         <a href={item.href} class="blender-action group">
           <div class="flex items-center gap-3.5 min-w-0">
             <div class="w-9 h-9 rounded bg-blender-base border border-blender-border flex items-center justify-center shrink-0 group-hover:border-blue-400/60 group-hover:scale-105 transition-all">
-              <img
-                src={getIconUrl(item.icon)}
-                alt={item.title}
-                class="w-5 h-5 opacity-80 group-hover:opacity-100"
-              />
+              <i
+                class={`${getIconClass(item.icon)} w-5 h-5 text-lg opacity-80 group-hover:opacity-100`}
+                aria-label={item.title}
+              ></i>
             </div>
             <div class="min-w-0">
               <div class="text-xs md:text-sm font-semibold text-zinc-100 group-hover:text-blue-400 transition-colors truncate">

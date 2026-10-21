@@ -18,10 +18,10 @@
       },
       "dependencies": [],
       "assets": {
-        "Svelte": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
-        "React": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
-        "Vue": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
-        "Flutter": ["static/icons/*.svg"]
+        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
+        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
+        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
+        "Flutter": ["static/hugeicons/svg/*.svg"]
       },
       "props": [
         {

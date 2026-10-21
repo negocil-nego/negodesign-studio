@@ -1,6 +1,7 @@
 <script lang="ts">
   import { FlagNamed } from "../../../../../../../hooks/flag.svelte";
   import type { InputPhoneFlagProps } from "../data/types";
+  import { getIconClass } from "../../../../../../hooks/icon.svelte";
   import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover.svelte";
   import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
   import Label from "../../../../label/ui/Label.svelte";
@@ -21,7 +22,7 @@
   <div class="input-form input-phone-flag">
     <CountryPhonePopover flag={selectedFlag} {locale} onselect={handleCountrySelect} />
     {#if inputProps.icon}
-      <img src="/icons/{inputProps.icon}" alt="" />
+      <i class={getIconClass(inputProps.icon)} aria-hidden="true"></i>
     {/if}
     <input
       id={inputProps.id}

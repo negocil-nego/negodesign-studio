@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
+  import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
   import {
     activeProject as activeProjectStore,
     listProjects,
@@ -92,11 +92,7 @@
         disabled={busy}
       >
         <span class="flex min-w-0 items-center gap-2.5">
-          <img
-            src={getIconUrl(IconNamed.FolderAdd)}
-            alt=""
-            class="h-5 w-5 shrink-0 opacity-80"
-          />
+          <i class={`${getIconClass(IconNamed.FolderAdd)} h-5 w-5 shrink-0 text-base opacity-80`} aria-hidden="true"></i>
           <span>{busy ? "A abrir..." : "Escolher pasta"}</span>
         </span>
         <span aria-hidden="true" class="text-zinc-500">↗</span>

@@ -6,6 +6,7 @@ import {
   type ProjectLanguage,
   type ProjectSourceFile,
 } from "./projects";
+import { componentCatalog } from "./components";
 
 type ManifestComponent = {
   id: string;
@@ -30,8 +31,9 @@ const sourceModules = import.meta.glob(
   [
     "../../../project/**/*.{svelte,ts,tsx,vue,dart}",
     "../../../hooks/**/*.{svelte,ts,tsx,vue,dart}",
-    "../../../static/icons/*.svg",
-    "../../../static/flags/4x3/*.svg",
+    "../../../../static/hugeicons/svg/*.svg",
+    "../../../../static/flags/4x3/*.svg",
+    "../../../../static/hugeicons/css/*.css",
   ],
   { query: "?raw", import: "default", eager: true },
 ) as Record<string, string>;
@@ -75,10 +77,15 @@ const componentsById = new Map<
   string,
   { component: ManifestComponent; manifest: ManifestRecord }
 >();
+const manifestsByPath = new Map(manifests.map((manifest) => [manifest.path, manifest]));
 for (const manifest of manifests) {
   for (const component of manifest.manifest.components) {
     componentsById.set(component.id, { component, manifest });
   }
+}
+
+function resolveManifestPath(path: string): string {
+  return normalizePath(path).replace(/^src\//, "");
 }
 
 function dependenciesFor(
@@ -119,14 +126,34 @@ function addSource(
   filesByPath.set(outputPath, content);
 }
 
-function addAsset(
+function encodeBase64(bytes: Uint8Array): string {
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function addAsset(
   asset: string,
   filesByPath: Map<string, string>,
   language: ProjectLanguage,
 ) {
-  if (asset.endsWith("*")) {
-    const prefix = normalizePath(asset.slice(0, -1));
-    const matchingPaths = [...sourceByPath.keys()].filter((path) => path.startsWith(prefix));
+  const normalized = normalizePath(asset);
+  if (normalized.endsWith(".woff2")) {
+    const response = await fetch(`/${normalized.replace(/^static\//, "")}`);
+    if (!response.ok) {
+      throw new Error(`Não foi possível carregar o asset Hugeicons ${normalized}.`);
+    }
+    filesByPath.set(normalized, `base64:${encodeBase64(new Uint8Array(await response.arrayBuffer()))}`);
+    return;
+  }
+  if (asset.includes("*")) {
+    const pattern = new RegExp(
+      `^${normalizePath(asset).replace(/[.+?^${}()|[\]\\]/g, "\\$&").replaceAll("*", ".*")}$`,
+    );
+    const matchingPaths = [...sourceByPath.keys()].filter((path) => pattern.test(path));
     if (!matchingPaths.length) {
       throw new Error(`Não foram encontrados ficheiros para o asset ${asset}.`);
     }
@@ -137,19 +164,29 @@ function addAsset(
 }
 
 export async function copyComponentToActiveProject(componentId: string) {
-  const project = get(activeProject);
-  if (!project) throw new Error("Seleccione primeiro um projecto activo.");
+  const active = get(activeProject);
+  if (!active) throw new Error("Seleccione primeiro um projecto activo.");
+  const project = active;
 
   const filesByPath = new Map<string, string>();
   const exportedById = new Map<string, ComponentExport>();
   const visited = new Set<string>();
 
-  function collect(id: string) {
+  async function collect(id: string, manifestPath?: string): Promise<void> {
     if (visited.has(id)) return;
-    const record = componentsById.get(id);
+    const requestedManifest = manifestPath
+      ? manifestsByPath.get(resolveManifestPath(manifestPath))
+      : undefined;
+    const record = requestedManifest
+      ? (() => {
+          const component = requestedManifest.manifest.components.find((item) => item.id === id);
+          return component ? { component, manifest: requestedManifest } : undefined;
+        })()
+      : componentsById.get(id);
     if (!record) throw new Error(`O componente dependente '${id}' não existe no catálogo.`);
 
-    const { component, manifest } = record;
+    const { component } = record;
+    const manifest = record.manifest;
     const entry = component.entry[project.language];
     if (!entry) {
       throw new Error(`${component.name} não tem uma implementação para ${project.language}.`);
@@ -164,7 +201,7 @@ export async function copyComponentToActiveProject(componentId: string) {
       addSource(`${componentRoot}${file}`, filesByPath, project.language);
     }
     for (const asset of assetsFor(component, project.language)) {
-      addAsset(asset, filesByPath, project.language);
+      await addAsset(asset, filesByPath, project.language);
     }
     addSource(manifest.path, filesByPath, project.language);
 
@@ -175,11 +212,15 @@ export async function copyComponentToActiveProject(componentId: string) {
     });
 
     for (const dependency of dependenciesFor(component, project.language)) {
-      collect(dependency);
+      await collect(dependency);
     }
   }
 
-  collect(componentId);
+  const definition = componentCatalog.find((component) => component.id === componentId);
+  if (!definition?.dependence) {
+    throw new Error(`O componente '${componentId}' não tem um dependence.json associado.`);
+  }
+  await collect(componentId, definition.dependence);
 
   const files: ProjectSourceFile[] = [...filesByPath].map(([path, content]) => ({
     path,

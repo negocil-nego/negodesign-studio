@@ -17,7 +17,7 @@ export type InputType =
 
 export type InputProps = {
     id?: string;
-    icon?: IconNamed;
+    icon?: IconNamed | string;
     type: InputType;
     required?: boolean
     disabled?: boolean
