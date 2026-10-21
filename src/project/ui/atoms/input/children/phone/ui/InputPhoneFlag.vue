@@ -5,7 +5,7 @@ import type { CountryPhoneOption } from "../../../../../molecules/popover/data/c
 import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover.vue";
 import Label from "../../../../label/ui/Label.vue";
 import type { FlagNamed } from "../../../../../../../hooks/flag.svelte";
-import { getIconClass } from "../../../../../../hooks/icon.svelte";
+import { getIconClass } from "../../../../../../../hooks/icon.svelte";
 
 const props = defineProps<InputPhoneFlagProps>();
 const emit = defineEmits<{ countrySelect: [country: CountryPhoneOption] }>();

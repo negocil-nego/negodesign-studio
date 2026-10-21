@@ -203,8 +203,6 @@ export async function copyComponentToActiveProject(componentId: string) {
     for (const asset of assetsFor(component, project.language)) {
       await addAsset(asset, filesByPath, project.language);
     }
-    addSource(manifest.path, filesByPath, project.language);
-
     exportedById.set(id, {
       id: component.id,
       name: component.name,

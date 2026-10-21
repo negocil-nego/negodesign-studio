@@ -7,23 +7,23 @@ export type IconDefinition = {
   path?: string;
 };
 
-const icon = (name: string, hugeicons: string, file?: string): IconDefinition => ({
+const icon = (name: string, hugeicons: string, path?: string): IconDefinition => ({
   name,
   tag: `hgi-stroke hgi-${hugeicons}`,
-  ...(file ? { path: `/hugeicons/svg/${file}.svg` } : {}),
+  ...(path ? { path } : {}),
 });
 
 /** Central list of icon definitions available to Negodesign components. */
 export const IconNamed = {
-  FolderAdd: icon("folder-add", "folder-add", "folder-add-stroke-rounded"),
-  Layout04: icon("layout", "layout-04", "layout-04-stroke-rounded"),
-  Settings01: icon("settings", "settings-01", "settings-01-stroke-rounded"),
-  DocumentValidation: icon("document", "document-validation", "document-validation-stroke-rounded"),
-  HelpSquare: icon("help", "help-square", "help-square-stroke-rounded"),
-  CheckmarkSquare01: icon("checkmark", "checkmark-square-01", "checkmark-square-01-stroke-rounded"),
-  Languages: icon("languages", "languages", "languages-stroke-rounded"),
-  Security: icon("security", "security", "security-stroke-rounded"),
-  Home: icon("home", "home-04", "home-04-stroke-rounded"),
+  FolderAdd: icon("folder-add", "folder-add"),
+  Layout04: icon("layout", "layout-04"),
+  Settings01: icon("settings", "settings-01"),
+  DocumentValidation: icon("document", "document-validation"),
+  HelpSquare: icon("help", "help-square"),
+  CheckmarkSquare01: icon("checkmark", "checkmark-square-01"),
+  Languages: icon("languages", "languages"),
+  Security: icon("security", "security"),
+  Home: icon("home", "home-04"),
   Email: icon("email", "mail-01"),
   Phone: icon("phone", "call"),
   Password: icon("password", "security-password"),

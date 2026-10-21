@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react";
 import type { InputPhoneFlagProps } from "../data/types";
-import { getIconClass } from "../../../../../../hooks/icon.svelte";
+import { getIconClass } from "../../../../../../../hooks/icon.svelte";
 import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
 import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
 import Label from "../../../../label/ui/Label";

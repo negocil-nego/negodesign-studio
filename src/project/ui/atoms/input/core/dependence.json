@@ -18,9 +18,9 @@
       },
       "dependencies": [],
       "assets": {
-        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
-        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
-        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/icons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "static/hugeicons/svg/*.svg"],
+        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
         "Flutter": ["static/hugeicons/svg/*.svg"]
       },
       "props": [

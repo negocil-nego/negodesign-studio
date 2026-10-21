@@ -285,7 +285,7 @@ fn build_index(language: &str, components: &mut [ComponentExport]) -> Result<Str
     }
     if language != "Flutter" {
         index.push_str(
-            "\nif (typeof document !== \"undefined\" && !document.querySelector('link[data-negodesign-hugeicons]')) {\n  const hugeiconsStylesheet = document.createElement(\"link\");\n  hugeiconsStylesheet.rel = \"stylesheet\";\n  hugeiconsStylesheet.href = \"/hugeicons/css/icons.css\";\n  hugeiconsStylesheet.dataset.negodesignHugeicons = \"true\";\n  document.head.append(hugeiconsStylesheet);\n}\n",
+            "\nif (typeof document !== \"undefined\" && !document.querySelector('link[data-negodesign-hugeicons]')) {\n  const hugeiconsStylesheet = document.createElement(\"link\");\n  hugeiconsStylesheet.rel = \"stylesheet\";\n  hugeiconsStylesheet.href = \"/hugeicons/css/hugeicons.css\";\n  hugeiconsStylesheet.dataset.negodesignHugeicons = \"true\";\n  document.head.append(hugeiconsStylesheet);\n}\n",
         );
     }
     Ok(index)
@@ -368,7 +368,7 @@ fn ensure_flutter_icons_registered(project_root: &Path) -> Result<bool, String> 
 pub fn install_component(
     app: &AppHandle,
     files: Vec<ComponentFile>,
-    mut components: Vec<ComponentExport>,
+    components: Vec<ComponentExport>,
 ) -> Result<ComponentInstallResult, String> {
     if files.is_empty() || components.is_empty() {
         return Err("Não foram encontrados ficheiros ou componentes para instalar.".to_string());
