@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "country-popover",
+      "name": "CountryPhonePopover",
+      "entry": {
+        "Svelte": "ui/CountryPhonePopover.svelte",
+        "React": "ui/CountryPhonePopover.tsx",
+        "Vue": "ui/CountryPhonePopover.vue",
+        "Flutter": "ui/CountryPhonePopover.dart"
+      },
+      "files": {
+        "Svelte": ["data/country-phone.ts"],
+        "React": ["data/country-phone.ts"],
+        "Vue": ["data/country-phone.ts"],
+        "Flutter": ["data/country-phone.dart"]
+      },
+      "dependencies": {
+        "Svelte": ["popover"],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
+        "React": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
+        "Vue": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
+        "Flutter": []
+      },
+      "props": [
+        { "name": "flag", "type": "FlagNamed | string", "required": true, "description": "Bandeira seleccionada inicialmente." },
+        { "name": "locale", "type": "string", "required": false, "description": "Localização usada para pesquisar e ordenar países." },
+        { "name": "onselect", "type": "(country: CountryPhoneOption) => void", "required": false, "description": "Callback executado ao escolher um país." }
+      ]
+    }
+  ]
+}

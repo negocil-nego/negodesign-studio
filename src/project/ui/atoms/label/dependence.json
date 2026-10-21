@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "label",
+      "name": "Label",
+      "entry": {
+        "Svelte": "ui/Label.svelte",
+        "React": "ui/Label.tsx",
+        "Vue": "ui/Label.vue",
+        "Flutter": "ui/Label.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Texto apresentado pelo rótulo."
+        },
+        {
+          "name": "for",
+          "type": "string",
+          "required": true,
+          "description": "ID do controlo associado."
+        }
+      ]
+    }
+  ]
+}

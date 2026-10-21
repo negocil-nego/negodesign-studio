@@ -1,18 +1,68 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { IconNamed, getIconUrl } from "../../../hooks/icon.svelte";
-  import PropertiesPanel from "./PropertiesPanel.svelte";
-  import LayoutPanel from "./LayoutPanel.svelte";
-  import CodePanel from "./CodePanel.svelte";
+  import {
+    activeProject as activeProjectStore,
+    listProjects,
+    saveProject,
+    setActiveProject,
+    type ProjectRecord,
+  } from "../data/projects";
 
-  type Tab = "properties" | "layout" | "code";
-  let activeTab = $state<Tab>("properties");
-  let selectedElement = $state("InputText");
+  let projects = $state<ProjectRecord[]>([]);
+  let activeProject = $state<ProjectRecord | null>(null);
+  let busy = $state(false);
+  let message = $state("");
 
-  const tabs: { id: Tab; label: string }[] = [
-    { id: "properties", label: "Properties" },
-    { id: "layout", label: "Layout" },
-    { id: "code", label: "Code" },
-  ];
+  onMount(() => {
+    void loadProjects();
+  });
+
+  async function loadProjects() {
+    try {
+      projects = await listProjects();
+      activeProject = projects.find((project) => project.active) ?? null;
+      activeProjectStore.set(activeProject);
+      message = "";
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    }
+  }
+
+  async function chooseProject() {
+    busy = true;
+    message = "";
+
+    try {
+      const { open } = await import("@tauri-apps/plugin-dialog");
+      const selectedPath = await open({
+        directory: true,
+        multiple: false,
+        title: "Abrir pasta do projecto",
+      });
+
+      if (!selectedPath || Array.isArray(selectedPath)) return;
+
+      activeProject = await saveProject(selectedPath);
+      activeProjectStore.set(activeProject);
+      await loadProjects();
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    } finally {
+      busy = false;
+    }
+  }
+
+  async function activateProject(project: ProjectRecord) {
+    try {
+      activeProject = await setActiveProject(project.id);
+      activeProjectStore.set(activeProject);
+      message = "";
+      projects = await listProjects();
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    }
+  }
 </script>
 
 <aside
@@ -20,66 +70,102 @@
 >
   <div class="blender-topbar px-3">
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
-      >Inspector</span
+      >Projecto</span
     >
-    <div class="flex items-center gap-1.5">
-      <button
-        class="blender-icon-btn h-7 w-7 text-lg"
-        title="Search"
-        aria-label="Search">⌕</button
-      >
-      <button
-        class="blender-icon-btn h-7 w-7"
-        title="Settings"
-        aria-label="Settings"
-      >
-        <img
-          src={getIconUrl(IconNamed.Settings01)}
-          alt=""
-          class="h-4 w-4 opacity-75"
-        />
-      </button>
-    </div>
   </div>
 
-  <div class="flex flex-1 flex-col overflow-hidden">
-    {#each tabs as tab}
-      <div
-        class="flex flex-col overflow-hidden border-b border-blender-border/40 {activeTab ===
-        tab.id
-          ? 'flex-1'
-          : ''}"
-      >
-        <button
-          type="button"
-          onclick={() => (activeTab = tab.id)}
-          class="flex w-full shrink-0 items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors
-            {activeTab === tab.id
-            ? 'border-l-2 border-blue-500 bg-blender-hover text-zinc-800'
-            : 'text-zinc-500 hover:bg-blender-hover/50 hover:text-zinc-300'}"
-        >
-          <span>{tab.label} : {selectedElement}</span>
-          <span
-            class="text-[10px]"
-            style="transform: rotate({activeTab === tab.id
-              ? 0
-              : -90}deg); display:inline-block; transition: transform .2s"
-            >▼</span
-          >
-        </button>
+  <div class="min-h-0 flex-1 overflow-y-auto p-3">
+    <section
+      class="space-y-3 rounded-md border border-blender-border bg-blender-card p-3"
+    >
+      <div>
+        <h2 class="text-sm font-semibold text-zinc-200">Abrir projecto</h2>
+        <p class="mt-1 text-xs leading-5 text-zinc-500">
+          Seleccione a pasta de um projecto Svelte, Vue, React ou Flutter.
+        </p>
+      </div>
 
-        {#if activeTab === tab.id}
-          <div class="min-h-0 flex-1 overflow-y-auto">
-            {#if tab.id === "properties"}
-              <PropertiesPanel />
-            {:else if tab.id === "layout"}
-              <LayoutPanel />
-            {:else}
-              <CodePanel />
-            {/if}
-          </div>
+      <button
+        type="button"
+        class="blender-action w-full gap-3 px-3 py-2.5 text-sm"
+        onclick={chooseProject}
+        disabled={busy}
+      >
+        <span class="flex min-w-0 items-center gap-2.5">
+          <img
+            src={getIconUrl(IconNamed.FolderAdd)}
+            alt=""
+            class="h-5 w-5 shrink-0 opacity-80"
+          />
+          <span>{busy ? "A abrir..." : "Escolher pasta"}</span>
+        </span>
+        <span aria-hidden="true" class="text-zinc-500">↗</span>
+      </button>
+
+      {#if message}
+        <p class="wrap-break-word text-xs text-rose-500" role="status">
+          {message}
+        </p>
+      {/if}
+
+      {#if activeProject}
+        <div class="space-y-1 border-t border-blender-border pt-3">
+          <p
+            class="text-[10px] font-semibold uppercase tracking-wider text-blue-500"
+          >
+            Projecto activo
+          </p>
+          <h2 class="wrap-break-word text-sm font-semibold text-zinc-200">
+            {activeProject.name}
+          </h2>
+          <p class="text-xs font-medium text-zinc-400">
+            {activeProject.language}
+          </p>
+          <p class="break-all text-[11px] leading-5 text-zinc-500">
+            {activeProject.path}
+          </p>
+        </div>
+      {/if}
+
+      <div class="space-y-2 border-t border-blender-border pt-3">
+        <h2
+          class="px-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-500"
+        >
+          Projectos guardados
+        </h2>
+        {#if projects.length}
+          <ul class="space-y-1">
+            {#each projects as project (project.id)}
+              <li>
+                <button
+                  type="button"
+                  class="w-full rounded px-2.5 py-2 text-left transition-colors hover:bg-blender-hover {project.active
+                    ? 'bg-blue-500/10 ring-1 ring-blue-500/30'
+                    : ''}"
+                  onclick={() => activateProject(project)}
+                  title={project.path}
+                >
+                  <span class="block truncate text-xs font-medium text-zinc-300"
+                    >{project.name}</span
+                  >
+                  <span class="block text-[10px] text-blue-400"
+                    >{project.language}{project.active ? " · Activo" : ""}</span
+                  >
+                  <span class="mt-0.5 block truncate text-[10px] text-zinc-500"
+                    >{project.path}</span
+                  >
+                </button>
+              </li>
+            {/each}
+          </ul>
+        {:else}
+          <p
+            class="rounded border border-dashed border-blender-border px-3 py-4 text-center text-xs text-zinc-500"
+          >
+            Ainda não há projectos guardados.
+          </p>
         {/if}
       </div>
-    {/each}
+    </section>
   </div>
 </aside>

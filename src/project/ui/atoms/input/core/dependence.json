@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input",
+      "name": "Input",
+      "entry": {
+        "Svelte": "ui/Input.svelte",
+        "React": "ui/Input.tsx",
+        "Vue": "ui/Input.vue",
+        "Flutter": "ui/Input.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": [],
+      "assets": {
+        "Svelte": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
+        "React": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
+        "Vue": ["hooks/icon.svelte.ts", "static/icons/*.svg"],
+        "Flutter": ["static/icons/*.svg"]
+      },
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Identificador HTML do campo."
+        },
+        {
+          "name": "icon",
+          "type": "IconNamed | string",
+          "required": false,
+          "description": "Ícone opcional apresentado no campo."
+        },
+        {
+          "name": "type",
+          "type": "InputType",
+          "required": true,
+          "description": "Tipo HTML do input."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

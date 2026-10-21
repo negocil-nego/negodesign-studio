@@ -4,7 +4,7 @@
   let componentsOpen = $state(false);
 </script>
 
-<nav class="flex h-fit w-fit flex-none items-center gap-1 self-start font-commissioner text-xs" aria-label="Menu principal">
+<nav class="flex min-h-7 w-full flex-none items-center gap-1 border-b border-blender-border px-2 font-commissioner text-xs" aria-label="Menu principal">
   <a href="/" class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100">
     Início
   </a>

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-phone",
+      "name": "InputPhone",
+      "entry": { "Svelte": "ui/InputPhone.svelte", "React": "ui/InputPhone.tsx", "Vue": "ui/InputPhone.vue", "Flutter": "ui/InputPhone.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": ["input", "input-label"],
+      "assets": [],
+      "props": [
+        { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como tel." },
+        { "name": "labelProps", "type": "LabelProps", "required": false, "description": "Rótulo opcional associado ao campo." }
+      ]
+    },
+    {
+      "id": "input-phone-flag",
+      "name": "InputPhoneFlag",
+      "entry": { "Svelte": "ui/InputPhoneFlag.svelte", "React": "ui/InputPhoneFlag.tsx", "Vue": "ui/InputPhoneFlag.vue", "Flutter": "ui/InputPhoneFlag.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": ["input-label", "country-popover"],
+      "assets": [],
+      "props": [
+        { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo telefónico." },
+        { "name": "labelProps", "type": "LabelProps", "required": false, "description": "Rótulo opcional associado ao campo." },
+        { "name": "flag", "type": "FlagNamed[]", "required": true, "description": "Bandeiras disponíveis para o selector de país." },
+        { "name": "locale", "type": "string", "required": false, "description": "Localização utilizada nos nomes dos países." },
+        { "name": "onCountrySelect", "type": "(country: CountryPhoneOption) => void", "required": false, "description": "Callback chamado após escolher um país." }
+      ]
+    }
+  ]
+}

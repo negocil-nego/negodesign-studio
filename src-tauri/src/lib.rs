@@ -10,7 +10,9 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::greet,
             commands::list_projects,
-            commands::save_project
+            commands::save_project,
+            commands::set_active_project,
+            commands::install_component
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

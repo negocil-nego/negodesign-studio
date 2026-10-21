@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-label",
+      "name": "InputLabel",
+      "entry": { "Svelte": "ui/InputLabel.svelte", "React": "ui/InputLabel.tsx", "Vue": "ui/InputLabel.vue", "Flutter": "ui/InputLabel.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": ["input", "label"],
+      "assets": [],
+      "props": [
+        { "name": "labelProps", "type": "LabelProps", "required": true, "description": "Texto e ID do controlo associado." },
+        { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo de entrada."
+        }
+      ]
+    }
+  ]
+}

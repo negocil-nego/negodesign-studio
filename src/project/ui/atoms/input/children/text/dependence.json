@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-text",
+      "name": "InputText",
+      "entry": { "Svelte": "ui/InputText.svelte", "React": "ui/InputText.tsx", "Vue": "ui/InputText.vue", "Flutter": "ui/InputText.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": ["input", "input-label"],
+      "assets": [],
+      "props": [
+        { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como text." },
+        { "name": "labelProps", "type": "LabelProps", "required": false, "description": "Rótulo opcional associado ao campo." }
+      ]
+    }
+  ]
+}

@@ -14,8 +14,26 @@
   import CountryPhonePopover from "../../../../../project/ui/molecules/popover/ui/CountryPhonePopover.svelte";
   import { FlagNamed } from "../../../../../hooks/flag.svelte";
   import { componentCatalog } from "../../../data/components";
+  import { activeProject } from "../../../data/projects";
+  import { copyComponentToActiveProject } from "../../../data/component-copy";
 
   const components = componentCatalog;
+  let copyingId = $state<string | null>(null);
+  let copyMessage = $state("");
+
+  async function copyComponent(component: (typeof components)[number]) {
+    if (!component.sourceDirectory) return;
+    copyingId = component.id;
+    copyMessage = "";
+    try {
+      const result = await copyComponentToActiveProject(component.id);
+      copyMessage = `${component.label ?? component.name}: ${result.copiedFiles} ficheiro(s) e ${result.exportedComponents} componente(s) disponíveis em ${result.project.name}/negodesign.`;
+    } catch (error) {
+      copyMessage = error instanceof Error ? error.message : String(error);
+    } finally {
+      copyingId = null;
+    }
+  }
 </script>
 
 <main class="space-y-5">
@@ -38,6 +56,37 @@
     </span>
   </header>
 
+  <section
+    class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-blender-border bg-blender-card px-4 py-3"
+  >
+    <div class="min-w-0">
+      <p
+        class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500"
+      >
+        Linguagem do projecto activo
+      </p>
+      {#if $activeProject}
+        <p class="mt-1 truncate text-sm font-semibold text-zinc-100">
+          {$activeProject.language}
+          <span class="font-normal text-zinc-400">· {$activeProject.name}</span>
+        </p>
+      {:else}
+        <p class="mt-1 text-sm text-zinc-400">
+          Escolha um projecto no Inspector para activar a cópia de componentes.
+        </p>
+      {/if}
+    </div>
+    {#if $activeProject}
+      <span
+        class="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400"
+        >{$activeProject.language}</span
+      >
+    {/if}
+  </section>
+  {#if copyMessage}
+    <p class="text-xs text-zinc-400" role="status">{copyMessage}</p>
+  {/if}
+
   {#each ["Input", "Typography"] as category}
     {@const categoryComponents = components.filter(
       (component) => component.category === category,
@@ -58,7 +107,7 @@
                 <div class="w-full max-w-xs">
                   <Input type="text" placeholder="Introduza um valor" />
                 </div>
-              {:else if component.id === "text"}
+              {:else if component.id === "input-text"}
                 <div class="w-full max-w-xs">
                   <InputText
                     inputProps={{
@@ -68,7 +117,7 @@
                     }}
                   />
                 </div>
-              {:else if component.id === "email"}
+              {:else if component.id === "input-email"}
                 <div class="w-full max-w-xs">
                   <InputEmail
                     inputProps={{
@@ -78,7 +127,7 @@
                     }}
                   />
                 </div>
-              {:else if component.id === "phone"}
+              {:else if component.id === "input-phone"}
                 <div class="w-full max-w-xs">
                   <InputPhone
                     inputProps={{
@@ -88,7 +137,7 @@
                     }}
                   />
                 </div>
-              {:else if component.id === "phone-flag"}
+              {:else if component.id === "input-phone-flag"}
                 <div class="w-full max-w-xs">
                   <InputPhoneFlag
                     flag={[FlagNamed.Ao, FlagNamed.Ng]}
@@ -99,7 +148,7 @@
                     }}
                   />
                 </div>
-              {:else if component.id === "password"}
+              {:else if component.id === "input-password"}
                 <div class="w-full max-w-xs">
                   <InputPassword
                     inputProps={{
@@ -108,21 +157,21 @@
                     }}
                   />
                 </div>
-              {:else if component.id === "date"}
+              {:else if component.id === "input-date"}
                 <div class="w-full max-w-xs">
                   <InputDate inputProps={{ id: "gallery-date" }} />
                 </div>
-              {:else if component.id === "time"}
+              {:else if component.id === "input-time"}
                 <div class="w-full max-w-xs">
                   <InputTime inputProps={{ id: "gallery-time" }} />
                 </div>
-              {:else if component.id === "number"}
+              {:else if component.id === "input-number"}
                 <div class="w-full max-w-xs">
                   <InputNumber
                     inputProps={{ id: "gallery-number", placeholder: "0" }}
                   />
                 </div>
-              {:else if component.id === "age"}
+              {:else if component.id === "input-age"}
                 <div class="w-full max-w-xs">
                   <InputAge
                     labelProps={{ label: "Idade", for: "gallery-age" }}
@@ -173,6 +222,30 @@
               <p class="text-xs leading-5 text-zinc-400">
                 {component.description}
               </p>
+              {#if component.href || component.sourceDirectory}
+                <div class="flex flex-wrap gap-2 pt-2">
+                  {#if component.href}
+                    <a
+                      href={component.href}
+                      class="rounded border border-blender-border px-2.5 py-1.5 text-[11px] font-medium text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
+                      >Ver terminal</a
+                    >
+                  {/if}
+                  {#if component.sourceDirectory}
+                    <button
+                      type="button"
+                      class="rounded bg-blue-600 px-2.5 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
+                      onclick={() => copyComponent(component)}
+                      disabled={!$activeProject ||
+                        $activeProject.language === "Unknown" ||
+                        copyingId === component.id}
+                      >{copyingId === component.id
+                        ? "A copiar…"
+                        : "Copiar para projecto"}</button
+                    >
+                  {/if}
+                </div>
+              {/if}
             </div>
           </article>
         {/each}

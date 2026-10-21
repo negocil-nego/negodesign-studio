@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "popover",
+      "name": "Popover",
+      "entry": { "Svelte": "ui/Popover.svelte" },
+      "files": { "Svelte": [] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "id", "type": "string", "required": true, "description": "ID do elemento popover." },
+        { "name": "trigger", "type": "Snippet", "required": true, "description": "Conteúdo que abre o popover." },
+        { "name": "panel", "type": "Snippet", "required": true, "description": "Conteúdo apresentado no popover." },
+        { "name": "role", "type": "string", "required": false },
+        { "name": "ariaLabel", "type": "string", "required": false }
+      ]
+    }
+  ]
+}
