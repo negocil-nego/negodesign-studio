@@ -6,7 +6,7 @@
       "name": "Select",
       "entry": { "Svelte": "ui/Select.svelte", "React": "ui/Select.tsx", "Vue": "ui/Select.vue", "Flutter": "ui/Select.dart" },
       "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
-      "dependencies": [],
+      "dependencies": { "Svelte": ["icon"], "React": ["icon"], "Vue": ["icon"], "Flutter": [] },
       "assets": [],
       "props": [
         { "name": "id", "type": "string", "required": true, "description": "Identificador único do elemento select." },

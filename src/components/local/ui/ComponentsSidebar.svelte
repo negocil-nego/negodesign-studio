@@ -38,8 +38,10 @@
 
   function filtered(items: ComponentNavigationGroup["items"]) {
     if (!search.trim()) return items;
-    return items.filter((item) =>
-      displayName(item).toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()),
+    return items.filter(
+      (item) =>
+        displayName(item).toLowerCase().includes(search.toLowerCase()) ||
+        item.name.toLowerCase().includes(search.toLowerCase()),
     );
   }
 </script>
@@ -62,7 +64,10 @@
           : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
       >
       <button class="blender-icon-btn h-7 w-7" title="Settings">
-        <i class={`${getIconClass(IconNamed.Settings01)} text-base opacity-75`} aria-hidden="true"></i>
+        <i
+          class={`${getIconClass(IconNamed.HelpSquare)} text-base opacity-75`}
+          aria-hidden="true"
+        ></i>
       </button>
     </div>
   </div>
@@ -105,7 +110,10 @@
                       class="blender-item w-full text-left gap-2 px-3 py-2"
                       title={displayName(item)}
                     >
-                      <i class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`} aria-hidden="true"></i>
+                      <i
+                        class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`}
+                        aria-hidden="true"
+                      ></i>
                       <span class="text-sm truncate">{displayName(item)}</span>
                     </a>
                   {:else}
@@ -114,7 +122,10 @@
                       draggable="true"
                       title={displayName(item)}
                     >
-                      <i class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`} aria-hidden="true"></i>
+                      <i
+                        class={`${getIconClass(item.icon)} h-5 w-5 text-base opacity-75 shrink-0`}
+                        aria-hidden="true"
+                      ></i>
                       <span class="text-sm truncate">{displayName(item)}</span>
                     </button>
                   {/if}

@@ -12,7 +12,7 @@
   let { id, trigger, panel, role = "dialog", ariaLabel }: Props = $props();
 </script>
 
-<div class="popover">
+<div class="popover w-full">
   {@render trigger()}
   <div {id} popover="auto" {role} aria-label={ariaLabel}>
     {@render panel()}
