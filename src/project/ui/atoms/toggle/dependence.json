@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "toggle",
+      "name": "Toggle",
+      "entry": { "Svelte": "ui/Toggle.svelte", "React": "ui/Toggle.tsx", "Vue": "ui/Toggle.vue", "Flutter": "ui/Toggle.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "id", "type": "string", "required": true, "description": "Identificador único do toggle." },
+        { "name": "checked", "type": "boolean", "required": false, "description": "Estado inicial do toggle." },
+        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva o controlo." },
+        { "name": "label", "type": "string", "required": false, "description": "Texto descritivo associado ao toggle." }
+      ]
+    }
+  ]
+}

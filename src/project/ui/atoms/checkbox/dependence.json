@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "entry": { "Svelte": "ui/Checkbox.svelte", "React": "ui/Checkbox.tsx", "Vue": "ui/Checkbox.vue", "Flutter": "ui/Checkbox.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "id", "type": "string", "required": true, "description": "Identificador único do checkbox." },
+        { "name": "checked", "type": "boolean", "required": false, "description": "Estado inicial do checkbox." },
+        { "name": "label", "type": "string", "required": false, "description": "Texto descritivo associado ao checkbox." },
+        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva o controlo." },
+        { "name": "required", "type": "boolean", "required": false, "description": "Torna o campo obrigatório." }
+      ]
+    }
+  ]
+}

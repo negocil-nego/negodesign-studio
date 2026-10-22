@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "select",
+      "name": "Select",
+      "entry": { "Svelte": "ui/Select.svelte", "React": "ui/Select.tsx", "Vue": "ui/Select.vue", "Flutter": "ui/Select.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "id", "type": "string", "required": true, "description": "Identificador único do elemento select." },
+        { "name": "options", "type": "SelectOption[]", "required": true, "description": "Lista de opções a apresentar." },
+        { "name": "value", "type": "string", "required": false, "description": "Valor seleccionado." },
+        { "name": "placeholder", "type": "string", "required": false, "description": "Texto de substituição quando nenhuma opção está seleccionada." },
+        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva o controlo." },
+        { "name": "required", "type": "boolean", "required": false, "description": "Torna o campo obrigatório." }
+      ]
+    }
+  ]
+}

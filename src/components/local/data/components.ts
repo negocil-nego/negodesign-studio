@@ -4,7 +4,7 @@ export type ComponentDefinition = {
   id: string;
   name: string;
   label?: string;
-  category: "Input" | "Typography";
+  category: "Input" | "Typography" | "Control";
   href?: string;
   sourceDirectory?: string;
   dependence?: string;
@@ -15,11 +15,14 @@ export type ComponentDefinition = {
 
 export type ComponentNavigationGroup = {
   label: string;
-  items: ComponentDefinition[];
   open?: boolean;
+  items: ComponentDefinition[];
 };
 
+// ─── Catalog ────────────────────────────────────────────────────────────────
+
 export const componentCatalog: ComponentDefinition[] = [
+  // ── Atoms · Input ─────────────────────────────────────────────────────────
   {
     id: "input",
     name: "Input",
@@ -152,6 +155,68 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Atom · Input",
     description: "Campo numérico para idade.",
   },
+  // ── Atoms · Control ───────────────────────────────────────────────────────
+  {
+    id: "select",
+    name: "Select",
+    label: "Select",
+    category: "Control",
+    href: "/main/project/controls#select",
+    sourceDirectory: "project/ui/atoms/select",
+    dependence: "src/project/ui/atoms/select/dependence.json",
+    icon: IconNamed.CheckmarkSquare01,
+    group: "Atom · Control",
+    description: "Lista de opções suspensa.",
+  },
+  {
+    id: "textarea",
+    name: "Textarea",
+    label: "Textarea",
+    category: "Control",
+    href: "/main/project/controls#textarea",
+    sourceDirectory: "project/ui/atoms/textarea",
+    dependence: "src/project/ui/atoms/textarea/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Atom · Control",
+    description: "Área de texto multi-linha.",
+  },
+  {
+    id: "toggle",
+    name: "Toggle",
+    label: "Toggle",
+    category: "Control",
+    href: "/main/project/controls#toggle",
+    sourceDirectory: "project/ui/atoms/toggle",
+    dependence: "src/project/ui/atoms/toggle/dependence.json",
+    icon: IconNamed.Settings01,
+    group: "Atom · Control",
+    description: "Interruptor de alternância.",
+  },
+  {
+    id: "radio",
+    name: "Radio",
+    label: "Radio",
+    category: "Control",
+    href: "/main/project/controls#radio",
+    sourceDirectory: "project/ui/atoms/radio",
+    dependence: "src/project/ui/atoms/radio/dependence.json",
+    icon: IconNamed.HelpSquare,
+    group: "Atom · Control",
+    description: "Grupo de selecção exclusiva.",
+  },
+  {
+    id: "checkbox",
+    name: "Checkbox",
+    label: "Checkbox",
+    category: "Control",
+    href: "/main/project/controls#checkbox",
+    sourceDirectory: "project/ui/atoms/checkbox",
+    dependence: "src/project/ui/atoms/checkbox/dependence.json",
+    icon: IconNamed.CheckmarkSquare01,
+    group: "Atom · Control",
+    description: "Caixa de verificação.",
+  },
+  // ── Atoms · Typography ────────────────────────────────────────────────────
   {
     id: "label",
     name: "Label",
@@ -164,6 +229,7 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Atom",
     description: "Rótulo associado a um controlo.",
   },
+  // ── Molecules ─────────────────────────────────────────────────────────────
   {
     id: "country-popover",
     name: "CountryPhonePopover",
@@ -178,36 +244,57 @@ export const componentCatalog: ComponentDefinition[] = [
   },
 ];
 
-const inputComponents = componentCatalog.filter((component) => component.category === "Input");
-const typographyComponents = componentCatalog.filter((component) => component.category === "Typography");
+// ─── Navigation groups (Atomic Design) ──────────────────────────────────────
+
+const byCategory = (cat: ComponentDefinition["category"]) =>
+  componentCatalog.filter((c) => c.category === cat);
+
+const byGroup = (group: string) =>
+  componentCatalog.filter((c) => c.group === group);
 
 export const componentNavigationGroups: ComponentNavigationGroup[] = [
+  // ── Atoms ─────────────────────────────────────────────────────────────────
   {
-    label: "Input",
+    label: "Atoms · Input",
     open: true,
-    items: inputComponents,
+    items: componentCatalog.filter((c) => c.group === "Atom · Input" || (c.group === "Atom" && c.category === "Input")),
   },
   {
-    label: "Controls",
+    label: "Atoms · Control",
     open: false,
-    items: [
-      { id: "textarea", name: "Textarea", category: "Input", icon: IconNamed.Layout04, group: "Control", description: "Área de texto." },
-      { id: "select", name: "Select", category: "Input", icon: IconNamed.CheckmarkSquare01, group: "Control", description: "Lista de opções." },
-      { id: "toggle", name: "Toggle", category: "Input", icon: IconNamed.Settings01, group: "Control", description: "Controlo de alternância." },
-      { id: "slider", name: "Slider", category: "Input", icon: IconNamed.Languages, group: "Control", description: "Controlo deslizante." },
-      { id: "rating", name: "Rating", category: "Input", icon: IconNamed.HelpSquare, group: "Control", description: "Classificação." },
-    ],
+    items: componentCatalog.filter((c) => c.group === "Atom · Control"),
   },
   {
-    label: "Typography",
+    label: "Atoms · Typography",
+    open: false,
+    items: componentCatalog.filter((c) => c.category === "Typography" && c.group === "Atom"),
+  },
+  // ── Molecules ─────────────────────────────────────────────────────────────
+  {
+    label: "Molecules",
+    open: false,
+    items: componentCatalog.filter((c) => c.group === "Molecule"),
+  },
+  // ── Organisms (placeholder) ───────────────────────────────────────────────
+  {
+    label: "Organisms",
     open: false,
     items: [
-      ...typographyComponents,
-      { id: "heading", name: "Heading", category: "Typography", icon: IconNamed.DocumentValidation, group: "Atom", description: "Título." },
-      { id: "text-typography", name: "Text", category: "Typography", icon: IconNamed.Layout04, group: "Atom", description: "Texto." },
-      { id: "badge", name: "Badge", category: "Typography", icon: IconNamed.HelpSquare, group: "Atom", description: "Etiqueta compacta." },
+      { id: "form", name: "Form", category: "Input", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
+      { id: "card", name: "Card", category: "Input", icon: IconNamed.DocumentValidation, group: "Organism", description: "Cartão de conteúdo reutilizável." },
+      { id: "modal", name: "Modal", category: "Input", icon: IconNamed.HelpSquare, group: "Organism", description: "Caixa de diálogo sobreposta ao conteúdo." },
     ],
   },
+  // ── Templates (placeholder) ───────────────────────────────────────────────
+  {
+    label: "Templates",
+    open: false,
+    items: [
+      { id: "auth-page", name: "Auth Page", category: "Input", icon: IconNamed.Security, group: "Template", description: "Página de autenticação." },
+      { id: "dashboard", name: "Dashboard", category: "Input", icon: IconNamed.Layout04, group: "Template", description: "Painel de controlo." },
+    ],
+  },
+  // ── Media ─────────────────────────────────────────────────────────────────
   {
     label: "Media",
     open: false,
@@ -218,6 +305,7 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
       { id: "video", name: "Video", category: "Input", icon: IconNamed.DocumentValidation, group: "Media", description: "Vídeo." },
     ],
   },
+  // ── Navigation ────────────────────────────────────────────────────────────
   {
     label: "Navigation",
     open: false,

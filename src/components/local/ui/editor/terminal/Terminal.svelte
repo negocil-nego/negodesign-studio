@@ -67,6 +67,31 @@
       description: "Campo numérico especializado em idade, com rótulo e limites definidos pelo consumidor.",
       componentId: "input-age",
     },
+    "select": {
+      name: "Select",
+      description: "Lista de opções nativa do browser, com suporte a placeholder e opções desactivadas.",
+      componentId: "select",
+    },
+    "textarea": {
+      name: "Textarea",
+      description: "Área de texto multi-linha para conteúdo extenso, com altura configurável.",
+      componentId: "textarea",
+    },
+    "toggle": {
+      name: "Toggle",
+      description: "Interruptor de alternância acessível com rótulo opcional e estados activado/desactivado.",
+      componentId: "toggle",
+    },
+    "radio": {
+      name: "Radio",
+      description: "Grupo de botões de selecção exclusiva, com suporte a opções desactivadas individualmente.",
+      componentId: "radio",
+    },
+    "checkbox": {
+      name: "Checkbox",
+      description: "Caixa de verificação individual com rótulo e estado controlável.",
+      componentId: "checkbox",
+    },
   };
 
   const info = componentInfo[id];

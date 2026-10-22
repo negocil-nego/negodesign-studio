@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "radio",
+      "name": "Radio",
+      "entry": { "Svelte": "ui/Radio.svelte", "React": "ui/Radio.tsx", "Vue": "ui/Radio.vue", "Flutter": "ui/Radio.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "name", "type": "string", "required": true, "description": "Nome do grupo de radio buttons." },
+        { "name": "options", "type": "RadioOption[]", "required": true, "description": "Lista de opções seleccionáveis." },
+        { "name": "value", "type": "string", "required": false, "description": "Valor seleccionado inicialmente." },
+        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva todos os controlos do grupo." }
+      ]
+    }
+  ]
+}

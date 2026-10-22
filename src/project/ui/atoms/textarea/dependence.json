@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "textarea",
+      "name": "Textarea",
+      "entry": { "Svelte": "ui/Textarea.svelte", "React": "ui/Textarea.tsx", "Vue": "ui/Textarea.vue", "Flutter": "ui/Textarea.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        { "name": "id", "type": "string", "required": true, "description": "Identificador único do elemento textarea." },
+        { "name": "value", "type": "string", "required": false, "description": "Conteúdo inicial da área de texto." },
+        { "name": "placeholder", "type": "string", "required": false, "description": "Texto de substituição quando vazio." },
+        { "name": "rows", "type": "number", "required": false, "description": "Número de linhas visíveis. Por omissão: 4." },
+        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva o controlo." },
+        { "name": "required", "type": "boolean", "required": false, "description": "Torna o campo obrigatório." }
+      ]
+    }
+  ]
+}
