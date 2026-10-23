@@ -2,7 +2,7 @@
     import Button from "../../../../../atoms/button/variant/default/ui/Button.svelte";
   import type { CardButtonProps } from "../data/types";
 
-  let { ...restProps }: CardButtonProps = $props();
+  let { variant="solid", ...restProps }: CardButtonProps = $props();
 </script>
 
-<Button {...restProps} />
+<Button {variant} {...restProps} />

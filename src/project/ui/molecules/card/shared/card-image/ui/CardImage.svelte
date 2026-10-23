@@ -1,13 +1,17 @@
 <script lang="ts">
+    import { StyleComponent } from "../../../../../../data/style.component";
     import type { CardImageProps } from "../data/types";
 
-    let { src, alt }: CardImageProps = $props();
+    let { src, alt, srcset, sizes, loading = "lazy", fetchpriority }: CardImageProps = $props();
 </script>
 
 <img
     {src}
-    loading="lazy"
-    decoding="async"
+    {srcset}
+    {sizes}
     {alt}
-    class="h-full w-full rounded-md object-cover transition-opacity duration-500"
+    {fetchpriority}
+    {loading}
+    decoding="async"
+    class={`${StyleComponent.cardMedia.default} transition-opacity duration-500`}
 />

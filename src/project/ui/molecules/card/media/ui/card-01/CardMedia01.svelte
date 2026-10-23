@@ -63,7 +63,7 @@
                 <CardDescription {...descriptionProps} />
             {/if}
         </div>
-        <div class="h-full">
+        <div class="h-full border border-gray-50 rounded-md">
             {#if thumbnailVideoProps}
                 <CardThumbnailVideo {...thumbnailVideoProps} />
             {:else if videoProps}
@@ -75,6 +75,8 @@
     </div>
 
     {#if buttonProps}
-        <CardButton {...buttonProps} />
+        <div class="my-2">
+            <CardButton {...buttonProps} />
+        </div>
     {/if}
 </aside>

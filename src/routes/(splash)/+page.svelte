@@ -27,7 +27,8 @@
   thumbnailVideoProps={{
     imageUrl:
       "https://images.unsplash.com/photo-1777896193454-8b4863264f0b?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
-    videoUrl: "https://www.youtube.com/watch?v=-_mBODVnyhU",
+    //videoUrl: "https://www.pexels.com/download/video/34476228/",
+    videoUrl: "https://cdn.pixabay.com/video/2026/10/19/383541_large.mp4",
   }}
   buttonProps={{
     text: "Get Started",
