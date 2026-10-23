@@ -33,6 +33,9 @@ export const IconNamed = {
   Age: icon("age", "user-02"),
   Text: icon("text", "text-font"),
   Label: icon("label", "tag-01"),
+  Cart: icon("cart", "shopping-cart-add-01"),
+  Favorite: icon("favourite", "favourite"),
+  Star: icon("star", "star"),
 } as const satisfies Record<string, IconDefinition>;
 
 export type IconNamed = (typeof IconNamed)[keyof typeof IconNamed];
@@ -47,6 +50,9 @@ const hugeiconsNames: Record<string, string> = {
   age: "user-02",
   text: "text-font",
   label: "tag-01",
+  cart: "shopping-cart-add-01",
+  favourite: "favourite",
+  star: "star-stroke",
 };
 
 /** Accepts either a registry entry or a Hugeicons name. */
