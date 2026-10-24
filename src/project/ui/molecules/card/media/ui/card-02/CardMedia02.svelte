@@ -6,6 +6,7 @@
     import CardFavoriteButton from "../../../shared/card-favorite-button/ui/CardFavoriteButton.svelte";
     import CardImage from "../../../shared/card-image/ui/CardImage.svelte";
     import CardLogo from "../../../shared/card-logo/ui/CardLogo.svelte";
+    import CardPrice from "../../../shared/card-price/ui/CardPrice.svelte";
     import CardRating from "../../../shared/card-rating/ui/CardRating.svelte";
     import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo.svelte";
     import CardTitle from "../../../shared/card-title/ui/CardTitle.svelte";
@@ -27,53 +28,60 @@
     }: CardMediaBaseProps = $props();
 </script>
 
-<aside>
+<aside class={StyleComponent.card.media.v02.root}>
     <div class={StyleComponent.card.media.v02.header}>
-        <div>
+        <div class={StyleComponent.card.media.v02.headerGroup}>
             {#if logoProps}
                 <CardLogo {...logoProps} />
             {/if}
-            {#if titleProps || ratingProps}
+            {#if titleProps || ratingProps || priceProps}
                 <div class={StyleComponent.card.media.v02.titleGroup}>
                     {#if titleProps}
                         <CardTitle {...titleProps} />
                     {/if}
                     {#if ratingProps}
                         <CardRating {...ratingProps} />
+                    {:else}
+                        <CardRating rating={0} />
+                    {/if}
+                    {#if priceProps}
+                        <CardPrice {...priceProps} />
                     {/if}
                 </div>
             {/if}
         </div>
-        <div class={StyleComponent.card.media.v02.actions}>
-            {#if cartButtonProps}
-                <CardCartButton {...cartButtonProps} />
-            {/if}
-            {#if favoriteButtonProps}
-                <CardFavoriteButton {...favoriteButtonProps} />
-            {/if}
-        </div>
+        {#if cartButtonProps || favoriteButtonProps}
+            <div class={StyleComponent.card.media.v02.actions}>
+                {#if cartButtonProps}
+                    <CardCartButton {...cartButtonProps} />
+                {/if}
+                {#if favoriteButtonProps}
+                    <CardFavoriteButton {...favoriteButtonProps} />
+                {/if}
+            </div>
+        {/if}
     </div>
 
-    <div>
-        <div>
-        {#if descriptionProps}
-            <CardDescription {...descriptionProps} />
-        {/if}
-        </div>
-        <div>
+    <div class={StyleComponent.card.media.v02.body}>
+        <div class={`${StyleComponent.card.media.frame} ${StyleComponent.card.media.fill}`}>
             {#if thumbnailVideoProps}
-                <CardThumbnailVideo {...thumbnailVideoProps} />
+                <CardThumbnailVideo {...thumbnailVideoProps} visibleButtonPlay/>
             {:else if videoProps}
                 <CardVideo {...videoProps} />
             {:else if imageProps}
                 <CardImage {...imageProps} />
             {/if}
         </div>
+        <div class={StyleComponent.card.media.v02.description}>
+            {#if descriptionProps}
+                <CardDescription {...descriptionProps} />
+            {/if}
+        </div>
     </div>
 
-    <div>
-        {#if buttonProps}
+    {#if buttonProps}
+        <div class={StyleComponent.card.media.v02.footer}>
             <CardButton {...buttonProps} />
-        {/if}
-    </div>
+        </div>
+    {/if}
 </aside>

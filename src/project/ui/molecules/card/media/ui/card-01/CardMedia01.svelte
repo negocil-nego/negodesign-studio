@@ -6,6 +6,7 @@
     import CardFavoriteButton from "../../../shared/card-favorite-button/ui/CardFavoriteButton.svelte";
     import CardImage from "../../../shared/card-image/ui/CardImage.svelte";
     import CardLogo from "../../../shared/card-logo/ui/CardLogo.svelte";
+    import CardPrice from "../../../shared/card-price/ui/CardPrice.svelte";
     import CardRating from "../../../shared/card-rating/ui/CardRating.svelte";
     import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo.svelte";
     import CardTitle from "../../../shared/card-title/ui/CardTitle.svelte";
@@ -33,7 +34,7 @@
             {#if logoProps}
                 <CardLogo {...logoProps} />
             {/if}
-            {#if titleProps || ratingProps}
+            {#if titleProps || ratingProps || priceProps}
                 <div class="flex flex-col gap-2">
                     {#if titleProps}
                         <CardTitle {...titleProps} />
@@ -42,6 +43,9 @@
                         <CardRating {...ratingProps} />
                     {:else}
                         <CardRating rating={0} />
+                    {/if}
+                    {#if priceProps}
+                        <CardPrice {...priceProps} />
                     {/if}
                 </div>
             {/if}

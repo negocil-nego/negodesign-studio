@@ -5,8 +5,8 @@
   import CardProfile from "../../project/ui/molecules/card/profile/ui/CardProfile.svelte";
 </script>
 
-<CardProfile
-  variant="02"
+<CardMedia
+  variant="01"
   logoProps={{
     src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
   }}

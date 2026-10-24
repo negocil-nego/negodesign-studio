@@ -166,9 +166,14 @@ export const StyleComponent = {
                 footer: "my-2",
             },
             v02: {
-                header: "flex justify-between",
-                titleGroup: "flex flex-col gap-2",
-                actions: "flex flex-col gap-2",
+                root: "w-87.5 flex flex-col gap-4 p-6 rounded-2xl bg-white dark:bg-blender-card border border-blender-border shadow-sm transition-colors",
+                header: "flex items-start justify-between gap-3",
+                headerGroup: "flex items-center gap-3",
+                titleGroup: "flex flex-col gap-1",
+                actions: "flex flex-row gap-2 shrink-0",
+                body: "flex flex-col gap-3",
+                description: "my-1",
+                footer: "mt-1",
             },
         },
         profile: {
