@@ -1,0 +1,102 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-product",
+            "name": "CardProduct",
+            "entry": {
+                "Svelte": "ui/CardProduct.svelte",
+                "React": "ui/CardProduct.tsx",
+                "Vue": "ui/CardProduct.vue",
+                "Flutter": "ui/CardProduct.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "ui/card-01/CardProduct01.svelte",
+                    "ui/card-02/CardProduct02.svelte",
+                    "data/types.ts"
+                ],
+                "React": [
+                    "ui/card-01/CardProduct01.tsx",
+                    "ui/card-02/CardProduct02.tsx",
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "ui/card-01/CardProduct01.vue",
+                    "ui/card-02/CardProduct02.vue",
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "ui/card-01/CardProduct01.dart",
+                    "ui/card-02/CardProduct02.dart",
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-min-file",
+                    "card-price",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video"
+                ],
+                "React": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-min-file",
+                    "card-price",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video"
+                ],
+                "Vue": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-min-file",
+                    "card-price",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video"
+                ],
+                "Flutter": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-min-file",
+                    "card-price",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

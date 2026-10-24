@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-cart-button",
+            "name": "CardCartButton",
+            "entry": {
+                "Svelte": "ui/CardCartButton.svelte",
+                "React": "ui/CardCartButton.tsx",
+                "Vue": "ui/CardCartButton.vue",
+                "Flutter": "ui/CardCartButton.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "button-icon"
+                ],
+                "React": [
+                    "button-icon"
+                ],
+                "Vue": [
+                    "button-icon"
+                ],
+                "Flutter": [
+                    "button-icon"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

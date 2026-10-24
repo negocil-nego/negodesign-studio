@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-phone",
+            "name": "CardPhone",
+            "entry": {
+                "Svelte": "ui/CardPhone.svelte",
+                "React": "ui/CardPhone.tsx",
+                "Vue": "ui/CardPhone.vue",
+                "Flutter": "ui/CardPhone.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

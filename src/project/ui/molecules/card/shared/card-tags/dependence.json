@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-tags",
+            "name": "CardTags",
+            "entry": {
+                "Svelte": "ui/CardTags.svelte",
+                "React": "ui/CardTags.tsx",
+                "Vue": "ui/CardTags.vue",
+                "Flutter": "ui/CardTags.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "icon"
+                ],
+                "React": [
+                    "icon"
+                ],
+                "Vue": [
+                    "icon"
+                ],
+                "Flutter": [
+                    "icon"
+                ]
+            },
+            "assets": {
+                "Svelte": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "React": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Vue": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

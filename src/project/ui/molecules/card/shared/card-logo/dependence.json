@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-logo",
+            "name": "CardLogo",
+            "entry": {
+                "Svelte": "ui/CardLogo.svelte",
+                "React": "ui/CardLogo.tsx",
+                "Vue": "ui/CardLogo.vue",
+                "Flutter": "ui/CardLogo.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "avatar"
+                ],
+                "React": [
+                    "avatar"
+                ],
+                "Vue": [
+                    "avatar"
+                ],
+                "Flutter": [
+                    "avatar"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

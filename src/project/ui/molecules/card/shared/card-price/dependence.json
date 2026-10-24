@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-price",
+            "name": "CardPrice",
+            "entry": {
+                "Svelte": "ui/CardPrice.svelte",
+                "React": "ui/CardPrice.tsx",
+                "Vue": "ui/CardPrice.vue",
+                "Flutter": "ui/CardPrice.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

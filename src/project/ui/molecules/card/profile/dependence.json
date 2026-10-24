@@ -5,34 +5,100 @@
             "id": "card-profile",
             "name": "CardProfile",
             "entry": {
-                "Svelte": "ui/CardProfile.svelte"
+                "Svelte": "ui/CardProfile.svelte",
+                "React": "ui/CardProfile.tsx",
+                "Vue": "ui/CardProfile.vue",
+                "Flutter": "ui/CardProfile.dart"
             },
             "files": {
                 "Svelte": [
                     "ui/card-01/CardProfile01.svelte",
                     "ui/card-02/CardProfile02.svelte",
                     "data/types.ts"
+                ],
+                "React": [
+                    "ui/card-01/CardProfile01.tsx",
+                    "ui/card-02/CardProfile02.tsx",
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "ui/card-01/CardProfile01.vue",
+                    "ui/card-02/CardProfile02.vue",
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "ui/card-01/CardProfile01.dart",
+                    "ui/card-02/CardProfile02.dart",
+                    "data/types.dart"
                 ]
             },
             "dependencies": {
                 "Svelte": [
-                    "molecules/card/shared/card-button",
-                    "molecules/card/shared/card-cart-button",
-                    "molecules/card/shared/card-description",
-                    "molecules/card/shared/card-favorite-button",
-                    "molecules/card/shared/card-image",
-                    "molecules/card/shared/card-logo",
-                    "molecules/card/shared/card-rating",
-                    "molecules/card/shared/card-thumbnail-video",
-                    "molecules/card/shared/card-title",
-                    "molecules/card/shared/card-video",
-                    "molecules/card/shared/card-tags",
-                    "molecules/card/shared/card-actions-button",
-                    "atoms/icon"
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video",
+                    "card-tags",
+                    "card-actions-button",
+                    "icon"
+                ],
+                "React": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video",
+                    "card-tags",
+                    "card-actions-button",
+                    "icon"
+                ],
+                "Vue": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video",
+                    "card-tags",
+                    "card-actions-button",
+                    "icon"
+                ],
+                "Flutter": [
+                    "card-button",
+                    "card-cart-button",
+                    "card-description",
+                    "card-favorite-button",
+                    "card-image",
+                    "card-logo",
+                    "card-rating",
+                    "card-thumbnail-video",
+                    "card-title",
+                    "card-video",
+                    "card-tags",
+                    "card-actions-button",
+                    "icon"
                 ]
             },
             "assets": {
-                "Svelte": []
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
             },
             "props": []
         }

@@ -206,6 +206,36 @@ export const StyleComponent = {
         cardActionsButton: {
             root: "flex gap-3 w-full",
             button: "flex-1 justify-center py-2.5 rounded-2xl border-gray-200 text-gray-900 font-semibold flex items-center gap-2",
+        },
+        cardMinFile: {
+            root: "relative shrink-0 size-14 overflow-hidden rounded-md border border-blender-border cursor-pointer transition-colors [&>img]:h-full [&>img]:w-full [&>img]:rounded-none [&>img]:object-cover [&>img]:transition-none",
+            active: "border-blue-500 ring-1 ring-blue-500",
+        },
+        product: {
+            frame: "overflow-hidden rounded-md border border-gray-100",
+            fill: "h-full w-full",
+            v01: {
+                root: "w-72 rounded-2xl bg-white dark:bg-blender-card border border-blender-border overflow-hidden transition-colors",
+                media: "relative h-56 w-full",
+                actions: "absolute top-2 inset-x-0 flex justify-between gap-2 z-10 p-2",
+                priceBadge: "absolute bottom-2 left-2 z-10 rounded-full bg-white/90 px-3 py-1 backdrop-blur",
+                body: "flex flex-col gap-3 p-5",
+                header: "flex items-center gap-3",
+                titleGroup: "flex flex-col gap-1 min-w-0",
+                thumbs: "flex gap-2 overflow-x-auto",
+                footer: "mt-1",
+            },
+            v02: {
+                root: "w-100 flex gap-4 p-5 rounded-2xl bg-white dark:bg-blender-card border border-blender-border shadow-sm transition-colors",
+                gallery: "flex flex-col gap-2 w-44 shrink-0",
+                media: "relative h-40 w-full",
+                actions: "absolute top-2 inset-x-0 flex justify-between gap-2 z-10 p-2",
+                thumbs: "flex gap-2 overflow-x-auto",
+                body: "flex flex-col gap-3 flex-1 min-w-0",
+                header: "flex items-center gap-3",
+                titleGroup: "flex flex-col gap-1 min-w-0",
+                footer: "mt-auto",
+            },
         }
     }
 }

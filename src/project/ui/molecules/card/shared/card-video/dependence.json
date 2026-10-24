@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-video",
+            "name": "CardVideo",
+            "entry": {
+                "Svelte": "ui/CardVideo.svelte",
+                "React": "ui/CardVideo.tsx",
+                "Vue": "ui/CardVideo.vue",
+                "Flutter": "ui/CardVideo.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

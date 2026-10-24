@@ -1,0 +1,26 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "skeleton",
+            "name": "Skeleton",
+            "entry": {
+                "Svelte": "ui/Skeleton.svelte",
+                "React": "ui/Skeleton.tsx",
+                "Vue": "ui/Skeleton.vue",
+                "Flutter": "ui/Skeleton.dart"
+            },
+            "files": {
+                "Svelte": ["data/types.ts"],
+                "React": ["data/types.ts"],
+                "Vue": ["data/types.ts"],
+                "Flutter": ["data/types.dart"]
+            },
+            "dependencies": [],
+            "assets": [],
+            "props": [
+                { "name": "className", "type": "string", "required": false, "description": "Classes adicionais aplicadas ao bloco." }
+            ]
+        }
+    ]
+}

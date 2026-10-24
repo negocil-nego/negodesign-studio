@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-title",
+            "name": "CardTitle",
+            "entry": {
+                "Svelte": "ui/CardTitle.svelte",
+                "React": "ui/CardTitle.tsx",
+                "Vue": "ui/CardTitle.vue",
+                "Flutter": "ui/CardTitle.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

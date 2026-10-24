@@ -1,0 +1,3 @@
+class CardProps {
+  const CardProps();
+}

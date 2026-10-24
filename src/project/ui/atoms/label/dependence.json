@@ -5,10 +5,10 @@
       "id": "label",
       "name": "Label",
       "entry": {
-        "Svelte": "ui/Label.svelte",
-        "React": "ui/Label.tsx",
-        "Vue": "ui/Label.vue",
-        "Flutter": "ui/Label.dart"
+        "Svelte": "ui/label.svelte",
+        "React": "ui/label.tsx",
+        "Vue": "ui/label.vue",
+        "Flutter": "ui/label.dart"
       },
       "files": {
         "Svelte": ["data/types.ts"],

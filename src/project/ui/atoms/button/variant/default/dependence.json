@@ -1,0 +1,43 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "button",
+            "name": "Button",
+            "entry": {
+                "Svelte": "ui/Button.svelte",
+                "React": "ui/Button.tsx",
+                "Vue": "ui/Button.vue",
+                "Flutter": "ui/Button.dart"
+            },
+            "files": {
+                "Svelte": ["type/types.ts"],
+                "React": ["type/types.ts"],
+                "Vue": ["type/types.ts"],
+                "Flutter": ["type/types.dart"]
+            },
+            "dependencies": {
+                "Svelte": ["button-base", "button-solid", "button-outline"],
+                "React": ["button-base", "button-solid", "button-outline"],
+                "Vue": ["button-base", "button-solid", "button-outline"],
+                "Flutter": ["button-base", "button-solid", "button-outline"]
+            },
+            "assets": {
+                "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Flutter": []
+            },
+            "props": [
+                { "name": "variant", "type": "\"solid\" | \"outline\"", "required": false, "description": "Variante visual do botão; por omissão solid." },
+                { "name": "icon", "type": "IconProps", "required": false, "description": "Ícone apresentado antes do texto." },
+                { "name": "text", "type": "string", "required": false, "description": "Texto apresentado no botão." },
+                { "name": "className", "type": "string", "required": false, "description": "Classes aplicadas ao elemento button." },
+                { "name": "isLoading", "type": "boolean", "required": false, "description": "Desactiva o botão enquanto carrega." },
+                { "name": "isSkeleton", "type": "boolean", "required": false, "description": "Indica um estado de esqueleto." },
+                { "name": "isDisabled", "type": "boolean", "required": false, "description": "Desactiva o botão." },
+                { "name": "onClick", "type": "() => void", "required": false, "description": "Callback executado ao clicar no botão." }
+            ]
+        }
+    ]
+}

@@ -4,8 +4,8 @@
     {
       "id": "popover",
       "name": "Popover",
-      "entry": { "Svelte": "ui/Popover.svelte" },
-      "files": { "Svelte": [] },
+      "entry": { "Svelte": "ui/Popover.svelte", "React": "ui/Popover.tsx", "Vue": "ui/Popover.vue", "Flutter": "ui/Popover.dart" },
+      "files": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
       "dependencies": [],
       "assets": [],
       "props": [

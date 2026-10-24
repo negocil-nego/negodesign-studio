@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-rating",
+            "name": "CardRating",
+            "entry": {
+                "Svelte": "ui/CardRating.svelte",
+                "React": "ui/CardRating.tsx",
+                "Vue": "ui/CardRating.vue",
+                "Flutter": "ui/CardRating.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "icon"
+                ],
+                "React": [
+                    "icon"
+                ],
+                "Vue": [
+                    "icon"
+                ],
+                "Flutter": [
+                    "icon"
+                ]
+            },
+            "assets": {
+                "Svelte": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "React": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Vue": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

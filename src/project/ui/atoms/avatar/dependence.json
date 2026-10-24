@@ -1,0 +1,40 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "avatar",
+            "name": "Avatar",
+            "entry": {
+                "Svelte": "ui/Avatar.svelte",
+                "React": "ui/Avatar.tsx",
+                "Vue": "ui/Avatar.vue",
+                "Flutter": "ui/Avatar.dart"
+            },
+            "files": {
+                "Svelte": ["data/types.ts"],
+                "React": ["data/types.ts"],
+                "Vue": ["data/types.ts"],
+                "Flutter": ["data/types.dart"]
+            },
+            "dependencies": {
+                "Svelte": ["skeleton"],
+                "React": ["skeleton"],
+                "Vue": ["skeleton"],
+                "Flutter": ["skeleton"]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": [
+                { "name": "src", "type": "string", "required": false, "description": "URL da imagem apresentada pelo avatar." },
+                { "name": "alt", "type": "string", "required": false, "description": "Texto alternativo da imagem." },
+                { "name": "isLoading", "type": "boolean", "required": false, "description": "Apresenta o esqueleto de carregamento." },
+                { "name": "onClick", "type": "() => void", "required": false, "description": "Callback executado ao clicar no avatar." },
+                { "name": "className", "type": "string", "required": false, "description": "Classes adicionais aplicadas à imagem." }
+            ]
+        }
+    ]
+}

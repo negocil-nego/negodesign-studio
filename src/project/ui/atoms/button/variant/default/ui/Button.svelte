@@ -4,7 +4,7 @@
     import OutlineButton from "../../outline/ui/OutlineButton.svelte";
     import type { ButtonProps } from "../type/types";
     let {
-        variant,
+        variant = "solid",
         ...restProps
     }: ButtonProps = $props();
 </script>

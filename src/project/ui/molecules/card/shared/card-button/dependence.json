@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-button",
+            "name": "CardButton",
+            "entry": {
+                "Svelte": "ui/CardButton.svelte",
+                "React": "ui/CardButton.tsx",
+                "Vue": "ui/CardButton.vue",
+                "Flutter": "ui/CardButton.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "button"
+                ],
+                "React": [
+                    "button"
+                ],
+                "Vue": [
+                    "button"
+                ],
+                "Flutter": [
+                    "button"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

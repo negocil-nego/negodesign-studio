@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-favorite-button",
+            "name": "CardFavoriteButton",
+            "entry": {
+                "Svelte": "ui/CardFavoriteButton.svelte",
+                "React": "ui/CardFavoriteButton.tsx",
+                "Vue": "ui/CardFavoriteButton.vue",
+                "Flutter": "ui/CardFavoriteButton.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "button-icon"
+                ],
+                "React": [
+                    "button-icon"
+                ],
+                "Vue": [
+                    "button-icon"
+                ],
+                "Flutter": [
+                    "button-icon"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

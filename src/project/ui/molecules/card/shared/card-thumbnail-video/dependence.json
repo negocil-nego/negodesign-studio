@@ -1,0 +1,70 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-thumbnail-video",
+            "name": "CardThumbnailVideo",
+            "entry": {
+                "Svelte": "ui/CardThumbnailVideo.svelte",
+                "React": "ui/CardThumbnailVideo.tsx",
+                "Vue": "ui/CardThumbnailVideo.vue",
+                "Flutter": "ui/CardThumbnailVideo.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "icon",
+                    "card-image",
+                    "card-video"
+                ],
+                "React": [
+                    "icon",
+                    "card-image",
+                    "card-video"
+                ],
+                "Vue": [
+                    "icon",
+                    "card-image",
+                    "card-video"
+                ],
+                "Flutter": [
+                    "icon",
+                    "card-image",
+                    "card-video"
+                ]
+            },
+            "assets": {
+                "Svelte": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "React": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Vue": [
+                    "hooks/icon.svelte.ts",
+                    "static/hugeicons/css/hugeicons.css",
+                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
+                ],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}

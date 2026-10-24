@@ -4,13 +4,14 @@
     {
       "id": "icon",
       "name": "Icon",
-      "entry": { "Svelte": "ui/Icon.svelte", "React": "ui/Icon.tsx", "Vue": "ui/Icon.vue" },
-      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"] },
-      "dependencies": [],
+      "entry": { "Svelte": "ui/Icon.svelte", "React": "ui/Icon.tsx", "Vue": "ui/Icon.vue", "Flutter": "ui/Icon.dart" },
+      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
+      "dependencies": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
       "assets": {
         "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
         "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
-        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"]
+        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "Flutter": []
       },
       "props": [
         { "name": "name", "type": "IconName", "required": true, "description": "Nome do ícone do registo IconNamed (ex.: Home)." }

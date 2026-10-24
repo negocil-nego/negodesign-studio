@@ -1,0 +1,39 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "button-icon",
+            "name": "IconButton",
+            "entry": {
+                "Svelte": "ui/IconButton.svelte",
+                "React": "ui/IconButton.tsx",
+                "Vue": "ui/IconButton.vue",
+                "Flutter": "ui/IconButton.dart"
+            },
+            "files": {
+                "Svelte": ["data/types.ts"],
+                "React": ["data/types.ts"],
+                "Vue": ["data/types.ts"],
+                "Flutter": ["data/types.dart"]
+            },
+            "dependencies": {
+                "Svelte": ["button", "icon"],
+                "React": ["button", "icon"],
+                "Vue": ["button", "icon"],
+                "Flutter": ["button", "icon"]
+            },
+            "assets": {
+                "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Flutter": []
+            },
+            "props": [
+                { "name": "className", "type": "string", "required": false, "description": "Classes adicionais do botão de ícone." },
+                { "name": "icon", "type": "IconProps", "required": true, "description": "Ícone apresentado no botão." },
+                { "name": "isLoading", "type": "boolean", "required": false, "description": "Indica o estado de carregamento." },
+                { "name": "onClick", "type": "() => void", "required": false, "description": "Callback executado ao clicar no botão." }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "button-base",
+            "name": "ButtonBase",
+            "entry": {
+                "Svelte": "ui/ButtonBase.svelte",
+                "React": "ui/ButtonBase.tsx",
+                "Vue": "ui/ButtonBase.vue",
+                "Flutter": "ui/ButtonBase.dart"
+            },
+            "files": {
+                "Svelte": ["data/types.ts"],
+                "React": ["data/types.ts"],
+                "Vue": ["data/types.ts"],
+                "Flutter": ["data/types.dart"]
+            },
+            "dependencies": {
+                "Svelte": ["icon"],
+                "React": ["icon"],
+                "Vue": ["icon"],
+                "Flutter": ["icon"]
+            },
+            "assets": {
+                "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+                "Flutter": []
+            },
+            "props": [
+                { "name": "icon", "type": "IconProps", "required": false, "description": "Ícone apresentado antes do texto." },
+                { "name": "text", "type": "string", "required": false, "description": "Texto apresentado no botão." },
+                { "name": "className", "type": "string", "required": false, "description": "Classes aplicadas ao elemento button." },
+                { "name": "isLoading", "type": "boolean", "required": false, "description": "Desactiva o botão enquanto carrega." },
+                { "name": "isSkeleton", "type": "boolean", "required": false, "description": "Indica um estado de esqueleto." },
+                { "name": "isDisabled", "type": "boolean", "required": false, "description": "Desactiva o botão." },
+                { "name": "onClick", "type": "() => void", "required": false, "description": "Callback executado ao clicar no botão." }
+            ]
+        }
+    ]
+}

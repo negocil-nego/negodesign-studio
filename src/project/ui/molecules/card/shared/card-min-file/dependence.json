@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-min-file",
+            "name": "CardMinFile",
+            "entry": {
+                "Svelte": "ui/CardMinFile.svelte",
+                "React": "ui/CardMinFile.tsx",
+                "Vue": "ui/CardMinFile.vue",
+                "Flutter": "ui/CardMinFile.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "card-image"
+                ],
+                "React": [
+                    "card-image"
+                ],
+                "Vue": [
+                    "card-image"
+                ],
+                "Flutter": [
+                    "card-image"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": []
+        }
+    ]
+}
