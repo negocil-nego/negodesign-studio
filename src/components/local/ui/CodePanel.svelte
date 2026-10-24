@@ -1,4 +1,6 @@
-﻿<script lang="ts">
+<script lang="ts">
+  import { StyleComponent } from "../data/style.component";
+
   let selectedElement = $state('Box');
   let code = $state(`<!-- Box component -->
 <div class="box-container">
@@ -25,11 +27,11 @@
     <span class="text-xs text-zinc-500 flex-1 truncate">Code : {selectedElement}</span>
     <button
       onclick={formatCode}
-      class="blender-icon-btn h-7 w-7 text-sm" title="Format"
+      class="{StyleComponent.layout.iconButton} h-7 w-7 text-sm" title="Format"
     >⌥</button>
     <button
       onclick={copyCode}
-      class="blender-icon-btn h-7 w-7 text-sm {copied ? '!text-green-700 !border-green-400/60' : ''}"
+      class="{StyleComponent.layout.iconButton} h-7 w-7 text-sm {copied ? '!text-green-700 !border-green-400/60' : ''}"
       title="Copy"
     >{copied ? '✓' : '⎘'}</button>
   </div>

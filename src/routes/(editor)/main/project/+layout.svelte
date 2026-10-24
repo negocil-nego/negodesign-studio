@@ -4,11 +4,12 @@
   import InspectorSidebar from "../../../../components/local/ui/InspectorSidebar.svelte";
   import CanvasWorkspace from "../../../../components/local/ui/CanvasWorkspace.svelte";
   import MenuNavigation from "../../../../components/local/ui/MenuNavigation.svelte";
+  import { StyleComponent } from "../../../../components/local/data/style.component";
 
   let { children }: { children: Snippet } = $props();
 </script>
 
-<div class="blender-app flex flex-col">
+<div class="{StyleComponent.layout.app} flex flex-col">
   <MenuNavigation />
   <!-- Main editor area -->
   <div class="flex flex-1 overflow-hidden">

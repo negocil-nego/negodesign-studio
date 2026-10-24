@@ -4,6 +4,7 @@
   import LogoApp from "../../components/local/ui/varients/LogoApp.svelte";
   import VersionApp from "../../components/local/ui/varients/VersionApp.svelte";
   import { IconNamed } from "../../hooks/icon.svelte";
+  import { StyleComponent } from "../../components/local/data/style.component";
 
   const { children } = $props();
   let theme = $state<"light" | "dark">("light");
@@ -21,17 +22,17 @@
   }
 </script>
 
-<main class="blender-app flex flex-col">
+<main class="{StyleComponent.layout.app} flex flex-col">
   <div class="flex min-h-0 flex-1">
     <aside
-      class="blender-sidebar h-full w-64 shrink-0 p-4 flex flex-col justify-between"
+      class="{StyleComponent.layout.sidebar} h-full w-64 shrink-0 p-4 flex flex-col justify-between"
     >
       <div class="space-y-4">
         <div class="flex items-start gap-2">
           <div class="min-w-0 flex-1"><LogoApp /></div>
           <button
             type="button"
-            class="blender-icon-btn h-8 w-8 shrink-0"
+            class="{StyleComponent.layout.iconButton} h-8 w-8 shrink-0"
             onclick={toggleTheme}
             title={theme === "light"
               ? "Ativar modo escuro"
@@ -98,7 +99,7 @@
       <VersionApp />
     </aside>
 
-    <section class="blender-workspace blender-circuit-bg">
+    <section class="{StyleComponent.layout.workspace} {StyleComponent.layout.circuitBg}">
       {@render children()}
     </section>
   </div>

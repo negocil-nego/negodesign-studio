@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
+  import { StyleComponent } from "../data/style.component";
   import {
     componentNavigationGroups,
     type ComponentDefinition,
@@ -47,15 +48,15 @@
 </script>
 
 <aside
-  class="blender-sidebar flex flex-col w-50 min-w-40 h-full overflow-hidden"
+  class="{StyleComponent.layout.sidebar} flex flex-col w-50 min-w-40 h-full overflow-hidden"
 >
-  <div class="blender-topbar px-3 border-b border-blender-border">
+  <div class="{StyleComponent.layout.topbar} px-3 border-b border-blender-border">
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Library</span
     >
     <div class="flex items-center gap-1">
       <button
-        class="blender-icon-btn h-7 w-7 text-base"
+        class="{StyleComponent.layout.iconButton} h-7 w-7 text-base"
         type="button"
         onclick={toggleTheme}
         title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
@@ -63,7 +64,7 @@
           ? "Ativar modo escuro"
           : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
       >
-      <button class="blender-icon-btn h-7 w-7" title="Settings">
+      <button class="{StyleComponent.layout.iconButton} h-7 w-7" title="Settings">
         <i
           class={`${getIconClass(IconNamed.HelpSquare)} text-base opacity-75`}
           aria-hidden="true"
@@ -107,7 +108,7 @@
                   {#if item.href}
                     <a
                       href={item.href}
-                      class="blender-item w-full text-left gap-2 px-3 py-2"
+                      class="{StyleComponent.layout.item} w-full text-left gap-2 px-3 py-2"
                       title={displayName(item)}
                     >
                       <i
@@ -118,7 +119,7 @@
                     </a>
                   {:else}
                     <button
-                      class="blender-item w-full text-left gap-2 px-3 py-2"
+                      class="{StyleComponent.layout.item} w-full text-left gap-2 px-3 py-2"
                       draggable="true"
                       title={displayName(item)}
                     >

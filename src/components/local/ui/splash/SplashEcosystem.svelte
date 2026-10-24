@@ -1,17 +1,18 @@
 <script lang="ts">
   import BackendSupport from "../varients/BackendSupport.svelte";
   import FrameworkSupport from "./../varients/FrameworkSupport.svelte";
+  import { StyleComponent } from "../../data/style.component";
 </script>
 
 <div class="space-y-3 flex-1 flex flex-col justify-between">
   <div>
-    <div class="blender-header justify-between border-b border-blender-border pb-2 mb-3">
+    <div class="{StyleComponent.layout.header} justify-between border-b border-blender-border pb-2 mb-3">
       <span>Ecossistema Suportado</span>
       <span class="text-[10px] text-zinc-400 font-normal">Multiplataforma</span>
     </div>
 
     <div class="space-y-2.5">
-      <div class="blender-panel">
+      <div class={StyleComponent.layout.panel}>
         <div class="text-[11px] font-medium text-zinc-300 mb-2 flex items-center justify-between">
           <span>Frontend & Multiplataforma</span>
           <span class="text-[10px] text-zinc-400 font-mono">Web • App • Mobile</span>
@@ -19,7 +20,7 @@
         <FrameworkSupport />
       </div>
 
-      <div class="blender-panel">
+      <div class={StyleComponent.layout.panel}>
         <div class="text-[11px] font-medium text-zinc-300 mb-2 flex items-center justify-between">
           <span>Backend (OpenAPI • Swagger • Scalar)</span>
           <span class="text-[10px] text-zinc-400 font-mono">DTOs & Endpoints</span>

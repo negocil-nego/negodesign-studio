@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getIconClass, IconNamed } from "../../../../hooks/icon.svelte";
+  import { StyleComponent } from "../../data/style.component";
 
   const actions = [
     {
@@ -28,14 +29,14 @@
 
 <div class="space-y-3 flex-1 flex flex-col justify-between">
   <div>
-    <div class="blender-header justify-between border-b border-blender-border pb-2 mb-3">
+    <div class="{StyleComponent.layout.header} justify-between border-b border-blender-border pb-2 mb-3">
       <span>Início Rápido</span>
       <span class="text-[10px] text-zinc-400 font-normal">Criar ou Importar</span>
     </div>
 
     <div class="space-y-2.5">
       {#each actions as item}
-        <a href={item.href} class="blender-action group">
+        <a href={item.href} class="{StyleComponent.layout.action} group">
           <div class="flex items-center gap-3.5 min-w-0">
             <div class="w-9 h-9 rounded bg-blender-base border border-blender-border flex items-center justify-center shrink-0 group-hover:border-blue-400/60 group-hover:scale-105 transition-all">
               <i
@@ -52,7 +53,7 @@
               </div>
             </div>
           </div>
-          <span class="blender-badge ml-3">
+          <span class="{StyleComponent.layout.badge} ml-3">
             {item.badge}
           </span>
         </a>

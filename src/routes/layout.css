@@ -1,10 +1,13 @@
 @import "tailwindcss";
 @import "./style.css";
 
+/* O tema escuro é controlado pelo atributo data-theme no <html> */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-sans: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --font-commissioner: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-comfortaa: 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-comfortaa: 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 
   /* Paleta clara da interface */
   --color-blender-base: var(--theme-blender-base);
@@ -73,52 +76,6 @@
   --theme-zinc-900: #18181b;
 }
 
-:root[data-theme="dark"] .blender-app {
-  color: #f4f4f5;
-}
-
-:root[data-theme="dark"] .blender-panel,
-:root[data-theme="dark"] .blender-action,
-:root[data-theme="dark"] .blender-icon-btn {
-  background-color: var(--theme-blender-card);
-  color: var(--theme-zinc-300);
-}
-
-:root[data-theme="dark"] .blender-action:hover,
-:root[data-theme="dark"] .blender-icon-btn:hover {
-  background-color: var(--theme-blender-hover);
-  color: var(--theme-zinc-100);
-}
-:root[data-theme="dark"] .blender-item:hover {
-  color: var(--theme-zinc-100);
-}
-
-:root[data-theme="dark"] .blender-sidebar img {
-  filter: invert(1) brightness(1.35);
-}
-
-:root[data-theme="dark"] .blender-app .text-slate-900 {
-  color: var(--theme-zinc-100);
-}
-
-:root[data-theme="dark"] .blender-app .text-slate-700,
-:root[data-theme="dark"] .blender-app .text-slate-600 {
-  color: var(--theme-zinc-300);
-}
-
-:root[data-theme="dark"] .blender-circuit-bg {
-  background-image:
-    linear-gradient(to bottom, rgba(24, 24, 27, 0.88), rgba(24, 24, 27, 0.96)),
-    url('/img/pawel-d-browski-circuit-7447920.png');
-}
-
-:root[data-theme="dark"] .blender-circuit-bg h1 {
-  color: var(--theme-zinc-100);
-}
-
-:root[data-theme="dark"] .blender-circuit-bg h1 span {
-  color: var(--theme-zinc-200);
-}
 html,
 body {
   min-height: 100%;
@@ -132,66 +89,3 @@ body {
 .font-comfortaa {
   font-family: var(--font-comfortaa);
 }
-
-/* Classes utilitárias reutilizáveis com @apply no Tailwind v4 */
-@utility blender-app {
-  @apply w-screen h-screen overflow-hidden bg-blender-base text-slate-900 font-commissioner select-none;
-}
-
-@utility blender-workspace {
-  @apply flex-1 min-h-0 p-3 md:p-6 lg:p-8 bg-blender-base overflow-y-auto flex items-center justify-center;
-}
-
-@utility blender-sidebar {
-  @apply bg-blender-sidebar border-r border-blender-border text-zinc-300 select-none;
-}
-
-@utility blender-topbar {
-  @apply h-11 px-4 bg-blender-sidebar border-b border-blender-border flex items-center justify-between select-none;
-}
-
-@utility blender-card {
-  @apply bg-blender-card text-zinc-200 border border-blender-border rounded-lg shadow-sm overflow-hidden font-commissioner select-none;
-}
-
-@utility blender-panel {
-  @apply bg-white border border-blender-border rounded p-3 transition-colors;
-}
-
-@utility blender-header {
-  @apply text-xs font-semibold uppercase tracking-wider text-zinc-500 select-none flex items-center gap-1.5;
-}
-
-@utility blender-item {
-  @apply flex items-center gap-2.5 px-2.5 py-1.5 rounded text-sm text-zinc-300 hover:text-slate-900 hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer select-none;
-}
-
-@utility blender-action {
-  @apply flex items-center justify-between p-3 rounded bg-white hover:bg-slate-50 border border-blender-border hover:border-blue-500/50 transition-all text-left;
-}
-
-@utility blender-badge {
-  @apply text-[11px] px-1.5 py-0.5 rounded font-mono shrink-0 bg-slate-100 text-zinc-400;
-}
-
-@utility blender-footer {
-  @apply px-5 py-2.5 bg-white border-t border-blender-border flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 select-none;
-}
-
-@utility blender-icon-btn {
-  @apply w-8 h-8 rounded flex items-center justify-center bg-white hover:bg-blender-hover active:bg-blender-active text-zinc-600 hover:text-slate-900 transition-colors cursor-pointer border border-blender-border;
-}
-
-@utility blender-circuit-bg {
-  background-image:
-    linear-gradient(to bottom, rgba(248, 250, 252, 0.82), rgba(248, 250, 252, 0.92)),
-    url('/img/pawel-d-browski-circuit-7447920.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
-
-
-

@@ -3,13 +3,14 @@
   import SplashActions from "./splash/SplashActions.svelte";
   import SplashEcosystem from "./splash/SplashEcosystem.svelte";
   import SplashFooter from "./splash/SplashFooter.svelte";
+  import { StyleComponent } from "../data/style.component";
 
   let showOnStartup = $state(true);
 </script>
 
 <!-- Card SplashScreen responsivo estilo Blender que ocupa o espaço disponível na janela -->
 <div
-  class="blender-card w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-between transition-all duration-200"
+  class="{StyleComponent.layout.card} w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-between transition-all duration-200"
 >
   <SplashHeader />
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { StyleComponent } from "../../data/style.component";
+
   type Props = {
     showOnStartup: boolean;
   };
@@ -6,7 +8,7 @@
   let { showOnStartup = $bindable() }: Props = $props();
 </script>
 
-<footer class="blender-footer">
+<footer class={StyleComponent.layout.footer}>
   <label class="flex items-center gap-2 cursor-pointer hover:text-zinc-200 transition-colors">
     <input
       type="checkbox"

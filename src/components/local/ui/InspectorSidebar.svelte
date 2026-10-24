@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
+  import { StyleComponent } from "../data/style.component";
   import {
     activeProject as activeProjectStore,
     listProjects,
@@ -66,9 +67,9 @@
 </script>
 
 <aside
-  class="blender-sidebar flex h-full w-70 min-w-60 flex-col overflow-hidden border-l border-blender-border"
+  class="{StyleComponent.layout.sidebar} flex h-full w-70 min-w-60 flex-col overflow-hidden border-l border-blender-border"
 >
-  <div class="blender-topbar px-3">
+  <div class="{StyleComponent.layout.topbar} px-3">
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Projecto</span
     >
@@ -87,7 +88,7 @@
 
       <button
         type="button"
-        class="blender-action w-full gap-3 px-3 py-2.5 text-sm"
+        class="{StyleComponent.layout.action} w-full gap-3 px-3 py-2.5 text-sm"
         onclick={chooseProject}
         disabled={busy}
       >

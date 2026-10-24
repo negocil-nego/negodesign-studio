@@ -3,7 +3,6 @@ const ButtonDefault = "w-full py-2 px-4 rounded-md text-center"
 const InputForm = "flex w-full min-w-0 items-center gap-2 rounded-md border border-blender-border bg-blender-surface px-3 py-2 text-sm text-zinc-200 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 [&>input]:w-full [&>input]:min-w-0 [&>input]:border-0 [&>input]:bg-transparent [&>input]:p-0 [&>input]:text-inherit [&>input]:outline-none [&>input::placeholder]:text-zinc-500 [&>input:disabled]:cursor-not-allowed [&>input:disabled]:opacity-50"
 
 export const StyleComponent = {
-    // ── Atoms ──────────────────────────────────────────────
     avatar: {
         default: "w-12 h-12 rounded-lg",
     },
@@ -159,7 +158,7 @@ export const StyleComponent = {
             frame: "overflow-hidden rounded-md border border-gray-100",
             fill: "h-full w-full",
             v01: {
-                root: "w-87.5 p-5 rounded-lg blender-panel",
+                root: "w-87.5 p-5 rounded-lg bg-white dark:bg-blender-card border border-blender-border transition-colors",
                 header: "flex justify-between",
                 headerGroup: "flex gap-2",
                 body: "h-full",
@@ -175,7 +174,7 @@ export const StyleComponent = {
         profile: {
             fill: "h-40 w-full rounded-md object-cover",
             v01: {
-                root: "w-72 rounded-3xl blender-panel overflow-hidden shadow-xl",
+                root: "w-72 rounded-3xl bg-white dark:bg-blender-card border border-blender-border transition-colors overflow-hidden shadow-xl",
                 cover: "relative h-32 w-full",
                 actions: "absolute top-2 flex justify-between w-full gap-2 z-10 p-2",
                 logo: "absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10",
@@ -187,7 +186,7 @@ export const StyleComponent = {
                 footer: "mt-2",
             },
             v02: {
-                root: "w-72 rounded-3xl blender-panel overflow-hidden shadow-sm",
+                root: "w-72 rounded-3xl bg-white dark:bg-blender-card border border-blender-border transition-colors overflow-hidden shadow-sm",
                 cover: "h-44 w-full relative",
                 body: "px-6 pb-6 flex flex-col gap-4",
                 actions: "absolute top-2 flex justify-end w-full gap-2 z-10 p-2",

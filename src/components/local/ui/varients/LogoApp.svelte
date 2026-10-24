@@ -3,7 +3,7 @@
     N
   </div>
   <div class="leading-tight">
-    <div class="text-sm font-bold text-slate-900 tracking-wide">NegoDesign</div>
+    <div class="text-sm font-bold text-slate-900 dark:text-zinc-100 tracking-wide">NegoDesign</div>
     <div class="text-xs text-zinc-500">Desktop Studio</div>
   </div>
 </div>
