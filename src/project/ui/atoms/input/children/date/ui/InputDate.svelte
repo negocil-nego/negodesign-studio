@@ -91,14 +91,10 @@
           {/if}
           <div class={style.valueRow}>
             <span class={style.valueIcon}>
-              <Icon name="Label" />
+              <Icon name="Calendar" />
             </span>
             <span class={style.value}>{dateStr}</span>
           </div>
-        </div>
-        <div class={style.expandIcon} aria-hidden="true">
-          <span><Icon name="HelpSquare" /></span>
-          <span><Icon name="HelpSquare" /></span>
         </div>
       </button>
     {/snippet}
@@ -111,7 +107,7 @@
             onclick={() => changeMonth(-1)}
             class={style.navButton}
           >
-            <Icon name="HelpSquare" />
+            <Icon name="ArrowLeft" />
           </button>
           <span class={style.monthTitle}>{monthName} {year}</span>
           <button
@@ -119,7 +115,7 @@
             onclick={() => changeMonth(1)}
             class={style.navButton}
           >
-            <Icon name="HelpSquare" />
+            <Icon name="ArrowRight" />
           </button>
         </div>
 
