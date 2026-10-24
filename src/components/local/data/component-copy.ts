@@ -79,6 +79,9 @@ const componentsById = new Map<
 >();
 const manifestsByPath = new Map(manifests.map((manifest) => [manifest.path, manifest]));
 for (const manifest of manifests) {
+  if (!manifest.manifest || !Array.isArray(manifest.manifest.components)) {
+    continue;
+  }
   for (const component of manifest.manifest.components) {
     componentsById.set(component.id, { component, manifest });
   }

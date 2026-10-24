@@ -1,6 +1,6 @@
 <script lang="ts">
     import Icon from "../../../../icon/ui/Icon.svelte";
-    import type { ButtonBaseProps } from "../../data/types";
+    import type { ButtonBaseProps } from "../data/types";
     
     let {
         icon,

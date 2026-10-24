@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { StyleComponent } from "../../../../../../data/style.component";
     import CardButton from "../../../shared/card-button/ui/CardButton.svelte";
     import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.svelte";
     import CardDescription from "../../../shared/card-description/ui/CardDescription.svelte";
@@ -26,9 +27,9 @@
     }: CardMediaBaseProps = $props();
 </script>
 
-<aside class="w-87.5 p-5 rounded-lg blender-panel">
-    <div class="flex justify-between">
-        <div class="flex gap-2">
+<aside class={StyleComponent.card.media.v01.root}>
+    <div class={StyleComponent.card.media.v01.header}>
+        <div class={StyleComponent.card.media.v01.headerGroup}>
             {#if logoProps}
                 <CardLogo {...logoProps} />
             {/if}
@@ -46,7 +47,7 @@
             {/if}
         </div>
         {#if cartButtonProps || favoriteButtonProps}
-            <div class="flex gap-2">
+            <div class={StyleComponent.card.media.v01.headerGroup}>
                 {#if cartButtonProps}
                     <CardCartButton {...cartButtonProps} />
                 {/if}
@@ -57,15 +58,15 @@
         {/if}
     </div>
 
-    <div class="h-full">
-        <div class="my-4">
+    <div class={StyleComponent.card.media.v01.body}>
+        <div class={StyleComponent.card.media.v01.description}>
             {#if descriptionProps}
                 <CardDescription {...descriptionProps} />
             {/if}
         </div>
-        <div class="h-full border border-gray-50 rounded-md">
+        <div class={`${StyleComponent.card.media.frame} ${StyleComponent.card.media.fill}`}>
             {#if thumbnailVideoProps}
-                <CardThumbnailVideo {...thumbnailVideoProps} />
+                <CardThumbnailVideo {...thumbnailVideoProps} visibleButtonPlay/>
             {:else if videoProps}
                 <CardVideo {...videoProps} />
             {:else if imageProps}
@@ -75,7 +76,7 @@
     </div>
 
     {#if buttonProps}
-        <div class="my-2">
+        <div class={StyleComponent.card.media.v01.footer}>
             <CardButton {...buttonProps} />
         </div>
     {/if}

@@ -38,6 +38,10 @@ export const IconNamed = {
   Star: icon("star", "star"),
   Play: icon("play", "play"),
   MoreHorizontal: icon("more-horizontal", "more-horizontal"),
+  Location: icon("location", "location-01"),
+  Link: icon("link", "link-01"),
+  User: icon("user", "user"),
+  Message: icon("message", "chat-dot-01"),
  } as const satisfies Record<string, IconDefinition>;
 
 export type IconNamed = (typeof IconNamed)[keyof typeof IconNamed];

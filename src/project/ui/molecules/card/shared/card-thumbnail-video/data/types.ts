@@ -1,4 +1,8 @@
+import type { CardImageProps } from "../../card-image/data/types";
+import type { CardVideoProps } from "../../card-video/data/types";
+
 export type CardThumbnailVideoProps = {
-    imageUrl: string;
-    videoUrl: string;
+    videoProps: CardVideoProps;
+    imageProps: CardImageProps;
+    visibleButtonPlay?: boolean;
 }

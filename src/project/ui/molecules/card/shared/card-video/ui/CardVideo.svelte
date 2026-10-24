@@ -28,5 +28,5 @@
     loop
     playsinline
     oncanplay={playVideo}
-    class={StyleComponent.cardMedia.default}
+    class={StyleComponent.card.media.default}
 ></video>

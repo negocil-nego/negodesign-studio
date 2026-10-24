@@ -1,0 +1,40 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-profile",
+            "name": "CardProfile",
+            "entry": {
+                "Svelte": "ui/CardProfile.svelte"
+            },
+            "files": {
+                "Svelte": [
+                    "ui/card-01/CardProfile01.svelte",
+                    "ui/card-02/CardProfile02.svelte",
+                    "data/types.ts"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "molecules/card/shared/card-button",
+                    "molecules/card/shared/card-cart-button",
+                    "molecules/card/shared/card-description",
+                    "molecules/card/shared/card-favorite-button",
+                    "molecules/card/shared/card-image",
+                    "molecules/card/shared/card-logo",
+                    "molecules/card/shared/card-rating",
+                    "molecules/card/shared/card-thumbnail-video",
+                    "molecules/card/shared/card-title",
+                    "molecules/card/shared/card-video",
+                    "molecules/card/shared/card-tags",
+                    "molecules/card/shared/card-actions-button",
+                    "atoms/icon"
+                ]
+            },
+            "assets": {
+                "Svelte": []
+            },
+            "props": []
+        }
+    ]
+}

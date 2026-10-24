@@ -13,5 +13,5 @@
     {fetchpriority}
     {loading}
     decoding="async"
-    class={`${StyleComponent.cardMedia.default} transition-opacity duration-500`}
+    class={`${StyleComponent.card.media.default} transition-opacity duration-500`}
 />

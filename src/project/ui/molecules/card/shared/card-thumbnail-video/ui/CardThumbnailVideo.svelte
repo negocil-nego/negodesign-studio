@@ -5,32 +5,44 @@
     import CardVideo from "../../card-video/ui/CardVideo.svelte";
     import type { CardThumbnailVideoProps } from "../data/types";
 
-    let { imageUrl, videoUrl }: CardThumbnailVideoProps = $props();
+    let {
+        videoProps,
+        imageProps,
+        visibleButtonPlay = false,
+    }: CardThumbnailVideoProps = $props();
 
     let isHoverImage = $state(false);
 </script>
 
 <div
-    class={StyleComponent.cardThumbnailVideo.container}
+    class={StyleComponent.card.cardThumbnailVideo.container}
     role="presentation"
     onmouseenter={() => (isHoverImage = true)}
     onmouseleave={() => (isHoverImage = false)}
 >
     <!-- Imagem pré-carregada (loading eager) — define a altura e fica sempre por baixo -->
-    <CardImage src={imageUrl} loading="eager" />
+    <CardImage {...imageProps} loading="eager" />
 
     <!--
         Vídeo montado desde o início com preload="auto": ao passar o rato já está
         pré-carregado e a reproduzir, pelo que o hover apenas o torna visível.
     -->
-    <div class={StyleComponent.cardThumbnailVideo.video} class:invisible={!isHoverImage}>
-        <CardVideo src={videoUrl} preload="auto" controls />
+    <div
+        class={StyleComponent.card.cardThumbnailVideo.video}
+        class:invisible={!isHoverImage}
+    >
+        <CardVideo {...videoProps} preload="auto" />
     </div>
 
-    <div
-        class={StyleComponent.cardThumbnailVideo.playButton}
-        class:invisible={isHoverImage}
-    >
-        <Icon name="Play" className={StyleComponent.cardThumbnailVideo.playIcon} />
-    </div>
+    {#if visibleButtonPlay}
+        <div
+            class={StyleComponent.card.cardThumbnailVideo.playButton}
+            class:invisible={isHoverImage}
+        >
+            <Icon
+                name="Play"
+                className={StyleComponent.card.cardThumbnailVideo.playIcon}
+            />
+        </div>
+    {/if}
 </div>

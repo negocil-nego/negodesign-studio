@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { StyleComponent } from "../../../../../../data/style.component";
     import CardButton from "../../../shared/card-button/ui/CardButton.svelte";
     import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.svelte";
     import CardDescription from "../../../shared/card-description/ui/CardDescription.svelte";
@@ -9,6 +10,8 @@
     import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo.svelte";
     import CardTitle from "../../../shared/card-title/ui/CardTitle.svelte";
     import CardVideo from "../../../shared/card-video/ui/CardVideo.svelte";
+    import CardTags from "../../../shared/card-tags/ui/CardTags.svelte";
+    import CardActionsButton from "../../../shared/card-actions-button/ui/CardActionsButton.svelte";
     import type { CardProfileBaseProps } from "../../data/types";
 
     let {
@@ -22,25 +25,26 @@
         descriptionProps,
         favoriteButtonProps,
         thumbnailVideoProps,
+        tagsProps,
+        actionsProps,
     }: CardProfileBaseProps = $props();
+
+    const style = StyleComponent.card.profile.v02;
 </script>
 
-<aside class="blender-panel p-6 rounded-xl border border-gray-100 shadow-sm">
-    <div class="flex justify-between items-start mb-6">
-        <div class="flex gap-4 items-center">
-            {#if logoProps}
-                <CardLogo {...logoProps} />
+<aside class={style.root}>
+    <div class={style.cover}>
+        <div class={StyleComponent.card.profile.fill}>
+            {#if thumbnailVideoProps}
+                <CardThumbnailVideo {...thumbnailVideoProps} />
+            {:else if videoProps}
+                <CardVideo {...videoProps} controls={false} />
+            {:else if imageProps}
+                <CardImage {...imageProps} />
             {/if}
-            <div class="flex flex-col gap-1">
-                {#if titleProps}
-                    <CardTitle {...titleProps} />
-                {/if}
-                {#if ratingProps}
-                    <CardRating {...ratingProps} />
-                {/if}
-            </div>
         </div>
-        <div class="flex gap-2">
+
+        <div class={style.actions}>
             {#if cartButtonProps}
                 <CardCartButton {...cartButtonProps} />
             {/if}
@@ -50,25 +54,36 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-4">
+    <div class={style.body}>
+        <div class="relative">
+            {#if logoProps}
+                <div class={style.logoFrame}>
+                    <CardLogo {...logoProps} className={style.logoImage} />
+                </div>
+            {/if}
+        </div>
+
+        {#if titleProps}
+            <CardTitle {...titleProps} className={style.infoTitle} />
+        {/if}
+        {#if ratingProps}
+            <CardRating {...ratingProps} />
+        {/if}
+
+        {#if tagsProps}
+            <CardTags {...tagsProps} />
+        {/if}
+
+        {#if actionsProps}
+            <CardActionsButton {...actionsProps} />
+        {/if}
+
         {#if descriptionProps}
             <CardDescription {...descriptionProps} />
         {/if}
-        
-        <div class="rounded-lg overflow-hidden border border-gray-100">
-            {#if thumbnailVideoProps}
-                <CardThumbnailVideo {...thumbnailVideoProps} />
-            {:else if videoProps}
-                <CardVideo {...videoProps} />
-            {:else if imageProps}
-                <CardImage {...imageProps} />
-            {/if}
-        </div>
-    </div>
 
-    {#if buttonProps}
-        <div class="mt-6">
+        {#if buttonProps}
             <CardButton {...buttonProps} />
-        </div>
-    {/if}
+        {/if}
+    </div>
 </aside>

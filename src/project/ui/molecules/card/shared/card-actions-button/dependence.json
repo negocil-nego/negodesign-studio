@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "card-actions-button",
+            "name": "CardActionsButton",
+            "entry": {
+                "Svelte": "ui/CardActionsButton.svelte"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "atoms/icon",
+                    "atoms/button/variant/outline"
+                ]
+            },
+            "assets": {
+                "Svelte": []
+            },
+            "props": []
+        }
+    ]
+}

@@ -9,6 +9,7 @@ import type { CardThumbnailVideoProps } from "../../shared/card-thumbnail-video/
 import type { CardTitleProps } from "../../shared/card-title/data/types";
 import type { CardVideoProps } from "../../shared/card-video/data/types";
 import type { CardTagsProps } from "../../shared/card-tags/data/types";
+import type { CardActionsButtonProps } from "../../shared/card-actions-button/data/types";
 
 export type CardProfileBaseProps = {
     logoProps?: CardLogoProps;
@@ -22,6 +23,7 @@ export type CardProfileBaseProps = {
     favoriteButtonProps?: CardFavoriteButtonProps;
     thumbnailVideoProps?: CardThumbnailVideoProps;
     tagsProps?: CardTagsProps;
+    actionsProps?: CardActionsButtonProps;
 }
 
 export type CardProfileProps = CardProfileBaseProps & {

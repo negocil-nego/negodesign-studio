@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { SkeletonProps } from "../../data/types";
+    import type { SkeletonProps } from "../data/types";
     let { className = "" }: SkeletonProps = $props();
 </script>
 

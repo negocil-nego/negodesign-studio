@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { StyleComponent } from "../../../../../../data/style.component";
     import CardButton from "../../../shared/card-button/ui/CardButton.svelte";
     import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.svelte";
     import CardDescription from "../../../shared/card-description/ui/CardDescription.svelte";
@@ -9,6 +10,7 @@
     import CardTitle from "../../../shared/card-title/ui/CardTitle.svelte";
     import CardVideo from "../../../shared/card-video/ui/CardVideo.svelte";
     import CardTags from "../../../shared/card-tags/ui/CardTags.svelte";
+    import CardActionsButton from "../../../shared/card-actions-button/ui/CardActionsButton.svelte";
     import type { CardProfileBaseProps } from "../../data/types";
 
     let {
@@ -22,22 +24,25 @@
         favoriteButtonProps,
         thumbnailVideoProps,
         tagsProps,
+        actionsProps,
     }: CardProfileBaseProps = $props();
+
+    const style = StyleComponent.card.profile.v01;
 </script>
 
-<aside class="w-96 rounded-3xl blender-panel overflow-hidden bg-white shadow-xl border border-gray-100">
-    <div class="relative h-48 w-full bg-amber-950">
-        <div class="h-full w-full">
+<aside class={style.root}>
+    <div class={style.cover}>
+        <div class={StyleComponent.card.profile.fill}>
             {#if thumbnailVideoProps}
-                <CardThumbnailVideo {...thumbnailVideoProps} />
+                <CardThumbnailVideo {...thumbnailVideoProps}/>
             {:else if videoProps}
-                <CardVideo {...videoProps} />
+                <CardVideo {...videoProps} controls={false}/>
             {:else if imageProps}
                 <CardImage {...imageProps} />
             {/if}
         </div>
 
-        <div class="absolute top-4 right-4 flex gap-2 z-10">
+        <div class={style.actions}>
             {#if cartButtonProps}
                 <CardCartButton {...cartButtonProps} />
             {/if}
@@ -46,43 +51,38 @@
             {/if}
         </div>
 
-        <div class="absolute -bottom-12 left-6 z-20">
+        <div class={style.logo}>
             {#if logoProps}
-                <div class="rounded-full border-4 border-white shadow-lg overflow-hidden bg-white">
-                    <CardLogo {...logoProps} className="w-32 h-32 rounded-full" />
+                <div class={style.logoFrame}>
+                    <CardLogo {...logoProps} className={style.logoImage} />
                 </div>
             {/if}
         </div>
     </div>
 
-    <div class="px-8 pt-16 pb-8 flex flex-col gap-6">
-        <div class="flex justify-end -mt-10 mb-2">
-            <span class="bg-green-50 text-green-600 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 border border-green-100">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                Open to work
-            </span>
-        </div>
-
-        <div class="flex flex-col gap-1">
+    <div class={style.body}>
+        <div class={style.titleGroup}>
             {#if titleProps}
                 <CardTitle {...titleProps} />
             {/if}
-            <span class="text-sm text-gray-400 font-medium">UX Lead | Design Manager</span>
         </div>
 
         {#if tagsProps}
             <CardTags {...tagsProps} />
         {/if}
 
-        <div class="flex flex-col gap-3">
-            <span class="text-sm font-extrabold text-gray-900 uppercase tracking-widest">About</span>
+        {#if actionsProps}
+            <CardActionsButton {...actionsProps} />
+        {/if}
+
+        <div class={style.descriptionGroup}>
             {#if descriptionProps}
                 <CardDescription {...descriptionProps} />
             {/if}
         </div>
 
         {#if buttonProps}
-            <div class="mt-2">
+            <div class={style.footer}>
                 <CardButton {...buttonProps} />
             </div>
         {/if}

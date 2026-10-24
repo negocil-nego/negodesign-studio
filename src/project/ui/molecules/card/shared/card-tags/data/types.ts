@@ -7,4 +7,8 @@ export type CardTag = {
 }
 export type CardTagsProps = {
     tags: CardTag[]
+    className?: string
+    itemClassName?: string
+    titleClassName?: string
+    descriptionClassName?: string
 }
