@@ -37,6 +37,7 @@ export const IconNamed = {
   Favorite: icon("favourite", "favourite"),
   Star: icon("star", "star"),
   Play: icon("play", "play"),
+  MoreHorizontal: icon("more-horizontal", "more-horizontal"),
  } as const satisfies Record<string, IconDefinition>;
 
 export type IconNamed = (typeof IconNamed)[keyof typeof IconNamed];
@@ -55,6 +56,7 @@ const hugeiconsNames: Record<string, string> = {
   favourite: "favourite",
   star: "star",
   play: "play",
+  "more-horizontal": "more-horizontal",
 };
 
 /** Accepts either a registry entry or a Hugeicons name. */
