@@ -6,7 +6,12 @@
       "name": "InputTime",
       "entry": { "Svelte": "ui/InputTime.svelte", "React": "ui/InputTime.tsx", "Vue": "ui/InputTime.vue", "Flutter": "ui/InputTime.dart" },
       "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
-      "dependencies": ["input", "input-label"],
+      "dependencies": {
+        "Svelte": ["input", "input-label", "icon", "popover"],
+        "React": ["input", "input-label", "icon"],
+        "Vue": ["input", "input-label", "icon"],
+        "Flutter": ["input", "input-label"]
+      },
       "assets": [],
       "props": [
         { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como time." },

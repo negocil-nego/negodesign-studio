@@ -45,6 +45,7 @@ export const IconNamed = {
   Calendar: icon("calendar", "calendar-03"),
   ArrowLeft: icon("square-chevron-left", "square-chevron-left"),
   ArrowRight: icon("square-chevron-right", "square-chevron-right"),
+  Cancel: icon("cancel", "cancel-01"),
  } as const satisfies Record<string, IconDefinition>;
 
 export type IconNamed = (typeof IconNamed)[keyof typeof IconNamed];

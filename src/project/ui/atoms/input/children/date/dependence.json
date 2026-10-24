@@ -6,7 +6,7 @@
       "name": "InputDate",
       "entry": { "Svelte": "ui/InputDate.svelte", "React": "ui/InputDate.tsx", "Vue": "ui/InputDate.vue", "Flutter": "ui/InputDate.dart" },
       "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
-      "dependencies": { "Svelte": ["input", "input-label", "icon"], "React": ["input", "input-label", "icon"], "Vue": ["input", "input-label", "icon"], "Flutter": ["input", "input-label"] },
+      "dependencies": { "Svelte": ["input", "input-label", "icon", "popover"], "React": ["input", "input-label", "icon"], "Vue": ["input", "input-label", "icon"], "Flutter": ["input", "input-label"] },
       "assets": [],
       "props": [
         { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como date." },
