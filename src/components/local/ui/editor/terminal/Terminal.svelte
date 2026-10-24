@@ -92,6 +92,101 @@
       description: "Caixa de verificação individual com rótulo e estado controlável.",
       componentId: "checkbox",
     },
+    "card-media": {
+      name: "CardMedia",
+      description: "Cartão de média com marca, título, avaliação, preço, imagem e botões de acção.",
+      componentId: "card-media",
+    },
+    "card-profile": {
+      name: "CardProfile",
+      description: "Cartão de perfil com capa, logótipo, etiquetas, acções e descrição.",
+      componentId: "card-profile",
+    },
+    "card-product": {
+      name: "CardProduct",
+      description: "Cartão de produto com galeria de miniaturas, preço, avaliação e acções.",
+      componentId: "card-product",
+    },
+    "card": {
+      name: "Card",
+      description: "Invólucro base de cartão que define a moldura reutilizável.",
+      componentId: "card",
+    },
+    "card-image": {
+      name: "CardImage",
+      description: "Imagem de cartão com carregamento preguiçoso e atributos responsivos.",
+      componentId: "card-image",
+    },
+    "card-title": {
+      name: "CardTitle",
+      description: "Título de cartão com classes adicionais configuráveis.",
+      componentId: "card-title",
+    },
+    "card-description": {
+      name: "CardDescription",
+      description: "Descrição de cartão para texto de apoio.",
+      componentId: "card-description",
+    },
+    "card-price": {
+      name: "CardPrice",
+      description: "Preço de produto formatado a partir de um valor numérico.",
+      componentId: "card-price",
+    },
+    "card-rating": {
+      name: "CardRating",
+      description: "Avaliação por estrelas com valor e estado de carregamento.",
+      componentId: "card-rating",
+    },
+    "card-tags": {
+      name: "CardTags",
+      description: "Lista de etiquetas de cartão com ícone, título e descrição opcionais.",
+      componentId: "card-tags",
+    },
+    "card-logo": {
+      name: "CardLogo",
+      description: "Logótipo de marca no cartão, assente no átomo Avatar.",
+      componentId: "card-logo",
+    },
+    "card-phone": {
+      name: "CardPhone",
+      description: "Contacto telefónico apresentado no cartão.",
+      componentId: "card-phone",
+    },
+    "card-video": {
+      name: "CardVideo",
+      description: "Vídeo incorporado no cartão com poster e reprodução automática silenciada.",
+      componentId: "card-video",
+    },
+    "card-thumbnail-video": {
+      name: "CardThumbnailVideo",
+      description: "Miniatura de vídeo que revela o vídeo ao passar o rato.",
+      componentId: "card-thumbnail-video",
+    },
+    "card-min-file": {
+      name: "CardMinFile",
+      description: "Miniatura de ficheiro/imagem usada na galeria de produto.",
+      componentId: "card-min-file",
+    },
+    "card-button": {
+      name: "CardButton",
+      description: "Botão de acção do cartão, assente no botão base.",
+      componentId: "card-button",
+    },
+    "card-cart-button": {
+      name: "CardCartButton",
+      description: "Botão de adicionar ao carrinho com ícone dedicado.",
+      componentId: "card-cart-button",
+    },
+    "card-favorite-button": {
+      name: "CardFavoriteButton",
+      description: "Botão de favorito com ícone dedicado.",
+      componentId: "card-favorite-button",
+    },
+    "card-actions-button": {
+      name: "CardActionsButton",
+      description: "Conjunto de acções do cartão apresentadas como lista de botões.",
+      componentId: "card-actions-button",
+    },
   };
 
   const info = componentInfo[id];
