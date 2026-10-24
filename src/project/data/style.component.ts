@@ -1,5 +1,7 @@
 const ButtonDefault = "w-full py-2 px-4 rounded-md text-center"
 
+const InputForm = "flex w-full min-w-0 items-center gap-2 rounded-md border border-blender-border bg-blender-surface px-3 py-2 text-sm text-zinc-200 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 [&>input]:w-full [&>input]:min-w-0 [&>input]:border-0 [&>input]:bg-transparent [&>input]:p-0 [&>input]:text-inherit [&>input]:outline-none [&>input::placeholder]:text-zinc-500 [&>input:disabled]:cursor-not-allowed [&>input:disabled]:opacity-50"
+
 export const StyleComponent = {
     // ── Atoms ──────────────────────────────────────────────
     avatar: {
@@ -35,32 +37,32 @@ export const StyleComponent = {
         default: "text-base opacity-75",
     },
     input: {
-        form: "input-form",
+        form: InputForm,
         error: "border border-destructive/40 text-destructive",
         success: "border border-success/40 text-success",
         focus: "border border-primary/40 text-primary-foreground",
         text: {
-            root: "input-form",
+            root: InputForm,
         },
         email: {
-            root: "input-form",
+            root: InputForm,
         },
         password: {
-            root: "input-form",
+            root: InputForm,
         },
         number: {
-            root: "input-form",
+            root: InputForm,
         },
         time: {
-            root: "input-form",
+            root: InputForm,
         },
         phone: {
             field: "input-phone-field",
-            form: "input-form input-phone-flag",
+            form: `${InputForm} input-phone-flag`,
         },
         date: {
             root: "relative w-full",
-            trigger: "input-form w-full cursor-pointer flex items-center justify-between text-left",
+            trigger: `${InputForm} w-full cursor-pointer flex items-center justify-between text-left`,
             triggerBody: "flex flex-col w-full min-w-0",
             triggerLabel: "text-[10px] uppercase font-semibold text-zinc-500 select-none",
             valueRow: "flex items-center gap-2 mt-0.5",
@@ -109,7 +111,7 @@ export const StyleComponent = {
         default: "relative overflow-hidden rounded-xl bg-gray-200 before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-linear-to-r before:from-transparent before:via-white/70 before:to-transparent",
     },
     textarea: {
-        form: "input-form",
+        form: InputForm,
     },
     toggle: {
         root: "toggle-root",
