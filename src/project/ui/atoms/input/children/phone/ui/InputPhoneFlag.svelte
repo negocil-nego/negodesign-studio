@@ -4,9 +4,11 @@
   import { getIconClass } from "../../../../../../../hooks/icon.svelte";
   import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover.svelte";
   import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
-  import Label from "../../../../label/ui/Label.svelte";
+    import Label from "../../../../label/ui/label.svelte";
+  import { StyleComponent } from "../../../../../../data/style.component";
 
   let { labelProps, inputProps, flag, locale, onCountrySelect }: InputPhoneFlagProps = $props();
+  const style = StyleComponent.input.phone;
   let selectedFlag = $state(flag[0] ?? FlagNamed.Ao);
 
   function handleCountrySelect(country: CountryPhoneOption) {
@@ -15,11 +17,11 @@
   }
 </script>
 
-<div class="input-phone-field">
+<div class={style.field}>
   {#if labelProps}
     <Label {...labelProps} />
   {/if}
-  <div class="input-form input-phone-flag">
+  <div class={style.form}>
     <CountryPhonePopover flag={selectedFlag} {locale} onselect={handleCountrySelect} />
     {#if inputProps.icon}
       <i class={getIconClass(inputProps.icon)} aria-hidden="true"></i>

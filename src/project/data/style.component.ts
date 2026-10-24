@@ -1,6 +1,10 @@
 const ButtonDefault = "w-full py-2 px-4 rounded-md text-center"
 
 export const StyleComponent = {
+    // ── Atoms ──────────────────────────────────────────────
+    avatar: {
+        default: "w-12 h-12 rounded-lg",
+    },
     button: {
         solid: {
             default: `${ButtonDefault} bg-blue-900 hover:bg-primary/80 text-white`,
@@ -15,16 +19,133 @@ export const StyleComponent = {
             warning: `${ButtonDefault} bg-warning/10 text-warning hover:bg-warning/20 focus-visible:border-warning/40 focus-visible:ring-warning/20 dark:bg-warning/20 dark:hover:bg-warning/30 dark:focus-visible:ring-warning/40`,
         }
     },
-    input: {
-        error: "border border-destructive/40 text-destructive",
-        success: "border border-success/40 text-success",
-        focus: "border border-primary/40 text-primary-foreground",
-    },
     iconCenterButton: {
         default: "w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center cursor-pointer bg-gray-100",
     },
+    checkbox: {
+        root: "checkbox-root",
+        disabled: "checkbox-disabled",
+        input: "checkbox-input",
+        box: "checkbox-box",
+        tick: "checkbox-tick",
+        label: "checkbox-label",
+    },
+    icon: {
+        spinner: "animate-spin inline-block w-5 h-5",
+        default: "text-base opacity-75",
+    },
+    input: {
+        form: "input-form",
+        error: "border border-destructive/40 text-destructive",
+        success: "border border-success/40 text-success",
+        focus: "border border-primary/40 text-primary-foreground",
+        text: {
+            root: "input-form",
+        },
+        email: {
+            root: "input-form",
+        },
+        password: {
+            root: "input-form",
+        },
+        number: {
+            root: "input-form",
+        },
+        time: {
+            root: "input-form",
+        },
+        phone: {
+            field: "input-phone-field",
+            form: "input-form input-phone-flag",
+        },
+        date: {
+            root: "relative w-full",
+            trigger: "input-form w-full cursor-pointer flex items-center justify-between text-left",
+            triggerBody: "flex flex-col w-full min-w-0",
+            triggerLabel: "text-[10px] uppercase font-semibold text-zinc-500 select-none",
+            valueRow: "flex items-center gap-2 mt-0.5",
+            valueIcon: "text-sm",
+            value: "text-sm font-medium truncate",
+            expandIcon: "flex flex-col text-zinc-400 text-xs ml-2 select-none shrink-0",
+            panel: "mt-1.5 text-zinc-200 z-50 outline-none",
+            panelHeader: "flex items-center justify-between mb-4",
+            navButton: "p-1.5 rounded hover:bg-blender-hover cursor-pointer",
+            monthTitle: "font-bold text-sm text-zinc-200",
+            weekdays: "grid grid-cols-7 text-center text-xs font-medium text-zinc-500 mb-3",
+            daysGrid: "grid grid-cols-7 gap-y-1.5 text-center text-sm font-medium",
+            paddingDay: "text-zinc-600 py-1 opacity-40",
+            day: "w-8 h-8 mx-auto flex items-center justify-center rounded-full transition-all cursor-pointer",
+            daySelected: "bg-orange-500 text-white font-bold shadow-md",
+            dayDefault: "text-zinc-300 hover:bg-blender-hover",
+        },
+    },
+    popover: {
+        root: "popover w-full",
+    },
+    radio: {
+        group: "radio-group",
+        item: "radio-item",
+        disabled: "radio-disabled",
+        input: "radio-input",
+        dot: "radio-dot",
+        label: "radio-label",
+    },
+    select: {
+        root: "relative w-full",
+        trigger: "w-full flex justify-center items-center text-left",
+        triggerLabel: "text-[10px] uppercase font-semibold text-zinc-500 select-none w-full",
+        triggerValue: "text-sm truncate w-full",
+        panel: "mt-1.5 p-2 w-full min-w-60 shadow-lg z-50",
+        search: "w-full px-3 py-1.5 mb-1.5 text-sm bg-blender-surface border border-blender-border rounded text-inherit outline-none focus:border-blue-500",
+        list: "max-h-56 overflow-y-auto flex flex-col gap-0.5",
+        option: "w-full flex items-center justify-between px-3 py-2 rounded text-sm text-zinc-300 hover:text-slate-900 hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer text-left",
+        optionSelected: "bg-blender-hover text-slate-900 font-medium",
+        optionContent: "flex items-center gap-2.5 truncate",
+        optionIcon: "text-base",
+        optionEmpty: "px-3 py-2 text-xs text-zinc-500 text-center select-none",
+        optionCheck: "text-blue-500 font-bold text-xs",
+    },
+    skeleton: {
+        default: "relative overflow-hidden rounded-xl bg-gray-200 before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-linear-to-r before:from-transparent before:via-white/70 before:to-transparent",
+    },
+    textarea: {
+        form: "input-form",
+    },
+    toggle: {
+        root: "toggle-root",
+        track: "toggle-track",
+        on: "toggle-on",
+        thumb: "toggle-thumb",
+        label: "toggle-label",
+    },
+
+    // ── Molecules ──────────────────────────────────────────
     card: {
+        root: "card",
         description: "text-justify line-clamp-2 xl:line-clamp-3 2xl:line-clamp-4",
+        title: {
+            root: "card-title",
+            text: "card-title-text",
+        },
+        price: {
+            root: "card-price",
+            number: "card-price-number",
+        },
+        phone: {
+            root: "card-phone",
+            number: "card-phone-number",
+        },
+        rating: {
+            root: "card-rating flex gap-2",
+            filled: "text-yellow-600",
+        },
+        tags: {
+            root: "flex gap-4 w-full border-y border-gray-100 py-4",
+            item: "flex flex-col items-center justify-center flex-1 first:border-l-0 border-l border-gray-100",
+            icon: "mb-1",
+            value: "text-lg font-bold text-gray-900",
+            label: "text-sm text-gray-500",
+        },
         cardThumbnailVideo: {
             container: "relative cursor-pointer",
             video: "absolute inset-0",
@@ -42,6 +163,11 @@ export const StyleComponent = {
                 body: "h-full",
                 description: "my-4",
                 footer: "my-2",
+            },
+            v02: {
+                header: "flex justify-between",
+                titleGroup: "flex flex-col gap-2",
+                actions: "flex flex-col gap-2",
             },
         },
         profile: {

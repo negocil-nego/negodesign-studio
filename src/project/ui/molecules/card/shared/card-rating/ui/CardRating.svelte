@@ -1,5 +1,6 @@
 <script lang="ts">
     import Icon from "../../../../../atoms/icon/ui/Icon.svelte";
+    import { StyleComponent } from "../../../../../../data/style.component";
     import type { CardRatingProps } from "../data/types";
 
     let { rating }: CardRatingProps = $props();
@@ -9,14 +10,14 @@
 </script>
 
 <div
-    class="card-rating flex gap-2"
+    class={StyleComponent.card.rating.root}
     role="img"
     aria-label={`rating ${filled} de ${MAX_STARS}`}
 >
     {#each Array(MAX_STARS) as _, index}
         <Icon
             name="Star"
-            className={index < filled ? "text-yellow-600" : ""}
+            className={index < filled ? StyleComponent.card.rating.filled : ""}
         />
     {/each}
 </div>

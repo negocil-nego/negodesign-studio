@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from "../../../../icon/ui/Icon.svelte";
   import Popover from "../../../../popover/ui/Popover.svelte";
+  import { StyleComponent } from "../../../../../../data/style.component";
   import type { InputDateProps } from "../data/types";
 
   let {
@@ -14,6 +15,7 @@
   } = $props();
 
   const popoverId = $props.id();
+  const style = StyleComponent.input.date;
   let year = $state(2023);
   let month = $state(10); // 10 = November
   let day = $state(21);
@@ -66,7 +68,7 @@
   }
 </script>
 
-<div class="relative w-full">
+<div class={style.root}>
   <Popover
     id={popoverId}
     role="dialog"
@@ -79,27 +81,22 @@
         disabled={inputProps?.disabled}
         popovertarget={popoverId}
         aria-haspopup="dialog"
-        class="input-form w-full cursor-pointer flex items-center justify-between text-left"
+        class={style.trigger}
       >
-        <div class="flex flex-col w-full min-w-0">
+        <div class={style.triggerBody}>
           {#if labelProps}
-            <span
-              class="text-[10px] uppercase font-semibold text-zinc-500 select-none"
-            >
+            <span class={style.triggerLabel}>
               {labelProps.label}
             </span>
           {/if}
-          <div class="flex items-center gap-2 mt-0.5">
-            <span class="text-sm">
+          <div class={style.valueRow}>
+            <span class={style.valueIcon}>
               <Icon name="Label" />
             </span>
-            <span class="text-sm font-medium truncate">{dateStr}</span>
+            <span class={style.value}>{dateStr}</span>
           </div>
         </div>
-        <div
-          class="flex flex-col text-zinc-400 text-xs ml-2 select-none shrink-0"
-          aria-hidden="true"
-        >
+        <div class={style.expandIcon} aria-hidden="true">
           <span><Icon name="HelpSquare" /></span>
           <span><Icon name="HelpSquare" /></span>
         </div>
@@ -107,37 +104,34 @@
     {/snippet}
 
     {#snippet panel()}
-      <div class="mt-1.5 text-zinc-200 z-50 outline-none">
-        <div class="flex items-center justify-between mb-4">
+      <div class={style.panel}>
+        <div class={style.panelHeader}>
           <button
             type="button"
             onclick={() => changeMonth(-1)}
-            class="p-1.5 rounded hover:bg-blender-hover cursor-pointer"
+            class={style.navButton}
           >
             <Icon name="HelpSquare" />
           </button>
-          <span class="font-bold text-sm text-zinc-200">{monthName} {year}</span
-          >
+          <span class={style.monthTitle}>{monthName} {year}</span>
           <button
             type="button"
             onclick={() => changeMonth(1)}
-            class="p-1.5 rounded hover:bg-blender-hover cursor-pointer"
+            class={style.navButton}
           >
             <Icon name="HelpSquare" />
           </button>
         </div>
 
-        <div
-          class="grid grid-cols-7 text-center text-xs font-medium text-zinc-500 mb-3"
-        >
+        <div class={style.weekdays}>
           <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span
             >Fri</span
           ><span>Sat</span><span>Sun</span>
         </div>
 
-        <div class="grid grid-cols-7 gap-y-1.5 text-center text-sm font-medium">
+        <div class={style.daysGrid}>
           {#each paddingDays as pad}
-            <span class="text-zinc-600 py-1 opacity-40">{pad}</span>
+            <span class={style.paddingDay}>{pad}</span>
           {/each}
           {#each days as d}
             <button
@@ -145,10 +139,7 @@
               popovertarget={popoverId}
               popovertargetaction="hide"
               onclick={() => handleSelect(d)}
-              class="w-8 h-8 mx-auto flex items-center justify-center rounded-full transition-all cursor-pointer
-                {d === day
-                ? 'bg-orange-500 text-white font-bold shadow-md'
-                : 'text-zinc-300 hover:bg-blender-hover'}"
+              class={`${style.day} ${d === day ? style.daySelected : style.dayDefault}`}
             >
               {d}
             </button>

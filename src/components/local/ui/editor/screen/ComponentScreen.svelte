@@ -11,7 +11,6 @@
   import InputNumber from "../../../../../project/ui/atoms/input/children/number/ui/InputNumber.svelte";
   import InputAge from "../../../../../project/ui/atoms/input/children/age/ui/InputAge.svelte";
   import InputLabel from "../../../../../project/ui/atoms/input/children/label/ui/InputLabel.svelte";
-  import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
 
   // ── Atoms · Control ────────────────────────────────────────────────────────
   import Select from "../../../../../project/ui/atoms/select/ui/Select.svelte";
@@ -27,6 +26,7 @@
   import { componentCatalog, type ComponentDefinition } from "../../../data/components";
   import { activeProject } from "../../../data/projects";
   import { copyComponentToActiveProject } from "../../../data/component-copy";
+    import Label from "../../../../../project/ui/atoms/label/ui/label.svelte";
 
   // ─── Types & helpers ────────────────────────────────────────────────────────
 

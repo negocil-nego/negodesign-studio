@@ -1,19 +1,20 @@
 <script lang="ts">
     import Icon from "../../../../../atoms/icon/ui/Icon.svelte";
+    import { StyleComponent } from "../../../../../../data/style.component";
     import type { CardTagsProps } from "../data/types";
 
     let { tags, className, itemClassName }: CardTagsProps = $props();
 </script>
 
-<div class={className ?? "flex gap-4 w-full border-y border-gray-100 py-4"}>
+<div class={className ?? StyleComponent.card.tags.root}>
     {#each tags as tag}
-        <div class={itemClassName ?? "flex flex-col items-center justify-center flex-1 first:border-l-0 border-l border-gray-100"}>
+        <div class={itemClassName ?? StyleComponent.card.tags.item}>
             {#if tag.icon}
-                <Icon name={tag.icon} className="mb-1" />
+                <Icon name={tag.icon} className={StyleComponent.card.tags.icon} />
             {/if}
-            <span class="text-lg font-bold text-gray-900">{tag.title}</span>
+            <span class={StyleComponent.card.tags.value}>{tag.title}</span>
             {#if tag.description}
-                <span class="text-sm text-gray-500">{tag.description}</span>
+                <span class={StyleComponent.card.tags.label}>{tag.description}</span>
             {/if}
         </div>
     {/each}

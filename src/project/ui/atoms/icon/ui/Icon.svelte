@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getIconClass, IconNamed } from "../../../../../hooks/icon.svelte";
+  import { StyleComponent } from "../../../../data/style.component";
   import type { IconProps } from "../data/types";
 
   let { name, className, isLoading = false }: IconProps = $props();
@@ -8,7 +9,7 @@
 </script>
 
 {#if isLoading}
-  <span class="animate-spin inline-block w-5 h-5"></span>
+  <span class={StyleComponent.icon.spinner}></span>
 {:else}
-  <i class={`${iconClass} ${className} text-base opacity-75`} aria-hidden="true"></i>
+  <i class={`${iconClass} ${className} ${StyleComponent.icon.default}`} aria-hidden="true"></i>
 {/if}

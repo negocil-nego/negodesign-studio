@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { StyleComponent } from "../../../../data/style.component";
 
   type Props = {
     id: string;
@@ -12,7 +13,7 @@
   let { id, trigger, panel, role = "dialog", ariaLabel }: Props = $props();
 </script>
 
-<div class="popover w-full">
+<div class={StyleComponent.popover.root}>
   {@render trigger()}
   <div {id} popover="auto" {role} aria-label={ariaLabel}>
     {@render panel()}

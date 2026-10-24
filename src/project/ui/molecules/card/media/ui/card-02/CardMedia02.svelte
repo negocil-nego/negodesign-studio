@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { StyleComponent } from "../../../../../../data/style.component";
     import CardButton from "../../../shared/card-button/ui/CardButton.svelte";
     import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.svelte";
     import CardDescription from "../../../shared/card-description/ui/CardDescription.svelte";
@@ -27,13 +28,13 @@
 </script>
 
 <aside>
-    <div class="flex justify-between">
+    <div class={StyleComponent.card.media.v02.header}>
         <div>
             {#if logoProps}
                 <CardLogo {...logoProps} />
             {/if}
             {#if titleProps || ratingProps}
-                <div class="flex flex-col gap-2">
+                <div class={StyleComponent.card.media.v02.titleGroup}>
                     {#if titleProps}
                         <CardTitle {...titleProps} />
                     {/if}
@@ -43,7 +44,7 @@
                 </div>
             {/if}
         </div>
-        <div class="flex flex-col gap-2">
+        <div class={StyleComponent.card.media.v02.actions}>
             {#if cartButtonProps}
                 <CardCartButton {...cartButtonProps} />
             {/if}

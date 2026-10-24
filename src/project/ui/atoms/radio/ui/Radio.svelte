@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { RadioProps } from "../data/types";
+  import { StyleComponent } from "../../../../data/style.component";
 
   let { name, options, value = $bindable(""), disabled, onchange }: RadioProps = $props();
 
@@ -9,9 +10,9 @@
   }
 </script>
 
-<fieldset class="radio-group" {disabled}>
+<fieldset class={StyleComponent.radio.group} {disabled}>
   {#each options as option}
-    <label class="radio-item" class:radio-disabled={option.disabled || disabled}>
+    <label class={`${StyleComponent.radio.item} ${option.disabled || disabled ? StyleComponent.radio.disabled : ""}`}>
       <input
         type="radio"
         {name}
@@ -19,10 +20,10 @@
         checked={value === option.value}
         disabled={option.disabled || disabled}
         onchange={() => handleChange(option.value)}
-        class="radio-input"
+        class={StyleComponent.radio.input}
       />
-      <span class="radio-dot"></span>
-      <span class="radio-label">{option.label}</span>
+      <span class={StyleComponent.radio.dot}></span>
+      <span class={StyleComponent.radio.label}>{option.label}</span>
     </label>
   {/each}
 </fieldset>

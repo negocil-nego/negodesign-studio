@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ToggleProps } from "../data/types";
+  import { StyleComponent } from "../../../../data/style.component";
 
   let { id, name, checked = $bindable(false), disabled, label, onchange }: ToggleProps = $props();
 
@@ -9,7 +10,7 @@
   }
 </script>
 
-<label class="toggle-root" for={id}>
+<label class={StyleComponent.toggle.root} for={id}>
   <button
     type="button"
     role="switch"
@@ -18,12 +19,11 @@
     aria-checked={checked}
     {disabled}
     onclick={handleChange}
-    class="toggle-track"
-    class:toggle-on={checked}
+    class={`${StyleComponent.toggle.track} ${checked ? StyleComponent.toggle.on : ""}`}
   >
-    <span class="toggle-thumb"></span>
+    <span class={StyleComponent.toggle.thumb}></span>
   </button>
   {#if label}
-    <span class="toggle-label">{label}</span>
+    <span class={StyleComponent.toggle.label}>{label}</span>
   {/if}
 </label>

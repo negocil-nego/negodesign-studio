@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from "../../icon/ui/Icon.svelte";
   import Popover from "../../popover/ui/Popover.svelte";
+  import { StyleComponent } from "../../../../data/style.component";
   import type { SelectProps, SelectOption } from "../data/types";
 
   let {
@@ -35,7 +36,7 @@
   }
 </script>
 
-<div class="relative w-full">
+<div class={StyleComponent.select.root}>
   <Popover id={popoverId} role="listbox" ariaLabel={label ?? "Select option"}>
     {#snippet trigger()}
       <button
@@ -44,16 +45,14 @@
         type="button"
         popovertarget={popoverId}
         aria-haspopup="listbox"
-        class="w-full flex justify-center items-center text-left"
+        class={StyleComponent.select.trigger}
       >
         {#if label}
-          <div
-            class="text-[10px] uppercase font-semibold text-zinc-500 select-none w-full"
-          >
+          <div class={StyleComponent.select.triggerLabel}>
             {label}
           </div>
         {:else}
-          <div class="text-sm truncate w-full">
+          <div class={StyleComponent.select.triggerValue}>
             {selected ? selected.label : (placeholder ?? "Selecione...")}
           </div>
         {/if}
@@ -64,14 +63,14 @@
     {/snippet}
 
     {#snippet panel()}
-      <div class="mt-1.5 p-2 w-full min-w-60 shadow-lg z-50">
+      <div class={StyleComponent.select.panel}>
         <input
           type="search"
           bind:value={query}
           placeholder="Search..."
-          class="w-full px-3 py-1.5 mb-1.5 text-sm bg-blender-surface border border-blender-border rounded text-inherit outline-none focus:border-blue-500"
+          class={StyleComponent.select.search}
         />
-        <ul class="max-h-56 overflow-y-auto flex flex-col gap-0.5">
+        <ul class={StyleComponent.select.list}>
           {#each filtered as option (option.value)}
             <li>
               <button
@@ -82,24 +81,21 @@
                 popovertarget={popoverId}
                 popovertargetaction="hide"
                 onclick={() => choose(option)}
-                class="w-full flex items-center justify-between px-3 py-2 rounded text-sm text-zinc-300 hover:text-slate-900 hover:bg-blender-hover active:bg-blender-active transition-colors cursor-pointer text-left
-                  {selected?.value === option.value
-                  ? 'bg-blender-hover text-slate-900 font-medium'
-                  : ''}"
+                class={`${StyleComponent.select.option} ${selected?.value === option.value ? StyleComponent.select.optionSelected : ""}`}
               >
-                <div class="flex items-center gap-2.5 truncate">
+                <div class={StyleComponent.select.optionContent}>
                   {#if option.icon}
-                    <span class="text-base">{option.icon}</span>
+                    <span class={StyleComponent.select.optionIcon}>{option.icon}</span>
                   {/if}
                   <span class="truncate">{option.label}</span>
                 </div>
                 {#if selected?.value === option.value || selected?.label === option.label}
-                  <span class="text-blue-500 font-bold text-xs">✓</span>
+                  <span class={StyleComponent.select.optionCheck}>✓</span>
                 {/if}
               </button>
             </li>
           {:else}
-            <li class="px-3 py-2 text-xs text-zinc-500 text-center select-none">
+            <li class={StyleComponent.select.optionEmpty}>
               No options found
             </li>
           {/each}
