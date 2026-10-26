@@ -67,7 +67,8 @@
 </script>
 
 <aside
-  class="{StyleComponent.layout.sidebar} flex h-full w-70 min-w-60 flex-col overflow-hidden border-l border-blender-border"
+  class="{StyleComponent.layout
+    .sidebar} flex h-full w-70 min-w-60 flex-col overflow-hidden border-l border-blender-border"
 >
   <div class="{StyleComponent.layout.topbar} px-3">
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
@@ -93,7 +94,10 @@
         disabled={busy}
       >
         <span class="flex min-w-0 items-center gap-2.5">
-          <i class={`${getIconClass(IconNamed.FolderAdd)} h-5 w-5 shrink-0 text-base opacity-80`} aria-hidden="true"></i>
+          <i
+            class={`${getIconClass(IconNamed.FolderAdd)} h-5 w-5 shrink-0 text-base opacity-80`}
+            aria-hidden="true"
+          ></i>
           <span>{busy ? "A abrir..." : "Escolher pasta"}</span>
         </span>
         <span aria-hidden="true" class="text-zinc-500">↗</span>

@@ -30,7 +30,8 @@
               onclick={() => (componentsOpen = false)}
             >
               <span class="truncate">{item.label ?? item.name}</span>
-              <span class="ml-auto text-[10px] text-zinc-500">{item.group}</span>
+              <span class="ml-auto text-[10px] text-zinc-500">{item.group}</span
+              >
             </a>
           </li>
         {/each}
@@ -46,11 +47,20 @@
   {/if}
 {/snippet}
 
-<nav class="flex min-h-7 w-full flex-none items-center gap-1 border-b border-blender-border px-2 font-commissioner text-xs" aria-label="Menu principal">
-  <a href="/" class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100">
+<nav
+  class="flex min-h-7 w-full flex-none items-center gap-1 border-b border-blender-border px-2 font-commissioner text-xs"
+  aria-label="Menu principal"
+>
+  <a
+    href="/"
+    class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
+  >
     Início
   </a>
-  <a href="/main/project" class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100">
+  <a
+    href="/main/project"
+    class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
+  >
     Projecto
   </a>
 
@@ -62,11 +72,16 @@
       onclick={() => (componentsOpen = !componentsOpen)}
     >
       Componentes
-      <span class="text-[10px] transition-transform" class:rotate-180={componentsOpen}>⌄</span>
+      <span
+        class="text-[10px] transition-transform"
+        class:rotate-180={componentsOpen}>⌄</span
+      >
     </button>
 
     {#if componentsOpen}
-      <div class="absolute left-0 top-full z-50 max-h-[70vh] w-64 overflow-y-auto rounded-md border border-blender-border bg-blender-card p-1.5 shadow-xl">
+      <div
+        class="absolute left-0 top-full z-50 max-h-[70vh] w-64 overflow-y-auto rounded-md border border-blender-border bg-blender-card p-1.5 shadow-xl"
+      >
         {#each componentNavigationGroups as group (group.label)}
           {@render navGroup(group)}
         {/each}

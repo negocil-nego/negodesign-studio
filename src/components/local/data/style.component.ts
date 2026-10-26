@@ -9,7 +9,7 @@ const CircuitBackground = "bg-[linear-gradient(to_bottom,rgba(248,250,252,0.82),
 export const StyleComponent = {
     // ── Layout / Shell ─────────────────────────────────────
     layout: {
-        app: "w-screen h-screen overflow-hidden bg-blender-base text-slate-900 dark:text-zinc-100 font-commissioner select-none",
+        app: "h-screen overflow-hidden bg-blender-base text-slate-900 dark:text-zinc-100 font-commissioner select-none",
         workspace: "flex-1 min-h-0 p-3 md:p-6 lg:p-8 bg-blender-base overflow-y-auto flex items-center justify-center",
         sidebar: "bg-blender-sidebar border-r border-blender-border text-zinc-300 select-none",
         topbar: "h-11 px-4 bg-blender-sidebar border-b border-blender-border flex items-center justify-between select-none",
