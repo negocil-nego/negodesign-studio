@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { StyleComponent } from "../../../../../../data/style.component";
 import type { CardVideoProps } from "../data/types";
 
 const { src, poster, preload = "metadata", controls = false } = defineProps<CardVideoProps>();
@@ -28,6 +29,6 @@ onMounted(playVideo);
         loop
         playsinline
         @canplay="playVideo"
-        class="h-50 w-full rounded-md object-cover"
+        :class="StyleComponent.card.media.default"
     />
 </template>

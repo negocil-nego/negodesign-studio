@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useRef } from "react";
+import { StyleComponent } from "../../../../../../data/style.component";
 import type { CardVideoProps } from "../data/types";
 
 export default function CardVideo({ src, poster, preload = "metadata", controls = false }: CardVideoProps) {
@@ -27,7 +28,7 @@ export default function CardVideo({ src, poster, preload = "metadata", controls 
             loop
             playsInline
             onCanPlay={playVideo}
-            className="h-50 w-full rounded-md object-cover"
+            className={StyleComponent.card.media.default}
         />
     );
 }

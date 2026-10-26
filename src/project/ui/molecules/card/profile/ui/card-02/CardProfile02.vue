@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardActionsButton from "../../../shared/card-actions-button/ui/CardActionsButton.vue";
 import CardButton from "../../../shared/card-button/ui/CardButton.vue";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.vue";
@@ -27,31 +28,33 @@ const {
     tagsProps,
     actionsProps,
 } = defineProps<CardProfileBaseProps>();
+
+const style = StyleComponent.card.profile.v02;
 </script>
 
 <template>
-    <aside class="w-72 rounded-3xl bg-white dark:bg-blender-card border border-blender-border transition-colors overflow-hidden shadow-sm">
-        <div class="h-44 w-full relative">
-            <div class="h-40 w-full rounded-md object-cover">
+    <aside :class="style.root">
+        <div :class="style.cover">
+            <div :class="StyleComponent.card.profile.fill">
                 <CardThumbnailVideo v-if="thumbnailVideoProps" v-bind="thumbnailVideoProps" />
                 <CardVideo v-else-if="videoProps" v-bind="videoProps" :controls="false" />
                 <CardImage v-else-if="imageProps" v-bind="imageProps" />
             </div>
 
-            <div class="absolute top-2 flex justify-end w-full gap-2 z-10 p-2">
+            <div :class="style.actions">
                 <CardCartButton v-if="cartButtonProps" v-bind="cartButtonProps" />
                 <CardFavoriteButton v-if="favoriteButtonProps" v-bind="favoriteButtonProps" />
             </div>
         </div>
 
-        <div class="px-6 pb-6 flex flex-col gap-4">
+        <div :class="style.body">
             <div class="relative">
-                <div v-if="logoProps" class="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-white shadow-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                    <CardLogo v-bind="logoProps" class="w-full h-full object-cover" />
+                <div v-if="logoProps" :class="style.logoFrame">
+                    <CardLogo v-bind="logoProps" :class-name="style.logoImage" />
                 </div>
             </div>
 
-            <CardTitle v-if="titleProps" v-bind="titleProps" class="text-2xl font-bold text-gray-900 mt-8" />
+            <CardTitle v-if="titleProps" v-bind="titleProps" :class-name="style.infoTitle" />
 
             <CardRating v-if="ratingProps" v-bind="ratingProps" />
 

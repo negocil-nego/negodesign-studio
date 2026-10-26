@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardActionsButton from "../../../shared/card-actions-button/ui/CardActionsButton";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
@@ -25,10 +26,11 @@ export default function CardProfile01({
     tagsProps,
     actionsProps,
 }: CardProfileBaseProps) {
+    const style = StyleComponent.card.profile.v01;
     return (
-        <aside className="w-72 rounded-3xl bg-white dark:bg-blender-card border border-blender-border transition-colors overflow-hidden shadow-xl">
-            <div className="relative h-32 w-full">
-                <div className="h-40 w-full rounded-md object-cover">
+        <aside className={style.root}>
+            <div className={style.cover}>
+                <div className={StyleComponent.card.profile.fill}>
                     {thumbnailVideoProps ? (
                         <CardThumbnailVideo {...thumbnailVideoProps} />
                     ) : videoProps ? (
@@ -38,22 +40,22 @@ export default function CardProfile01({
                     ) : null}
                 </div>
 
-                <div className="absolute top-2 flex justify-between w-full gap-2 z-10 p-2">
+                <div className={style.actions}>
                     {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                     {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                 </div>
 
-                <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className={style.logo}>
                     {logoProps && (
-                        <div className="rounded-full overflow-hidden border-4 border-white bg-white shadow-md">
-                            <CardLogo {...logoProps} className="w-20 h-20 rounded-full" />
+                        <div className={style.logoFrame}>
+                            <CardLogo {...logoProps} className={style.logoImage} />
                         </div>
                     )}
                 </div>
             </div>
 
-            <div className="px-6 pt-14 pb-6 flex flex-col gap-4">
-                <div className="flex flex-col items-center gap-1 z-20 border-white text-white bg-black/5 p-2 font-bold">
+            <div className={style.body}>
+                <div className={style.titleGroup}>
                     {titleProps && <CardTitle {...titleProps} />}
                 </div>
 
@@ -61,12 +63,12 @@ export default function CardProfile01({
 
                 {actionsProps && <CardActionsButton {...actionsProps} />}
 
-                <div className="flex flex-col gap-3">
+                <div className={style.descriptionGroup}>
                     {descriptionProps && <CardDescription {...descriptionProps} />}
                 </div>
 
                 {buttonProps && (
-                    <div className="mt-2">
+                    <div className={style.footer}>
                         <CardButton {...buttonProps} />
                     </div>
                 )}

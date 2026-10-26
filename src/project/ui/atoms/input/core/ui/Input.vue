@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import { h } from "vue";
+import { computed } from "vue";
 import type { InputProps } from "../data/types";
 import { getIconClass } from "../../../../../../hooks/icon.svelte";
+import { StyleComponent } from "../../../../../data/style.component";
 
-const { icon, type, required, disabled, placeholder, value } = defineProps<InputProps>();
+const props = defineProps<InputProps>();
 
-const InputField = () =>
-    h("input", {
-        type,
-        required,
-        disabled,
-        placeholder,
-        value,
-        "data-name": "label",
-    });
+const fieldClass = computed(
+    () =>
+        (StyleComponent.input as unknown as Record<string, { root?: string }>)[props.type ?? ""]?.root ??
+        StyleComponent.input.form,
+);
 </script>
 
 <template>
-    <div class="input-form">
-        <i v-if="icon" :class="getIconClass(icon)" aria-hidden="true" />
-        <InputField />
+    <div :class="fieldClass">
+        <i v-if="props.icon" :class="getIconClass(props.icon)" aria-hidden="true" />
+        <input
+            :id="props.id"
+            :type="props.type"
+            :required="props.required"
+            :disabled="props.disabled"
+            :placeholder="props.placeholder"
+            :value="props.value"
+            data-name="label"
+        />
     </div>
 </template>

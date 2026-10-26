@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
 import CardDescription from "../../../shared/card-description/ui/CardDescription";
@@ -27,10 +28,11 @@ export default function CardProduct01({
     thumbnailVideoProps,
     minFileProps,
 }: CardProductBaseProps) {
+    const style = StyleComponent.card.product.v01;
     return (
-        <aside className="w-72 rounded-2xl bg-white dark:bg-blender-card border border-blender-border overflow-hidden transition-colors">
-            <div className="relative h-56 w-full">
-                <div className="overflow-hidden rounded-md border border-gray-100 h-full w-full">
+        <aside className={style.root}>
+            <div className={style.media}>
+                <div className={`${StyleComponent.card.product.frame} ${StyleComponent.card.product.fill}`}>
                     {thumbnailVideoProps ? (
                         <CardThumbnailVideo {...thumbnailVideoProps} />
                     ) : videoProps ? (
@@ -40,23 +42,23 @@ export default function CardProduct01({
                     ) : null}
                 </div>
 
-                <div className="absolute top-2 inset-x-0 flex justify-between gap-2 z-10 p-2">
+                <div className={style.actions}>
                     {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                     {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                 </div>
 
                 {priceProps && (
-                    <div className="absolute bottom-2 left-2 z-10 rounded-full bg-white/90 px-3 py-1 backdrop-blur">
+                    <div className={style.priceBadge}>
                         <CardPrice {...priceProps} />
                     </div>
                 )}
             </div>
 
-            <div className="flex flex-col gap-3 p-5">
-                <div className="flex items-center gap-3">
+            <div className={style.body}>
+                <div className={style.header}>
                     {logoProps && <CardLogo {...logoProps} />}
                     {titleProps && (
-                        <div className="flex flex-col gap-1 min-w-0">
+                        <div className={style.titleGroup}>
                             <CardTitle {...titleProps} />
                             {ratingProps ? <CardRating {...ratingProps} /> : <CardRating rating={0} />}
                         </div>
@@ -64,7 +66,7 @@ export default function CardProduct01({
                 </div>
 
                 {minFileProps?.length ? (
-                    <div className="flex gap-2 overflow-x-auto">
+                    <div className={style.thumbs}>
                         {minFileProps.map((minFile, index) => (
                             <CardMinFile key={index} {...minFile} />
                         ))}
@@ -74,7 +76,7 @@ export default function CardProduct01({
                 {descriptionProps && <CardDescription {...descriptionProps} />}
 
                 {buttonProps && (
-                    <div className="mt-1">
+                    <div className={style.footer}>
                         <CardButton {...buttonProps} />
                     </div>
                 )}

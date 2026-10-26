@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import type { CardMinFileProps } from "../data/types";
 import CardImage from "../../card-image/ui/CardImage";
 
@@ -6,7 +7,7 @@ export default function CardMinFile({ imageProps, active = false, onClick }: Car
     return (
         <button
             type="button"
-            className={`relative shrink-0 size-14 overflow-hidden rounded-md border border-blender-border cursor-pointer transition-colors [&>img]:h-full [&>img]:w-full [&>img]:rounded-none [&>img]:object-cover [&>img]:transition-none ${active ? "border-blue-500 ring-1 ring-blue-500" : ""}`}
+            className={`${StyleComponent.card.cardMinFile.root} ${active ? StyleComponent.card.cardMinFile.active : ""}`}
             onClick={onClick}
         >
             {imageProps && <CardImage {...imageProps} />}

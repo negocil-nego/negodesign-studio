@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { CheckboxProps } from "../data/types";
+import { StyleComponent } from "../../../../data/style.component";
 
 const { id, name, checked: initialChecked = false, disabled, label, required, onchange } = defineProps<CheckboxProps>();
 const checked = ref(initialChecked);
@@ -12,7 +13,7 @@ function handleChange(e: Event) {
 </script>
 
 <template>
-    <label :class="['checkbox-root', { 'checkbox-disabled': disabled }]" :for="id">
+    <label :class="[StyleComponent.checkbox.root, disabled ? StyleComponent.checkbox.disabled : '']" :for="id">
         <input
             type="checkbox"
             :id="id"
@@ -21,13 +22,13 @@ function handleChange(e: Event) {
             :disabled="disabled"
             :required="required"
             @change="handleChange"
-            class="checkbox-input"
+            :class="StyleComponent.checkbox.input"
         />
-        <span class="checkbox-box">
-            <svg v-if="checked" viewBox="0 0 10 8" fill="none" aria-hidden="true" class="checkbox-tick">
+        <span :class="StyleComponent.checkbox.box">
+            <svg v-if="checked" viewBox="0 0 10 8" fill="none" aria-hidden="true" :class="StyleComponent.checkbox.tick">
                 <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </span>
-        <span v-if="label" class="checkbox-label">{{ label }}</span>
+        <span v-if="label" :class="StyleComponent.checkbox.label">{{ label }}</span>
     </label>
 </template>

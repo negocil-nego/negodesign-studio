@@ -1,27 +1,25 @@
 // @ts-nocheck
 import type { InputProps } from "../data/types";
 import { getIconClass } from "../../../../../../hooks/icon.svelte";
+import { StyleComponent } from "../../../../../data/style.component";
 
-function InputField({ type, required, disabled, placeholder, value }) {
-    return (
-        <input
-            type={type}
-            required={required}
-            disabled={disabled}
-            placeholder={placeholder}
-            value={value}
-            data-name="label"
-        />
-    );
-}
-
-export default function Input({ icon, type, required, disabled, placeholder, value }: InputProps) {
-    const fieldProps = { type, required, disabled, placeholder, value };
+export default function Input({ id, icon, type, required, disabled, placeholder, value }: InputProps) {
+    const fieldClass =
+        (StyleComponent.input as unknown as Record<string, { root?: string }>)[type ?? ""]?.root ??
+        StyleComponent.input.form;
 
     return (
-        <div className="input-form">
+        <div className={fieldClass}>
             {icon && <i className={getIconClass(icon)} aria-hidden="true" />}
-            <InputField {...fieldProps} />
+            <input
+                id={id}
+                type={type}
+                required={required}
+                disabled={disabled}
+                placeholder={placeholder}
+                value={value}
+                data-name="label"
+            />
         </div>
     );
 }

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { StyleComponent } from "../../../../../../data/style.component";
 import Button from "../../../variant/default/ui/Button.vue";
 import type { IconButtonProps } from "../data/types";
 
@@ -7,9 +8,9 @@ withDefaults(defineProps<IconButtonProps>(), { isLoading: false });
 
 <template>
     <Button
-        class-name="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center cursor-pointer bg-gray-100"
-        :icon="icon"
-        :is-skeleton="isLoading"
+        :class-name="StyleComponent.iconCenterButton.default"
         @click="onClick"
+        :is-skeleton="isLoading"
+        :icon="icon"
     />
 </template>

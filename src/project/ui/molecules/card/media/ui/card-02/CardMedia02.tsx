@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
 import CardDescription from "../../../shared/card-description/ui/CardDescription";
@@ -26,12 +27,12 @@ export default function CardMedia02({
     thumbnailVideoProps,
 }: CardMediaBaseProps) {
     return (
-        <aside className="w-87.5 flex flex-col gap-4 p-6 rounded-2xl bg-white dark:bg-blender-card border border-blender-border shadow-sm transition-colors">
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
+        <aside className={StyleComponent.card.media.v02.root}>
+            <div className={StyleComponent.card.media.v02.header}>
+                <div className={StyleComponent.card.media.v02.headerGroup}>
                     {logoProps && <CardLogo {...logoProps} />}
                     {(titleProps || ratingProps || priceProps) && (
-                        <div className="flex flex-col gap-1">
+                        <div className={StyleComponent.card.media.v02.titleGroup}>
                             {titleProps && <CardTitle {...titleProps} />}
                             {ratingProps ? <CardRating {...ratingProps} /> : <CardRating rating={0} />}
                             {priceProps && <CardPrice {...priceProps} />}
@@ -39,15 +40,15 @@ export default function CardMedia02({
                     )}
                 </div>
                 {(cartButtonProps || favoriteButtonProps) && (
-                    <div className="flex flex-row gap-2 shrink-0">
+                    <div className={StyleComponent.card.media.v02.actions}>
                         {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                         {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                     </div>
                 )}
             </div>
 
-            <div className="flex flex-col gap-3">
-                <div className="overflow-hidden rounded-md border border-gray-100 h-full w-full">
+            <div className={StyleComponent.card.media.v02.body}>
+                <div className={`${StyleComponent.card.media.frame} ${StyleComponent.card.media.fill}`}>
                     {thumbnailVideoProps ? (
                         <CardThumbnailVideo {...thumbnailVideoProps} visibleButtonPlay />
                     ) : videoProps ? (
@@ -56,13 +57,13 @@ export default function CardMedia02({
                         <CardImage {...imageProps} />
                     ) : null}
                 </div>
-                <div className="my-1">
+                <div className={StyleComponent.card.media.v02.description}>
                     {descriptionProps && <CardDescription {...descriptionProps} />}
                 </div>
             </div>
 
             {buttonProps && (
-                <div className="mt-1">
+                <div className={StyleComponent.card.media.v02.footer}>
                     <CardButton {...buttonProps} />
                 </div>
             )}

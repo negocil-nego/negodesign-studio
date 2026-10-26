@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardButton from "../../../shared/card-button/ui/CardButton.vue";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton.vue";
 import CardDescription from "../../../shared/card-description/ui/CardDescription.vue";
@@ -28,9 +29,9 @@ const {
 </script>
 
 <template>
-    <aside class="w-87.5 p-5 rounded-lg bg-white dark:bg-blender-card border border-blender-border transition-colors">
-        <div class="flex justify-between">
-            <div class="flex gap-2">
+    <aside :class="StyleComponent.card.media.v01.root">
+        <div :class="StyleComponent.card.media.v01.header">
+            <div :class="StyleComponent.card.media.v01.headerGroup">
                 <CardLogo v-if="logoProps" v-bind="logoProps" />
                 <div v-if="titleProps || ratingProps || priceProps" class="flex flex-col gap-2">
                     <CardTitle v-if="titleProps" v-bind="titleProps" />
@@ -39,24 +40,24 @@ const {
                     <CardPrice v-if="priceProps" v-bind="priceProps" />
                 </div>
             </div>
-            <div v-if="cartButtonProps || favoriteButtonProps" class="flex gap-2">
+            <div v-if="cartButtonProps || favoriteButtonProps" :class="StyleComponent.card.media.v01.headerGroup">
                 <CardCartButton v-if="cartButtonProps" v-bind="cartButtonProps" />
                 <CardFavoriteButton v-if="favoriteButtonProps" v-bind="favoriteButtonProps" />
             </div>
         </div>
 
-        <div class="h-full">
-            <div class="my-4">
+        <div :class="StyleComponent.card.media.v01.body">
+            <div :class="StyleComponent.card.media.v01.description">
                 <CardDescription v-if="descriptionProps" v-bind="descriptionProps" />
             </div>
-            <div class="overflow-hidden rounded-md border border-gray-100 h-full w-full">
+            <div :class="`${StyleComponent.card.media.frame} ${StyleComponent.card.media.fill}`">
                 <CardThumbnailVideo v-if="thumbnailVideoProps" v-bind="thumbnailVideoProps" :visible-button-play="true" />
                 <CardVideo v-else-if="videoProps" v-bind="videoProps" />
                 <CardImage v-else-if="imageProps" v-bind="imageProps" />
             </div>
         </div>
 
-        <div v-if="buttonProps" class="my-2">
+        <div v-if="buttonProps" :class="StyleComponent.card.media.v01.footer">
             <CardButton v-bind="buttonProps" />
         </div>
     </aside>

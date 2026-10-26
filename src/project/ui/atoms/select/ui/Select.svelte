@@ -57,7 +57,7 @@
           </div>
         {/if}
         <div>
-          <Icon name="Home" />
+          <Icon name="ArrowDown" />
         </div>
       </button>
     {/snippet}

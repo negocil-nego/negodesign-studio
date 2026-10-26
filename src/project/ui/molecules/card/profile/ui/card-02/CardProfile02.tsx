@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardActionsButton from "../../../shared/card-actions-button/ui/CardActionsButton";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
@@ -27,10 +28,11 @@ export default function CardProfile02({
     tagsProps,
     actionsProps,
 }: CardProfileBaseProps) {
+    const style = StyleComponent.card.profile.v02;
     return (
-        <aside className="w-72 rounded-3xl bg-white dark:bg-blender-card border border-blender-border transition-colors overflow-hidden shadow-sm">
-            <div className="h-44 w-full relative">
-                <div className="h-40 w-full rounded-md object-cover">
+        <aside className={style.root}>
+            <div className={style.cover}>
+                <div className={StyleComponent.card.profile.fill}>
                     {thumbnailVideoProps ? (
                         <CardThumbnailVideo {...thumbnailVideoProps} />
                     ) : videoProps ? (
@@ -40,22 +42,22 @@ export default function CardProfile02({
                     ) : null}
                 </div>
 
-                <div className="absolute top-2 flex justify-end w-full gap-2 z-10 p-2">
+                <div className={style.actions}>
                     {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                     {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                 </div>
             </div>
 
-            <div className="px-6 pb-6 flex flex-col gap-4">
+            <div className={style.body}>
                 <div className="relative">
                     {logoProps && (
-                        <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-white shadow-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                            <CardLogo {...logoProps} className="w-full h-full object-cover" />
+                        <div className={style.logoFrame}>
+                            <CardLogo {...logoProps} className={style.logoImage} />
                         </div>
                     )}
                 </div>
 
-                {titleProps && <CardTitle {...titleProps} className="text-2xl font-bold text-gray-900 mt-8" />}
+                {titleProps && <CardTitle {...titleProps} className={style.infoTitle} />}
 
                 {ratingProps && <CardRating {...ratingProps} />}
 

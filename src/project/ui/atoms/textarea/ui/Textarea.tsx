@@ -1,9 +1,10 @@
 // @ts-nocheck
 import type { TextareaProps } from "../data/types";
+import { StyleComponent } from "../../../../data/style.component";
 
 export default function Textarea({ id, name, value, placeholder, rows = 4, cols, disabled, required, readonly, maxlength }: TextareaProps) {
     return (
-        <div className="input-form">
+        <div className={StyleComponent.textarea.form}>
             <textarea
                 id={id}
                 name={name}

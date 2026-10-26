@@ -54,7 +54,7 @@ export const StyleComponent = {
         },
         time: {
             root: "relative w-full",
-            trigger: `${InputForm} w-full cursor-pointer flex items-center justify-between text-left py-3 min-h-[72px]`,
+            trigger: `${InputForm} w-full cursor-pointer flex items-center justify-between text-left`,
             triggerBody: "flex flex-col w-full min-w-0",
             triggerLabel: "text-[10px] uppercase font-semibold text-zinc-500 select-none mb-1",
             valueRow: "flex items-center gap-2",
@@ -74,8 +74,8 @@ export const StyleComponent = {
         },
         date: {
             root: "relative w-full",
-            trigger: `${InputForm} w-full cursor-pointer flex flex-col items-center justify-center text-center py-3 min-h-[72px]`,
-            triggerBody: "flex flex-col items-center justify-center w-full min-w-0",
+            trigger: `${InputForm} w-full cursor-pointer flex flex-col items-start justify-center`,
+            triggerBody: "flex flex-col items-start justify-center w-full min-w-0",
             triggerLabel: "text-[10px] uppercase font-semibold text-zinc-500 select-none mb-1",
             valueRow: "flex items-center gap-2",
             valueIcon: "text-base text-zinc-400",

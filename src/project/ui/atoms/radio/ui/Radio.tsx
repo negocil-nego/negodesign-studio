@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from "react";
 import type { RadioProps } from "../data/types";
+import { StyleComponent } from "../../../../data/style.component";
 
 export default function Radio({ name, options, value: initialValue = "", disabled, onchange }: RadioProps) {
     const [value, setValue] = useState(initialValue);
@@ -11,9 +12,12 @@ export default function Radio({ name, options, value: initialValue = "", disable
     }
 
     return (
-        <fieldset className="radio-group" disabled={disabled}>
+        <fieldset className={StyleComponent.radio.group} disabled={disabled}>
             {options.map((option) => (
-                <label key={option.value} className={`radio-item${option.disabled || disabled ? " radio-disabled" : ""}`}>
+                <label
+                    key={option.value}
+                    className={`${StyleComponent.radio.item} ${option.disabled || disabled ? StyleComponent.radio.disabled : ""}`}
+                >
                     <input
                         type="radio"
                         name={name}
@@ -21,10 +25,10 @@ export default function Radio({ name, options, value: initialValue = "", disable
                         checked={value === option.value}
                         disabled={option.disabled || disabled}
                         onChange={() => handleChange(option.value)}
-                        className="radio-input"
+                        className={StyleComponent.radio.input}
                     />
-                    <span className="radio-dot" />
-                    <span className="radio-label">{option.label}</span>
+                    <span className={StyleComponent.radio.dot} />
+                    <span className={StyleComponent.radio.label}>{option.label}</span>
                 </label>
             ))}
         </fieldset>

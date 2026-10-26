@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Input from "../../../core/ui/Input";
 import InputLabel from "../../label/ui/InputLabel";
 import type { InputPasswordProps } from "../data/types";

@@ -1,25 +1,27 @@
 // @ts-nocheck
 import { useState } from "react";
+import { FlagNamed } from "../../../../../../../hooks/flag.svelte";
 import type { InputPhoneFlagProps } from "../data/types";
 import { getIconClass } from "../../../../../../../hooks/icon.svelte";
 import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
 import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
 import Label from "../../../../label/ui/Label";
+import { StyleComponent } from "../../../../../../data/style.component";
 
 export default function InputPhoneFlag({ labelProps, inputProps, flag, locale, onCountrySelect }: InputPhoneFlagProps) {
-    const [selectedFlag, setSelectedFlag] = useState(flag[0] ?? "ao.svg");
-    const inputValue = inputProps.value;
+    const style = StyleComponent.input.phone;
+    const [selectedFlag, setSelectedFlag] = useState(flag[0] ?? FlagNamed.Ao);
 
-    function selectCountry(country: CountryPhoneOption) {
+    function handleCountrySelect(country: CountryPhoneOption) {
         setSelectedFlag(country.flag);
         onCountrySelect?.(country);
     }
 
     return (
-        <div className="input-phone-field">
+        <div className={style.field}>
             {labelProps && <Label {...labelProps} />}
-            <div className="input-form input-phone-flag">
-                <CountryPhonePopover flag={selectedFlag} locale={locale} onselect={selectCountry} />
+            <div className={style.form}>
+                <CountryPhonePopover flag={selectedFlag} locale={locale} onselect={handleCountrySelect} />
                 {inputProps.icon && <i className={getIconClass(inputProps.icon)} aria-hidden="true" />}
                 <input
                     id={inputProps.id}
@@ -27,13 +29,10 @@ export default function InputPhoneFlag({ labelProps, inputProps, flag, locale, o
                     required={inputProps.required}
                     disabled={inputProps.disabled}
                     placeholder={inputProps.placeholder}
-                    defaultValue={inputValue}
+                    value={inputProps.value}
                     data-name="label"
                 />
             </div>
         </div>
     );
 }
-
-
-

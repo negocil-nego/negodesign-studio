@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
 import CardDescription from "../../../shared/card-description/ui/CardDescription";
@@ -27,11 +28,12 @@ export default function CardProduct02({
     thumbnailVideoProps,
     minFileProps,
 }: CardProductBaseProps) {
+    const style = StyleComponent.card.product.v02;
     return (
-        <aside className="w-100 flex gap-4 p-5 rounded-2xl bg-white dark:bg-blender-card border border-blender-border shadow-sm transition-colors">
-            <div className="flex flex-col gap-2 w-44 shrink-0">
-                <div className="relative h-40 w-full">
-                    <div className="overflow-hidden rounded-md border border-gray-100 h-full w-full">
+        <aside className={style.root}>
+            <div className={style.gallery}>
+                <div className={style.media}>
+                    <div className={`${StyleComponent.card.product.frame} ${StyleComponent.card.product.fill}`}>
                         {thumbnailVideoProps ? (
                             <CardThumbnailVideo {...thumbnailVideoProps} />
                         ) : videoProps ? (
@@ -41,14 +43,14 @@ export default function CardProduct02({
                         ) : null}
                     </div>
 
-                    <div className="absolute top-2 inset-x-0 flex justify-between gap-2 z-10 p-2">
+                    <div className={style.actions}>
                         {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                         {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                     </div>
                 </div>
 
                 {minFileProps?.length ? (
-                    <div className="flex gap-2 overflow-x-auto">
+                    <div className={style.thumbs}>
                         {minFileProps.map((minFile, index) => (
                             <CardMinFile key={index} {...minFile} />
                         ))}
@@ -56,11 +58,11 @@ export default function CardProduct02({
                 ) : null}
             </div>
 
-            <div className="flex flex-col gap-3 flex-1 min-w-0">
-                <div className="flex items-center gap-3">
+            <div className={style.body}>
+                <div className={style.header}>
                     {logoProps && <CardLogo {...logoProps} />}
                     {titleProps && (
-                        <div className="flex flex-col gap-1 min-w-0">
+                        <div className={style.titleGroup}>
                             <CardTitle {...titleProps} />
                             {ratingProps ? <CardRating {...ratingProps} /> : <CardRating rating={0} />}
                         </div>
@@ -72,7 +74,7 @@ export default function CardProduct02({
                 {descriptionProps && <CardDescription {...descriptionProps} />}
 
                 {buttonProps && (
-                    <div className="mt-auto">
+                    <div className={style.footer}>
                         <CardButton {...buttonProps} />
                     </div>
                 )}

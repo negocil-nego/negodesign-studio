@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { StyleComponent } from "../../../../../../data/style.component";
 import CardButton from "../../../shared/card-button/ui/CardButton";
 import CardCartButton from "../../../shared/card-cart-button/ui/CardCartButton";
 import CardDescription from "../../../shared/card-description/ui/CardDescription";
@@ -26,9 +27,9 @@ export default function CardMedia01({
     thumbnailVideoProps,
 }: CardMediaBaseProps) {
     return (
-        <aside className="w-87.5 p-5 rounded-lg bg-white dark:bg-blender-card border border-blender-border transition-colors">
-            <div className="flex justify-between">
-                <div className="flex gap-2">
+        <aside className={StyleComponent.card.media.v01.root}>
+            <div className={StyleComponent.card.media.v01.header}>
+                <div className={StyleComponent.card.media.v01.headerGroup}>
                     {logoProps && <CardLogo {...logoProps} />}
                     {(titleProps || ratingProps || priceProps) && (
                         <div className="flex flex-col gap-2">
@@ -39,18 +40,18 @@ export default function CardMedia01({
                     )}
                 </div>
                 {(cartButtonProps || favoriteButtonProps) && (
-                    <div className="flex gap-2">
+                    <div className={StyleComponent.card.media.v01.headerGroup}>
                         {cartButtonProps && <CardCartButton {...cartButtonProps} />}
                         {favoriteButtonProps && <CardFavoriteButton {...favoriteButtonProps} />}
                     </div>
                 )}
             </div>
 
-            <div className="h-full">
-                <div className="my-4">
+            <div className={StyleComponent.card.media.v01.body}>
+                <div className={StyleComponent.card.media.v01.description}>
                     {descriptionProps && <CardDescription {...descriptionProps} />}
                 </div>
-                <div className="overflow-hidden rounded-md border border-gray-100 h-full w-full">
+                <div className={`${StyleComponent.card.media.frame} ${StyleComponent.card.media.fill}`}>
                     {thumbnailVideoProps ? (
                         <CardThumbnailVideo {...thumbnailVideoProps} visibleButtonPlay />
                     ) : videoProps ? (
@@ -62,7 +63,7 @@ export default function CardMedia01({
             </div>
 
             {buttonProps && (
-                <div className="my-2">
+                <div className={StyleComponent.card.media.v01.footer}>
                     <CardButton {...buttonProps} />
                 </div>
             )}
