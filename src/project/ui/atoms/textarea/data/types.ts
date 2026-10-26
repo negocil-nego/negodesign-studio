@@ -1,3 +1,5 @@
+import type { LabelProps } from "../../label/data/types";
+
 export type TextareaProps = {
   id: string;
   name?: string;
@@ -9,4 +11,5 @@ export type TextareaProps = {
   required?: boolean;
   readonly?: boolean;
   maxlength?: number;
+  labelProps?: LabelProps;
 };
