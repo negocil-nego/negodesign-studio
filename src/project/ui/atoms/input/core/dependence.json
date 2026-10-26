@@ -18,9 +18,9 @@
       },
       "dependencies": [],
       "assets": {
-        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
-        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
-        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "project/data/i18n/index.ts", "project/data/i18n/translate.ts", "project/data/i18n/translations.js", "project/data/i18n/langs/pt.js", "project/data/i18n/langs/en.js"],
+        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "project/data/i18n/translate.ts", "project/data/i18n/react.tsx", "project/data/i18n/translations.js", "project/data/i18n/langs/pt.js", "project/data/i18n/langs/en.js"],
+        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2", "project/data/i18n/translate.ts", "project/data/i18n/vue.ts", "project/data/i18n/translations.js", "project/data/i18n/langs/pt.js", "project/data/i18n/langs/en.js"],
         "Flutter": ["static/hugeicons/svg/*.svg"]
       },
       "props": [

@@ -3,40 +3,31 @@ import { useId, useState } from "react";
 import Icon from "../../../../icon/ui/Icon";
 import Popover from "../../../../popover/ui/Popover";
 import { StyleComponent } from "../../../../../../data/style.component";
+import { useI18n } from "../../../../../../data/i18n/react";
 import type { InputDateProps } from "../data/types";
 
 export default function InputDate({
     labelProps,
     inputProps,
-    value = "November 21, 2023",
+    value,
     onselect,
 }: InputDateProps & {
     value?: string;
     onselect?: (date: string) => void;
 }) {
     const popoverId = useId();
+    const { locale, t } = useI18n();
     const style = StyleComponent.input.date;
     const [year, setYear] = useState(2023);
     const [month, setMonth] = useState(10); // 10 = November
     const [day, setDay] = useState(21);
-    const [dateStr, setDateStr] = useState(value);
-
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-
-    const monthName = months[month];
+    const [dateStr, setDateStr] = useState(
+        value ?? new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(new Date(2023, 10, 21)),
+    );
+    const monthName = new Intl.DateTimeFormat(locale, { month: "long" }).format(new Date(year, month, 1));
+    const weekdays = Array.from({ length: 7 }, (_, index) =>
+        new Intl.DateTimeFormat(locale, { weekday: "short" }).format(new Date(2023, 0, index + 2)),
+    );
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const startDay = (new Date(year, month, 1).getDay() + 6) % 7;
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -61,7 +52,9 @@ export default function InputDate({
 
     function handleSelect(selectedDay: number) {
         setDay(selectedDay);
-        const nextVal = `${monthName} ${selectedDay}, ${year}`;
+        const nextVal = new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(
+            new Date(year, month, selectedDay),
+        );
         setDateStr(nextVal);
         onselect?.(nextVal);
     }
@@ -71,7 +64,7 @@ export default function InputDate({
             <Popover
                 id={popoverId}
                 role="dialog"
-                ariaLabel={labelProps?.label ?? "Pick a date"}
+                ariaLabel={labelProps?.label ?? t("input.date.selectDate")}
                 trigger={
                     <button
                         type="button"
@@ -117,7 +110,7 @@ export default function InputDate({
                         </div>
 
                         <div className={style.weekdays}>
-                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            {weekdays.map((weekday) => <span key={weekday}>{weekday}</span>)}
                         </div>
 
                         <div className={style.daysGrid}>

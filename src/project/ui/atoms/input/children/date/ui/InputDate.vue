@@ -3,36 +3,28 @@ import { ref, computed, useId } from "vue";
 import Icon from "../../../../icon/ui/Icon.vue";
 import Popover from "../../../../popover/ui/Popover.vue";
 import { StyleComponent } from "../../../../../../data/style.component";
+import { useI18n } from "../../../../../../data/i18n/vue";
 import type { InputDateProps } from "../data/types";
 
-const props = withDefaults(
-    defineProps<InputDateProps & { value?: string; onselect?: (date: string) => void }>(),
-    { value: "November 21, 2023" },
-);
+const props = defineProps<InputDateProps & { value?: string; onselect?: (date: string) => void }>();
 
+const { locale, t } = useI18n();
 const popoverId = useId();
 const style = StyleComponent.input.date;
 const year = ref(2023);
 const month = ref(10); // 10 = November
 const day = ref(21);
-const dateStr = ref(props.value);
-
-const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-];
-
-const monthName = computed(() => months[month.value]);
+const dateStr = ref(
+    props.value ?? new Intl.DateTimeFormat(locale.value, { dateStyle: "long" }).format(new Date(2023, 10, 21)),
+);
+const monthName = computed(() =>
+    new Intl.DateTimeFormat(locale.value, { month: "long" }).format(new Date(year.value, month.value, 1)),
+);
+const weekdays = computed(() =>
+    Array.from({ length: 7 }, (_, index) =>
+        new Intl.DateTimeFormat(locale.value, { weekday: "short" }).format(new Date(2023, 0, index + 2)),
+    ),
+);
 const daysInMonth = computed(() => new Date(year.value, month.value + 1, 0).getDate());
 const startDay = computed(() => (new Date(year.value, month.value, 1).getDay() + 6) % 7);
 const days = computed(() => Array.from({ length: daysInMonth.value }, (_, i) => i + 1));
@@ -56,7 +48,9 @@ function changeMonth(delta: number) {
 
 function handleSelect(selectedDay: number) {
     day.value = selectedDay;
-    dateStr.value = `${monthName.value} ${selectedDay}, ${year.value}`;
+    dateStr.value = new Intl.DateTimeFormat(locale.value, { dateStyle: "long" }).format(
+        new Date(year.value, month.value, selectedDay),
+    );
     props.onselect?.(dateStr.value);
 }
 </script>
@@ -66,7 +60,7 @@ function handleSelect(selectedDay: number) {
         <Popover
             :id="popoverId"
             role="dialog"
-            :aria-label="props.labelProps?.label ?? 'Pick a date'"
+            :aria-label="props.labelProps?.label ?? t('input.date.selectDate')"
         >
             <template #trigger>
                 <button
@@ -104,7 +98,7 @@ function handleSelect(selectedDay: number) {
                     </div>
 
                     <div :class="style.weekdays">
-                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        <span v-for="weekday in weekdays" :key="weekday">{{ weekday }}</span>
                     </div>
 
                     <div :class="style.daysGrid">

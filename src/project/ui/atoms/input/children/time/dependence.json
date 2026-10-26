@@ -12,7 +12,17 @@
         "Vue": ["input", "input-label", "icon"],
         "Flutter": ["input", "input-label"]
       },
-      "assets": [],
+      "assets": {
+        "Svelte": [
+          "project/data/i18n/index.ts",
+          "project/data/i18n/translations.js",
+          "project/data/i18n/langs/pt.js",
+          "project/data/i18n/langs/en.js"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
       "props": [
         { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como time." },
         { "name": "labelProps", "type": "LabelProps", "required": false, "description": "Rótulo opcional associado ao campo." }

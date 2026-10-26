@@ -19,6 +19,7 @@
   import { FlagNamed } from "../../../../../hooks/flag.svelte";
   import type { ComponentDefinition } from "../../../data/components";
   import { activeProject } from "../../../data/projects";
+  import { t } from "../../../../../project/data/i18n";
 
   // Terminals
   import InputTextTerminal from "../terminal/input/InputTextTerminal.svelte";
@@ -110,7 +111,7 @@
         >
           {#if component.id === "input"}
             <div class="w-full max-w-xs">
-              <Input type="text" placeholder="Introduza um valor" />
+              <Input type="text" placeholder={$t("input.text.placeholder")} />
             </div>
           {:else if component.id === "input-text"}
             <div class="w-full max-w-xs">
@@ -118,7 +119,7 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "text",
-                  placeholder: "Introduza um valor",
+                  placeholder: $t("input.text.placeholder"),
                 }}
               />
             </div>
@@ -128,7 +129,7 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "email",
-                  placeholder: "nome@exemplo.com",
+                  placeholder: $t("input.email.placeholder"),
                 }}
               />
             </div>
@@ -138,7 +139,7 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "tel",
-                  placeholder: "+244 900 000 000",
+                  placeholder: $t("input.phone.placeholder"),
                 }}
               />
             </div>
@@ -149,7 +150,7 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "tel",
-                  placeholder: "900 000 000",
+                  placeholder: "9XX XXX XXX",
                 }}
               />
             </div>
@@ -159,7 +160,7 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "password",
-                  placeholder: "Palavra-passe",
+                  placeholder: $t("input.password.placeholder"),
                 }}
               />
             </div>
@@ -181,39 +182,39 @@
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "number",
-                  placeholder: "0",
+                  placeholder: $t("input.amount.placeholder"),
                 }}
               />
             </div>
           {:else if component.id === "input-age"}
             <div class="w-full max-w-xs">
               <InputAge
-                labelProps={{ label: "Idade", for: `gallery-${component.id}` }}
+                labelProps={{ label: $t("label.age"), for: `gallery-${component.id}` }}
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "number",
-                  placeholder: "18",
+                  placeholder: $t("input.age.placeholder"),
                 }}
               />
             </div>
           {:else if component.id === "input-label"}
             <div class="w-full max-w-xs">
               <InputLabel
-                labelProps={{ label: "Nome", for: `gallery-${component.id}` }}
+                labelProps={{ label: $t("label.name"), for: `gallery-${component.id}` }}
                 inputProps={{
                   id: `gallery-${component.id}`,
                   type: "text",
-                  placeholder: "O seu nome",
+                  placeholder: $t("input.name.placeholder"),
                 }}
               />
             </div>
           {:else if component.id === "label"}
             <div class="w-full max-w-xs space-y-2">
-              <Label label="Nome" for={`gallery-${component.id}`} />
+              <Label label={$t("label.name")} for={`gallery-${component.id}`} />
               <input
                 id={`gallery-${component.id}`}
                 type="text"
-                placeholder="O seu nome"
+                placeholder={$t("input.name.placeholder")}
                 class="w-full rounded-md border border-blender-border bg-blender-card px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500"
               />
             </div>
@@ -222,14 +223,14 @@
               <Select
                 id={`gallery-${component.id}`}
                 options={selectOptions}
-                placeholder="Seleccione um país…"
+                placeholder={$t("input.location.placeholder")}
               />
             </div>
           {:else if component.id === "textarea"}
             <div class="w-full max-w-xs">
               <Textarea
                 id={`gallery-${component.id}`}
-                placeholder="Escreva aqui o seu texto…"
+                placeholder={$t("input.message.placeholder")}
                 rows={3}
               />
             </div>

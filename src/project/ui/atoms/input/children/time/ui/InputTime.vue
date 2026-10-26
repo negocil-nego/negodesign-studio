@@ -3,6 +3,7 @@ import { ref, computed, useId, watch } from "vue";
 import Icon from "../../../../icon/ui/Icon.vue";
 import Popover from "../../../../popover/ui/Popover.vue";
 import { StyleComponent } from "../../../../../../data/style.component";
+import { useI18n } from "../../../../../../data/i18n/vue";
 import type { InputTimeProps } from "../data/types";
 
 const props = withDefaults(
@@ -11,6 +12,7 @@ const props = withDefaults(
 );
 
 const popoverId = useId();
+const { t } = useI18n();
 const style = StyleComponent.input.time;
 const selectedHour = ref("02");
 const selectedMinute = ref("30");
@@ -68,7 +70,7 @@ const periods = ["AM", "PM"];
         <Popover
             :id="popoverId"
             role="dialog"
-            :aria-label="props.labelProps?.label ?? 'Pick a time'"
+            :aria-label="props.labelProps?.label ?? t('input.time.selectTime')"
         >
             <template #trigger>
                 <button
@@ -97,7 +99,7 @@ const periods = ["AM", "PM"];
                             type="button"
                             :class="style.clearButton"
                             @click="clearTime"
-                            aria-label="Clear time"
+                            :aria-label="t('input.time.clear')"
                         >
                             <Icon name="Cancel" />
                         </button>

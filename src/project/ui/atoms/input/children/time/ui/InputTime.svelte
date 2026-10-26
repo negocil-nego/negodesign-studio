@@ -2,6 +2,7 @@
   import Icon from "../../../../icon/ui/Icon.svelte";
   import Popover from "../../../../popover/ui/Popover.svelte";
   import { StyleComponent } from "../../../../../../data/style.component";
+  import { t } from "../../../../../../data/i18n";
   import type { InputTimeProps } from "../data/types";
 
   let {
@@ -81,7 +82,7 @@
   <Popover
     id={popoverId}
     role="dialog"
-    ariaLabel={labelProps?.label ?? "Pick a time"}
+    ariaLabel={labelProps?.label ?? $t("input.time.selectTime")}
   >
     {#snippet trigger()}
       <button
@@ -112,7 +113,7 @@
               type="button"
               class={style.clearButton}
               onclick={clearTime}
-              aria-label="Clear time"
+              aria-label={$t("input.time.clear")}
             >
               <Icon name="Cancel" />
             </button>

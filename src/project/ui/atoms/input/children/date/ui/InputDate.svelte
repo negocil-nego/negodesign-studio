@@ -2,12 +2,17 @@
   import Icon from "../../../../icon/ui/Icon.svelte";
   import Popover from "../../../../popover/ui/Popover.svelte";
   import { StyleComponent } from "../../../../../../data/style.component";
+  import { locale, t } from "../../../../../../data/i18n";
   import type { InputDateProps } from "../data/types";
 
   let {
     labelProps,
     inputProps,
-    value = $bindable("November 21, 2023"),
+    value = $bindable(
+      new Intl.DateTimeFormat($locale, { dateStyle: "long" }).format(
+        new Date(2023, 10, 21),
+      ),
+    ),
     onselect,
   }: InputDateProps & {
     value?: string;
@@ -21,22 +26,18 @@
   let day = $state(21);
   let dateStr = $state(value);
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const monthName = $derived(months[month]);
+  const monthName = $derived(
+    new Intl.DateTimeFormat($locale, { month: "long" }).format(
+      new Date(year, month, 1),
+    ),
+  );
+  const weekdays = $derived(
+    Array.from({ length: 7 }, (_, index) =>
+      new Intl.DateTimeFormat($locale, { weekday: "short" }).format(
+        new Date(2023, 0, index + 2),
+      ),
+    ),
+  );
   const daysInMonth = $derived(new Date(year, month + 1, 0).getDate());
   const startDay = $derived((new Date(year, month, 1).getDay() + 6) % 7);
   const days = $derived(Array.from({ length: daysInMonth }, (_, i) => i + 1));
@@ -63,7 +64,9 @@
 
   function handleSelect(selectedDay: number) {
     day = selectedDay;
-    dateStr = `${monthName} ${day}, ${year}`;
+    dateStr = new Intl.DateTimeFormat($locale, { dateStyle: "long" }).format(
+      new Date(year, month, day),
+    );
     onselect?.(dateStr);
   }
 </script>
@@ -72,7 +75,7 @@
   <Popover
     id={popoverId}
     role="dialog"
-    ariaLabel={labelProps?.label ?? "Pick a date"}
+    ariaLabel={labelProps?.label ?? $t("input.date.selectDate")}
   >
     {#snippet trigger()}
       <button
@@ -120,9 +123,9 @@
         </div>
 
         <div class={style.weekdays}>
-          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span
-            >Fri</span
-          ><span>Sat</span><span>Sun</span>
+          {#each weekdays as weekday}
+            <span>{weekday}</span>
+          {/each}
         </div>
 
         <div class={style.daysGrid}>

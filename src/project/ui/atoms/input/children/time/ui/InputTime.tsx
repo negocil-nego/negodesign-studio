@@ -3,6 +3,7 @@ import { useId, useState, useEffect } from "react";
 import Icon from "../../../../icon/ui/Icon";
 import Popover from "../../../../popover/ui/Popover";
 import { StyleComponent } from "../../../../../../data/style.component";
+import { useI18n } from "../../../../../../data/i18n/react";
 import type { InputTimeProps } from "../data/types";
 
 export default function InputTime({
@@ -15,6 +16,7 @@ export default function InputTime({
     onselect?: (time: string) => void;
 }) {
     const popoverId = useId();
+    const { t } = useI18n();
     const style = StyleComponent.input.time;
     const [selectedHour, setSelectedHour] = useState("02");
     const [selectedMinute, setSelectedMinute] = useState("30");
@@ -66,7 +68,7 @@ export default function InputTime({
             <Popover
                 id={popoverId}
                 role="dialog"
-                ariaLabel={labelProps?.label ?? "Pick a time"}
+                ariaLabel={labelProps?.label ?? t("input.time.selectTime")}
                 trigger={
                     <button
                         type="button"
@@ -96,7 +98,7 @@ export default function InputTime({
                                     type="button"
                                     className={style.clearButton}
                                     onClick={clearTime}
-                                    aria-label="Clear time"
+                                    aria-label={t("input.time.clear")}
                                 >
                                     <Icon name="Cancel" />
                                 </button>
