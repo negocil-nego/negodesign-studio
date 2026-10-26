@@ -1,7 +1,14 @@
 import { invoke } from "@tauri-apps/api/core";
 import { writable } from "svelte/store";
 
-export type ProjectLanguage = "Svelte" | "React" | "Vue" | "Flutter" | "Unknown";
+export type ProjectLanguage =
+  | "Svelte"
+  | "Nextjs"
+  | "React"
+  | "Nuxt"
+  | "Vue"
+  | "Flutter"
+  | "Unknown";
 
 export type ProjectRecord = {
   id: number;
@@ -28,6 +35,19 @@ export function setActiveProject(id: number): Promise<ProjectRecord> {
 export type ProjectSourceFile = { path: string; content: string };
 export type ComponentExport = { id: string; name: string; entry: string };
 export type ComponentInstallResult = { copiedFiles: number; exportedComponents: number };
+
+export const activeProjectComponents = writable<ComponentExport[]>([]);
+
+export function refreshActiveProjectComponents(): Promise<ComponentExport[]> {
+  return listActiveProjectComponents().then((components) => {
+    activeProjectComponents.set(components);
+    return components;
+  });
+}
+
+export function listActiveProjectComponents(): Promise<ComponentExport[]> {
+  return invoke<ComponentExport[]>("list_active_project_components");
+}
 
 export function installComponent(
   files: ProjectSourceFile[],

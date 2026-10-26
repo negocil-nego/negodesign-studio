@@ -15,6 +15,11 @@ pub fn list_projects(app: AppHandle) -> Result<Vec<Project>, String> {
 }
 
 #[tauri::command]
+pub fn list_active_project_components(app: AppHandle) -> Result<Vec<ComponentExport>, String> {
+    project_repository::list_active_project_components(&app)
+}
+
+#[tauri::command]
 pub fn save_project(app: AppHandle, path: String) -> Result<Project, String> {
     project_repository::save_project(&app, &path)
 }

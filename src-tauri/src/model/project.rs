@@ -15,7 +15,7 @@ pub struct ComponentFile {
     pub content: String,
 }
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct ComponentExport {
     pub id: String,
     pub name: String,

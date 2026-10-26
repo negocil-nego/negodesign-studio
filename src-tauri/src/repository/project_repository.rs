@@ -1,5 +1,5 @@
 use crate::model::project::{ComponentExport, ComponentFile, ComponentInstallResult, Project};
-use rusqlite::{Connection, params};
+use rusqlite::{Connection, OptionalExtension, params};
 use std::{
     fs,
     path::{Component, Path, PathBuf},
@@ -116,20 +116,36 @@ fn detect_language(project_path: &str) -> String {
         "nuxt.config.js",
         "nuxt.config.mjs",
         "nuxt.config.ts",
-        "vue.config.js",
-        "vue.config.ts",
+        "nuxt.config.mts",
+        "nuxt.config.cjs",
     ]
     .iter()
     .any(|config| root.join(*config).is_file())
-        || has_dependency(&["vue", "nuxt", "@vue/cli-service"])
+        || has_dependency(&["nuxt"])
+    {
+        return "Nuxt".to_string();
+    }
+    if [
+        "next.config.js",
+        "next.config.mjs",
+        "next.config.ts",
+        "next.config.mts",
+        "next.config.cjs",
+    ]
+        .iter()
+        .any(|config| root.join(*config).is_file())
+        || has_dependency(&["next"])
+    {
+        return "Nextjs".to_string();
+    }
+    if ["vue.config.js", "vue.config.ts"]
+        .iter()
+        .any(|config| root.join(*config).is_file())
+        || has_dependency(&["vue", "@vue/cli-service"])
     {
         return "Vue".to_string();
     }
-    if ["next.config.js", "next.config.mjs", "next.config.ts"]
-        .iter()
-        .any(|config| root.join(*config).is_file())
-        || has_dependency(&["react", "react-dom", "next"])
-    {
+    if has_dependency(&["react", "react-dom"]) {
         return "React".to_string();
     }
     "Unknown".to_string()
@@ -176,6 +192,39 @@ pub fn list_projects(app: &AppHandle) -> Result<Vec<Project>, String> {
     Ok(projects)
 }
 
+pub fn list_active_project_components(app: &AppHandle) -> Result<Vec<ComponentExport>, String> {
+    let connection = open_database(app)?;
+    let project_id = connection
+        .query_row(
+            "SELECT id FROM TB_PROJECTS WHERE active = 1 LIMIT 1",
+            [],
+            |row| row.get::<_, i64>(0),
+        )
+        .optional()
+        .map_err(|error| error.to_string())?;
+    let Some(project_id) = project_id else {
+        return Ok(Vec::new());
+    };
+
+    let mut statement = connection
+        .prepare(
+            "SELECT component_id, name, entry FROM TB_PROJECT_COMPONENTS
+             WHERE project_id = ?1 ORDER BY entry, name",
+        )
+        .map_err(|error| error.to_string())?;
+    let components = statement
+        .query_map([project_id], |row| {
+            Ok(ComponentExport {
+                id: row.get(0)?,
+                name: row.get(1)?,
+                entry: row.get(2)?,
+            })
+        })
+        .map_err(|error| error.to_string())?
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|error| error.to_string())?;
+    Ok(components)
+}
 pub fn save_project(app: &AppHandle, path: &str) -> Result<Project, String> {
     let name = Path::new(path)
         .file_name()
@@ -272,7 +321,7 @@ fn build_index(language: &str, components: &mut [ComponentExport]) -> Result<Str
         if language == "Flutter" {
             index.push_str(&format!("export '{entry}';\n"));
         } else {
-            let entry = if language == "React" {
+            let entry = if language == "React" || language == "Nextjs" {
                 entry.strip_suffix(".tsx").unwrap_or(&entry)
             } else {
                 &entry
@@ -381,7 +430,9 @@ pub fn install_component(
             |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?)),
         )
         .map_err(|_| "Seleccione primeiro um projecto activo.".to_string())?;
-    if !["Svelte", "React", "Vue", "Flutter"].contains(&language.as_str()) {
+    if !["Svelte", "React", "Vue", "Nextjs", "Nuxt", "Flutter"]
+        .contains(&language.as_str())
+    {
         return Err("A linguagem do projecto não foi identificada.".to_string());
     }
 

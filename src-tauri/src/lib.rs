@@ -10,6 +10,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::greet,
             commands::list_projects,
+            commands::list_active_project_components,
             commands::save_project,
             commands::set_active_project,
             commands::install_component
