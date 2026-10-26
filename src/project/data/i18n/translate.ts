@@ -1,5 +1,10 @@
 import translations from "./translations";
 
+const availableLocales = Object.keys(translations);
+export const defaultLocale = availableLocales.includes("pt")
+  ? "pt"
+  : availableLocales[0] ?? "pt";
+
 export function translateText(
   language: string,
   key: string,

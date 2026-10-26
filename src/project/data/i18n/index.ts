@@ -1,8 +1,8 @@
 import { derived, writable } from "svelte/store";
 import translations from "./translations";
-import { translateText } from "./translate";
+import { defaultLocale, translateText } from "./translate";
 
-export const locale = writable("pt");
+export const locale = writable(defaultLocale);
 export const locales = Object.keys(translations);
 export { translateText };
 

@@ -1,5 +1,5 @@
 import { inject, provide, ref, type InjectionKey, type Ref } from "vue";
-import { translateText } from "./translate";
+import { defaultLocale, translateText } from "./translate";
 
 export type VueI18nContext = {
   locale: Ref<string>;
@@ -8,16 +8,16 @@ export type VueI18nContext = {
 };
 
 const i18nKey: InjectionKey<VueI18nContext> = Symbol("negodesign-i18n");
-const defaultLocale = ref("pt");
+const sharedLocale = ref(defaultLocale);
 const defaultContext: VueI18nContext = {
-  locale: defaultLocale,
+  locale: sharedLocale,
   setLocale: (language) => {
-    defaultLocale.value = language;
+    sharedLocale.value = language;
   },
-  t: (key, vars) => translateText(defaultLocale.value, key, vars),
+  t: (key, vars) => translateText(sharedLocale.value, key, vars),
 };
 
-export function provideI18n(initialLocale = "pt"): VueI18nContext {
+export function provideI18n(initialLocale = defaultLocale): VueI18nContext {
   const locale = ref(initialLocale);
   const context: VueI18nContext = {
     locale,

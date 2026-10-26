@@ -5,6 +5,7 @@
   } from "../../../data/components";
   import { activeProject } from "../../../data/projects";
   import { copyComponentToActiveProject } from "../../../data/component-copy";
+  import { locales } from "../../../../../project/data/i18n";
   import AtomicComponentScreen from "./AtomicComponentScreen.svelte";
   import MoleculeComponentScreen from "./MoleculeComponentScreen.svelte";
 
@@ -95,19 +96,48 @@
   const components = componentCatalog;
   let copyingId = $state<string | null>(null);
   let copyMessage = $state("");
+  let componentAwaitingCopy = $state<ComponentDefinition | null>(null);
+  let selectedLocales = $state<string[]>([]);
 
-  async function copyComponent(component: ComponentDefinition) {
+  const localeNames: Record<string, string> = {
+    en: "English",
+    pt: "Português",
+  };
+
+  function copyComponent(component: ComponentDefinition) {
     if (!component.dependence) return;
+    if (!$activeProject) {
+      copyMessage = "Seleccione primeiro um projecto activo no Inspector.";
+      return;
+    }
+    componentAwaitingCopy = component;
+    selectedLocales = [...locales];
+    copyMessage = "";
+  }
+
+  async function confirmCopy() {
+    const component = componentAwaitingCopy;
+    if (!component?.dependence || !selectedLocales.length) return;
     copyingId = component.id;
     copyMessage = "";
     try {
-      const result = await copyComponentToActiveProject(component.id);
-      copyMessage = `${component.label ?? component.name}: ${result.copiedFiles} ficheiro(s) e ${result.exportedComponents} componente(s) disponíveis em ${result.project.name}/negodesign.`;
+      const result = await copyComponentToActiveProject(component.id, {
+        locales: selectedLocales,
+      });
+      const languages = selectedLocales
+        .map((language) => localeNames[language] ?? language)
+        .join(", ");
+      copyMessage = `${component.label ?? component.name}: ${result.copiedFiles} ficheiro(s), ${result.exportedComponents} componente(s) e idiomas ${languages} disponíveis em ${result.project.name}/negodesign.`;
+      componentAwaitingCopy = null;
     } catch (error) {
       copyMessage = error instanceof Error ? error.message : String(error);
     } finally {
       copyingId = null;
     }
+  }
+
+  function closeCopyDialog() {
+    if (!copyingId) componentAwaitingCopy = null;
   }
 </script>
 
@@ -204,3 +234,107 @@
     {/if}
   {/each}
 </main>
+
+{#if componentAwaitingCopy}
+  <div
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+    role="presentation"
+    onclick={(event) => {
+      if (event.target === event.currentTarget) closeCopyDialog();
+    }}
+    onkeydown={(event) => {
+      if (event.key === "Escape") closeCopyDialog();
+    }}
+  >
+    <section
+      class="w-full max-w-md rounded-xl border border-blender-border bg-blender-card p-5 shadow-2xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="component-copy-title"
+      aria-describedby="component-copy-description"
+      tabindex="-1"
+    >
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="component-copy-title" class="text-base font-semibold text-zinc-100">
+            Internacionalizar componente
+          </h2>
+          <p id="component-copy-description" class="mt-1 text-xs leading-5 text-zinc-400">
+            Escolha os idiomas que serão incluídos com
+            {componentAwaitingCopy.label ?? componentAwaitingCopy.name}.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="rounded px-2 py-1 text-zinc-400 hover:bg-blender-hover hover:text-zinc-100"
+          onclick={closeCopyDialog}
+          aria-label="Fechar"
+          disabled={!!copyingId}
+        >
+          ×
+        </button>
+      </div>
+
+      <fieldset class="mt-5 space-y-2" disabled={!!copyingId}>
+        <legend class="flex w-full items-center justify-between gap-3 text-xs font-medium text-zinc-300">
+          <span>
+            Idiomas a incluir
+          </span>
+          <span class="text-[10px] text-zinc-500">
+            {selectedLocales.length} selecionado(s)
+          </span>
+        </legend>
+        <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {#each locales as language (language)}
+            {@const selected = selectedLocales.includes(language)}
+            <label
+              class="flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-3 transition-colors {selected
+                ? 'border-blue-500/60 bg-blue-500/10'
+                : 'border-blender-border bg-blender-base hover:border-zinc-500'}"
+            >
+              <input
+                type="checkbox"
+                value={language}
+                bind:group={selectedLocales}
+                class="h-4 w-4 accent-blue-500"
+              />
+              <span class="min-w-0 flex-1">
+                <span class="block text-sm font-medium text-zinc-200">
+                  {localeNames[language] ?? language}
+                </span>
+                <span class="block text-[10px] uppercase tracking-wider text-zinc-500">
+                  {language}
+                </span>
+              </span>
+              {#if selected}
+                <span class="text-xs font-medium text-blue-400">Incluído</span>
+              {/if}
+            </label>
+          {/each}
+        </div>
+      </fieldset>
+      {#if copyMessage}
+        <p class="mt-3 text-xs text-rose-400" role="alert">{copyMessage}</p>
+      {/if}
+
+      <div class="mt-5 flex justify-end gap-2">
+        <button
+          type="button"
+          class="rounded-md border border-blender-border px-3 py-2 text-xs text-zinc-300 transition-colors hover:bg-blender-hover"
+          onclick={closeCopyDialog}
+          disabled={!!copyingId}
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="rounded-md bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+          onclick={confirmCopy}
+          disabled={!selectedLocales.length || !!copyingId}
+        >
+          {copyingId ? "A copiar…" : "Copiar para projecto"}
+        </button>
+      </div>
+    </section>
+  </div>
+{/if}

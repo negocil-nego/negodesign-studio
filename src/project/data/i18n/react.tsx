@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { translateText } from "./translate";
+import { defaultLocale, translateText } from "./translate";
 
 type I18nContextValue = {
   locale: string;
@@ -14,14 +14,14 @@ type I18nContextValue = {
 };
 
 const I18nContext = createContext<I18nContextValue>({
-  locale: "pt",
+  locale: defaultLocale,
   setLocale: () => {},
-  t: (key, vars) => translateText("pt", key, vars),
+  t: (key, vars) => translateText(defaultLocale, key, vars),
 });
 
 export function I18nProvider({
   children,
-  initialLocale = "pt",
+  initialLocale = defaultLocale,
 }: {
   children: ReactNode;
   initialLocale?: string;

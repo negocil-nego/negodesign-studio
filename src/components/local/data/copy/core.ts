@@ -7,6 +7,7 @@ import {
   type ProjectSourceFile,
 } from "../projects";
 import { componentCatalog } from "../components";
+import translations from "../../../../project/data/i18n/translations";
 
 
 type ManifestComponent = {
@@ -35,17 +36,17 @@ type ManifestRecord = {
 
 const sourceModules = import.meta.glob(
   [
-    "../../../project/**/*.{svelte,ts,tsx,vue,dart,js}",
-    "../../../hooks/**/*.{svelte,ts,tsx,vue,dart}",
-    "../../../../static/hugeicons/svg/*.svg",
-    "../../../../static/flags/4x3/*.svg",
-    "../../../../static/hugeicons/css/*.css",
+    "../../../../project/**/*.{svelte,ts,tsx,vue,dart,js}",
+    "../../../../hooks/**/*.{svelte,ts,tsx,vue,dart}",
+    "../../../../../static/hugeicons/svg/*.svg",
+    "../../../../../static/flags/4x3/*.svg",
+    "../../../../../static/hugeicons/css/*.css",
   ],
   { query: "?raw", import: "default", eager: true },
 ) as Record<string, string>;
 
 const manifestModules = import.meta.glob(
-  "../../../project/ui/**/dependence.json",
+  "../../../../project/ui/**/dependence.json",
   { query: "?raw", import: "default", eager: true },
 ) as Record<string, string>;
 
@@ -176,6 +177,7 @@ export async function copyComponentForProject(
   componentId: string,
   project: ProjectRecord,
   manifestLanguage: ProjectLanguage,
+  selectedLocales: string[] = Object.keys(translations),
 ): Promise<ComponentCopyResult> {
   const filesByPath = new Map<string, string>();
   const exportedById = new Map<string, ComponentExport>();
@@ -210,6 +212,30 @@ export async function copyComponentForProject(
       addSource(`${componentRoot}${file}`, filesByPath, manifestLanguage);
     }
     for (const asset of assetsFor(component, manifestLanguage)) {
+      const normalizedAsset = normalizePath(asset);
+      const languageAsset = normalizedAsset.match(
+        /^project\/data\/i18n\/langs\/([a-z]+(?:-[A-Z]{2})?)\.js$/,
+      );
+      if (languageAsset && !selectedLocales.includes(languageAsset[1])) continue;
+      if (normalizedAsset === "project/data/i18n/translations.js") {
+        const selected = selectedLocales.filter((locale) =>
+          Object.prototype.hasOwnProperty.call(translations, locale),
+        );
+        if (!selected.length) {
+          throw new Error("Seleccione pelo menos uma língua para a internacionalização.");
+        }
+        const imports = selected
+          .map((locale, index) => `import language${index} from "./langs/${locale}";`)
+          .join("\n");
+        const entries = selected
+          .map((locale, index) => `  ${JSON.stringify(locale)}: language${index},`)
+          .join("\n");
+        filesByPath.set(
+          normalizedAsset,
+          `${imports}\n\nexport default {\n${entries}\n};\n`,
+        );
+        continue;
+      }
       await addAsset(asset, filesByPath, manifestLanguage);
     }
     exportedById.set(id, {
