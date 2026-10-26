@@ -21,7 +21,7 @@ export const StyleComponent = {
         }
     },
     iconCenterButton: {
-        default: "w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center cursor-pointer bg-gray-100",
+        default: "w-10 h-10 rounded-full border border-gray-100 dark:border-slate-600 flex items-center justify-center cursor-pointer bg-gray-100 dark:bg-slate-800",
     },
     checkbox: {
         root: "group flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-full shadow-sm hover:shadow-md transition-all cursor-pointer w-fit",
@@ -63,7 +63,7 @@ export const StyleComponent = {
             clearButton: "p-1.5 rounded-full hover:bg-blender-hover text-zinc-500 hover:text-zinc-300 transition-colors shrink-0",
             panel: "mt-1.5 p-3 rounded-lg border border-blender-border bg-blender-surface shadow-xl z-50 outline-none w-56",
             pickerGrid: "flex justify-between gap-2 h-48",
-            pickerColumn: "flex-1 flex flex-col overflow-y-auto no-scrollbar snap-y snap-mandatory",
+            pickerColumn: "flex-1 flex flex-col overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden snap-y snap-mandatory",
             pickerItem: "flex items-center justify-center py-2 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer snap-center shrink-0",
             pickerItemSelected: "bg-blue-600 text-white rounded-md hover:text-white",
             columnDivider: "w-[1px] bg-blender-border/50 self-stretch my-2",
@@ -144,7 +144,7 @@ export const StyleComponent = {
         description: "text-justify line-clamp-2 xl:line-clamp-3 2xl:line-clamp-4",
         title: {
             root: "card-title",
-            text: "card-title-text",
+            text: "card-title-text line-clamp-1 lg:line-clamp-2",
         },
         price: {
             root: "card-price",
@@ -173,7 +173,7 @@ export const StyleComponent = {
         },
         media: {
             default: "h-50 w-full rounded-md object-cover",
-            frame: "overflow-hidden rounded-md border border-gray-100",
+            frame: "overflow-hidden rounded-md",
             fill: "h-full w-full",
             v01: {
                 root: "w-87.5 p-5 rounded-lg bg-white dark:bg-blender-card border border-blender-border transition-colors",
@@ -201,10 +201,10 @@ export const StyleComponent = {
                 cover: "relative h-32 w-full",
                 actions: "absolute top-2 flex justify-between w-full gap-2 z-10 p-2",
                 logo: "absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10",
-                logoFrame: "rounded-full overflow-hidden border-4 border-white bg-white shadow-md",
+                logoFrame: "rounded-full overflow-hidden shadow-md",
                 logoImage: "w-20 h-20 rounded-full",
                 body: "px-6 pt-14 pb-6 flex flex-col gap-4",
-                titleGroup: "flex flex-col items-center gap-1 z-20 border-white text-white bg-black/5 p-2 font-bold",
+                titleGroup: "flex flex-col items-center gap-1 z-20 border-white text-white bg-black/5 p-2 font-bold mt-2",
                 descriptionGroup: "flex flex-col gap-3",
                 footer: "mt-2",
             },
@@ -226,21 +226,21 @@ export const StyleComponent = {
             button: "flex-1 justify-center py-2.5 rounded-2xl border-gray-200 text-gray-900 font-semibold flex items-center gap-2",
         },
         cardMinFile: {
-            root: "relative shrink-0 size-14 overflow-hidden rounded-md border border-blender-border cursor-pointer transition-colors [&>img]:h-full [&>img]:w-full [&>img]:rounded-none [&>img]:object-cover [&>img]:transition-none",
+            root: "relative shrink-0 size-10 overflow-hidden rounded-md border border-blender-border cursor-pointer transition-colors [&>img]:h-full [&>img]:w-full [&>img]:rounded-none [&>img]:object-cover [&>img]:transition-none",
             active: "border-blue-500 ring-1 ring-blue-500",
         },
         product: {
-            frame: "overflow-hidden rounded-md border border-gray-100",
+            frame: "overflow-hidden rounded-md",
             fill: "h-full w-full",
             v01: {
                 root: "w-72 rounded-2xl bg-white dark:bg-blender-card border border-blender-border overflow-hidden transition-colors",
                 media: "relative h-56 w-full",
                 actions: "absolute top-2 inset-x-0 flex justify-between gap-2 z-10 p-2",
-                priceBadge: "absolute bottom-2 left-2 z-10 rounded-full bg-white/90 px-3 py-1 backdrop-blur",
+                priceBadge: "absolute bottom-10 left-2 z-10 rounded-full bg-black/50 px-3 py-1 backdrop-blur",
                 body: "flex flex-col gap-3 p-5",
-                header: "flex items-center gap-3",
+                header: "flex items-center justify-center gap-3",
                 titleGroup: "flex flex-col gap-1 min-w-0",
-                thumbs: "flex gap-2 overflow-x-auto",
+                thumbs: "flex gap-2 overflow-x-auto justify-center my-0",
                 footer: "mt-1",
             },
             v02: {

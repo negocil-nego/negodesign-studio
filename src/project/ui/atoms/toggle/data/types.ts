@@ -1,11 +1,10 @@
+import type { FormIt } from "../../../molecules/form/data/types";
 import type { LabelProps } from "../../label/data/types";
 
-export type ToggleProps = {
-  id: string;
-  name?: string;
+export type ToggleProps = Omit<FormIt, "label"> & {
   checked?: boolean;
   disabled?: boolean;
-  label?: LabelProps;
+  label?: LabelProps | string;
   labelFirst?: boolean;
-  onchange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void;
 };

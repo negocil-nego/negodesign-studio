@@ -1,9 +1,7 @@
+import type { FormIt } from "../../../molecules/form/data/types";
 import type { LabelProps } from "../../label/data/types";
 
-export type TextareaProps = {
-  id: string;
-  name?: string;
-  value?: string;
+export type TextareaProps = FormIt & {
   placeholder?: string;
   rows?: number;
   cols?: number;

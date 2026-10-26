@@ -1,13 +1,13 @@
+import type { FormIt } from "../../../molecules/form/data/types";
+
 export type RadioOption = {
   value: string;
   label: string;
   disabled?: boolean;
 };
 
-export type RadioProps = {
-  name: string;
+export type RadioProps = FormIt & {
   options: RadioOption[];
-  value?: string;
   disabled?: boolean;
-  onchange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
 };

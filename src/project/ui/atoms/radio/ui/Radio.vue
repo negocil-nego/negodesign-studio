@@ -1,32 +1,41 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref, useAttrs } from "vue";
+import type { InputHTMLAttributes } from "vue";
 import type { RadioProps } from "../data/types";
 import { StyleComponent } from "../../../../data/style.component";
 
-const { name, options, value: initialValue = "", disabled, onchange } = defineProps<RadioProps>();
-const selected = ref(initialValue);
+type Props = RadioProps & Omit<InputHTMLAttributes, keyof RadioProps | "type" | "value" | "checked">;
+defineOptions({ inheritAttrs: false });
+const props = defineProps<Props>();
+const attrs = useAttrs();
+const nativeAttrs = computed(() => Object.fromEntries([...Object.entries(props), ...Object.entries(attrs)].filter(([key]) => !["id", "name", "options", "value", "disabled", "onValueChange", "onChange", "class"].includes(key))));
+const selected = ref(props.value ?? "");
 
-function handleChange(optionValue: string) {
+function handleChange(optionValue: string, event: Event) {
     selected.value = optionValue;
-    onchange?.(optionValue);
+    props.onChange?.(event);
+    props.onValueChange?.(optionValue);
 }
 </script>
 
 <template>
-    <fieldset :class="StyleComponent.radio.group" :disabled="disabled">
+    <fieldset :class="StyleComponent.radio.group" :disabled="props.disabled">
         <label
-            v-for="option in options"
+            v-for="(option, index) in props.options"
             :key="option.value"
-            :class="[StyleComponent.radio.item, (option.disabled || disabled) ? StyleComponent.radio.disabled : '']"
+            :for="props.id ? `${props.id}-${index}` : undefined"
+            :class="[StyleComponent.radio.item, (option.disabled || props.disabled) ? StyleComponent.radio.disabled : '']"
         >
             <input
+                v-bind="nativeAttrs"
                 type="radio"
-                :name="name"
+                :id="props.id ? `${props.id}-${index}` : undefined"
+                :name="props.name"
                 :value="option.value"
                 :checked="selected === option.value"
-                :disabled="option.disabled || disabled"
-                @change="handleChange(option.value)"
-                :class="StyleComponent.radio.input"
+                :disabled="option.disabled || props.disabled"
+                @change="handleChange(option.value, $event)"
+                :class="[StyleComponent.radio.input, attrs.class]"
             />
             <span :class="StyleComponent.radio.dot" />
             <span :class="StyleComponent.radio.label">{{ option.label }}</span>

@@ -1,44 +1,36 @@
 <script lang="ts">
+  import type { HTMLButtonAttributes } from "svelte/elements";
   import type { ToggleProps } from "../data/types";
   import { StyleComponent } from "../../../../data/style.component";
-  import Label from "../../label/ui/Label.svelte";
 
+  type Props = ToggleProps & Omit<HTMLButtonAttributes, keyof ToggleProps | "type" | "class"> & { class?: string };
   let {
-    id,
-    name,
-    checked = $bindable(false),
-    disabled,
-    label,
-    labelFirst = false,
-    onchange,
-  }: ToggleProps = $props();
+    id, name, value, checked = $bindable(false), disabled, label,
+    onCheckedChange, onclick: onNativeClick, class: buttonClass, ...rest
+  }: Props = $props();
 
-  function handleChange() {
+  function handleClick(event: MouseEvent) {
     if (disabled) return;
     checked = !checked;
-    onchange?.(checked);
+    onNativeClick?.(event);
+    onCheckedChange?.(checked);
   }
 </script>
 
 <label class={`${StyleComponent.toggle.root} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`} for={id}>
   <button
+    {...rest}
     type="button"
-    role="switch"
     {id}
     {name}
+    {value}
+    role="switch"
     aria-checked={checked}
     {disabled}
-    onclick={handleChange}
-    class={`${StyleComponent.toggle.track} ${checked ? StyleComponent.toggle.on : ""}`}
+    onclick={handleClick}
+    class={`${StyleComponent.toggle.track} ${checked ? StyleComponent.toggle.on : ""} ${buttonClass ?? ""}`}
   >
-    <span
-      class={`${StyleComponent.toggle.thumb} ${checked ? StyleComponent.toggle.thumbOn : ""}`}
-    ></span>
+    <span class={`${StyleComponent.toggle.thumb} ${checked ? StyleComponent.toggle.thumbOn : ""}`}></span>
   </button>
-
-  {#if label}
-    <span class={StyleComponent.toggle.label}>
-      {typeof label === 'string' ? label : label.label}
-    </span>
-  {/if}
+  {#if label}<span class={StyleComponent.toggle.label}>{typeof label === "string" ? label : label.label}</span>{/if}
 </label>

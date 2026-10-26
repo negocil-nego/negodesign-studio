@@ -1,9 +1,9 @@
-export type CheckboxProps = {
-  id: string;
-  name?: string;
+import type { FormIt } from "../../../molecules/form/data/types";
+
+export type CheckboxProps = FormIt & {
   checked?: boolean;
   disabled?: boolean;
   label?: string;
   required?: boolean;
-  onchange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void;
 };

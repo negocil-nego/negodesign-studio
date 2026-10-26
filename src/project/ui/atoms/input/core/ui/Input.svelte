@@ -1,9 +1,11 @@
 <script lang="ts">
+  import type { HTMLInputAttributes } from "svelte/elements";
   import type { InputProps } from "../data/types";
   import { getIconClass } from "../../../../../../hooks/icon.svelte";
   import { StyleComponent } from "../../../../../data/style.component";
 
-  let { id, icon, type, required, disabled, placeholder, value }: InputProps = $props();
+  type Props = InputProps & Omit<HTMLInputAttributes, keyof InputProps | "class"> & { class?: string };
+  let { id, icon, type, required, disabled, placeholder, value, class: inputClass, ...rest }: Props = $props();
 
   const fieldClass = $derived(
     (StyleComponent.input as unknown as Record<string, { root?: string }>)[type ?? ""]
@@ -11,8 +13,10 @@
   );
 </script>
 
-{#snippet inputField()}
+<div class={fieldClass}>
+  {#if icon}<i class={getIconClass(icon)} aria-hidden="true"></i>{/if}
   <input
+    {...rest}
     {id}
     {type}
     {required}
@@ -20,10 +24,6 @@
     {placeholder}
     {value}
     data-name="label"
+    class={inputClass}
   />
-{/snippet}
-
-<div class={fieldClass}>
-  {#if icon}<i class={getIconClass(icon)} aria-hidden="true"></i>{/if}
-  {@render inputField()}
 </div>

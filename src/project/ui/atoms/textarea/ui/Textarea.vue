@@ -1,30 +1,38 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch, useAttrs } from "vue";
+import type { TextareaHTMLAttributes } from "vue";
 import type { TextareaProps } from "../data/types";
 import { StyleComponent } from "../../../../data/style.component";
-import Label from "../../label/ui/label.svelte";
+import Label from "../../label/ui/label.vue";
 
-const { id, name, value, placeholder, rows = 4, cols, disabled, required, readonly, maxlength, labelProps } = defineProps<TextareaProps>();
-const content = ref(value ?? "");
-watch(() => value, (v) => { content.value = v ?? ""; });
+type Props = TextareaProps & Omit<TextareaHTMLAttributes, keyof TextareaProps | "value">;
+defineOptions({ inheritAttrs: false });
+const props = defineProps<Props>();
+const attrs = useAttrs();
+const content = ref(props.value ?? "");
+const textareaAttrs = computed(() => Object.fromEntries(
+    [...Object.entries(props), ...Object.entries(attrs)].filter(([key]) => !["id", "name", "value", "placeholder", "rows", "cols", "disabled", "required", "readonly", "maxlength", "labelProps", "class"].includes(key)),
+));
+watch(() => props.value, (value) => { content.value = value ?? ""; });
 </script>
 
 <template>
     <div :class="StyleComponent.textarea.form">
-        <Label v-if="labelProps" {...labelProps} />
+        <Label v-if="props.labelProps" v-bind="props.labelProps" />
         <textarea
-            :id="id"
-            :name="name"
+            v-bind="textareaAttrs"
+            :id="props.id"
+            :name="props.name"
             v-model="content"
-            :placeholder="placeholder"
-            :rows="rows"
-            :cols="cols"
-            :disabled="disabled"
-            :required="required"
-            :readonly="readonly"
-            :maxlength="maxlength"
+            :placeholder="props.placeholder"
+            :rows="props.rows ?? 4"
+            :cols="props.cols"
+            :disabled="props.disabled"
+            :required="props.required"
+            :readonly="props.readonly"
+            :maxlength="props.maxlength"
             data-name="textarea"
-            :class="StyleComponent.textarea.default"
+            :class="[StyleComponent.textarea.default, attrs.class]"
         />
     </div>
 </template>

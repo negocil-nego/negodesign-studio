@@ -1,26 +1,35 @@
 <script lang="ts">
+  import type { HTMLInputAttributes } from "svelte/elements";
   import type { RadioProps } from "../data/types";
   import { StyleComponent } from "../../../../data/style.component";
 
-  let { name, options, value = $bindable(""), disabled, onchange }: RadioProps = $props();
+  type Props = RadioProps & Omit<HTMLInputAttributes, keyof RadioProps | "type" | "value" | "checked" | "class"> & { class?: string };
+  let {
+    id, name, options, value = $bindable(""), disabled, onValueChange,
+    onchange: onNativeChange, class: inputClass, ...rest
+  }: Props = $props();
 
-  function handleChange(optionValue: string) {
+  function handleChange(optionValue: string, event: Event) {
     value = optionValue;
-    onchange?.(value);
+    onNativeChange?.(event);
+    onValueChange?.(value);
   }
 </script>
 
 <fieldset class={StyleComponent.radio.group} {disabled}>
-  {#each options as option}
-    <label class={`${StyleComponent.radio.item} ${option.disabled || disabled ? StyleComponent.radio.disabled : ""}`}>
+  {#each options as option, index (option.value)}
+    {@const inputId = id ? `${id}-${index}` : undefined}
+    <label for={inputId} class={`${StyleComponent.radio.item} ${option.disabled || disabled ? StyleComponent.radio.disabled : ""}`}>
       <input
+        {...rest}
         type="radio"
+        id={inputId}
         {name}
         value={option.value}
         checked={value === option.value}
         disabled={option.disabled || disabled}
-        onchange={() => handleChange(option.value)}
-        class={StyleComponent.radio.input}
+        onchange={(event) => handleChange(option.value, event)}
+        class={`${StyleComponent.radio.input} ${inputClass ?? ""}`}
       />
       <span class={StyleComponent.radio.dot}></span>
       <span class={StyleComponent.radio.label}>{option.label}</span>

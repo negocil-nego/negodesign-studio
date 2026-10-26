@@ -1,34 +1,44 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref, useAttrs } from "vue";
+import type { InputHTMLAttributes } from "vue";
 import type { CheckboxProps } from "../data/types";
 import { StyleComponent } from "../../../../data/style.component";
 
-const { id, name, checked: initialChecked = false, disabled, label, required, onchange } = defineProps<CheckboxProps>();
-const checked = ref(initialChecked);
+type Props = CheckboxProps & Omit<InputHTMLAttributes, keyof CheckboxProps | "type">;
+defineOptions({ inheritAttrs: false });
+const props = defineProps<Props>();
+const attrs = useAttrs();
+const checked = ref(props.checked ?? false);
+const inputAttrs = computed(() => Object.fromEntries(
+    [...Object.entries(props), ...Object.entries(attrs)].filter(([key]) => !["id", "name", "value", "checked", "disabled", "required", "label", "onCheckedChange", "onChange", "class"].includes(key)),
+));
 
-function handleChange(e: Event) {
-    checked.value = (e.target as HTMLInputElement).checked;
-    onchange?.(checked.value);
+function handleChange(event: Event) {
+    checked.value = (event.target as HTMLInputElement).checked;
+    props.onChange?.(event);
+    props.onCheckedChange?.(checked.value);
 }
 </script>
 
 <template>
-    <label :class="[StyleComponent.checkbox.root, disabled ? StyleComponent.checkbox.disabled : '']" :for="id">
+    <label :class="[StyleComponent.checkbox.root, props.disabled ? StyleComponent.checkbox.disabled : '']" :for="props.id">
         <input
+            v-bind="inputAttrs"
             type="checkbox"
-            :id="id"
-            :name="name"
+            :id="props.id"
+            :name="props.name"
+            :value="props.value"
             :checked="checked"
-            :disabled="disabled"
-            :required="required"
+            :disabled="props.disabled"
+            :required="props.required"
             @change="handleChange"
-            :class="StyleComponent.checkbox.input"
+            :class="[StyleComponent.checkbox.input, attrs.class]"
         />
         <span :class="StyleComponent.checkbox.box">
             <svg v-if="checked" viewBox="0 0 10 8" fill="none" aria-hidden="true" :class="StyleComponent.checkbox.tick">
                 <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </span>
-        <span v-if="label" :class="StyleComponent.checkbox.label">{{ label }}</span>
+        <span v-if="props.label" :class="StyleComponent.checkbox.label">{{ props.label }}</span>
     </label>
 </template>

@@ -1,3 +1,5 @@
+import type { FormIt } from "../../../molecules/form/data/types";
+
 export type SelectOption = {
   value: string;
   label: string;
@@ -5,14 +7,11 @@ export type SelectOption = {
   disabled?: boolean;
 };
 
-export type SelectProps = {
-  id: string;
-  name?: string;
+export type SelectProps = FormIt & {
   label?: string;
   options: SelectOption[];
-  value?: string;
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;
-  onselect?: (option: SelectOption) => void;
+  onOptionSelect?: (option: SelectOption) => void;
 };

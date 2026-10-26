@@ -1,17 +1,24 @@
 <script lang="ts">
+  import type { HTMLInputAttributes } from "svelte/elements";
   import type { CheckboxProps } from "../data/types";
   import { StyleComponent } from "../../../../data/style.component";
 
-  let { id, name, checked = $bindable(false), disabled, label, required, onchange }: CheckboxProps = $props();
+  type Props = CheckboxProps & Omit<HTMLInputAttributes, keyof CheckboxProps | "type" | "class"> & { class?: string };
+  let {
+    id, name, checked = $bindable(false), disabled, label, required,
+    onCheckedChange, onchange: onNativeChange, class: inputClass, ...rest
+  }: Props = $props();
 
-  function handleChange(e: Event) {
-    checked = (e.target as HTMLInputElement).checked;
-    onchange?.(checked);
+  function handleChange(event: Event) {
+    checked = (event.currentTarget as HTMLInputElement).checked;
+    onNativeChange?.(event);
+    onCheckedChange?.(checked);
   }
 </script>
 
 <label class={`${StyleComponent.checkbox.root} ${disabled ? StyleComponent.checkbox.disabled : ""}`} for={id}>
   <input
+    {...rest}
     type="checkbox"
     {id}
     {name}
@@ -19,7 +26,7 @@
     {disabled}
     {required}
     onchange={handleChange}
-    class={StyleComponent.checkbox.input}
+    class={`${StyleComponent.checkbox.input} ${inputClass ?? ""}`}
   />
   <span class={StyleComponent.checkbox.box}>
     {#if checked}
@@ -28,7 +35,5 @@
       </svg>
     {/if}
   </span>
-  {#if label}
-    <span class={StyleComponent.checkbox.label}>{label}</span>
-  {/if}
+  {#if label}<span class={StyleComponent.checkbox.label}>{label}</span>{/if}
 </label>
