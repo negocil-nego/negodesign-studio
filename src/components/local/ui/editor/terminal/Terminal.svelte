@@ -187,6 +187,11 @@
       description: "Conjunto de acções do cartão apresentadas como lista de botões.",
       componentId: "card-actions-button",
     },
+    "country-popover": {
+      name: "CountryPhonePopover",
+      description: "Selector de país e indicativo telefónico internacional, com pesquisa e suporte multi-idioma.",
+      componentId: "country-popover",
+    },
   };
 
   const info = componentInfo[id];

@@ -16,7 +16,8 @@ export type ComponentDefinition = {
 export type ComponentNavigationGroup = {
   label: string;
   open?: boolean;
-  items: ComponentDefinition[];
+  items?: ComponentDefinition[];
+  children?: ComponentNavigationGroup[];
 };
 
 // ─── Catalog ────────────────────────────────────────────────────────────────
@@ -235,7 +236,7 @@ export const componentCatalog: ComponentDefinition[] = [
     name: "CountryPhonePopover",
     label: "Country phone selector",
     category: "Input",
-    href: "/main/project/input#input-phone-flag",
+    href: "/main/project/popover#country-popover",
     sourceDirectory: "project/ui/molecules/popover",
     dependence: "src/project/ui/molecules/popover/dependence.json",
     icon: IconNamed.Home,
@@ -484,35 +485,81 @@ const byGroup = (group: string) =>
 export const componentNavigationGroups: ComponentNavigationGroup[] = [
   // ── Atoms ─────────────────────────────────────────────────────────────────
   {
-    label: "Atoms · Input",
+    label: "Atoms",
     open: true,
-    items: componentCatalog.filter((c) => c.group === "Atom · Input" || (c.group === "Atom" && c.category === "Input")),
-  },
-  {
-    label: "Atoms · Control",
-    open: false,
-    items: componentCatalog.filter((c) => c.group === "Atom · Control"),
-  },
-  {
-    label: "Atoms · Typography",
-    open: false,
-    items: componentCatalog.filter((c) => c.category === "Typography" && c.group === "Atom"),
+    children: [
+      {
+        label: "Input",
+        open: false,
+        items: componentCatalog.filter(
+          (c) =>
+            (c.group === "Atom · Input" ||
+              (c.group === "Atom" && c.category === "Input")) &&
+            !c.id.includes("phone"),
+        ),
+        children: [
+          {
+            label: "Phone",
+            open: false,
+            items: componentCatalog.filter((c) => c.id === "input-phone"),
+            children: [
+              {
+                label: "Flag",
+                open: false,
+                items: componentCatalog.filter((c) => c.id === "input-phone-flag"),
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Control",
+        open: false,
+        items: componentCatalog.filter((c) => c.group === "Atom · Control"),
+      },
+      {
+        label: "Typography",
+        open: false,
+        items: componentCatalog.filter(
+          (c) => c.category === "Typography" && c.group === "Atom",
+        ),
+      },
+    ],
   },
   // ── Molecules ─────────────────────────────────────────────────────────────
   {
     label: "Molecules",
     open: false,
-    items: componentCatalog.filter((c) => c.group === "Molecule"),
-  },
-  {
-    label: "Molecules · Card",
-    open: false,
-    items: componentCatalog.filter((c) => c.group === "Molecule · Card"),
-  },
-  {
-    label: "Molecules · Card · Shared",
-    open: false,
-    items: componentCatalog.filter((c) => c.group === "Molecule · Card · Shared"),
+    items: componentCatalog.filter(
+      (c) => c.group === "Molecule" && c.id !== "country-popover",
+    ),
+    children: [
+      {
+        label: "Popover",
+        open: false,
+        children: [
+          {
+            label: "Country",
+            open: false,
+            items: componentCatalog.filter((c) => c.id === "country-popover"),
+          },
+        ],
+      },
+      {
+        label: "Card",
+        open: false,
+        items: componentCatalog.filter((c) => c.group === "Molecule · Card"),
+        children: [
+          {
+            label: "Shared",
+            open: false,
+            items: componentCatalog.filter(
+              (c) => c.group === "Molecule · Card · Shared",
+            ),
+          },
+        ],
+      },
+    ],
   },
   // ── Organisms (placeholder) ───────────────────────────────────────────────
   {
