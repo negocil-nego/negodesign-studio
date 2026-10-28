@@ -93,6 +93,9 @@ export const StyleComponent = {
             dayDefault: "text-zinc-300 hover:bg-blender-hover hover:text-white",
         },
     },
+    modal: {
+        root: "w-full max-w-md rounded-xl border border-blender-border bg-white p-5 text-zinc-900 shadow-2xl dark:bg-blender-card dark:text-zinc-200 [&::backdrop]:bg-black/60 [&::backdrop]:backdrop-blur-sm",
+    },
     popover: {
         root: "popover w-full",
     },
