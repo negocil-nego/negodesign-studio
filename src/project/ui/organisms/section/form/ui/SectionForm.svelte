@@ -5,6 +5,8 @@
   import type { SectionFormProps } from "../data/types";
 
   let {
+    isScreen,
+    className,
     titleProps,
     subtitleProps,
     descriptionProps,
@@ -14,7 +16,7 @@
   }: SectionFormProps = $props();
 </script>
 
-<section>
+<section class="w-full {className}" class:h-screen={isScreen}>
   <div>
     <div class="flex flex-col gap-5 items-center">
       <div class="flex flex-col gap-2 items-center">
