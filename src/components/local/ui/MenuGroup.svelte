@@ -4,7 +4,7 @@
 
   type Props = {
     name: string;
-    items: { name: string; path: string; icon: IconNamed }[];
+    items: { name: string; path: string; icon: IconNamed; onclick?: () => void }[];
   };
 
   let { name, items }: Props = $props();
@@ -20,10 +20,17 @@
     <ul class="space-y-2">
       {#each items as item}
         <li>
+          {#if item.onclick}
+            <button type="button" onclick={item.onclick} class="{StyleComponent.layout.item} group w-full text-left">
+              <i class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`} aria-hidden="true"></i>
+              <span class="truncate">{item.name}</span>
+            </button>
+          {:else}
           <a href={item.path} class="{StyleComponent.layout.item} group">
             <i class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`} aria-label={item.name}></i>
             <span class="truncate">{item.name}</span>
           </a>
+          {/if}
         </li>
       {/each}
     </ul>

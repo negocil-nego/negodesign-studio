@@ -30,14 +30,6 @@
           >NegoDesign Studio</span
         >
       </div>
-
-      <a
-        href="/page/docs"
-        class="text-xs text-zinc-300 hover:text-slate-900 bg-white/90 hover:bg-slate-100 px-3 py-1.5 rounded border border-blender-border transition-colors flex items-center gap-1.5 shadow-sm"
-      >
-        <i class={`${getIconClass(IconNamed.DocumentValidation)} w-4 h-4 text-base opacity-80`} aria-hidden="true"></i>
-        <span>Documentação</span>
-      </a>
     </div>
 
     <div>
@@ -45,7 +37,8 @@
         class="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2.5"
       >
         <span>NegoDesign</span>
-        <span class="text-slate-700 dark:text-zinc-300 font-normal text-lg md:text-xl lg:text-2xl"
+        <span
+          class="text-slate-700 dark:text-zinc-300 font-normal text-lg md:text-xl lg:text-2xl"
           >Desktop</span
         >
       </h1>

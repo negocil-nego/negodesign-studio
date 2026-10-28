@@ -5,9 +5,11 @@
   import VersionApp from "../../components/local/ui/varients/VersionApp.svelte";
   import { IconNamed } from "../../hooks/icon.svelte";
   import { StyleComponent } from "../../components/local/data/style.component";
+  import { goto } from "$app/navigation";
 
   const { children } = $props();
   let theme = $state<"light" | "dark">("light");
+  let showProjectOptions = $state(false);
 
   onMount(() => {
     theme =
@@ -51,6 +53,7 @@
                 name: "Novo Projecto",
                 path: "/main/project",
                 icon: IconNamed.FolderAdd,
+                onclick: () => (showProjectOptions = true),
               },
               {
                 name: "Templates",
@@ -103,4 +106,31 @@
       {@render children()}
     </section>
   </div>
+
+  {#if showProjectOptions}
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4" role="presentation" onclick={(event) => { if (event.target === event.currentTarget) showProjectOptions = false; }} onkeydown={(event) => { if (event.key === "Escape") showProjectOptions = false; }}>
+      <section class="w-full max-w-lg rounded-xl border border-blender-border bg-white p-6 text-slate-900 shadow-2xl dark:bg-blender-card dark:text-zinc-100" role="dialog" aria-modal="true" aria-labelledby="project-options-title">
+        <div class="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-blue-500">Frontend</p>
+            <h2 id="project-options-title" class="mt-1 text-xl font-semibold">Como quer começar?</h2>
+            <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Escolha uma opção para criar o seu projecto.</p>
+          </div>
+          <button type="button" class="rounded p-2 text-zinc-500 hover:bg-blender-hover" aria-label="Fechar" onclick={() => (showProjectOptions = false)}>✕</button>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <button type="button" class="rounded-lg border border-blender-border p-4 text-left hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/30" onclick={() => { showProjectOptions = false; void goto('/main/template'); }}>
+            <span class="text-2xl" aria-hidden="true">▦</span>
+            <span class="mt-3 block font-semibold">Layouts</span>
+            <span class="mt-1 block text-sm text-zinc-500 dark:text-zinc-400">Conheça os layouts prontos da plataforma.</span>
+          </button>
+          <button type="button" class="rounded-lg border border-blender-border p-4 text-left hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/30" onclick={() => { showProjectOptions = false; void goto('/main/project'); }}>
+            <span class="text-2xl" aria-hidden="true">◫</span>
+            <span class="mt-3 block font-semibold">Componentes</span>
+            <span class="mt-1 block text-sm text-zinc-500 dark:text-zinc-400">Explore os componentes disponíveis.</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  {/if}
 </main>
