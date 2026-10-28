@@ -1,6 +1,7 @@
 <script lang="ts">
   import Input from "../../../../../project/ui/atoms/input/core/ui/Input.svelte";
   import InputText from "../../../../../project/ui/atoms/input/children/text/ui/InputText.svelte";
+  import InputOtp from "../../../../../project/ui/atoms/input/children/otp/ui/InputOtp.svelte";
   import InputEmail from "../../../../../project/ui/atoms/input/children/email/ui/InputEmail.svelte";
   import InputPhone from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhone.svelte";
   import InputPhoneFlag from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhoneFlag.svelte";
@@ -23,6 +24,7 @@
 
   // Terminals
   import InputTextTerminal from "../terminal/input/InputTextTerminal.svelte";
+  import InputOtpTerminal from "../terminal/input/InputOtpTerminal.svelte";
   import InputEmailTerminal from "../terminal/input/InputEmailTerminal.svelte";
   import InputPhoneTerminal from "../terminal/input/InputPhoneTerminal.svelte";
   import InputPhoneFlagTerminal from "../terminal/input/InputPhoneFlagTerminal.svelte";
@@ -68,6 +70,8 @@
       <section id={component.id} class="space-y-4">
         {#if component.id === "input-text"}
           <InputTextTerminal />
+        {:else if component.id === "input-otp"}
+          <InputOtpTerminal />
         {:else if component.id === "input-email"}
           <InputEmailTerminal />
         {:else if component.id === "input-phone"}
@@ -121,6 +125,15 @@
                   type: "text",
                   placeholder: $t("input.text.placeholder"),
                 }}
+              />
+            </div>
+          {:else if component.id === "input-otp"}
+            <div class="w-full max-w-xs">
+              <InputOtp
+                id="gallery-input-otp"
+                name="verification-code"
+                value="456789"
+                length={6}
               />
             </div>
           {:else if component.id === "input-email"}

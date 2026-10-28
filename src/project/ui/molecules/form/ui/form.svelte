@@ -13,6 +13,7 @@
   import InputPhone from "../../../atoms/input/children/phone/ui/InputPhone.svelte";
   import InputPhoneFlag from "../../../atoms/input/children/phone/ui/InputPhoneFlag.svelte";
   import InputText from "../../../atoms/input/children/text/ui/InputText.svelte";
+  import InputOtp from "../../../atoms/input/children/otp/ui/InputOtp.svelte";
   import InputTime from "../../../atoms/input/children/time/ui/InputTime.svelte";
   import type { SelectProps } from "../../../atoms/select/data/types";
   import type { CheckboxProps } from "../../../atoms/checkbox/data/types";
@@ -30,6 +31,7 @@
     InputPhoneFlagProps,
   } from "../../../atoms/input/children/phone/data/types";
   import type { InputTextProps } from "../../../atoms/input/children/text/data/types";
+  import type { InputOtpProps } from "../../../atoms/input/children/otp/data/types";
   import type { InputTimeProps } from "../../../atoms/input/children/time/data/types";
   import type { FormProps } from "../data/types";
 
@@ -93,6 +95,9 @@
       {:else if component === "input-text"}
         {@const props = field as InputTextProps}
         <InputText {...props} />
+      {:else if component === "input-otp"}
+        {@const props = field as InputOtpProps}
+        <InputOtp {...props} />
       {:else if component === "input-time"}
         {@const props = field as InputTimeProps}
         <InputTime {...props} />

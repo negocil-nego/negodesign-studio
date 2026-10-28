@@ -17,6 +17,7 @@ export type FormComponent =
   | "input-phone"
   | "input-phone-flag"
   | "input-text"
+  | "input-otp"
   | "input-time";
 
 export type FormIt = {
@@ -27,6 +28,8 @@ export type FormIt = {
   id?: string;
   name?: string;
   value?: string;
+  length?: number;
+  separatorEvery?: number;
   checked?: boolean;
   disabled?: boolean;
   required?: boolean;

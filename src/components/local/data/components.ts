@@ -49,6 +49,18 @@ export const componentCatalog: ComponentDefinition[] = [
     description: "Campo de texto simples.",
   },
   {
+    id: "input-otp",
+    name: "InputOtp",
+    label: "OTP",
+    category: "Input",
+    href: "/main/project/input#input-otp",
+    sourceDirectory: "project/ui/atoms/input/children/otp",
+    dependence: "src/project/ui/atoms/input/children/otp/dependence.json",
+    icon: IconNamed.Security,
+    group: "Atom · Input",
+    description: "Campo segmentado para códigos de verificação de uso único.",
+  },
+  {
     id: "input-email",
     name: "InputEmail",
     label: "Email",

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-otp",
+      "name": "InputOtp",
+      "entry": {
+        "Svelte": "ui/InputOtp.svelte",
+        "React": "ui/InputOtp.tsx",
+        "Vue": "ui/InputOtp.vue",
+        "Flutter": "ui/InputOtp.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": [],
+      "assets": {
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": []
+      },
+      "props": [
+        { "name": "id", "type": "string", "required": false },
+        { "name": "name", "type": "string", "required": false, "description": "Nome do valor enviado pelo formulário." },
+        { "name": "value", "type": "string", "required": false, "description": "Código actual; pode ser ligado ao estado do formulário." },
+        { "name": "length", "type": "number", "required": false, "description": "Quantidade de dígitos do código (6 por padrão)." },
+        { "name": "separatorEvery", "type": "number", "required": false, "description": "Insere um separador depois deste número de dígitos (3 por padrão)." },
+        { "name": "labelProps", "type": "InputOtpLabelProps", "required": false },
+        { "name": "disabled", "type": "boolean", "required": false },
+        { "name": "required", "type": "boolean", "required": false },
+        { "name": "onValueChange", "type": "(value: string) => void", "required": false, "description": "Notifica cada alteração no código." }
+      ]
+    }
+  ]
+}

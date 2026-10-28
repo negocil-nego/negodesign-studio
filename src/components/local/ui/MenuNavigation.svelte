@@ -1,10 +1,16 @@
 <script lang="ts">
+  import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import {
     componentNavigationGroups,
     type ComponentNavigationGroup,
   } from "../data/components";
 
   let componentsOpen = $state(false);
+  let openGroups: Record<string, boolean> = $state({});
+
+  function isGroupOpen(label: string) {
+    return openGroups[label] ?? label === "Input";
+  }
 
   function hasDocumented(group: ComponentNavigationGroup): boolean {
     if ((group.items ?? []).some((item) => item.href)) return true;
@@ -14,11 +20,19 @@
 
 {#snippet navGroup(group: ComponentNavigationGroup)}
   {#if hasDocumented(group)}
-    <details class="group" open={group.label === "Input"}>
+    <details
+      class="group"
+      open={isGroupOpen(group.label)}
+      ontoggle={(event) => (openGroups[group.label] = event.currentTarget.open)}
+    >
       <summary
-        class="cursor-pointer rounded px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 transition-colors hover:bg-blender-hover hover:text-zinc-200"
+        class="flex cursor-pointer list-none items-center justify-between rounded px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 transition-colors hover:bg-blender-hover hover:text-zinc-200 [&::-webkit-details-marker]:hidden"
       >
-        {group.label}
+        <span>{group.label}</span>
+        <Icon
+          name={isGroupOpen(group.label) ? "ArrowUp" : "ArrowDown"}
+          className="h-3 w-3 text-[10px] opacity-70"
+        />
       </summary>
       <ul class="pb-1">
         {#each (group.items ?? []).filter((item) => item.href) as item (item.id)}
@@ -72,10 +86,10 @@
       onclick={() => (componentsOpen = !componentsOpen)}
     >
       Componentes
-      <span
-        class="text-[10px] transition-transform"
-        class:rotate-180={componentsOpen}>⌄</span
-      >
+      <Icon
+        name={componentsOpen ? "ArrowUp" : "ArrowDown"}
+        className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center self-center text-[11px] leading-none opacity-75 transition-colors"
+      />
     </button>
 
     {#if componentsOpen}

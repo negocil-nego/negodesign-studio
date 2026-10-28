@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import { type IconNamed, getIconClass } from "../../../hooks/icon.svelte";
   import { StyleComponent } from "../data/style.component";
 
@@ -8,15 +9,24 @@
   };
 
   let { name, items }: Props = $props();
+  let open = $state(true);
 </script>
 
 <div class="space-y-3 select-none font-commissioner">
-  <div class="{StyleComponent.layout.header} px-2 py-1 text-zinc-400">
-    <span class="text-[9px] text-zinc-400">▼</span>
+  <button
+    type="button"
+    class="{StyleComponent.layout.header} w-full justify-start px-2 py-1 text-zinc-400 hover:text-zinc-200"
+    aria-expanded={open}
+    onclick={() => (open = !open)}
+  >
+    <Icon
+      name={open ? "ArrowUp" : "ArrowDown"}
+      className="inline-flex h-3 w-3 shrink-0 items-center justify-center self-center text-[10px] leading-none opacity-75"
+    />
     <span class="text-zinc-300">{name}</span>
-  </div>
+  </button>
 
-  {#if items.length > 0}
+  {#if open && items.length > 0}
     <ul class="space-y-2">
       {#each items as item}
         <li>
@@ -34,7 +44,7 @@
         </li>
       {/each}
     </ul>
-  {:else}
+  {:else if open}
     <div
       class="px-3 py-2.5 border border-dashed border-blender-border rounded bg-blender-base/60 text-center"
     >

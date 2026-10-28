@@ -27,6 +27,11 @@
       description: "Campo de texto para inserir uma linha de conteúdo, com suporte a rótulo e propriedades nativas do input.",
       componentId: "input-text",
     },
+    "input-otp": {
+      name: "InputOtp",
+      description: "Campo de código de verificação segmentado, com suporte a colagem, navegação por teclado e valor agregado.",
+      componentId: "input-otp",
+    },
     "input-email": {
       name: "InputEmail",
       description: "Campo de email com validação nativa do browser, indicação de formato e propriedades configuráveis.",

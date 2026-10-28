@@ -28,6 +28,7 @@
       ids: [
         "input",
         "input-text",
+        "input-otp",
         "input-email",
         "input-phone",
         "input-phone-flag",

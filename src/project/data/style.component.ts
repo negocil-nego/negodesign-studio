@@ -52,6 +52,13 @@ export const StyleComponent = {
         number: {
             root: InputForm,
         },
+        otp: {
+            root: "space-y-2",
+            label: "text-sm font-medium text-zinc-700 dark:text-zinc-300",
+            group: "flex items-center gap-2",
+            slot: "h-10 w-10 rounded-md border border-blender-border bg-blender-surface text-center text-sm font-medium text-zinc-800 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-zinc-100",
+            separator: "px-0.5 text-zinc-500",
+        },
         time: {
             root: "relative w-full",
             trigger: `${InputForm} w-full cursor-pointer flex items-center justify-between text-left`,
