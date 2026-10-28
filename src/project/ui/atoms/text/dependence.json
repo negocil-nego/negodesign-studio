@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "text",
+      "name": "Text",
+      "entry": {
+        "Svelte": "ui/text.svelte",
+        "React": "ui/text.tsx",
+        "Vue": "ui/text.vue",
+        "Flutter": "ui/text.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "description": "Texto apresentado pelo rótulo."
+        }
+      ]
+    }
+  ]
+}

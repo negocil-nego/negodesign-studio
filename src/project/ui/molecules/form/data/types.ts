@@ -66,7 +66,7 @@ export type FormIt = {
   onValueChange?: (value: string) => void;
   onOptionSelect?: (option: { value: string; label: string; icon?: string; disabled?: boolean }) => void;
   /** Allow native HTML and ARIA props in field configuration. */
-    class?: string;
+  class?: string;
   className?: string;
   style?: string | Record<string, string | number>;
   title?: string;

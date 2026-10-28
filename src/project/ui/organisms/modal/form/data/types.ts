@@ -1,4 +1,4 @@
-import type { FormProps } from "../../../form/data/types"
+import type { FormProps } from "../../../../molecules/form/data/types"
 
 export type ModalFormProps = {
     open?: boolean

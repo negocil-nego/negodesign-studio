@@ -47,7 +47,7 @@
 >
   {#each fields as field, index (field.id ?? `${field.component ?? field.type ?? "field"}-${index}`)}
     <div id={`i-${index}`}>
-      {@const component = field.component ?? field.type}
+      {const component = field.component ?? field.type}
       {#if component === "select"}
         {@const props = field as SelectProps}
         <Select {...props} />
