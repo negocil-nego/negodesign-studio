@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { FlagNamed } from "../../../../../../../hooks/flag.svelte";
+import { FlagNamed } from "../../../../../../../../../hooks/flag.svelte";
 import type { InputPhoneFlagProps } from "../data/types";
-import { getIconClass } from "../../../../../../../hooks/icon.svelte";
-import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
-import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover.vue";
-import Label from "../../../../label/ui/Label.vue";
-import { StyleComponent } from "../../../../../../data/style.component";
+import { getIconClass } from "../../../../../../../../../hooks/icon.svelte";
+import type { CountryPhoneOption } from "../../../../../../../molecules/popover/data/country-phone";
+import CountryPhonePopover from "../../../../../../../molecules/popover/ui/CountryPhonePopover.vue";
+import Label from "../../../../../../label/ui/Label.vue";
+import { StyleComponent } from "../../../../../../../../data/style.component";
 
 const props = defineProps<InputPhoneFlagProps>();
 const style = StyleComponent.input.phone;

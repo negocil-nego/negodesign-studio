@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
-import '../../../../../molecules/popover/ui/CountryPhonePopover.dart';
-import '../../../../../molecules/popover/data/country-phone.dart';
-import '../../../../label/ui/Label.dart';
+import '../../../../../../../molecules/popover/ui/CountryPhonePopover.dart';
+import '../../../../../../../molecules/popover/data/country-phone.dart';
+import '../../../../../../label/ui/Label.dart';
 
 class InputPhoneFlag extends StatefulWidget {
   final InputPhoneFlagProps props;

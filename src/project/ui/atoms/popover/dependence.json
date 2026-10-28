@@ -4,16 +4,51 @@
     {
       "id": "popover",
       "name": "Popover",
-      "entry": { "Svelte": "ui/Popover.svelte", "React": "ui/Popover.tsx", "Vue": "ui/Popover.vue", "Flutter": "ui/Popover.dart" },
-      "files": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
+      "entry": {
+        "Svelte": "ui/Popover.svelte",
+        "React": "ui/Popover.tsx",
+        "Vue": "ui/Popover.vue",
+        "Flutter": "ui/Popover.dart"
+      },
+      "files": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
       "dependencies": [],
-      "assets": [],
+      "assets": [
+        "static/styles/popover.css"
+      ],
       "props": [
-        { "name": "id", "type": "string", "required": true, "description": "ID do elemento popover." },
-        { "name": "trigger", "type": "Snippet", "required": true, "description": "Conteúdo que abre o popover." },
-        { "name": "panel", "type": "Snippet", "required": true, "description": "Conteúdo apresentado no popover." },
-        { "name": "role", "type": "string", "required": false },
-        { "name": "ariaLabel", "type": "string", "required": false }
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "ID do elemento popover."
+        },
+        {
+          "name": "trigger",
+          "type": "Snippet",
+          "required": true,
+          "description": "Conteúdo que abre o popover."
+        },
+        {
+          "name": "panel",
+          "type": "Snippet",
+          "required": true,
+          "description": "Conteúdo apresentado no popover."
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false
+        }
       ]
     }
   ]

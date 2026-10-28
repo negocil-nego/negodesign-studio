@@ -5,7 +5,7 @@
   let { leftSectionForm, rightSectionForm }: LoginDualSectionProps = $props();
 </script>
 
-<section class="grid grid-cols-1 md:grid-cols-2">
+<section class="grid h-full min-h-full grid-cols-1 md:grid-cols-2">
   <SectionForm {...leftSectionForm} />
   <SectionForm {...rightSectionForm} />
 </section>

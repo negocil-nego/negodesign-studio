@@ -41,6 +41,7 @@ const sourceModules = import.meta.glob(
     "../../../../../static/hugeicons/svg/*.svg",
     "../../../../../static/flags/4x3/*.svg",
     "../../../../../static/hugeicons/css/*.css",
+    "../../../../../static/styles/*.css",
   ],
   { query: "?raw", import: "default", eager: true },
 ) as Record<string, string>;

@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-phone-flag",
+      "name": "InputPhoneFlag",
+      "entry": {
+        "Svelte": "ui/InputPhoneFlag.svelte",
+        "React": "ui/InputPhoneFlag.tsx",
+        "Vue": "ui/InputPhoneFlag.vue",
+        "Flutter": "ui/InputPhoneFlag.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": [
+        "input-phone",
+        "input-label",
+        "country-popover"
+      ],
+      "assets": {
+        "Svelte": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
+        "React": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
+        "Vue": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "inputProps",
+          "type": "InputProps",
+          "required": true,
+          "description": "Propriedades do campo telefónico."
+        },
+        {
+          "name": "labelProps",
+          "type": "LabelProps",
+          "required": false,
+          "description": "Rótulo opcional associado ao campo."
+        },
+        {
+          "name": "flag",
+          "type": "FlagNamed[]",
+          "required": true,
+          "description": "Bandeiras disponíveis para o selector de país."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "description": "Localização utilizada nos nomes dos países."
+        },
+        {
+          "name": "onCountrySelect",
+          "type": "(country: CountryPhoneOption) => void",
+          "required": false,
+          "description": "Callback chamado após escolher um país."
+        }
+      ]
+    }
+  ]
+}

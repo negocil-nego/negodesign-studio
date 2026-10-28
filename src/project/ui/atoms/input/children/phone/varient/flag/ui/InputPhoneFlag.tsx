@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { useState } from "react";
-import { FlagNamed } from "../../../../../../../hooks/flag.svelte";
+import { FlagNamed } from "../../../../../../../../../hooks/flag.svelte";
 import type { InputPhoneFlagProps } from "../data/types";
-import { getIconClass } from "../../../../../../../hooks/icon.svelte";
-import type { CountryPhoneOption } from "../../../../../molecules/popover/data/country-phone";
-import CountryPhonePopover from "../../../../../molecules/popover/ui/CountryPhonePopover";
-import Label from "../../../../label/ui/Label";
-import { StyleComponent } from "../../../../../../data/style.component";
+import { getIconClass } from "../../../../../../../../../hooks/icon.svelte";
+import type { CountryPhoneOption } from "../../../../../../../molecules/popover/data/country-phone";
+import CountryPhonePopover from "../../../../../../../molecules/popover/ui/CountryPhonePopover";
+import Label from "../../../../../../label/ui/Label";
+import { StyleComponent } from "../../../../../../../../data/style.component";
 
 export default function InputPhoneFlag({ labelProps, inputProps, flag, locale, onCountrySelect }: InputPhoneFlagProps) {
     const style = StyleComponent.input.phone;

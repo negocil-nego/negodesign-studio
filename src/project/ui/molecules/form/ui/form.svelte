@@ -11,7 +11,7 @@
   import InputNumber from "../../../atoms/input/children/number/ui/InputNumber.svelte";
   import InputPassword from "../../../atoms/input/children/password/ui/InputPassword.svelte";
   import InputPhone from "../../../atoms/input/children/phone/ui/InputPhone.svelte";
-  import InputPhoneFlag from "../../../atoms/input/children/phone/ui/InputPhoneFlag.svelte";
+  import InputPhoneFlag from "../../../atoms/input/children/phone/varient/flag/ui/InputPhoneFlag.svelte";
   import InputText from "../../../atoms/input/children/text/ui/InputText.svelte";
   import InputOtp from "../../../atoms/input/children/otp/ui/InputOtp.svelte";
   import InputTime from "../../../atoms/input/children/time/ui/InputTime.svelte";
@@ -26,10 +26,8 @@
   import type { InputEmailProps } from "../../../atoms/input/children/email/data/types";
   import type { InputNumberProps } from "../../../atoms/input/children/number/data/types";
   import type { InputPasswordProps } from "../../../atoms/input/children/password/data/types";
-  import type {
-    InputPhoneProps,
-    InputPhoneFlagProps,
-  } from "../../../atoms/input/children/phone/data/types";
+  import type { InputPhoneProps } from "../../../atoms/input/children/phone/data/types";
+  import type { InputPhoneFlagProps } from "../../../atoms/input/children/phone/varient/flag/data/types";
   import type { InputTextProps } from "../../../atoms/input/children/text/data/types";
   import type { InputOtpProps } from "../../../atoms/input/children/otp/data/types";
   import type { InputTimeProps } from "../../../atoms/input/children/time/data/types";

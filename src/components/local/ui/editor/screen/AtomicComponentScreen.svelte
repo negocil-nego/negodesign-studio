@@ -4,7 +4,7 @@
   import InputOtp from "../../../../../project/ui/atoms/input/children/otp/ui/InputOtp.svelte";
   import InputEmail from "../../../../../project/ui/atoms/input/children/email/ui/InputEmail.svelte";
   import InputPhone from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhone.svelte";
-  import InputPhoneFlag from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhoneFlag.svelte";
+  import InputPhoneFlag from "../../../../../project/ui/atoms/input/children/phone/varient/flag/ui/InputPhoneFlag.svelte";
   import InputPassword from "../../../../../project/ui/atoms/input/children/password/ui/InputPassword.svelte";
   import InputDate from "../../../../../project/ui/atoms/input/children/date/ui/InputDate.svelte";
   import InputTime from "../../../../../project/ui/atoms/input/children/time/ui/InputTime.svelte";

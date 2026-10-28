@@ -1,8 +1,8 @@
 <script lang="ts">
   import SectionForm from "../../../../organisms/section/form/ui/SectionForm.svelte";
-  import type { LoginSimpleProps } from "../data/types";
+  import type { SimpleProps } from "../data/types";
 
-  let { sectionFormProps }: LoginSimpleProps = $props();
+  let { sectionFormProps }: SimpleProps = $props();
 </script>
 
 <section>

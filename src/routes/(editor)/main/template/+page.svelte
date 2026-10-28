@@ -3,6 +3,8 @@
   import PageLoginDual from "../../../../project/ui/pages/login/dual-section/ui/PageLoginDual.svelte";
   import PageRegister from "../../../../project/ui/pages/register/simple/ui/PageRegister.svelte";
   import PageRegisterDual from "../../../../project/ui/pages/register/dual-section/ui/PageRegisterDual.svelte";
+  import PageOtp from "../../../../project/ui/pages/otp/simple/ui/PageOtp.svelte";
+  import PageOtpDual from "../../../../project/ui/pages/otp/dual-section/ui/PageOtpDual.svelte";
 
   const groups = [
     {
@@ -19,7 +21,15 @@
         { name: "PageRegisterDual", component: PageRegisterDual },
       ],
     },
+    {
+      name: "Verificação de OTP",
+      pages: [
+        { name: "PageOtp", component: PageOtp },
+        { name: "PageOtpDual", component: PageOtpDual },
+      ],
+    },
   ];
+  const totalTemplates = groups.reduce((total, group) => total + group.pages.length, 0);
 </script>
 
 <div class="min-h-full w-full bg-blender-base p-4 md:p-6 xl:p-8">
@@ -39,12 +49,12 @@
           Templates
         </h1>
         <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Pré-visualize os modelos de autenticação e registro.
+          Pré-visualize os modelos de autenticação, registro e verificação OTP.
         </p>
       </div>
       <span
         class="rounded-full border border-blender-border bg-blender-card px-3 py-1.5 text-xs text-zinc-500 dark:text-zinc-400"
-        >4 modelos disponíveis</span
+        >{totalTemplates} modelos disponíveis</span
       >
     </header>
 
