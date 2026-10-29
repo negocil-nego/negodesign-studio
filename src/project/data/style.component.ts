@@ -6,6 +6,9 @@ export const StyleComponent = {
     avatar: {
         default: "w-12 h-12 rounded-lg",
     },
+    image: {
+        default: "w-12 h-12",
+    },
     button: {
         solid: {
             default: `${ButtonDefault} bg-blue-900 hover:bg-primary/80 text-white`,

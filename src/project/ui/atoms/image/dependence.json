@@ -1,0 +1,81 @@
+{
+    "version": 1,
+    "components": [
+        {
+            "id": "image",
+            "name": "Image",
+            "entry": {
+                "Svelte": "ui/Image.svelte",
+                "React": "ui/Image.tsx",
+                "Vue": "ui/Image.vue",
+                "Flutter": "ui/Image.dart"
+            },
+            "files": {
+                "Svelte": [
+                    "data/types.ts"
+                ],
+                "React": [
+                    "data/types.ts"
+                ],
+                "Vue": [
+                    "data/types.ts"
+                ],
+                "Flutter": [
+                    "data/types.dart"
+                ]
+            },
+            "dependencies": {
+                "Svelte": [
+                    "skeleton"
+                ],
+                "React": [
+                    "skeleton"
+                ],
+                "Vue": [
+                    "skeleton"
+                ],
+                "Flutter": [
+                    "skeleton"
+                ]
+            },
+            "assets": {
+                "Svelte": [],
+                "React": [],
+                "Vue": [],
+                "Flutter": []
+            },
+            "props": [
+                {
+                    "name": "src",
+                    "type": "string",
+                    "required": false,
+                    "description": "URL da imagem apresentada pelo image."
+                },
+                {
+                    "name": "alt",
+                    "type": "string",
+                    "required": false,
+                    "description": "Texto alternativo da imagem."
+                },
+                {
+                    "name": "isLoading",
+                    "type": "boolean",
+                    "required": false,
+                    "description": "Apresenta o esqueleto de carregamento."
+                },
+                {
+                    "name": "onClick",
+                    "type": "() => void",
+                    "required": false,
+                    "description": "Callback executado ao clicar no image."
+                },
+                {
+                    "name": "className",
+                    "type": "string",
+                    "required": false,
+                    "description": "Classes adicionais aplicadas à imagem."
+                }
+            ]
+        }
+    ]
+}
