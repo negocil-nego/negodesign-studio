@@ -42,7 +42,7 @@
       "flex items-center justify-center bg-blender-card px-6 py-8 text-zinc-800 dark:text-zinc-100",
     titleProps: { text: "Iniciar sessão" },
     subtitleProps: { text: "Bem-vindo de volta." },
-    formProps: { fields },
+    formProps: { style: "inline", fields },
     buttonSubmitProps: { text: "Entrar" },
     buttonsLoginProps: [
       { text: "Não tem conta? Registe-se", variant: "outline" },

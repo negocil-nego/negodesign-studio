@@ -10,5 +10,6 @@ export type InputOtpProps = {
   label?: string;
   disabled?: boolean;
   required?: boolean;
+  position?: "start" | "center";
   onValueChange?: (value: string) => void;
 };

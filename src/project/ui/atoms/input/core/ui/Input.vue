@@ -10,10 +10,10 @@ defineOptions({ inheritAttrs: false });
 const props = defineProps<Props>();
 const attrs = useAttrs();
 const inputAttrs = computed(() => Object.fromEntries(
-    [...Object.entries(props), ...Object.entries(attrs)].filter(([key]) => !["id", "icon", "type", "required", "disabled", "placeholder", "value"].includes(key)),
+    [...Object.entries(props), ...Object.entries(attrs)].filter(([key]) => !["id", "icon", "type", "required", "disabled", "placeholder", "value", "isInvalid"].includes(key)),
 ));
 const fieldClass = computed(
-    () => (StyleComponent.input as unknown as Record<string, { root?: string }>)[props.type ?? ""]?.root ?? StyleComponent.input.form,
+    () => `${(StyleComponent.input as unknown as Record<string, { root?: string }>)[props.type ?? ""]?.root ?? StyleComponent.input.form} ${props.isInvalid ? StyleComponent.input.error : ""}`,
 );
 </script>
 
@@ -28,6 +28,7 @@ const fieldClass = computed(
             :disabled="props.disabled"
             :placeholder="props.placeholder"
             :value="props.value"
+            :aria-invalid="props.isInvalid || undefined"
             data-name="label"
         />
     </div>

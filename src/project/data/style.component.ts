@@ -37,11 +37,12 @@ export const StyleComponent = {
     },
     input: {
         form: InputForm,
-        error: "border border-destructive/40 text-destructive",
+        error: "border border-destructive/60 text-destructive ring-1 ring-destructive/40",
         success: "border border-success/40 text-success",
         focus: "border border-primary/40 text-primary-foreground",
         text: {
             root: InputForm,
+            label: "text-sm font-medium text-zinc-700 dark:text-zinc-300",
         },
         email: {
             root: InputForm,
@@ -55,6 +56,10 @@ export const StyleComponent = {
         otp: {
             root: "space-y-2",
             label: "text-sm font-medium text-zinc-700 dark:text-zinc-300",
+            labelPosition: {
+                start: "text-left",
+                center: "w-full text-center",
+            },
             group: "flex items-center gap-2",
             slot: "h-10 w-10 rounded-md border border-blender-border bg-blender-surface text-center text-sm font-medium text-zinc-800 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-zinc-100",
             separator: "px-0.5 text-zinc-500",

@@ -5,13 +5,13 @@ import { StyleComponent } from "../../../../../data/style.component";
 
 type Props = InputProps & Omit<ComponentPropsWithoutRef<"input">, keyof InputProps>;
 
-export default function Input({ id, icon, type, required, disabled, placeholder, value, className, ...rest }: Props) {
+export default function Input({ id, icon, type, required, disabled, placeholder, value, isInvalid = false, className, ...rest }: Props) {
     const fieldClass =
         (StyleComponent.input as unknown as Record<string, { root?: string }>)[type ?? ""]?.root ??
         StyleComponent.input.form;
 
     return (
-        <div className={fieldClass}>
+        <div className={`${fieldClass} ${isInvalid ? StyleComponent.input.error : ""}`}>
             {icon && <i className={getIconClass(icon)} aria-hidden="true" />}
             <input
                 {...rest}
@@ -21,6 +21,7 @@ export default function Input({ id, icon, type, required, disabled, placeholder,
                 disabled={disabled}
                 placeholder={placeholder}
                 value={value}
+                aria-invalid={isInvalid || undefined}
                 data-name="label"
                 className={className}
             />

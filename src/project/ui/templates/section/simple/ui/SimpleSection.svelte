@@ -5,6 +5,6 @@
   let { sectionFormProps }: SimpleProps = $props();
 </script>
 
-<section>
+<section class="h-full min-h-full">
   <SectionForm {...sectionFormProps} />
 </section>

@@ -1,6 +1,9 @@
 <script lang="ts">
   import Input from "../../../../../project/ui/atoms/input/core/ui/Input.svelte";
   import InputText from "../../../../../project/ui/atoms/input/children/text/ui/InputText.svelte";
+  import InputUsername from "../../../../../project/ui/atoms/input/children/username/ui/InputUsername.svelte";
+  import InputUsernameOrEmail from "../../../../../project/ui/atoms/input/children/username/varient/username-or-email/ui/InputUsernameOrEmail.svelte";
+  import InputUsernameOrPhone from "../../../../../project/ui/atoms/input/children/username/varient/username-or-phone/ui/InputUsernameOrPhone.svelte";
   import InputOtp from "../../../../../project/ui/atoms/input/children/otp/ui/InputOtp.svelte";
   import InputEmail from "../../../../../project/ui/atoms/input/children/email/ui/InputEmail.svelte";
   import InputPhone from "../../../../../project/ui/atoms/input/children/phone/ui/InputPhone.svelte";
@@ -24,6 +27,9 @@
 
   // Terminals
   import InputTextTerminal from "../terminal/input/InputTextTerminal.svelte";
+  import InputUsernameTerminal from "../terminal/input/InputUsernameTerminal.svelte";
+  import InputUsernameOrEmailTerminal from "../terminal/input/InputUsernameOrEmailTerminal.svelte";
+  import InputUsernameOrPhoneTerminal from "../terminal/input/InputUsernameOrPhoneTerminal.svelte";
   import InputOtpTerminal from "../terminal/input/InputOtpTerminal.svelte";
   import InputEmailTerminal from "../terminal/input/InputEmailTerminal.svelte";
   import InputPhoneTerminal from "../terminal/input/InputPhoneTerminal.svelte";
@@ -70,6 +76,12 @@
       <section id={component.id} class="space-y-4">
         {#if component.id === "input-text"}
           <InputTextTerminal />
+        {:else if component.id === "input-username"}
+          <InputUsernameTerminal />
+        {:else if component.id === "input-username-or-email"}
+          <InputUsernameOrEmailTerminal />
+        {:else if component.id === "input-username-or-phone"}
+          <InputUsernameOrPhoneTerminal />
         {:else if component.id === "input-otp"}
           <InputOtpTerminal />
         {:else if component.id === "input-email"}
@@ -125,6 +137,31 @@
                   type: "text",
                   placeholder: $t("input.text.placeholder"),
                 }}
+              />
+            </div>
+          {:else if component.id === "input-username"}
+            <div class="w-full max-w-xs">
+              <InputUsername
+                labelProps={{ label: "Utilizador", for: "gallery-input-username" }}
+                inputProps={{
+                  id: "gallery-input-username",
+                  type: "text",
+                  placeholder: "Nome, email ou +244 900 000 000",
+                }}
+              />
+            </div>
+          {:else if component.id === "input-username-or-email"}
+            <div class="w-full max-w-xs">
+              <InputUsernameOrEmail
+                labelProps={{ label: "Utilizador ou email", for: "gallery-input-username-email" }}
+                inputProps={{ id: "gallery-input-username-email", type: "text", placeholder: "utilizador ou email@exemplo.com" }}
+              />
+            </div>
+          {:else if component.id === "input-username-or-phone"}
+            <div class="w-full max-w-xs">
+              <InputUsernameOrPhone
+                labelProps={{ label: "Utilizador ou telefone", for: "gallery-input-username-phone" }}
+                inputProps={{ id: "gallery-input-username-phone", type: "text", placeholder: "utilizador ou +244 900 000 000" }}
               />
             </div>
           {:else if component.id === "input-otp"}

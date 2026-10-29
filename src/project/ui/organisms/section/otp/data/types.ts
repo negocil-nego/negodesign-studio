@@ -4,10 +4,15 @@ import type { TextProps } from "../../../../atoms/text/data/types"
 
 export type SectionOtpProps = {
     isScreen?: boolean
+    layout?: "simple" | "dual"
     className?: string
+    brandTitleProps?: TextProps
+    brandSubtitleProps?: TextProps
+    brandDescriptionProps?: TextProps
     titleProps?: TextProps
     subtitleProps?: TextProps
     descriptionProps?: TextProps
     buttonSubmitProps?: ButtonProps
+    buttonsLoginProps?: ButtonProps[]
     inputOtpProps?: InputOtpProps
 }

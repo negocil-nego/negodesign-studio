@@ -14,6 +14,7 @@ export type InputProps = {
   type: InputType;
   required?: boolean;
   disabled?: boolean;
+  isInvalid?: boolean;
   placeholder?: string;
 };
 

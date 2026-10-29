@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-username-or-email",
+      "name": "InputUsernameOrEmail",
+      "entry": {
+        "Svelte": "ui/InputUsernameOrEmail.svelte",
+        "React": "ui/InputUsernameOrEmail.tsx",
+        "Vue": "ui/InputUsernameOrEmail.vue",
+        "Flutter": "ui/InputUsernameOrEmail.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": ["input-username"],
+      "assets": [],
+      "props": [
+        { "name": "labelProps", "type": "LabelProps", "required": false },
+        { "name": "inputProps", "type": "InputProps", "required": true },
+        { "name": "errorMessage", "type": "string", "required": false },
+        { "name": "onValueChange", "type": "(value: string) => void", "required": false },
+        { "name": "onValidityChange", "type": "(isValid: boolean) => void", "required": false }
+      ]
+    }
+  ]
+}

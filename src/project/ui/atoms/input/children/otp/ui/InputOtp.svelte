@@ -9,6 +9,7 @@
     length = 6,
     separatorEvery = 3,
     labelProps,
+    position = "start",
     disabled = false,
     required = false,
     onValueChange,
@@ -65,9 +66,15 @@
   }
 </script>
 
-<div class={StyleComponent.input.otp.root}>
+<div
+  class="{StyleComponent.input.otp.root} {position === 'center' ? 'mx-auto w-fit' : ''}"
+>
   {#if labelProps}
-    <label for={labelProps.for} class={StyleComponent.input.otp.label} data-name="label">{labelProps.label}</label>
+    <label
+      for={labelProps.for}
+      class="{StyleComponent.input.otp.label} {StyleComponent.input.otp.labelPosition[position]} block"
+      data-name="label">{labelProps.label}</label
+    >
   {/if}
 
   <div

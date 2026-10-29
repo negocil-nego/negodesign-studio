@@ -13,6 +13,9 @@
   import InputPhone from "../../../atoms/input/children/phone/ui/InputPhone.svelte";
   import InputPhoneFlag from "../../../atoms/input/children/phone/varient/flag/ui/InputPhoneFlag.svelte";
   import InputText from "../../../atoms/input/children/text/ui/InputText.svelte";
+  import InputUsername from "../../../atoms/input/children/username/ui/InputUsername.svelte";
+  import InputUsernameOrEmail from "../../../atoms/input/children/username/varient/username-or-email/ui/InputUsernameOrEmail.svelte";
+  import InputUsernameOrPhone from "../../../atoms/input/children/username/varient/username-or-phone/ui/InputUsernameOrPhone.svelte";
   import InputOtp from "../../../atoms/input/children/otp/ui/InputOtp.svelte";
   import InputTime from "../../../atoms/input/children/time/ui/InputTime.svelte";
   import type { SelectProps } from "../../../atoms/select/data/types";
@@ -29,11 +32,19 @@
   import type { InputPhoneProps } from "../../../atoms/input/children/phone/data/types";
   import type { InputPhoneFlagProps } from "../../../atoms/input/children/phone/varient/flag/data/types";
   import type { InputTextProps } from "../../../atoms/input/children/text/data/types";
+  import type { InputUsernameProps } from "../../../atoms/input/children/username/data/types";
+  import type { InputUsernameOrEmailProps } from "../../../atoms/input/children/username/varient/username-or-email/data/types";
+  import type { InputUsernameOrPhoneProps } from "../../../atoms/input/children/username/varient/username-or-phone/data/types";
   import type { InputOtpProps } from "../../../atoms/input/children/otp/data/types";
   import type { InputTimeProps } from "../../../atoms/input/children/time/data/types";
   import type { FormProps } from "../data/types";
 
-  let { fields = [], onSubmit }: FormProps = $props();
+  let {
+    style = "grid",
+    className,
+    fields = [],
+    onSubmit,
+  }: FormProps = $props();
 
   function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -42,7 +53,8 @@
 </script>
 
 <form
-  class="w-full grid grid-cols-1 md:grid-cols-2 gap-4"
+  class="w-full grid grid-cols-1 {style === 'grid' &&
+    'md:grid-cols-2'} gap-4 {className}"
   onsubmit={handleSubmit}
 >
   {#each fields as field, index (field.id ?? `${field.component ?? field.type ?? "field"}-${index}`)}
@@ -93,6 +105,15 @@
       {:else if component === "input-text"}
         {@const props = field as InputTextProps}
         <InputText {...props} />
+      {:else if component === "input-username"}
+        {@const props = field as InputUsernameProps}
+        <InputUsername {...props} />
+      {:else if component === "input-username-or-email"}
+        {@const props = field as InputUsernameOrEmailProps}
+        <InputUsernameOrEmail {...props} />
+      {:else if component === "input-username-or-phone"}
+        {@const props = field as InputUsernameOrPhoneProps}
+        <InputUsernameOrPhone {...props} />
       {:else if component === "input-otp"}
         {@const props = field as InputOtpProps}
         <InputOtp {...props} />

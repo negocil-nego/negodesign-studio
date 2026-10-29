@@ -28,6 +28,9 @@
       ids: [
         "input",
         "input-text",
+        "input-username",
+        "input-username-or-email",
+        "input-username-or-phone",
         "input-otp",
         "input-email",
         "input-phone",

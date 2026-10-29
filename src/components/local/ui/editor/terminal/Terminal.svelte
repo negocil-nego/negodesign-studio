@@ -27,6 +27,21 @@
       description: "Campo de texto para inserir uma linha de conteúdo, com suporte a rótulo e propriedades nativas do input.",
       componentId: "input-text",
     },
+    "input-username": {
+      name: "InputUsername",
+      description: "Campo que valida identificadores como nome de utilizador, email ou telefone com indicativo internacional.",
+      componentId: "input-username",
+    },
+    "input-username-or-email": {
+      name: "InputUsernameOrEmail",
+      description: "Campo com validação de nome de utilizador ou email.",
+      componentId: "input-username-or-email",
+    },
+    "input-username-or-phone": {
+      name: "InputUsernameOrPhone",
+      description: "Campo com validação de nome de utilizador ou telefone com indicativo internacional.",
+      componentId: "input-username-or-phone",
+    },
     "input-otp": {
       name: "InputOtp",
       description: "Campo de código de verificação segmentado, com suporte a colagem, navegação por teclado e valor agregado.",

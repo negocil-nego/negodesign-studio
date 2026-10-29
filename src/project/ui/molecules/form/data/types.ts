@@ -17,6 +17,9 @@ export type FormComponent =
   | "input-phone"
   | "input-phone-flag"
   | "input-text"
+  | "input-username"
+  | "input-username-or-email"
+  | "input-username-or-phone"
   | "input-otp"
   | "input-time";
 
@@ -66,6 +69,8 @@ export type FormIt = {
   locale?: string;
   onCountrySelect?: (country: CountryPhoneOption) => void;
   onCheckedChange?: (checked: boolean) => void;
+  onValidityChange?: (isValid: boolean) => void;
+  errorMessage?: string;
   onValueChange?: (value: string) => void;
   onOptionSelect?: (option: { value: string; label: string; icon?: string; disabled?: boolean }) => void;
   /** Allow native HTML and ARIA props in field configuration. */
@@ -93,6 +98,8 @@ export type FormIt = {
 };
 
 export type FormProps = {
+  style?: 'inline' | 'grid'
+  className?: string
   fields?: FormIt[];
   onSubmit?: () => void;
 };

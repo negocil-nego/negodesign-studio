@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-username-or-phone",
+      "name": "InputUsernameOrPhone",
+      "entry": {
+        "Svelte": "ui/InputUsernameOrPhone.svelte",
+        "React": "ui/InputUsernameOrPhone.tsx",
+        "Vue": "ui/InputUsernameOrPhone.vue",
+        "Flutter": "ui/InputUsernameOrPhone.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": ["input-username"],
+      "assets": [],
+      "props": [
+        { "name": "labelProps", "type": "LabelProps", "required": false },
+        { "name": "inputProps", "type": "InputProps", "required": true },
+        { "name": "errorMessage", "type": "string", "required": false },
+        { "name": "onValueChange", "type": "(value: string) => void", "required": false },
+        { "name": "onValidityChange", "type": "(isValid: boolean) => void", "required": false }
+      ]
+    }
+  ]
+}

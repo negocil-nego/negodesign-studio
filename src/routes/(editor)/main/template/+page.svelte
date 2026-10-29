@@ -58,7 +58,7 @@
       >
     </header>
 
-    {#each groups as group}
+    {#each groups as group (group.name)}
       <section class="space-y-4" aria-labelledby={`group-${group.name}`}>
         <div class="flex items-center gap-3">
           <h2
@@ -75,7 +75,8 @@
         <div
           class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-5"
         >
-          {#each group.pages as page}
+          {#each group.pages as page (page.name)}
+            {@const PreviewComponent = page.component}
             <article
               class="group flex min-w-0 flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-500/60 hover:shadow-lg"
             >
@@ -86,7 +87,7 @@
                   class="origin-top-left scale-75"
                   style="width: 133.333%; height: 133.333%;"
                 >
-                  <svelte:component this={page.component} />
+                  <PreviewComponent />
                 </div>
                 <div
                   class="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-linear-to-t from-blender-base/60 to-transparent"
