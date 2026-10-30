@@ -524,7 +524,7 @@ export const componentCatalog: ComponentDefinition[] = [
   {
     id: "menu-simple",
     name: "MenuSimple",
-    label: "Menu Simple",
+    label: "Menu",
     category: "Input",
     href: "/main/project/menu#menu-simple",
     sourceDirectory: "project/ui/organisms/menu/simple",

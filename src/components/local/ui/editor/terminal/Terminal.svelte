@@ -217,6 +217,11 @@
       description: "Menu de navegação com logótipo, itens e botões de acção.",
       componentId: "menu-simple",
     },
+    "submenu-grid-title": {
+      name: "SubmenuGridTitle",
+      description: "Menu expansível em grelha, organizado em grupos de conteúdo.",
+      componentId: "menu-simple",
+    },
   };
 
   const info = componentInfo[id];

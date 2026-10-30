@@ -1,14 +1,21 @@
 <script lang="ts">
-  import Icon from "../../../../../atoms/icon/ui/Icon.svelte";
-  import Text from "../../../../../atoms/text/ui/Text.svelte";
-  import type { MenuTextProps } from "../data/types";
+  import { StyleComponent } from "../../../../../../../data/style.component";
+  import Icon from "../../../../../../atoms/icon/ui/Icon.svelte";
+  import Text from "../../../../../../atoms/text/ui/Text.svelte";
+  import type { MenuTextProps } from "../../menu-text/data/types";
 
   let { icon, textProps }: MenuTextProps = $props();
 </script>
 
-{#if icon}
-  <Icon {...icon} />
-{/if}
-{#if textProps}
-  <Text {...textProps} />
-{/if}
+<div class={StyleComponent.menu.text.root}>
+  {#if icon}
+    <Icon
+      name={icon.name}
+      isLoading={icon.isLoading}
+      className={`${StyleComponent.menu.text.icon} ${icon.className ?? ""}`}
+    />
+  {/if}
+  {#if textProps}
+    <div class={StyleComponent.menu.text.label}><Text {...textProps} /></div>
+  {/if}
+</div>

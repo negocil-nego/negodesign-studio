@@ -1,5 +1,6 @@
 <script lang="ts">
   import MenuSimpleTerminal from "../terminal/menu/MenuSimpleTerminal.svelte";
+  import SubmenuGridTitleTerminal from "../terminal/menu/SubmenuGridTitleTerminal.svelte";
 </script>
 
 <div class="space-y-5">
@@ -13,5 +14,8 @@
     </p>
   </div>
 
-  <MenuSimpleTerminal />
+  <div class="grid w-full grid-cols-1 items-stretch gap-5 lg:grid-cols-2">
+    <div class="min-w-0"><MenuSimpleTerminal /></div>
+    <div class="min-w-0"><SubmenuGridTitleTerminal /></div>
+  </div>
 </div>

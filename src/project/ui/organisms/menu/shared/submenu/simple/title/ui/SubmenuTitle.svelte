@@ -6,12 +6,14 @@
   let { title, items }: SubmenuTitleProps = $props();
 </script>
 
-<div class="flex flex-col gap-3">
+<div class="@container flex min-w-0 flex-col gap-3">
   {#if title}
     <MenuText {...title} />
   {/if}
   {#if items}
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div
+      class="grid min-w-0 grid-cols-1 @xl:grid-cols-[repeat(2,minmax(0,1fr))]"
+    >
       {#each items as item}
         <MenuTitle {...item} />
       {/each}
