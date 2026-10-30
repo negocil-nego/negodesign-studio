@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { StyleComponent } from "../../../../../../../../../components/local/data/style.component";
   import MenuText from "../../../../menu/menu-grid/ui/MenuText.svelte";
   import MenuTitle from "../../../../menu/menu-title/ui/MenuTitle.svelte";
   import type { SubmenuTitleProps } from "../data/types";
@@ -6,14 +7,12 @@
   let { title, items }: SubmenuTitleProps = $props();
 </script>
 
-<div class="@container flex min-w-0 flex-col gap-3">
+<div class={StyleComponent.menu.submenu.title.root}>
   {#if title}
     <MenuText {...title} />
   {/if}
   {#if items}
-    <div
-      class="grid min-w-0 grid-cols-1 @xl:grid-cols-[repeat(2,minmax(0,1fr))]"
-    >
+    <div class={StyleComponent.menu.submenu.title.groups}>
       {#each items as item}
         <MenuTitle {...item} />
       {/each}

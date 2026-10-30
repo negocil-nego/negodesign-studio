@@ -11,7 +11,7 @@
 
 <div
   class="{StyleComponent.layout
-    .app} !h-auto !min-h-dvh !overflow-visible flex flex-col"
+    .app} h-auto! min-h-dvh! overflow-visible! flex flex-col"
 >
   <div class="sticky top-0 z-40 flex-none bg-blender-base">
     <MenuNavigation />

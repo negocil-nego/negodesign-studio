@@ -222,6 +222,11 @@
       description: "Menu expansível em grelha, organizado em grupos de conteúdo.",
       componentId: "menu-simple",
     },
+    "menu-sidebar-grid": {
+      name: "Menu com SubmenuSidebarGrid",
+      description: "Menu de navegação com submenu lateral e conteúdo por secção.",
+      componentId: "menu-simple",
+    },
   };
 
   const info = componentInfo[id];

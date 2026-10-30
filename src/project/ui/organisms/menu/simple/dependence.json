@@ -15,20 +15,24 @@
       },
       "assets": {
         "Svelte": [
+          "components/local/data/style.component.ts",
           "project/ui/organisms/menu/shared/menu/menu-grid/ui/MenuText.svelte",
           "project/ui/organisms/menu/shared/menu/menu-text/data/types.ts",
           "project/ui/organisms/menu/shared/menu/menu-title/ui/MenuTitle.svelte",
           "project/ui/organisms/menu/shared/menu/menu-title/data/types.ts",
           "project/ui/organisms/menu/shared/submenu/grid/title/ui/SubmenuGridTitle.svelte",
           "project/ui/organisms/menu/shared/submenu/grid/title/data/types.ts",
+          "project/ui/organisms/menu/shared/submenu/grid/sidebar/ui/SubmenuSidebarGrid.svelte",
+          "project/ui/organisms/menu/shared/submenu/grid/sidebar/data/types.ts",
           "project/ui/organisms/menu/shared/submenu/simple/title/ui/SubmenuTitle.svelte",
           "project/ui/organisms/menu/shared/submenu/simple/title/data/types.ts"
         ]
       },
       "props": [
         { "name": "logo", "type": "ImageProps", "required": false, "description": "Imagem ou marca apresentada à esquerda do menu." },
-        { "name": "menus", "type": "(MenuTextProps | SubmenuGridTitleProps)[]", "required": false, "description": "Itens de navegação simples ou menus expansíveis em grelha." },
-        { "name": "buttonsProps", "type": "ButtonProps[]", "required": false, "description": "Botões de acção apresentados à direita." }
+        { "name": "menus", "type": "(MenuTextProps | SubmenuGridTitleProps | SubmenuSidebarGridProps)[]", "required": false, "description": "Itens de navegação simples ou menus expansíveis em grelha ou com navegação lateral." },
+        { "name": "buttonsProps", "type": "ButtonProps[]", "required": false, "description": "Botões de acção apresentados à direita." },
+        { "name": "defaultOpenSubmenu", "type": "number | null", "required": false, "description": "Índice do submenu que inicia aberto." }
       ]
     }
   ]

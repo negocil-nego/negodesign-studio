@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../../data/style.component";
+  import { StyleComponent } from "../../../../../../../../components/local/data/style.component";
   import Icon from "../../../../../../atoms/icon/ui/Icon.svelte";
   import Text from "../../../../../../atoms/text/ui/Text.svelte";
   import type { MenuTextProps } from "../../menu-text/data/types";

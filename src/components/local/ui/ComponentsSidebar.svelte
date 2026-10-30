@@ -9,7 +9,9 @@
     type ComponentNavigationGroup,
   } from "../data/components";
 
-  function cloneGroup(group: ComponentNavigationGroup): ComponentNavigationGroup {
+  function cloneGroup(
+    group: ComponentNavigationGroup,
+  ): ComponentNavigationGroup {
     return {
       ...group,
       items: group.items ? [...group.items] : [],
@@ -75,7 +77,9 @@
         aria-expanded={group.open || Boolean(search.trim())}
         class="w-full flex items-center justify-between py-2 text-xs font-semibold
                uppercase tracking-widest text-zinc-500 hover:text-slate-900 hover:bg-blender-hover transition-colors"
-        style="padding-left: {(0.75 + depth * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
+        style="padding-left: {(0.75 + depth * 0.75).toFixed(
+          2,
+        )}rem; padding-right: 0.75rem"
       >
         <span>{group.label}</span>
         <Icon
@@ -91,8 +95,11 @@
                 {#if item.href}
                   <a
                     href={item.href}
-                    class="{StyleComponent.layout.item} w-full text-left gap-2 py-2"
-                    style="padding-left: {(0.75 + depth * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
+                    class="{StyleComponent.layout
+                      .item} w-full text-left gap-2 py-2"
+                    style="padding-left: {(0.75 + depth * 0.75).toFixed(
+                      2,
+                    )}rem; padding-right: 0.75rem"
                     title={displayName(item)}
                   >
                     <i
@@ -103,8 +110,11 @@
                   </a>
                 {:else}
                   <button
-                    class="{StyleComponent.layout.item} w-full text-left gap-2 py-2"
-                    style="padding-left: {(0.75 + depth * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
+                    class="{StyleComponent.layout
+                      .item} w-full text-left gap-2 py-2"
+                    style="padding-left: {(0.75 + depth * 0.75).toFixed(
+                      2,
+                    )}rem; padding-right: 0.75rem"
                     draggable="true"
                     title={displayName(item)}
                   >
@@ -130,15 +140,20 @@
 {/snippet}
 
 <aside
-  class="{StyleComponent.layout.sidebar} flex flex-col w-60 min-w-40 h-full overflow-hidden"
+  class="{StyleComponent.layout
+    .sidebar} flex flex-col w-60 min-w-40 h-full overflow-hidden"
 >
-  <div class="{StyleComponent.layout.topbar} px-3 border-b border-blender-border">
+  <div
+    class="{StyleComponent.layout.topbar} px-3 border-b border-blender-border"
+  >
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Library</span
     >
     <div class="flex items-center gap-1">
       <button
-        class="{StyleComponent.layout.iconButton} h-7 w-7 text-base"
+        class="{StyleComponent.layout.themeToggle} {theme === 'light'
+          ? StyleComponent.layout.themeToggleLight
+          : StyleComponent.layout.themeToggleDark}"
         type="button"
         onclick={toggleTheme}
         title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
@@ -146,7 +161,10 @@
           ? "Ativar modo escuro"
           : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
       >
-      <button class="{StyleComponent.layout.iconButton} h-7 w-7" title="Settings">
+      <button
+        class="{StyleComponent.layout.iconButton} h-7 w-7"
+        title="Settings"
+      >
         <i
           class={`${getIconClass(IconNamed.HelpSquare)} text-base opacity-75`}
           aria-hidden="true"

@@ -460,7 +460,10 @@ pub fn install_component(
             } else {
                 public_root.join(asset_path)
             }
-        } else if relative_path.starts_with("project") || relative_path.starts_with("hooks") {
+        } else if relative_path.starts_with("project")
+            || relative_path.starts_with("hooks")
+            || relative_path.starts_with("components/local")
+        {
             package_root.join(&relative_path)
         } else {
             return Err(format!(

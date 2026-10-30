@@ -3,15 +3,40 @@
   import Icon from "../../../../atoms/icon/ui/Icon.svelte";
   import Image from "../../../../atoms/image/ui/Image.svelte";
   import SubmenuGridTitle from "../../shared/submenu/grid/title/ui/SubmenuGridTitle.svelte";
+  import SubmenuSidebarGrid from "../../shared/submenu/grid/sidebar/ui/SubmenuSidebarGrid.svelte";
   import type { MenuProps, MenuTypeProps } from "../data/types";
   import type { SubmenuGridTitleProps } from "../../shared/submenu/grid/title/data/types";
+  import type { SubmenuSidebarGridProps } from "../../shared/submenu/grid/sidebar/data/types";
+  import { StyleComponent } from "../../../../../../components/local/data/style.component";
 
-  let { logo, menus = [], buttonsProps = [] }: MenuProps = $props();
-  let openSubmenu = $state<number | null>(null);
-  let activeMenu = $derived(openSubmenu === null ? undefined : menus[openSubmenu]);
+  let {
+    logo,
+    menus = [],
+    buttonsProps = [],
+    defaultOpenSubmenu = null,
+  }: MenuProps = $props();
+  // svelte-ignore state_referenced_locally
+  let openSubmenu = $state<number | null>(defaultOpenSubmenu);
+  let activeMenu = $derived(
+    openSubmenu === null ? undefined : menus[openSubmenu],
+  );
 
-  function isSubmenu(menu: MenuTypeProps): menu is SubmenuGridTitleProps {
-    return "items" in menu || "title" in menu || "label" in menu;
+  function isSidebarSubmenu(menu: MenuTypeProps): menu is SubmenuSidebarGridProps {
+    return "type" in menu && menu.type === "sidebar-grid";
+  }
+
+  function isGridSubmenu(menu: MenuTypeProps): menu is SubmenuGridTitleProps {
+    return !isSidebarSubmenu(menu) && ("items" in menu || "title" in menu || "label" in menu);
+  }
+
+  function isSubmenu(menu: MenuTypeProps): menu is SubmenuGridTitleProps | SubmenuSidebarGridProps {
+    return isSidebarSubmenu(menu) || isGridSubmenu(menu);
+  }
+
+  function getSubmenuLabel(menu: SubmenuGridTitleProps | SubmenuSidebarGridProps) {
+    return isSidebarSubmenu(menu)
+      ? menu.title?.title?.text ?? "Explorar"
+      : menu.label ?? menu.title?.title?.text ?? "Explorar";
   }
 
   function toggleSubmenu(index: number) {
@@ -20,23 +45,24 @@
 
   let logoProps = $derived({
     ...logo,
-    className: `${logo?.className ?? "h-8 w-8"} shrink-0 object-contain`,
+    className:
+      `${logo?.className ?? ""} ${StyleComponent.menu.navigation.logo}`.trim(),
   });
 </script>
 
-<nav class="relative w-full @container" aria-label="Menu principal">
-  <div class="grid min-h-16 grid-cols-[auto_minmax(0,1fr)] items-center gap-3 border-b border-blender-border bg-blender-card px-4 py-3 @xl:grid-cols-[auto_minmax(0,1fr)_auto] @xl:gap-5 @xl:px-8">
-    <div class="flex min-w-0 items-center">
+<nav class={StyleComponent.menu.navigation.root} aria-label="Menu principal">
+  <div class={StyleComponent.menu.navigation.bar}>
+    <div class={StyleComponent.menu.navigation.logoContainer}>
       {#if logo}<Image {...logoProps} />{/if}
     </div>
 
-    <ul class="col-span-full row-start-2 flex min-w-0 items-center justify-center gap-1 border-t border-blender-border/60 pt-2 @xl:col-span-1 @xl:row-start-auto @xl:gap-3 @xl:border-0 @xl:pt-0">
+    <ul class={StyleComponent.menu.navigation.list}>
       {#each menus as menu, index (index)}
-        <li class="min-w-0">
+        <li class={StyleComponent.menu.navigation.item}>
           {#if isSubmenu(menu)}
             <button
               type="button"
-              class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
+              class={StyleComponent.menu.navigation.submenuTrigger}
               aria-expanded={openSubmenu === index}
               aria-haspopup="true"
               onkeydown={(event) => {
@@ -44,34 +70,50 @@
               }}
               onclick={() => toggleSubmenu(index)}
             >
-              <span class="truncate">{menu.label ?? menu.title?.title?.text ?? "Explorar"}</span>
+              <span class={StyleComponent.menu.navigation.submenuLabel}
+                >{getSubmenuLabel(menu)}</span
+              >
               <Icon
                 name={openSubmenu === index ? "ArrowUp" : "ArrowDown"}
-                className="h-3.5 w-3.5 shrink-0 opacity-70"
+                className={StyleComponent.menu.navigation.submenuIcon}
               />
             </button>
           {:else if menu.href}
-            <a
-              href={menu.href}
-              class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
-            >
-              {#if menu.icon}<Icon {...menu.icon} />{/if}
-              {#if menu.textProps}<span>{menu.textProps.text}</span>{/if}
+            <a href={menu.href} class={StyleComponent.menu.navigation.link}>
+              {#if menu.icon}
+                <Icon
+                  name={menu.icon.name}
+                  isLoading={menu.icon.isLoading}
+                  className={`${StyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
+                />
+              {/if}
+              {#if menu.textProps}
+                <span class={StyleComponent.menu.navigation.linkLabel}
+                  >{menu.textProps.text}</span
+                >
+              {/if}
             </a>
           {:else}
-            <button
-              type="button"
-              class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
-            >
-              {#if menu.icon}<Icon {...menu.icon} />{/if}
-              {#if menu.textProps}<span>{menu.textProps.text}</span>{/if}
+            <button type="button" class={StyleComponent.menu.navigation.link}>
+              {#if menu.icon}
+                <Icon
+                  name={menu.icon.name}
+                  isLoading={menu.icon.isLoading}
+                  className={`${StyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
+                />
+              {/if}
+              {#if menu.textProps}
+                <span class={StyleComponent.menu.navigation.linkLabel}
+                  >{menu.textProps.text}</span
+                >
+              {/if}
             </button>
           {/if}
         </li>
       {/each}
     </ul>
 
-    <div class="col-start-2 row-start-1 flex items-center justify-end gap-2 [&>button]:!w-auto">
+    <div class={StyleComponent.menu.navigation.actions}>
       {#each buttonsProps as button, index (index)}
         <Button {...button} />
       {/each}
@@ -79,8 +121,12 @@
   </div>
 
   {#if activeMenu && isSubmenu(activeMenu)}
-    <div class="absolute inset-x-0 top-full z-40 overflow-hidden rounded-b-xl border-x border-b border-blender-border bg-blender-card shadow-2xl">
-      <SubmenuGridTitle {...activeMenu} />
+    <div class={StyleComponent.menu.navigation.panel}>
+      {#if isSidebarSubmenu(activeMenu)}
+        <SubmenuSidebarGrid {...activeMenu} />
+      {:else}
+        <SubmenuGridTitle {...activeMenu} />
+      {/if}
     </div>
   {/if}
 </nav>

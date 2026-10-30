@@ -37,6 +37,7 @@ type ManifestRecord = {
 const sourceModules = import.meta.glob(
   [
     "../../../../project/**/*.{svelte,ts,tsx,vue,dart,js}",
+    "../../../../components/local/data/style.component.ts",
     "../../../../hooks/**/*.{svelte,ts,tsx,vue,dart}",
     "../../../../../static/hugeicons/svg/*.svg",
     "../../../../../static/flags/4x3/*.svg",

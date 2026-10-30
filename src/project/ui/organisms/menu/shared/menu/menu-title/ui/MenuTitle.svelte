@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../../data/style.component";
+  import { StyleComponent } from "../../../../../../../../components/local/data/style.component";
   import Text from "../../../../../../atoms/text/ui/Text.svelte";
   import type { MenuTitleProps } from "../data/types";
 

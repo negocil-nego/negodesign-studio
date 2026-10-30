@@ -121,29 +121,6 @@ export const StyleComponent = {
     popover: {
         root: "popover w-full",
     },
-    menu: {
-        text: {
-            root: "inline-flex min-w-0 items-center gap-2 text-sm font-medium text-zinc-300",
-            icon: "h-4 w-4 shrink-0 text-zinc-400",
-            label: "truncate [&>div]:inline",
-        },
-        title: {
-            item: {
-                root: "group flex min-w-0 flex-col gap-1.5 rounded-lg p-2 transition-colors hover:bg-blender-hover",
-                title: "text-sm font-medium text-zinc-200 transition-colors group-hover:text-blue-400",
-                titleLink: "text-sm font-medium text-zinc-200 transition-colors hover:text-blue-400",
-                description: "text-xs leading-relaxed text-zinc-400",
-                link: "inline-flex items-center gap-1 text-xs font-medium text-blue-400",
-            },
-            featured: {
-                root: "flex max-w-md flex-col items-start gap-4",
-                title: "text-xl font-semibold leading-snug text-zinc-100 md:text-2xl",
-                titleLink: "text-xl font-semibold leading-snug text-zinc-100 transition-colors hover:text-blue-400 md:text-2xl",
-                description: "text-sm leading-relaxed text-zinc-400",
-                link: "inline-flex items-center gap-1 text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300",
-            },
-        },
-    },
     radio: {
         group: "flex flex-col gap-3",
         item: "group flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-full shadow-sm hover:shadow-md transition-all cursor-pointer w-fit",
