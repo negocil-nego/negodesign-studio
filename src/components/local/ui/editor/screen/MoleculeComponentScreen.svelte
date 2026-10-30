@@ -1,5 +1,6 @@
 <script lang="ts">
   import CountryPhonePopover from "../../../../../project/ui/molecules/popover/ui/CountryPhonePopover.svelte";
+  import MenuSimple from "../../../../../project/ui/organisms/menu/simple/ui/Menu.svelte";
   import CardMedia from "../../../../../project/ui/molecules/card/media/ui/CardMedia.svelte";
   import CardProfile from "../../../../../project/ui/molecules/card/profile/ui/CardProfile.svelte";
   import CardProduct from "../../../../../project/ui/molecules/card/product/ui/CardProduct.svelte";
@@ -169,6 +170,17 @@
         <CardActionsButton actions={cardActions} />
       {:else if component.id === "country-popover"}
         <CountryPhonePopover flag={FlagNamed.Ao} locale="pt" />
+      {:else if component.id === "menu-simple"}
+        <div class="w-full rounded-lg border border-blender-border bg-blender-base p-3">
+          <MenuSimple
+            logo={{ src: "/img/programmer-01.jpg", alt: "Negodesign", className: "h-8 w-8 rounded-md object-cover" }}
+            menus={[
+              { icon: { name: "Home" }, textProps: { text: "Início" } },
+              { icon: { name: "FolderAdd" }, textProps: { text: "Projectos" } },
+            ]}
+            buttonsProps={[{ text: "Entrar", variant: "outline" }, { text: "Criar conta", variant: "solid" }]}
+          />
+        </div>
       {/if}
     </div>
 

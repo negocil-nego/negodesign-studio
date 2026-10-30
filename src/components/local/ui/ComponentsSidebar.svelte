@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
   import { StyleComponent } from "../data/style.component";
   import {
@@ -69,19 +70,18 @@
   {#if hasResults(group)}
     <div class="border-b border-blender-border/40">
       <button
+        type="button"
         onclick={() => toggle(group)}
+        aria-expanded={group.open || Boolean(search.trim())}
         class="w-full flex items-center justify-between py-2 text-xs font-semibold
                uppercase tracking-widest text-zinc-500 hover:text-slate-900 hover:bg-blender-hover transition-colors"
         style="padding-left: {(0.75 + depth * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
       >
         <span>{group.label}</span>
-        <span
-          class="text-[10px]"
-          style="transform: rotate({group.open || search.trim()
-            ? 0
-            : -90}deg); display:inline-block; transition: transform .2s"
-          >▼</span
-        >
+        <Icon
+          name={group.open || search.trim() ? "ArrowUp" : "ArrowDown"}
+          className="inline-flex h-3 w-3 shrink-0 items-center justify-center self-center text-[10px] leading-none opacity-75"
+        />
       </button>
       {#if group.open || search.trim()}
         {#if vis.length}

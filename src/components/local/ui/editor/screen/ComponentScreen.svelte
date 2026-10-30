@@ -66,6 +66,13 @@
       type: "molecule",
     },
     {
+      label: "Organisms · Menu",
+      badge: "Organism",
+      description: "Menus de navegação compostos por logótipo, itens e acções.",
+      ids: ["menu-simple"],
+      type: "molecule",
+    },
+    {
       label: "Molecules · Card",
       badge: "Molecule",
       description: "Cartões compostos por átomos e sub-cartões reutilizáveis.",

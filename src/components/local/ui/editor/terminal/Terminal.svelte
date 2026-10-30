@@ -212,6 +212,11 @@
       description: "Selector de país e indicativo telefónico internacional, com pesquisa e suporte multi-idioma.",
       componentId: "country-popover",
     },
+    "menu-simple": {
+      name: "MenuSimple",
+      description: "Menu de navegação com logótipo, itens e botões de acção.",
+      componentId: "menu-simple",
+    },
   };
 
   const info = componentInfo[id];

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "entry": {
+        "Svelte": "ui/Accordion.svelte"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"]
+      },
+      "dependencies": {
+        "Svelte": []
+      },
+      "assets": {
+        "Svelte": []
+      },
+      "props": [
+        { "name": "title", "type": "string", "required": true, "description": "Título apresentado no cabeçalho do accordion." },
+        { "name": "count", "type": "string", "required": false, "description": "Texto auxiliar apresentado ao lado do título." },
+        { "name": "open", "type": "boolean", "required": false, "description": "Define se o conteúdo inicia expandido." },
+        { "name": "children", "type": "Snippet", "required": true, "description": "Conteúdo apresentado quando o accordion está expandido." }
+      ]
+    }
+  ]
+}

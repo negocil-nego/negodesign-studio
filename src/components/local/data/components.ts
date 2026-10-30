@@ -520,6 +520,19 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Molecule · Card · Shared",
     description: "Botão de acções do cartão.",
   },
+  // ── Organisms · Menu ─────────────────────────────────────────────────────
+  {
+    id: "menu-simple",
+    name: "MenuSimple",
+    label: "Menu Simple",
+    category: "Input",
+    href: "/main/project/menu#menu-simple",
+    sourceDirectory: "project/ui/organisms/menu/simple",
+    dependence: "src/project/ui/organisms/menu/simple/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism · Menu",
+    description: "Menu de navegação com logótipo, itens e botões de acção.",
+  },
 ];
 
 // ─── Navigation groups (Atomic Design) ──────────────────────────────────────
@@ -614,6 +627,7 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     label: "Organisms",
     open: false,
     items: [
+      ...componentCatalog.filter((c) => c.group === "Organism · Menu"),
       { id: "form", name: "Form", category: "Input", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
       { id: "card", name: "Card", category: "Input", icon: IconNamed.DocumentValidation, group: "Organism", description: "Cartão de conteúdo reutilizável." },
       { id: "modal", name: "Modal", category: "Input", icon: IconNamed.HelpSquare, group: "Organism", description: "Caixa de diálogo sobreposta ao conteúdo." },

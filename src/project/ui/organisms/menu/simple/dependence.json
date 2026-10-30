@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "menu-simple",
+      "name": "MenuSimple",
+      "entry": {
+        "Svelte": "ui/MenuSimple.svelte"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"]
+      },
+      "dependencies": {
+        "Svelte": ["button", "icon", "image", "text"]
+      },
+      "assets": {
+        "Svelte": []
+      },
+      "props": [
+        { "name": "logo", "type": "ImageProps", "required": false, "description": "Imagem ou marca apresentada à esquerda do menu." },
+        { "name": "menus", "type": "MenuSimpleIt[]", "required": false, "description": "Itens de navegação com ícone e texto." },
+        { "name": "buttonsProps", "type": "ButtonProps[]", "required": false, "description": "Botões de acção apresentados à direita." }
+      ]
+    }
+  ]
+}

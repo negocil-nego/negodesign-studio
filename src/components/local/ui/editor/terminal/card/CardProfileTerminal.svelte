@@ -19,13 +19,23 @@
     { icon: "Link", label: "Partilhar" },
     { icon: "MoreHorizontal", label: "Mais" },
   ];
+
+  let variant = $state<"01" | "02">("01");
 </script>
 
 <Terminal id="card-profile">
   {#snippet preview()}
-    <div class="w-full max-w-xs">
+    <div class="w-full space-y-3">
+      <label class="flex items-center gap-2 text-xs text-zinc-400">
+        Variante
+        <select bind:value={variant} class="rounded border border-blender-border bg-blender-card px-2 py-1 text-zinc-100">
+          <option value="01">01</option>
+          <option value="02">02</option>
+        </select>
+      </label>
+      <div class="w-full max-w-xs">
       <CardProfile
-        variant="01"
+        {variant}
         logoProps={{ src: "/img/programmer-01.jpg", alt: "Perfil" }}
         imageProps={{ src: "/img/programmer-02.jpg", alt: "Capa" }}
         titleProps={{ title: "Ana Silva" }}
@@ -36,6 +46,7 @@
         cartButtonProps={{}}
         favoriteButtonProps={{}}
       />
+      </div>
     </div>
   {/snippet}
 

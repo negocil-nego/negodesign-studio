@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Accordion from "../../../../../project/ui/molecules/accordion/ui/Accordion.svelte";
   import CardMediaTerminal from "../terminal/card/CardMediaTerminal.svelte";
   import CardProfileTerminal from "../terminal/card/CardProfileTerminal.svelte";
   import CardProductTerminal from "../terminal/card/CardProductTerminal.svelte";
@@ -31,23 +32,30 @@
     </p>
   </div>
 
-  <CardMediaTerminal />
-  <CardProfileTerminal />
-  <CardProductTerminal />
-  <CardTerminal />
-  <CardImageTerminal />
-  <CardTitleTerminal />
-  <CardDescriptionTerminal />
-  <CardPriceTerminal />
-  <CardRatingTerminal />
-  <CardTagsTerminal />
-  <CardLogoTerminal />
-  <CardPhoneTerminal />
-  <CardVideoTerminal />
-  <CardThumbnailVideoTerminal />
-  <CardMinFileTerminal />
-  <CardButtonTerminal />
-  <CardCartButtonTerminal />
-  <CardFavoriteButtonTerminal />
-  <CardActionsButtonTerminal />
+  <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+    <CardMediaTerminal />
+    <CardProfileTerminal />
+    <CardProductTerminal />
+  </div>
+
+  <Accordion title="Componentes atómicos de Card" count="16 componentes">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <CardTerminal />
+      <CardImageTerminal />
+      <CardTitleTerminal />
+      <CardDescriptionTerminal />
+      <CardPriceTerminal />
+      <CardRatingTerminal />
+      <CardTagsTerminal />
+      <CardLogoTerminal />
+      <CardPhoneTerminal />
+      <CardVideoTerminal />
+      <CardThumbnailVideoTerminal />
+      <CardMinFileTerminal />
+      <CardButtonTerminal />
+      <CardCartButtonTerminal />
+      <CardFavoriteButtonTerminal />
+      <CardActionsButtonTerminal />
+    </div>
+  </Accordion>
 </div>

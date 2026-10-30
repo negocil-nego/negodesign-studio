@@ -1,8 +1,15 @@
-const ButtonDefault = "w-full py-2 px-4 rounded-md text-center"
+const ButtonDefault = "w-full py-2 px-4 rounded-md text-center text-nowrap"
 
 const InputForm = "flex w-full min-w-0 items-center gap-2 rounded-md border border-blender-border bg-blender-surface px-3 py-2 text-sm text-zinc-200 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 [&>input]:w-full [&>input]:min-w-0 [&>input]:border-0 [&>input]:bg-transparent [&>input]:p-0 [&>input]:text-inherit [&>input]:outline-none [&>input::placeholder]:text-zinc-500 [&>input:disabled]:cursor-not-allowed [&>input:disabled]:opacity-50"
 
 export const StyleComponent = {
+    accordion: {
+        root: "overflow-hidden rounded-xl border border-blender-border bg-blender-card",
+        summary: "flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-zinc-100 transition-colors hover:bg-blender-hover [&::-webkit-details-marker]:hidden",
+        meta: "flex items-center gap-2 text-xs font-normal text-zinc-400",
+        indicator: "transition-transform details-open:rotate-180",
+        content: "border-t border-blender-border p-4",
+    },
     avatar: {
         default: "w-12 h-12 rounded-lg",
     },
