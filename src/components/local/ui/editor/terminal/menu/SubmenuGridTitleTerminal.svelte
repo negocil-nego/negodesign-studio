@@ -1,6 +1,9 @@
 <script lang="ts">
   import SubmenuGridTitleMenu from "./SubmenuGridTitleMenu.svelte";
   import svelteSource from "./SubmenuGridTitleMenu.svelte?raw";
+  import reactSource from "./SubmenuGridTitleMenu.tsx?raw";
+  import vueSource from "./SubmenuGridTitleMenu.vue?raw";
+  import flutterSource from "./SubmenuGridTitleMenu.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -18,4 +21,7 @@
       source={svelteSource}
     />
   {/snippet}
+  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.tsx" source={reactSource} />{/snippet}
+  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.vue" source={vueSource} />{/snippet}
+  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.dart" source={flutterSource} />{/snippet}
 </Terminal>

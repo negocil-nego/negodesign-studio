@@ -1,6 +1,9 @@
 <script lang="ts">
   import MenuSimple from "../../../../../../project/ui/organisms/menu/simple/ui/Menu.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/menu/simple/ui/Menu.svelte?raw";
+  import svelteSource from "./SubmenuGridTitleMenu.svelte?raw";
+  import reactSource from "./SubmenuGridTitleMenu.tsx?raw";
+  import vueSource from "./SubmenuGridTitleMenu.vue?raw";
+  import flutterSource from "./SubmenuGridTitleMenu.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -117,8 +120,11 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/menu/simple/ui/Menu.svelte"
+      path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.svelte"
       source={svelteSource}
     />
   {/snippet}
+  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.tsx" source={reactSource} />{/snippet}
+  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.vue" source={vueSource} />{/snippet}
+  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.dart" source={flutterSource} />{/snippet}
 </Terminal>

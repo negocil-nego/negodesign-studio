@@ -11,6 +11,7 @@ export type ComponentDefinition = {
   icon: IconName;
   group: string;
   description: string;
+  children?: ComponentDefinition[];
 };
 
 export type ComponentNavigationGroup = {
@@ -647,7 +648,11 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     label: "Organisms",
     open: false,
     items: [
-      ...componentCatalog.filter((c) => c.group === "Organism · Menu" || c.group === "Organism · Modal"),
+      ...componentCatalog.filter((c) => c.group === "Organism · Menu"),
+      {
+        ...componentCatalog.find((c) => c.id === "modal-core")!,
+        children: [componentCatalog.find((c) => c.id === "modal-form")!],
+      },
       { id: "form", name: "Form", category: "Input", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
       { id: "card", name: "Card", category: "Input", icon: IconNamed.DocumentValidation, group: "Organism", description: "Cartão de conteúdo reutilizável." },
     ],

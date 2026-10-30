@@ -1,6 +1,9 @@
 <script lang="ts">
   import SubmenuSidebarGridMenu from "./SubmenuSidebarGridMenu.svelte";
   import svelteSource from "./SubmenuSidebarGridMenu.svelte?raw";
+  import reactSource from "./SubmenuSidebarGridMenu.tsx?raw";
+  import vueSource from "./SubmenuSidebarGridMenu.vue?raw";
+  import flutterSource from "./SubmenuSidebarGridMenu.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -18,4 +21,7 @@
       source={svelteSource}
     />
   {/snippet}
+  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuSidebarGridMenu.tsx" source={reactSource} />{/snippet}
+  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuSidebarGridMenu.vue" source={vueSource} />{/snippet}
+  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuSidebarGridMenu.dart" source={flutterSource} />{/snippet}
 </Terminal>

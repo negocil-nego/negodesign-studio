@@ -48,10 +48,11 @@
   function matches(item: ComponentDefinition) {
     const q = search.trim().toLowerCase();
     if (!q) return true;
-    return (
+    const ownMatch = (
       displayName(item).toLowerCase().includes(q) ||
       item.name.toLowerCase().includes(q)
     );
+    return ownMatch || (item.children ?? []).some(matches);
   }
 
   function filtered(group: ComponentNavigationGroup) {
@@ -108,6 +109,28 @@
                     ></i>
                     <span class="text-sm truncate">{displayName(item)}</span>
                   </a>
+                  {#if item.children?.length}
+                    <ul class="border-l border-blender-border/70 pb-1 ml-5">
+                      {#each item.children.filter(matches) as child (child.id)}
+                        <li>
+                          {#if child.href}
+                            <a
+                              href={child.href}
+                              class="{StyleComponent.layout.item} w-full text-left gap-2 py-1.5 text-zinc-400 hover:text-zinc-100"
+                              style="padding-left: {(0.75 + (depth + 1) * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
+                              title={displayName(child)}
+                            >
+                              <i
+                                class={`${getIconClass(child.icon)} h-4 w-4 text-sm opacity-65 shrink-0`}
+                                aria-hidden="true"
+                              ></i>
+                              <span class="text-xs truncate">{displayName(child)}</span>
+                            </a>
+                          {/if}
+                        </li>
+                      {/each}
+                    </ul>
+                  {/if}
                 {:else}
                   <button
                     class="{StyleComponent.layout
