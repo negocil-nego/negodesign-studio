@@ -30,7 +30,7 @@
             },
             items: [
               {
-                title: { text: "PRINCIPAIS RECURSOS" },
+                title: { textProps: { text: "PRINCIPAIS RECURSOS" } },
                 items: [
                   {
                     href: "/main/project",
@@ -63,7 +63,7 @@
                 ],
               },
               {
-                title: { text: "DESCOBRIR" },
+                title: { textProps: { text: "DESCOBRIR" } },
                 items: [
                   {
                     href: "/main/project",

@@ -4,7 +4,7 @@
   import { getIconClass } from "../../../../../../../../../hooks/icon.svelte";
   import CountryPhonePopover from "../../../../../../../molecules/popover/ui/CountryPhonePopover.svelte";
   import type { CountryPhoneOption } from "../../../../../../../molecules/popover/data/country-phone";
-  import Label from "../../../../../../label/ui/label.svelte";
+  import Label from "../../../../../../label/ui/Label.svelte";
   import { StyleComponent } from "../../../../../../../../data/style.component";
 
   let { labelProps, inputProps, flag, locale, onCountrySelect }: InputPhoneFlagProps = $props();

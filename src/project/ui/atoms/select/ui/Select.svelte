@@ -26,7 +26,7 @@
     query = "";
   }
 
-  function handleTriggerClick(event: MouseEvent) {
+  function handleTriggerClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
     onNativeClick?.(event);
   }
 </script>
@@ -42,7 +42,6 @@
         type="button"
         popovertarget={popoverId}
         aria-haspopup="listbox"
-        aria-required={required}
         onclick={handleTriggerClick}
         class={`${StyleComponent.select.trigger} ${triggerClass ?? ""}`}
       >

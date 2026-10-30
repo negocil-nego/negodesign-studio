@@ -12,7 +12,7 @@
     },
     items: [
       {
-        title: { text: "PRINCIPAIS RECURSOS" },
+        title: { textProps: { text: "PRINCIPAIS RECURSOS" } },
         items: [
           { href: "/main/project", title: { text: "Biblioteca de componentes" }, description: { text: "Construa interfaces consistentes com componentes reutilizáveis." } },
           { href: "/main/project", title: { text: "Editor visual" }, description: { text: "Explore e ajuste componentes num espaço interactivo." } },
@@ -21,7 +21,7 @@
         ],
       },
       {
-        title: { text: "DESCOBRIR" },
+        title: { textProps: { text: "DESCOBRIR" } },
         items: [
           { href: "/main/project", title: { text: "Começar" }, description: { text: "Conheça os primeiros passos da plataforma." } },
           { href: "/main/project", title: { text: "Documentação" }, description: { text: "Consulte padrões, propriedades e exemplos." } },

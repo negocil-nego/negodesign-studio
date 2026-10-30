@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
 import '../../../core/ui/input.dart';
-import '../../label/ui/input_label.dart';
+import '../../label/ui/InputLabel.dart';
 
 class InputText extends StatelessWidget {
   final InputTextProps props;

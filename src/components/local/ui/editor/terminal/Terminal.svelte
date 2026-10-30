@@ -6,6 +6,8 @@
   type Language = "svelte" | "react" | "vue" | "flutter";
   type TerminalProps = {
     id: string;
+    name?: string;
+    description?: string;
     preview?: Snippet;
     svelte?: Snippet;
     react?: Snippet;
@@ -13,7 +15,7 @@
     flutter?: Snippet;
   };
 
-  let { id, preview, svelte, react, vue, flutter }: TerminalProps = $props();
+  let { id, name, description, preview, svelte, react, vue, flutter }: TerminalProps = $props();
   let activeTab = $state<"preview" | Language>("preview");
   let copyMessage = $state("");
   let copying = $state(false);
@@ -229,7 +231,7 @@
     },
   };
 
-  const info = componentInfo[id];
+  const info = $derived(componentInfo[id]);
 
   async function copyToProject() {
     if (!info) return;
@@ -263,14 +265,14 @@
   {id}
   class="overflow-hidden rounded-lg border border-blender-border bg-blender-card text-zinc-300 shadow-sm"
 >
-  {#if info}
+  {#if info || name}
     <div class="flex flex-wrap items-start justify-between gap-3 border-b border-blender-border px-4 py-3">
       <div class="min-w-0">
-        <h2 class="text-sm font-semibold text-zinc-100">{info.name}</h2>
-        <p class="mt-1 max-w-2xl text-xs leading-5 text-zinc-400">{info.description}</p>
+        <h2 class="text-sm font-semibold text-zinc-100">{info?.name ?? name}</h2>
+        {#if info?.description || description}<p class="mt-1 max-w-2xl text-xs leading-5 text-zinc-400">{info?.description ?? description}</p>{/if}
         {#if copyMessage}<p class="mt-1 text-[11px] text-blue-400" role="status">{copyMessage}</p>{/if}
       </div>
-      <button
+      {#if info}<button
         type="button"
         class="shrink-0 rounded bg-blue-600 px-3 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
         onclick={copyToProject}
@@ -280,7 +282,7 @@
           : $activeProject.language === "Unknown"
             ? "A linguagem do projecto não foi identificada"
             : `Copiar para ${$activeProject.name}`}
-      >{copying ? "A copiar…" : "Copiar para projecto"}</button>
+      >{copying ? "A copiar…" : "Copiar para projecto"}</button>{/if}
     </div>
   {/if}
   <div class="flex items-center gap-2 border-b border-blender-border px-3 py-2">

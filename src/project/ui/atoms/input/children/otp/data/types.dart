@@ -16,6 +16,7 @@ class InputOtpProps {
   final InputOtpLabelProps? labelProps;
   final bool disabled;
   final bool required;
+  final String position;
   final ValueChanged<String>? onValueChange;
 
   const InputOtpProps({
@@ -27,6 +28,7 @@ class InputOtpProps {
     this.labelProps,
     this.disabled = false,
     this.required = false,
+    this.position = 'start',
     this.onValueChange,
   });
 }

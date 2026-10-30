@@ -19,7 +19,7 @@
   import Toggle from "../../../../../project/ui/atoms/toggle/ui/Toggle.svelte";
   import Radio from "../../../../../project/ui/atoms/radio/ui/Radio.svelte";
   import Checkbox from "../../../../../project/ui/atoms/checkbox/ui/Checkbox.svelte";
-  import Label from "../../../../../project/ui/atoms/label/ui/label.svelte";
+  import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
   import { FlagNamed } from "../../../../../hooks/flag.svelte";
   import type { ComponentDefinition } from "../../../data/components";
   import { activeProject } from "../../../data/projects";

@@ -1,0 +1,5 @@
+<script setup lang="ts">
+import SectionOtp from "../../../../organisms/section/otp/ui/SectionOtp.vue";
+const props = { isScreen: true, className: "bg-blender-card px-6 py-8 text-zinc-100", titleProps: { text: "Confirme o seu código" }, subtitleProps: { text: "Verificação de segurança" }, descriptionProps: { text: "Introduza o código de 6 dígitos enviado para o seu email." }, inputOtpProps: { id: "page-otp-code", name: "verification-code", value: "456789", length: 6, separatorEvery: 3, labelProps: { label: "Código de verificação", for: "page-otp-code" }, position: "center" as const }, buttonSubmitProps: { text: "Verificar código" }, buttonsLoginProps: [{ text: "Não recebeu o código? Reenviar código", variant: "outline" as const }] };
+</script>
+<template><SectionOtp v-bind="props" /></template>

@@ -9,6 +9,7 @@ const props = withDefaults(defineProps<InputOtpProps>(), {
   separatorEvery: 3,
   disabled: false,
   required: false,
+  position: "start",
 });
 const code = ref(props.value);
 const refs = ref<Array<HTMLInputElement | null>>([]);
@@ -36,8 +37,8 @@ function paste(index: number, event: ClipboardEvent) {
 </script>
 
 <template>
-  <div :class="StyleComponent.input.otp.root">
-    <label v-if="labelProps" :for="labelProps.for" :class="StyleComponent.input.otp.label" data-name="label">{{ labelProps.label }}</label>
+  <div :class="`${StyleComponent.input.otp.root} ${position === 'center' ? 'mx-auto w-fit' : ''}`">
+    <label v-if="labelProps" :for="labelProps.for" :class="`${StyleComponent.input.otp.label} ${StyleComponent.input.otp.labelPosition[position]} block`" data-name="label">{{ labelProps.label }}</label>
     <div :class="StyleComponent.input.otp.group" role="group" :aria-label="labelProps?.label ?? label ?? 'Código de verificação'">
       <template v-for="(digit, index) in digits" :key="index">
         <span v-if="separatorEvery > 0 && index > 0 && index % separatorEvery === 0" :class="StyleComponent.input.otp.separator" aria-hidden="true">•</span>

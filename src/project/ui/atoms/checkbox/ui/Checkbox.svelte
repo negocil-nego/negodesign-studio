@@ -9,7 +9,7 @@
     onCheckedChange, onchange: onNativeChange, class: inputClass, ...rest
   }: Props = $props();
 
-  function handleChange(event: Event) {
+  function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
     checked = (event.currentTarget as HTMLInputElement).checked;
     onNativeChange?.(event);
     onCheckedChange?.(checked);

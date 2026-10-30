@@ -1,10 +1,10 @@
 <script lang="ts">
   import Terminal from "./Terminal.svelte";
   import SourceCode from "./SourceCode.svelte";
-  import Label from "../../../../../project/ui/atoms/label/ui/label.svelte";
-  import svelteSource from "../../../../../project/ui/atoms/label/ui/label.svelte?raw";
+  import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
+  import svelteSource from "../../../../../project/ui/atoms/label/ui/Label.svelte?raw";
   import reactSource from "../../../../../project/ui/atoms/label/ui/label.tsx?raw";
-  import vueSource from "../../../../../project/ui/atoms/label/ui/label.vue?raw";
+  import vueSource from "../../../../../project/ui/atoms/label/ui/Label.vue?raw";
   import flutterSource from "../../../../../project/ui/atoms/label/ui/label.dart?raw";
 </script>
 
@@ -22,7 +22,7 @@
   {/snippet}
 
   {#snippet svelte()}
-    <SourceCode path="src/project/ui/atoms/label/ui/label.svelte" source={svelteSource} />
+    <SourceCode path="src/project/ui/atoms/label/ui/Label.svelte" source={svelteSource} />
   {/snippet}
 
   {#snippet react()}
@@ -30,7 +30,7 @@
   {/snippet}
 
   {#snippet vue()}
-    <SourceCode path="src/project/ui/atoms/label/ui/label.vue" source={vueSource} />
+    <SourceCode path="src/project/ui/atoms/label/ui/Label.vue" source={vueSource} />
   {/snippet}
 
   {#snippet flutter()}

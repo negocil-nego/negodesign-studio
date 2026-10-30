@@ -9,7 +9,7 @@
     onchange: onNativeChange, class: inputClass, ...rest
   }: Props = $props();
 
-  function handleChange(optionValue: string, event: Event) {
+  function handleChange(optionValue: string, event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
     value = optionValue;
     onNativeChange?.(event);
     onValueChange?.(value);

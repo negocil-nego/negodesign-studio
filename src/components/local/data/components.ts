@@ -533,6 +533,26 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Organism · Menu",
     description: "Menu de navegação com logótipo, itens e botões de acção.",
   },
+  {
+    id: "modal-core",
+    name: "Modal",
+    label: "Modal",
+    category: "Input",
+    href: "/main/project/modal#modal-core",
+    icon: IconNamed.Layout04,
+    group: "Organism · Modal",
+    description: "Diálogo acessível para apresentar conteúdo sobre a página actual.",
+  },
+  {
+    id: "modal-form",
+    name: "ModalForm",
+    label: "Modal Form",
+    category: "Input",
+    href: "/main/project/modal#modal-form",
+    icon: IconNamed.Layout04,
+    group: "Organism · Modal",
+    description: "Modal que apresenta um formulário configurado através das propriedades do componente Form.",
+  },
 ];
 
 // ─── Navigation groups (Atomic Design) ──────────────────────────────────────
@@ -627,10 +647,9 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     label: "Organisms",
     open: false,
     items: [
-      ...componentCatalog.filter((c) => c.group === "Organism · Menu"),
+      ...componentCatalog.filter((c) => c.group === "Organism · Menu" || c.group === "Organism · Modal"),
       { id: "form", name: "Form", category: "Input", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
       { id: "card", name: "Card", category: "Input", icon: IconNamed.DocumentValidation, group: "Organism", description: "Cartão de conteúdo reutilizável." },
-      { id: "modal", name: "Modal", category: "Input", icon: IconNamed.HelpSquare, group: "Organism", description: "Caixa de diálogo sobreposta ao conteúdo." },
     ],
   },
   // ── Templates (placeholder) ───────────────────────────────────────────────
@@ -640,28 +659,6 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     items: [
       { id: "auth-page", name: "Auth Page", category: "Input", icon: IconNamed.Security, group: "Template", description: "Página de autenticação." },
       { id: "dashboard", name: "Dashboard", category: "Input", icon: IconNamed.Layout04, group: "Template", description: "Painel de controlo." },
-    ],
-  },
-  // ── Media ─────────────────────────────────────────────────────────────────
-  {
-    label: "Media",
-    open: false,
-    items: [
-      { id: "image", name: "Image", category: "Input", icon: IconNamed.Layout04, group: "Media", description: "Imagem." },
-      { id: "icon", name: "Icon", category: "Input", icon: IconNamed.HelpSquare, group: "Media", description: "Ícone." },
-      { id: "avatar", name: "Avatar", category: "Input", icon: IconNamed.Home, group: "Media", description: "Avatar." },
-      { id: "video", name: "Video", category: "Input", icon: IconNamed.DocumentValidation, group: "Media", description: "Vídeo." },
-    ],
-  },
-  // ── Navigation ────────────────────────────────────────────────────────────
-  {
-    label: "Navigation",
-    open: false,
-    items: [
-      { id: "navbar", name: "Navbar", category: "Input", icon: IconNamed.Layout04, group: "Navigation", description: "Barra de navegação." },
-      { id: "sidebar", name: "Sidebar", category: "Input", icon: IconNamed.FolderAdd, group: "Navigation", description: "Barra lateral." },
-      { id: "tabs", name: "Tabs", category: "Input", icon: IconNamed.Languages, group: "Navigation", description: "Separadores." },
-      { id: "breadcrumb", name: "Breadcrumb", category: "Input", icon: IconNamed.DocumentValidation, group: "Navigation", description: "Trilho de navegação." },
     ],
   },
 ];

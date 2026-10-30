@@ -2,7 +2,7 @@
   import type { HTMLTextareaAttributes } from "svelte/elements";
   import type { TextareaProps } from "../data/types";
   import { StyleComponent } from "../../../../data/style.component";
-  import Label from "../../label/ui/label.svelte";
+  import Label from "../../label/ui/Label.svelte";
 
   type Props = TextareaProps & Omit<HTMLTextareaAttributes, keyof TextareaProps | "class"> & { class?: string };
   let {

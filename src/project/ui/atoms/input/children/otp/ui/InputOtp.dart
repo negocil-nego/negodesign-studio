@@ -69,11 +69,19 @@ class _InputOtpState extends State<InputOtp> {
       borderSide: BorderSide(color: theme.colorScheme.outlineVariant),
     );
 
-    return Column(
+    final groupWidth = length * 44.0 + (length - 1) * 8.0;
+    final otp = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.props.labelProps != null) ...[
-          Text(widget.props.labelProps!.label, style: theme.textTheme.labelMedium),
+          SizedBox(
+            width: widget.props.position == 'center' ? groupWidth : null,
+            child: Text(
+              widget.props.labelProps!.label,
+              textAlign: widget.props.position == 'center' ? TextAlign.center : TextAlign.start,
+              style: theme.textTheme.labelMedium,
+            ),
+          ),
           const SizedBox(height: 8),
         ],
         Semantics(
@@ -116,5 +124,6 @@ class _InputOtpState extends State<InputOtp> {
         ),
       ],
     );
+    return widget.props.position == 'center' ? Center(child: otp) : otp;
   }
 }

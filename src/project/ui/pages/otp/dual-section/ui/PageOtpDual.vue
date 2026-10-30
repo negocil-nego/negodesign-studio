@@ -1,0 +1,5 @@
+<script setup lang="ts">
+import SectionOtp from "../../../../organisms/section/otp/ui/SectionOtp.vue";
+const props = { isScreen: true, layout: "dual" as const, className: "bg-blender-card px-6 py-8 text-zinc-100", brandSubtitleProps: { text: "Conta protegida" }, brandTitleProps: { text: "Mais um passo para continuar." }, brandDescriptionProps: { text: "A verificação em duas etapas ajuda a manter a sua conta segura." }, titleProps: { text: "Introduza o código" }, subtitleProps: { text: "Verificação de segurança" }, descriptionProps: { text: "Enviámos um código de 6 dígitos para o seu email." }, inputOtpProps: { id: "page-otp-dual-code", name: "verification-code", value: "456789", length: 6, separatorEvery: 3, labelProps: { label: "Código de verificação", for: "page-otp-dual-code" }, position: "center" as const }, buttonSubmitProps: { text: "Confirmar código" }, buttonsLoginProps: [{ text: "Não recebeu? Enviar novamente", variant: "outline" as const }] };
+</script>
+<template><SectionOtp v-bind="props" /></template>

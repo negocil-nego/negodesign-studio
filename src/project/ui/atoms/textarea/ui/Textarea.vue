@@ -3,7 +3,7 @@ import { computed, ref, watch, useAttrs } from "vue";
 import type { TextareaHTMLAttributes } from "vue";
 import type { TextareaProps } from "../data/types";
 import { StyleComponent } from "../../../../data/style.component";
-import Label from "../../label/ui/label.vue";
+import Label from "../../label/ui/Label.vue";
 
 type Props = TextareaProps & Omit<TextareaHTMLAttributes, keyof TextareaProps | "value">;
 defineOptions({ inheritAttrs: false });

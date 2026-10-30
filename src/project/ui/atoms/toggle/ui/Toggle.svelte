@@ -9,7 +9,7 @@
     onCheckedChange, onclick: onNativeClick, class: buttonClass, ...rest
   }: Props = $props();
 
-  function handleClick(event: MouseEvent) {
+  function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
     if (disabled) return;
     checked = !checked;
     onNativeClick?.(event);

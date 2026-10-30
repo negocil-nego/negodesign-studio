@@ -76,7 +76,7 @@ export type FormIt = {
   /** Allow native HTML and ARIA props in field configuration. */
   class?: string;
   className?: string;
-  style?: string | Record<string, string | number>;
+  style?: string;
   title?: string;
   autoComplete?: string;
   autoFocus?: boolean;

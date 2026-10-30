@@ -12,6 +12,7 @@ export default function InputOtp({
   label,
   disabled = false,
   required = false,
+  position = "start",
   onValueChange,
 }: InputOtpProps) {
   const count = Math.max(1, Math.min(12, length));
@@ -42,8 +43,8 @@ export default function InputOtp({
   }
 
   return (
-    <div className={StyleComponent.input.otp.root}>
-      {labelProps && <label htmlFor={labelProps.for} className={StyleComponent.input.otp.label} data-name="label">{labelProps.label}</label>}
+    <div className={`${StyleComponent.input.otp.root} ${position === "center" ? "mx-auto w-fit" : ""}`}>
+      {labelProps && <label htmlFor={labelProps.for} className={`${StyleComponent.input.otp.label} ${StyleComponent.input.otp.labelPosition[position]} block`} data-name="label">{labelProps.label}</label>}
       <div className={StyleComponent.input.otp.group} role="group" aria-label={labelProps?.label ?? label ?? "Código de verificação"}>
         {digits.map((digit, index) => (
           <span key={index} className="contents">
