@@ -4,7 +4,7 @@ import { StyleComponent } from "../../../../data/style.component";
 import type { IconProps } from "../data/types";
 
 export default function Icon({ name, className, isLoading = false }: IconProps) {
-    const iconClass = getIconClass(IconNamed[name]);
+    const iconClass = getIconClass(typeof name === "string" ? IconNamed[name as keyof typeof IconNamed] ?? name : name);
 
     if (isLoading) {
         return <span className={StyleComponent.icon.spinner}></span>;

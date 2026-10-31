@@ -11,7 +11,7 @@ class InputPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final componentProps = props.inputProps.copyWith(type: InputType.password);
+    final componentProps = props.inputProps.copyWith(type: InputType.password, icon: props.inputProps.icon ?? 'Password');
 
     if (props.labelProps != null) {
       return InputLabel(

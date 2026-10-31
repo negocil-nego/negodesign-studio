@@ -5,7 +5,7 @@
 
   let { labelProps, inputProps }: InputTextProps = $props();
 
-  const textProps = $derived({ ...inputProps, type: "text" as const });
+  const textProps = $derived({ ...inputProps, type: "text" as const, icon: inputProps.icon ?? "InputCursorText" });
 </script>
 
 {#if labelProps}

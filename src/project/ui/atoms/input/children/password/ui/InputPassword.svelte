@@ -4,7 +4,7 @@
   import type { InputPasswordProps } from "../data/types";
 
   let { labelProps, inputProps }: InputPasswordProps = $props();
-  const componentProps = $derived({ ...inputProps, type: "password" as const });
+  const componentProps = $derived({ ...inputProps, type: "password" as const, icon: inputProps.icon ?? "Password" });
 </script>
 
 {#if labelProps}

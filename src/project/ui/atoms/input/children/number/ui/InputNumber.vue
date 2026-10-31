@@ -5,7 +5,7 @@ import InputLabel from "../../label/ui/InputLabel.vue";
 import type { InputNumberProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputNumberProps>();
-const componentProps = computed(() => ({ ...inputProps, type: "number" as const }));
+const componentProps = computed(() => ({ ...inputProps, type: "number" as const, icon: inputProps.icon ?? "Number" }));
 </script>
 
 <template>

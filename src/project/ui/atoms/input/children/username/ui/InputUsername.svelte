@@ -13,8 +13,12 @@
     onValidityChange,
   }: InputUsernameProps = $props();
 
-  let value = $state(String(inputProps.value ?? ""));
+  let value = $state("");
   let touched = $state(false);
+
+  $effect(() => {
+    value = String(inputProps.value ?? "");
+  });
 
   const isValid = $derived(
     value.trim() === "" ? !inputProps.required : isValidUsername(value, validationMode),
@@ -47,6 +51,7 @@
   <Input
     {...inputProps}
     type="text"
+    icon={inputProps.icon ?? "User"}
     value={value}
     isInvalid={isInvalid}
     autocomplete="username"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../../../icon/ui/Icon.dart' as project_icons;
 
 class _InputField extends StatelessWidget {
   final InputProps props;
@@ -34,6 +35,9 @@ class _InputField extends StatelessWidget {
           : null,
       decoration: InputDecoration(
         hintText: props.placeholder,
+        prefixIcon: props.icon == null
+            ? null
+            : project_icons.Icon(project_icons.IconProps(name: props.icon!)),
       ),
     );
   }
@@ -46,16 +50,6 @@ class Input extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (props.icon != null) {
-      return Row(
-        children: [
-          Image.asset('assets/icons/${props.icon}'),
-          const SizedBox(width: 8),
-          Expanded(child: _InputField(props: props)),
-        ],
-      );
-    }
-
     return _InputField(props: props);
   }
 }

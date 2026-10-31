@@ -10,7 +10,7 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textProps = props.inputProps.copyWith(type: 'text');
+    final textProps = props.inputProps.copyWith(type: 'text', icon: props.inputProps.icon ?? 'InputCursorText');
 
     if (props.labelProps != null) {
       return InputLabel(

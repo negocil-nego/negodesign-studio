@@ -4,7 +4,7 @@ import InputLabel from "../../label/ui/InputLabel";
 import type { InputEmailProps } from "../data/types";
 
 export default function InputEmail({ labelProps, inputProps }: InputEmailProps) {
-    const emailProps = { ...inputProps, type: "email" };
+    const emailProps = { ...inputProps, type: "email", icon: inputProps.icon ?? "Email" };
 
     return (
         <>

@@ -4,7 +4,12 @@
   import type { InputAgeProps } from "../data/types";
 
   let { labelProps, inputProps }: InputAgeProps = $props();
-  const componentProps = $derived({ ...inputProps, type: "number" as const });
+  const componentProps = $derived({
+    ...inputProps,
+    type: "number" as const,
+    icon: inputProps.icon ?? "Age",
+    value: inputProps.value == null ? undefined : String(inputProps.value),
+  });
 </script>
 
 {#if labelProps}

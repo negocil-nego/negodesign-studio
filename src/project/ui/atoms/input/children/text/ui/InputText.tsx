@@ -4,7 +4,7 @@ import InputLabel from "../../label/ui/InputLabel";
 import type { InputTextProps } from "../data/types";
 
 export default function InputText({ labelProps, inputProps }: InputTextProps) {
-    const textProps = { ...inputProps, type: "text" };
+    const textProps = { ...inputProps, type: "text", icon: inputProps.icon ?? "InputCursorText" };
 
     return (
         <>

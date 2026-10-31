@@ -6,7 +6,7 @@ import type { InputEmailProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputEmailProps>();
 
-const emailProps = computed(() => ({ ...inputProps, type: "email" as const }));
+const emailProps = computed(() => ({ ...inputProps, type: "email" as const, icon: inputProps.icon ?? "Email" }));
 </script>
 
 <template>

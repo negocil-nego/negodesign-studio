@@ -6,7 +6,7 @@ import type { InputPhoneProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputPhoneProps>();
 
-const phoneProps = computed(() => ({ ...inputProps, type: "tel" as const }));
+const phoneProps = computed(() => ({ ...inputProps, type: "tel" as const, icon: inputProps.icon ?? "Phone" }));
 </script>
 
 <template>

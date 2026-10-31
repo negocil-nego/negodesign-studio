@@ -4,7 +4,7 @@
   import type { InputNumberProps } from "../data/types";
 
   let { labelProps, inputProps }: InputNumberProps = $props();
-  const componentProps = $derived({ ...inputProps, type: "number" as const });
+  const componentProps = $derived({ ...inputProps, type: "number" as const, icon: inputProps.icon ?? "Number" });
 </script>
 
 {#if labelProps}

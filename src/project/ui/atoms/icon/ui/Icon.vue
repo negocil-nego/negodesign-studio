@@ -6,7 +6,7 @@ import type { IconProps } from "../data/types";
 
 const props = defineProps<IconProps>();
 
-const iconClass = computed(() => getIconClass(IconNamed[props.name]));
+const iconClass = computed(() => getIconClass(typeof props.name === "string" ? IconNamed[props.name as keyof typeof IconNamed] ?? props.name : props.name));
 </script>
 
 <template>

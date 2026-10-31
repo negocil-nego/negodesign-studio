@@ -11,7 +11,7 @@ class InputNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final componentProps = props.inputProps.copyWith(type: InputType.number);
+    final componentProps = props.inputProps.copyWith(type: InputType.number, icon: props.inputProps.icon ?? 'Number');
 
     if (props.labelProps != null) {
       return InputLabel(

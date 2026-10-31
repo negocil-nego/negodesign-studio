@@ -5,7 +5,7 @@
 
   let { labelProps, inputProps }: InputPhoneProps = $props();
 
-  const phoneProps = $derived({ ...inputProps, type: "tel" as const });
+  const phoneProps = $derived({ ...inputProps, type: "tel" as const, icon: inputProps.icon ?? "Phone" });
 </script>
 
 {#if labelProps}

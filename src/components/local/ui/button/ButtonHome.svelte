@@ -9,4 +9,4 @@
   let { onclick }: Props = $props();
 </script>
 
-<CircleButton icon={IconNamed.Home} title="Página home" {onclick} />
+<CircleButton icon={IconNamed.Home04} title="Página home" {onclick} />

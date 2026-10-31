@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { InputProps } from "../data/types";
-  import { getIconClass } from "../../../../../../hooks/icon.svelte";
+  import Icon from "../../../icon/ui/Icon.svelte";
   import { StyleComponent } from "../../../../../data/style.component";
 
   type Props = InputProps & Omit<HTMLInputAttributes, keyof InputProps | "class"> & { class?: string };
@@ -14,7 +14,7 @@
 </script>
 
 <div class="{fieldClass} {isInvalid ? StyleComponent.input.error : ''}">
-  {#if icon}<i class={getIconClass(icon)} aria-hidden="true"></i>{/if}
+  {#if icon}<Icon name={icon} className="shrink-0 text-zinc-400" />{/if}
   <input
     {...rest}
     {id}

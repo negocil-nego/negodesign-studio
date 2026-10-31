@@ -10,7 +10,7 @@ class InputEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailProps = props.inputProps.copyWith(type: 'email');
+    final emailProps = props.inputProps.copyWith(type: 'email', icon: props.inputProps.icon ?? 'Email');
 
     if (props.labelProps != null) {
       return InputLabel(

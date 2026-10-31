@@ -5,7 +5,13 @@
 
   let { name, className, isLoading = false }: IconProps = $props();
 
-  const iconClass = $derived(getIconClass(IconNamed[name]));
+  const iconClass = $derived(
+    getIconClass(
+      typeof name === "string"
+        ? IconNamed[name as keyof typeof IconNamed] ?? name
+        : name,
+    ),
+  );
 </script>
 
 {#if isLoading}

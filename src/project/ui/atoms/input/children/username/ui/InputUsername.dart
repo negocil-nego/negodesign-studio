@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../icon/ui/Icon.dart' as project_icons;
 import '../data/types.dart';
 
 class InputUsername extends StatelessWidget {
@@ -52,6 +53,7 @@ class InputUsername extends StatelessWidget {
       decoration: InputDecoration(
         labelText: props.labelProps?.label,
         hintText: props.inputProps.placeholder ?? 'Nome de utilizador, email ou telefone',
+        prefixIcon: project_icons.Icon(project_icons.IconProps(name: props.inputProps.icon ?? 'User')),
         errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
       ),

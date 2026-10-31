@@ -5,7 +5,7 @@
 
   let { labelProps, inputProps }: InputEmailProps = $props();
 
-  const emailProps = $derived({ ...inputProps, type: "email" as const });
+  const emailProps = $derived({ ...inputProps, type: "email" as const, icon: inputProps.icon ?? "Email" });
 </script>
 
 {#if labelProps}

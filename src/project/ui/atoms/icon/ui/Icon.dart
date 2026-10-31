@@ -22,6 +22,7 @@ const Map<String, IconData> _iconData = {
   'Number': Icons.numbers,
   'Age': Icons.person_outline,
   'Text': Icons.text_fields,
+  'InputCursorText': Icons.edit,
   'Label': Icons.label,
   'Cart': Icons.shopping_cart,
   'Favorite': Icons.favorite,

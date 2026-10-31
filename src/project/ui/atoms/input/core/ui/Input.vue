@@ -2,7 +2,7 @@
 import { computed, useAttrs } from "vue";
 import type { InputHTMLAttributes } from "vue";
 import type { InputProps } from "../data/types";
-import { getIconClass } from "../../../../../../hooks/icon.svelte";
+import Icon from "../../../icon/ui/Icon.vue";
 import { StyleComponent } from "../../../../../data/style.component";
 
 type Props = InputProps & Omit<InputHTMLAttributes, keyof InputProps>;
@@ -19,7 +19,7 @@ const fieldClass = computed(
 
 <template>
     <div :class="fieldClass">
-        <i v-if="props.icon" :class="getIconClass(props.icon)" aria-hidden="true" />
+        <Icon v-if="props.icon" :name="props.icon" className="shrink-0 text-zinc-400" />
         <input
             v-bind="inputAttrs"
             :id="props.id"

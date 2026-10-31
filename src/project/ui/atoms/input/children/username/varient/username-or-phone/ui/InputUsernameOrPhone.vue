@@ -6,5 +6,5 @@ const props = defineProps<InputUsernameOrPhoneProps>();
 </script>
 
 <template>
-  <InputUsername v-bind="props" validationMode="username-or-phone" />
+  <InputUsername v-bind="props" :inputProps="{ ...props.inputProps, icon: props.inputProps.icon ?? 'Phone' }" validationMode="username-or-phone" />
 </template>

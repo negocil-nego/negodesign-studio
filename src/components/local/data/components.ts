@@ -288,7 +288,7 @@ export const componentCatalog: ComponentDefinition[] = [
     href: "/main/project/popover#country-popover",
     sourceDirectory: "project/ui/molecules/popover",
     dependence: "src/project/ui/molecules/popover/dependence.json",
-    icon: IconNamed.Home,
+    icon: IconNamed.Home04,
     group: "Molecule",
     description: "Selector de país e indicativo telefónico.",
   },
@@ -313,7 +313,7 @@ export const componentCatalog: ComponentDefinition[] = [
     href: "/main/project/card#card-profile",
     sourceDirectory: "project/ui/molecules/card/profile",
     dependence: "src/project/ui/molecules/card/profile/dependence.json",
-    icon: IconNamed.Home,
+    icon: IconNamed.Home04,
     group: "Molecule · Card",
     description: "Cartão de perfil com avatar e contacto.",
   },
@@ -421,7 +421,7 @@ export const componentCatalog: ComponentDefinition[] = [
     href: "/main/project/card#card-logo",
     sourceDirectory: "project/ui/molecules/card/shared/card-logo",
     dependence: "src/project/ui/molecules/card/shared/card-logo/dependence.json",
-    icon: IconNamed.Home,
+    icon: IconNamed.Home04,
     group: "Molecule · Card · Shared",
     description: "Logótipo de marca no cartão.",
   },
@@ -505,7 +505,7 @@ export const componentCatalog: ComponentDefinition[] = [
     href: "/main/project/card#card-favorite-button",
     sourceDirectory: "project/ui/molecules/card/shared/card-favorite-button",
     dependence: "src/project/ui/molecules/card/shared/card-favorite-button/dependence.json",
-    icon: IconNamed.Home,
+    icon: IconNamed.Home04,
     group: "Molecule · Card · Shared",
     description: "Botão de favorito com estado alternável.",
   },
@@ -573,12 +573,35 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
       {
         label: "Input",
         open: false,
-        items: componentCatalog.filter(
-          (c) =>
-            (c.group === "Atom · Input" ||
-              (c.group === "Atom" && c.category === "Input")) &&
-            !c.id.includes("phone"),
-        ),
+        items: componentCatalog
+          .filter(
+            (c) =>
+              (c.group === "Atom · Input" ||
+                (c.group === "Atom" && c.category === "Input")) &&
+              !c.id.includes("phone") &&
+              c.id !== "input-username-or-email",
+          )
+          .map((component) =>
+            component.id === "input-username"
+              ? {
+                ...component,
+                children: [
+                  {
+                    ...componentCatalog.find(
+                      (item) => item.id === "input-username-or-email",
+                    )!,
+                    label: "Email",
+                  },
+                  {
+                    ...componentCatalog.find(
+                      (item) => item.id === "input-username-or-phone",
+                    )!,
+                    label: "Telefone",
+                  },
+                ],
+              }
+              : component,
+          ),
         children: [
           {
             label: "Phone",

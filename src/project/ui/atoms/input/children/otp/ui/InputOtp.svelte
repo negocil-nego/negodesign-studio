@@ -15,9 +15,9 @@
     onValueChange,
   }: InputOtpProps = $props();
 
-  const digitCount = Math.max(1, Math.min(12, length));
-  const separatorPosition = Math.max(0, separatorEvery);
-  let digits = $state<string[]>(Array(digitCount).fill(""));
+  const digitCount = $derived(Math.max(1, Math.min(12, length)));
+  const separatorPosition = $derived(Math.max(0, separatorEvery));
+  let digits = $state<string[]>([]);
   let inputs: HTMLInputElement[] = [];
 
   $effect(() => {

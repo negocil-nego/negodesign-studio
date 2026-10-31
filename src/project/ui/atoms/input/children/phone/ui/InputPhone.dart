@@ -10,7 +10,7 @@ class InputPhone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final phoneProps = props.inputProps.copyWith(type: 'tel');
+    final phoneProps = props.inputProps.copyWith(type: 'tel', icon: props.inputProps.icon ?? 'Phone');
 
     if (props.labelProps != null) {
       return InputLabel(

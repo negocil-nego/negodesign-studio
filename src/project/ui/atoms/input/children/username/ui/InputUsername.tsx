@@ -35,6 +35,7 @@ export default function InputUsername({
       )}
       <Input
         {...inputProps}
+        icon={inputProps.icon ?? "User"}
         type="text"
         value={value}
         isInvalid={invalid}

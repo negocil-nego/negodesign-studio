@@ -5,4 +5,8 @@
   let { ...props }: InputUsernameOrPhoneProps = $props();
 </script>
 
-<InputUsername {...props} validationMode="username-or-phone" />
+<InputUsername
+  {...props}
+  inputProps={{ ...props.inputProps, icon: props.inputProps.icon ?? "Phone" }}
+  validationMode="username-or-phone"
+/>

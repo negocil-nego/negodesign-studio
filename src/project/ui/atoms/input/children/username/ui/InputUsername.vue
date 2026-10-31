@@ -31,6 +31,7 @@ function blur() {
     <label v-if="labelProps" :for="labelProps.for" :class="StyleComponent.input.text.label">{{ labelProps.label }}</label>
     <Input
       v-bind="inputProps"
+      :icon="inputProps.icon ?? 'User'"
       type="text"
       :value="value"
       :isInvalid="invalid"

@@ -6,7 +6,7 @@ import type { InputTextProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputTextProps>();
 
-const textProps = computed(() => ({ ...inputProps, type: "text" as const }));
+const textProps = computed(() => ({ ...inputProps, type: "text" as const, icon: inputProps.icon ?? "InputCursorText" }));
 </script>
 
 <template>

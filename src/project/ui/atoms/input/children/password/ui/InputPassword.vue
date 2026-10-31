@@ -5,7 +5,7 @@ import InputLabel from "../../label/ui/InputLabel.vue";
 import type { InputPasswordProps } from "../data/types";
 
 const { labelProps, inputProps } = defineProps<InputPasswordProps>();
-const componentProps = computed(() => ({ ...inputProps, type: "password" as const }));
+const componentProps = computed(() => ({ ...inputProps, type: "password" as const, icon: inputProps.icon ?? "Password" }));
 </script>
 
 <template>

@@ -13,7 +13,7 @@ class InputUsernameOrPhone extends StatelessWidget {
     return InputUsername(
       InputUsernameProps(
         labelProps: props.labelProps,
-        inputProps: props.inputProps,
+        inputProps: props.inputProps.copyWith(icon: props.inputProps.icon ?? 'Phone'),
         errorMessage: props.errorMessage,
         onValueChange: props.onValueChange,
         onValidityChange: props.onValidityChange,

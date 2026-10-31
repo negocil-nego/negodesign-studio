@@ -85,41 +85,40 @@
     ariaLabel={labelProps?.label ?? $t("input.time.selectTime")}
   >
     {#snippet trigger()}
-      <button
-        type="button"
-        id={inputProps?.id}
-        disabled={inputProps?.disabled}
-        popovertarget={popoverId}
-        aria-haspopup="dialog"
-        class={style.trigger}
-      >
-        <div class={style.triggerBody}>
-          {#if labelProps}
-            <span class={style.triggerLabel}>
-              {labelProps.label}
-            </span>
-          {/if}
-          <div class={style.valueRow}>
-            <span class={style.valueIcon}>
-              <Icon name="Time" />
-            </span>
-            <span class={style.value}>{displayTime}</span>
+      <div class="relative w-full">
+        <button
+          type="button"
+          id={inputProps?.id}
+          disabled={inputProps?.disabled}
+          popovertarget={popoverId}
+          aria-haspopup="dialog"
+          class="{style.trigger} {value ? 'pr-10' : ''}"
+        >
+          <div class={style.triggerBody}>
+            {#if labelProps}
+              <span class={style.triggerLabel}>
+                {labelProps.label}
+              </span>
+            {/if}
+            <div class={style.valueRow}>
+              <span class={style.valueIcon}>
+                <Icon name="Time" />
+              </span>
+              <span class={style.value}>{displayTime}</span>
+            </div>
           </div>
-        </div>
-
-        <div class="flex items-center gap-1">
-          {#if value}
-            <button
-              type="button"
-              class={style.clearButton}
-              onclick={clearTime}
-              aria-label={$t("input.time.clear")}
-            >
-              <Icon name="Cancel" />
-            </button>
-          {/if}
-        </div>
-      </button>
+        </button>
+        {#if value}
+          <button
+            type="button"
+            class="{style.clearButton} absolute right-2 top-1/2 -translate-y-1/2"
+            onclick={clearTime}
+            aria-label={$t("input.time.clear")}
+          >
+            <Icon name="Cancel" />
+          </button>
+        {/if}
+      </div>
     {/snippet}
 
     {#snippet panel()}
