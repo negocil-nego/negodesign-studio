@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-carousel-buttons",
+      "name": "SectionCarouselButtons",
+      "entry": {
+        "Svelte": "ui/SectionCarouselButtons.svelte",
+        "React": "ui/SectionCarouselButtons.tsx",
+        "Vue": "ui/SectionCarouselButtons.vue",
+        "Flutter": "ui/SectionCarouselButtons.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": {
+        "Svelte": ["icon"],
+        "React": ["icon"],
+        "Vue": ["icon"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": ["project/data/style.component.ts"],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "titleProps",
+          "type": "TextProps",
+          "required": false,
+          "description": "Título apresentado acima dos itens."
+        },
+        {
+          "name": "descriptionProps",
+          "type": "TextProps",
+          "required": false,
+          "description": "Descrição apresentada abaixo do título."
+        },
+        {
+          "name": "children",
+          "type": "Snippet | ReactNode | slot | List<Widget>",
+          "required": true,
+          "description": "Itens/cards que serão apresentados no trilho do carousel."
+        }
+      ]
+    }
+  ]
+}

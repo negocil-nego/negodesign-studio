@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-carousel",
+      "name": "SectionCarousel",
+      "entry": {
+        "Svelte": "ui/SectionCarousel.svelte",
+        "React": "ui/SectionCarousel.tsx",
+        "Vue": "ui/SectionCarousel.vue",
+        "Flutter": "ui/SectionCarousel.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts",
+          "data/background.ts"
+        ],
+        "React": [
+          "data/types.ts",
+          "data/background.ts"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "data/background.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "text"
+        ],
+        "React": [
+          "text"
+        ],
+        "Vue": [
+          "text"
+        ],
+        "Flutter": [
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "items",
+          "type": "SectionImageCarouselItem[]",
+          "required": false,
+          "description": "Slides com imagem de fundo, título e descrição."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Classes adicionais para o contentor do carousel."
+        },
+        {
+          "name": "backgroundColor",
+          "type": "string",
+          "required": false,
+          "description": "Gradiente CSS ou classe CSS utilitária aplicada ao fundo dos slides."
+        }
+      ]
+    }
+  ]
+}

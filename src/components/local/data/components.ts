@@ -535,6 +535,30 @@ export const componentCatalog: ComponentDefinition[] = [
     description: "Menu de navegação com logótipo, itens e botões de acção.",
   },
   {
+    id: "section-carousel-buttons",
+    name: "SectionCarouselButtons",
+    label: "Buttons",
+    category: "Input",
+    href: "/main/project/carousel#section-carousel-buttons",
+    sourceDirectory: "project/ui/organisms/section/carousel/buttons",
+    dependence: "src/project/ui/organisms/section/carousel/buttons/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism · Carousel",
+    description: "Secção de carousel com título, descrição, navegação e conteúdo recebido por children.",
+  },
+  {
+    id: "section-carousel",
+    name: "SectionCarousel",
+    label: "Image",
+    category: "Input",
+    href: "/main/project/carousel#section-carousel",
+    sourceDirectory: "project/ui/organisms/section/carousel/image",
+    dependence: "src/project/ui/organisms/section/carousel/image/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism · Carousel",
+    description: "Carousel de imagens de fundo com título, descrição e indicadores de slide.",
+  },
+  {
     id: "modal-core",
     name: "Modal",
     label: "Modal",
@@ -676,6 +700,22 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     open: false,
     items: [
       ...componentCatalog.filter((c) => c.group === "Organism · Menu"),
+      {
+        id: "carousel-menu",
+        name: "Carousel",
+        label: "Carousel",
+        category: "Input",
+        href: "/main/project/carousel",
+        icon: IconNamed.Layout04,
+        group: "Organism · Carousel",
+        description: "Secções de carousel e os seus exemplos.",
+        children: componentCatalog
+          .filter((component) => component.group === "Organism · Carousel")
+          .map((component) => ({
+            ...component,
+            label: component.id === "section-carousel-buttons" ? "Buttons" : "Image",
+          })),
+      },
       {
         ...componentCatalog.find((c) => c.id === "modal-core")!,
         children: [componentCatalog.find((c) => c.id === "modal-form")!],

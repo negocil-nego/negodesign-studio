@@ -234,6 +234,16 @@
       description: "Menu de navegação com submenu lateral e conteúdo por secção.",
       componentId: "menu-simple",
     },
+    "section-carousel-buttons": {
+      name: "SectionCarouselButtons",
+      description: "Secção de carousel que recebe os cartões através de children.",
+      componentId: "section-carousel-buttons",
+    },
+    "section-carousel": {
+      name: "SectionCarousel",
+      description: "Carousel de imagens de fundo com título, descrição e indicadores navegáveis.",
+      componentId: "section-carousel",
+    },
   };
 
   const info = $derived(componentInfo[id]);
