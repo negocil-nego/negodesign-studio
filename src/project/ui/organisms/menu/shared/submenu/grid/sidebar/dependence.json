@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "submenu-sidebar-grid",
+      "name": "SubmenuSidebarGrid",
+      "entry": {
+        "Svelte": "ui/SubmenuSidebarGrid.svelte",
+        "React": "ui/SubmenuSidebarGrid.tsx",
+        "Vue": "ui/SubmenuSidebarGrid.vue",
+        "Flutter": "ui/SubmenuSidebarGrid.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "menu-grid-text",
+          "menu-title",
+          "submenu-title"
+        ],
+        "React": [
+          "menu-title",
+          "submenu-title"
+        ],
+        "Vue": [
+          "menu-title",
+          "submenu-title"
+        ],
+        "Flutter": [
+          "menu-title",
+          "submenu-title"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "components/local/data/style.component.ts"
+        ],
+        "React": [
+          "components/local/data/style.component.ts"
+        ],
+        "Vue": [
+          "components/local/data/style.component.ts"
+        ],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

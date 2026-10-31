@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "form",
+      "name": "Form",
+      "entry": {
+        "Svelte": "ui/form.svelte",
+        "React": "ui/form.tsx",
+        "Vue": "ui/form.vue",
+        "Flutter": "ui/Form.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "checkbox",
+          "country-popover",
+          "input-age",
+          "input-date",
+          "input-email",
+          "input-label",
+          "input-number",
+          "input-otp",
+          "input-password",
+          "input-phone",
+          "input-phone-flag",
+          "input-text",
+          "input-time",
+          "input-username",
+          "input-username-or-email",
+          "input-username-or-phone",
+          "radio",
+          "select",
+          "textarea",
+          "toggle"
+        ],
+        "React": [
+          "country-popover"
+        ],
+        "Vue": [
+          "country-popover"
+        ],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [
+          "hooks/flag.svelte.ts"
+        ],
+        "React": [
+          "hooks/flag.svelte.ts",
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "hooks/flag.svelte.ts",
+          "project/data/style.component.ts"
+        ],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

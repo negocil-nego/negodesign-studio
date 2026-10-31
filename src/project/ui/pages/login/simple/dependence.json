@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-login",
+      "name": "PageLogin",
+      "entry": {
+        "Svelte": "ui/PageLogin.svelte",
+        "React": "ui/PageLogin.tsx",
+        "Vue": "ui/PageLogin.vue",
+        "Flutter": "ui/PageLogin.dart"
+      },
+      "files": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "simple-section"
+        ],
+        "React": [
+          "simple-section"
+        ],
+        "Vue": [
+          "simple-section"
+        ],
+        "Flutter": [
+          "button",
+          "form",
+          "section-form",
+          "simple-section",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

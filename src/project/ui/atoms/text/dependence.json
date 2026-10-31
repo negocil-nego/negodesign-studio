@@ -5,10 +5,10 @@
       "id": "text",
       "name": "Text",
       "entry": {
-        "Svelte": "ui/text.svelte",
-        "React": "ui/text.tsx",
-        "Vue": "ui/text.vue",
-        "Flutter": "ui/text.dart"
+        "Svelte": "ui/Text.svelte",
+        "React": "ui/Text.tsx",
+        "Vue": "ui/Text.vue",
+        "Flutter": "ui/Text.dart"
       },
       "files": {
         "Svelte": [

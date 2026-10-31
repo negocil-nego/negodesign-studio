@@ -5,22 +5,60 @@
       "id": "accordion",
       "name": "Accordion",
       "entry": {
-        "Svelte": "ui/Accordion.svelte"
+        "Svelte": "ui/Accordion.svelte",
+        "React": "ui/Accordion.tsx",
+        "Vue": "ui/Accordion.vue",
+        "Flutter": "ui/Accordion.dart"
       },
       "files": {
-        "Svelte": ["data/types.ts"]
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
       },
       "dependencies": {
-        "Svelte": []
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
       },
       "assets": {
-        "Svelte": []
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
       },
       "props": [
-        { "name": "title", "type": "string", "required": true, "description": "Título apresentado no cabeçalho do accordion." },
-        { "name": "count", "type": "string", "required": false, "description": "Texto auxiliar apresentado ao lado do título." },
-        { "name": "open", "type": "boolean", "required": false, "description": "Define se o conteúdo inicia expandido." },
-        { "name": "children", "type": "Snippet", "required": true, "description": "Conteúdo apresentado quando o accordion está expandido." }
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Título apresentado no cabeçalho do accordion."
+        },
+        {
+          "name": "count",
+          "type": "string",
+          "required": false,
+          "description": "Texto auxiliar apresentado ao lado do título."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Define se o conteúdo inicia expandido."
+        },
+        {
+          "name": "children",
+          "type": "Snippet",
+          "required": true,
+          "description": "Conteúdo apresentado quando o accordion está expandido."
+        }
       ]
     }
   ]

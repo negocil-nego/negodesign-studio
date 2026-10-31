@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "submenu-title",
+      "name": "SubmenuTitle",
+      "entry": {
+        "Svelte": "ui/SubmenuTitle.svelte",
+        "React": "ui/SubmenuTitle.tsx",
+        "Vue": "ui/SubmenuTitle.vue",
+        "Flutter": "ui/SubmenuTitle.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "menu-grid-text",
+          "menu-text",
+          "menu-title"
+        ],
+        "React": [
+          "menu-grid-text",
+          "menu-text",
+          "menu-title"
+        ],
+        "Vue": [
+          "menu-grid-text",
+          "menu-text",
+          "menu-title"
+        ],
+        "Flutter": [
+          "menu-grid-text",
+          "menu-text",
+          "menu-title"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "components/local/data/style.component.ts"
+        ],
+        "React": [
+          "components/local/data/style.component.ts"
+        ],
+        "Vue": [
+          "components/local/data/style.component.ts"
+        ],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

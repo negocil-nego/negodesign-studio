@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "modal-core",
+      "name": "Modal",
+      "entry": {
+        "Svelte": "ui/Modal.svelte",
+        "React": "ui/Modal.tsx",
+        "Vue": "ui/Modal.vue",
+        "Flutter": "ui/Modal.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts"
+        ],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

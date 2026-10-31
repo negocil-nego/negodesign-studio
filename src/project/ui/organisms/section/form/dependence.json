@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-form",
+      "name": "SectionForm",
+      "entry": {
+        "Svelte": "ui/SectionForm.svelte",
+        "React": "ui/SectionForm.tsx",
+        "Vue": "ui/SectionForm.vue",
+        "Flutter": "ui/SectionForm.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "button",
+          "form",
+          "text"
+        ],
+        "React": [
+          "button",
+          "form",
+          "text"
+        ],
+        "Vue": [
+          "button",
+          "form",
+          "text"
+        ],
+        "Flutter": [
+          "button",
+          "form",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

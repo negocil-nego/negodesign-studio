@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-register-dual",
+      "name": "PageRegisterDual",
+      "entry": {
+        "Svelte": "ui/PageRegisterDual.svelte",
+        "React": "ui/PageRegisterDual.tsx",
+        "Vue": "ui/PageRegisterDual.vue",
+        "Flutter": "ui/PageRegisterDual.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "dual-section"
+        ],
+        "React": [
+          "dual-section"
+        ],
+        "Vue": [
+          "dual-section"
+        ],
+        "Flutter": [
+          "button",
+          "dual-section",
+          "form",
+          "section-form",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

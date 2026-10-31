@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "menu-text",
+      "name": "MenuText",
+      "entry": {
+        "Svelte": "ui/MenuText.svelte",
+        "React": "ui/MenuText.tsx",
+        "Vue": "ui/MenuText.vue",
+        "Flutter": "ui/MenuText.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "icon",
+          "text"
+        ],
+        "React": [
+          "icon",
+          "text"
+        ],
+        "Vue": [
+          "icon",
+          "text"
+        ],
+        "Flutter": [
+          "icon",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-otp",
+      "name": "PageOtp",
+      "entry": {
+        "Svelte": "ui/PageOtp.svelte",
+        "React": "ui/PageOtp.tsx",
+        "Vue": "ui/PageOtp.vue",
+        "Flutter": "ui/PageOtp.dart"
+      },
+      "files": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "section-otp"
+        ],
+        "React": [
+          "section-otp"
+        ],
+        "Vue": [
+          "section-otp"
+        ],
+        "Flutter": [
+          "button",
+          "input-otp",
+          "section-otp",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

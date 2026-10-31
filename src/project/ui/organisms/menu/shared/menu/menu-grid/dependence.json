@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "menu-grid-text",
+      "name": "MenuGridText",
+      "entry": {
+        "Svelte": "ui/MenuText.svelte",
+        "React": "ui/MenuText.tsx",
+        "Vue": "ui/MenuText.vue",
+        "Flutter": "ui/MenuText.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "icon",
+          "menu-text",
+          "menu-title",
+          "text"
+        ],
+        "React": [
+          "icon",
+          "menu-text",
+          "menu-title",
+          "text"
+        ],
+        "Vue": [
+          "icon",
+          "menu-text",
+          "menu-title",
+          "text"
+        ],
+        "Flutter": [
+          "icon",
+          "menu-text",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "components/local/data/style.component.ts"
+        ],
+        "React": [
+          "components/local/data/style.component.ts"
+        ],
+        "Vue": [
+          "components/local/data/style.component.ts"
+        ],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

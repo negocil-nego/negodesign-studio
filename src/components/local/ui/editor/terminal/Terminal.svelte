@@ -24,6 +24,11 @@
     string,
     { name: string; description: string; componentId: string }
   > = {
+    form: {
+      name: "Form",
+      description: "Formulário composto por múltiplos campos e controlos.",
+      componentId: "form",
+    },
     "input-text": {
       name: "InputText",
       description: "Campo de texto para inserir uma linha de conteúdo, com suporte a rótulo e propriedades nativas do input.",

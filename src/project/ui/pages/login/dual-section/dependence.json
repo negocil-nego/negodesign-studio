@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-login-dual",
+      "name": "PageLoginDual",
+      "entry": {
+        "Svelte": "ui/PageLoginDual.svelte",
+        "React": "ui/PageLoginDual.tsx",
+        "Vue": "ui/PageLoginDual.vue",
+        "Flutter": "ui/PageLoginDual.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "dual-section"
+        ],
+        "React": [
+          "dual-section"
+        ],
+        "Vue": [
+          "dual-section"
+        ],
+        "Flutter": [
+          "button",
+          "dual-section",
+          "form",
+          "section-form",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-otp",
+      "name": "SectionOtp",
+      "entry": {
+        "Svelte": "ui/SectionOtp.svelte",
+        "React": "ui/SectionOtp.tsx",
+        "Vue": "ui/SectionOtp.vue",
+        "Flutter": "ui/SectionOtp.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "button",
+          "input-otp",
+          "text"
+        ],
+        "React": [
+          "button",
+          "input-otp",
+          "text"
+        ],
+        "Vue": [
+          "button",
+          "input-otp",
+          "text"
+        ],
+        "Flutter": [
+          "button",
+          "input-otp",
+          "text"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

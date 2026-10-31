@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "simple-section",
+      "name": "SimpleSection",
+      "entry": {
+        "Svelte": "ui/SimpleSection.svelte",
+        "React": "ui/SimpleSection.tsx",
+        "Vue": "ui/SimpleSection.vue",
+        "Flutter": "ui/SimpleSection.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "section-form"
+        ],
+        "React": [
+          "section-form"
+        ],
+        "Vue": [
+          "section-form"
+        ],
+        "Flutter": [
+          "section-form"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

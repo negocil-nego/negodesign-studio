@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "modal-form",
+      "name": "ModalForm",
+      "entry": {
+        "Svelte": "ui/ModalForm.svelte",
+        "React": "ui/ModalForm.tsx",
+        "Vue": "ui/ModalForm.vue",
+        "Flutter": "ui/ModalForm.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "form",
+          "modal-core"
+        ],
+        "React": [
+          "form",
+          "modal-core"
+        ],
+        "Vue": [
+          "form",
+          "modal-core"
+        ],
+        "Flutter": [
+          "form"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

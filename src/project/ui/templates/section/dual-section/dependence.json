@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "dual-section",
+      "name": "DualSection",
+      "entry": {
+        "Svelte": "ui/DualSection.svelte",
+        "React": "ui/DualSection.tsx",
+        "Vue": "ui/DualSection.vue",
+        "Flutter": "ui/DualSection.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "section-form"
+        ],
+        "React": [
+          "section-form"
+        ],
+        "Vue": [
+          "section-form"
+        ],
+        "Flutter": [
+          "section-form"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}
