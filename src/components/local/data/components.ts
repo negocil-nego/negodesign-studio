@@ -701,26 +701,22 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     items: [
       ...componentCatalog.filter((c) => c.group === "Organism · Menu"),
       {
-        id: "carousel-menu",
-        name: "Carousel",
+        ...componentCatalog.find((c) => c.id === "modal-core")!,
+        children: [componentCatalog.find((c) => c.id === "modal-form")!],
+      },
+      { id: "form", name: "Form", category: "Input", href: "/main/project/form#form", sourceDirectory: "project/ui/molecules/form", dependence: "src/project/ui/molecules/form/dependence.json", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
+    ],
+    children: [
+      {
         label: "Carousel",
-        category: "Input",
-        href: "/main/project/carousel",
-        icon: IconNamed.Layout04,
-        group: "Organism · Carousel",
-        description: "Secções de carousel e os seus exemplos.",
-        children: componentCatalog
+        open: false,
+        items: componentCatalog
           .filter((component) => component.group === "Organism · Carousel")
           .map((component) => ({
             ...component,
             label: component.id === "section-carousel-buttons" ? "Buttons" : "Image",
           })),
       },
-      {
-        ...componentCatalog.find((c) => c.id === "modal-core")!,
-        children: [componentCatalog.find((c) => c.id === "modal-form")!],
-      },
-      { id: "form", name: "Form", category: "Input", href: "/main/project/form#form", sourceDirectory: "project/ui/molecules/form", dependence: "src/project/ui/molecules/form/dependence.json", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
     ],
   },
   // ── Templates (placeholder) ───────────────────────────────────────────────

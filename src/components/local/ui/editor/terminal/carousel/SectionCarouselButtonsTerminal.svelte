@@ -10,13 +10,27 @@
 
 <Terminal id="section-carousel-buttons">
   {#snippet preview()}
-    <div class="rounded-lg border border-blender-border bg-blender-base p-5 sm:p-7">
+    <div
+      class="rounded-lg border border-blender-border bg-blender-base p-5 sm:p-7"
+    >
       <SectionCarouselButtonsUsage />
     </div>
   {/snippet}
 
-  {#snippet svelte()}<SourceCode path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.svelte" source={svelteSource} />{/snippet}
-  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.tsx" source={reactSource} />{/snippet}
-  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.vue" source={vueSource} />{/snippet}
-  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.dart" source={flutterSource} />{/snippet}
+  {#snippet svelte()}<SourceCode
+      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.svelte"
+      source={svelteSource}
+    />{/snippet}
+  {#snippet react()}<SourceCode
+      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.tsx"
+      source={reactSource}
+    />{/snippet}
+  {#snippet vue()}<SourceCode
+      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.vue"
+      source={vueSource}
+    />{/snippet}
+  {#snippet flutter()}<SourceCode
+      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.dart"
+      source={flutterSource}
+    />{/snippet}
 </Terminal>
