@@ -116,7 +116,7 @@ export const StyleComponent = {
         },
     },
     modal: {
-        root: "w-full max-w-md rounded-xl border border-blender-border bg-white p-5 text-zinc-900 shadow-2xl dark:bg-blender-card dark:text-zinc-200 [&::backdrop]:bg-black/60 [&::backdrop]:backdrop-blur-sm",
+        root: "fixed left-1/2 top-1/2 m-0 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-blender-border bg-white p-5 text-zinc-900 shadow-2xl dark:bg-blender-card dark:text-zinc-200 [&::backdrop]:bg-black/60 [&::backdrop]:backdrop-blur-sm",
     },
     popover: {
         root: "popover w-full",

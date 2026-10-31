@@ -653,8 +653,7 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
         ...componentCatalog.find((c) => c.id === "modal-core")!,
         children: [componentCatalog.find((c) => c.id === "modal-form")!],
       },
-      { id: "form", name: "Form", category: "Input", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
-      { id: "card", name: "Card", category: "Input", icon: IconNamed.DocumentValidation, group: "Organism", description: "Cartão de conteúdo reutilizável." },
+      { id: "form", name: "Form", category: "Input", href: "/main/project/form#form", icon: IconNamed.Layout04, group: "Organism", description: "Formulário composto por múltiplos campos." },
     ],
   },
   // ── Templates (placeholder) ───────────────────────────────────────────────

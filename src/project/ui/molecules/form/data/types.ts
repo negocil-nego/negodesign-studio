@@ -33,6 +33,7 @@ export type FormIt = {
   value?: string;
   length?: number;
   separatorEvery?: number;
+  position?: "start" | "center";
   checked?: boolean;
   disabled?: boolean;
   required?: boolean;
@@ -70,6 +71,7 @@ export type FormIt = {
   onCountrySelect?: (country: CountryPhoneOption) => void;
   onCheckedChange?: (checked: boolean) => void;
   onValidityChange?: (isValid: boolean) => void;
+  validationMode?: "any" | "username" | "email" | "phone" | "username-or-email" | "username-or-phone";
   errorMessage?: string;
   onValueChange?: (value: string) => void;
   onOptionSelect?: (option: { value: string; label: string; icon?: string; disabled?: boolean }) => void;
