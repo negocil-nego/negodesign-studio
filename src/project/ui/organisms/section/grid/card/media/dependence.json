@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "grid-card-media",
+      "name": "GridCardMedia",
+      "entry": {
+        "Svelte": "ui/GridCardMedia.svelte",
+        "React": "ui/GridCardMedia.tsx",
+        "Vue": "ui/GridCardMedia.vue",
+        "Flutter": "ui/GridCardMedia.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-media",
+          "section-grid"
+        ],
+        "React": [
+          "card-media",
+          "section-grid"
+        ],
+        "Vue": [
+          "card-media",
+          "section-grid"
+        ],
+        "Flutter": [
+          "card-media",
+          "section-grid"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionGridProps",
+          "type": "SectionGridProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardMediaProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

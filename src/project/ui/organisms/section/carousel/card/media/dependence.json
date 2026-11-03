@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "carousel-card-media",
+      "name": "CarouselCardMedia",
+      "entry": {
+        "Svelte": "ui/CarouselCardMedia.svelte",
+        "React": "ui/CarouselCardMedia.tsx",
+        "Vue": "ui/CarouselCardMedia.vue",
+        "Flutter": "ui/CarouselCardMedia.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-media",
+          "section-carousel-buttons"
+        ],
+        "React": [
+          "card-media",
+          "section-carousel-buttons"
+        ],
+        "Vue": [
+          "card-media",
+          "section-carousel-buttons"
+        ],
+        "Flutter": [
+          "card-media",
+          "section-carousel-buttons"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionCarouselButtonsProps",
+          "type": "SectionCarouselButtonsProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardMediaProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

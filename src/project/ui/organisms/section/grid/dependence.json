@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-grid",
+      "name": "SectionGrid",
+      "entry": {
+        "Svelte": "ui/SectionGrid.svelte",
+        "React": "ui/SectionGrid.tsx",
+        "Vue": "ui/SectionGrid.vue",
+        "Flutter": "ui/SectionGrid.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "titleProps",
+          "type": "TextProps",
+          "required": false
+        },
+        {
+          "name": "descriptionProps",
+          "type": "TextProps",
+          "required": false
+        },
+        {
+          "name": "children",
+          "type": "ReactNode | Snippet | slot | List<Widget>",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

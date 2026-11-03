@@ -25,7 +25,7 @@ export const StyleComponent = {
         controls: "flex shrink-0 items-center gap-2",
         control: "flex size-10 items-center justify-center rounded-full border border-blender-border bg-blender-card text-zinc-300 transition-colors hover:border-blue-500/60 hover:bg-blender-hover hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-40",
         viewport: "min-w-0 overflow-hidden",
-        track: "flex w-full snap-x snap-mandatory items-stretch gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:w-[min(17rem,78vw)] [&>*]:shrink-0 [&>*]:snap-start",
+        track: "flex w-full snap-x snap-mandatory items-stretch gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:w-[calc((100%_-_3.75rem)_/_4)] [&>*]:shrink-0 [&>*]:snap-start",
     },
     accordion: {
         root: "overflow-hidden rounded-xl border border-blender-border bg-blender-card",

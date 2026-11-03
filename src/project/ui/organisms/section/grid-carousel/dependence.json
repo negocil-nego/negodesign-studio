@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-grid-carousel",
+      "name": "SectionGridCarousel",
+      "entry": {
+        "Svelte": "ui/SectionGridCarousel.svelte",
+        "React": "ui/SectionGridCarousel.tsx",
+        "Vue": "ui/SectionGridCarousel.vue",
+        "Flutter": "ui/SectionGridCarousel.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "icon"
+        ],
+        "React": [
+          "icon"
+        ],
+        "Vue": [
+          "icon"
+        ],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "titleProps",
+          "type": "TextProps",
+          "required": false
+        },
+        {
+          "name": "descriptionProps",
+          "type": "TextProps",
+          "required": false
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "default": 1
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "required": false,
+          "default": 4
+        },
+        {
+          "name": "children",
+          "type": "ReactNode[] | Snippet | slot | List<Widget>",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

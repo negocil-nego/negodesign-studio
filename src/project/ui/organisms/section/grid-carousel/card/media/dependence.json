@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "grid-carousel-card-media",
+      "name": "GridCarouselCardMedia",
+      "entry": {
+        "Svelte": "ui/GridCarouselCardMedia.svelte",
+        "React": "ui/GridCarouselCardMedia.tsx",
+        "Vue": "ui/GridCarouselCardMedia.vue",
+        "Flutter": "ui/GridCarouselCardMedia.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-media",
+          "section-grid-carousel"
+        ],
+        "React": [
+          "card-media",
+          "section-grid-carousel"
+        ],
+        "Vue": [
+          "card-media",
+          "section-grid-carousel"
+        ],
+        "Flutter": [
+          "card-media",
+          "section-grid-carousel"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionGridCarouselProps",
+          "type": "SectionGridCarouselProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardMediaProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

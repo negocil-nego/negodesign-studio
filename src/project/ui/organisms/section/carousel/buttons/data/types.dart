@@ -11,6 +11,6 @@ class SectionCarouselButtonsProps {
     this.titleProps,
     this.descriptionProps,
     this.className,
-    required this.children,
+    this.children = const [],
   });
 }

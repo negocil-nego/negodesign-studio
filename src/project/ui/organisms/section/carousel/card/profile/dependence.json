@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "carousel-card-profile",
+      "name": "CarouselCardProfile",
+      "entry": {
+        "Svelte": "ui/CarouselCardProfile.svelte",
+        "React": "ui/CarouselCardProfile.tsx",
+        "Vue": "ui/CarouselCardProfile.vue",
+        "Flutter": "ui/CarouselCardProfile.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-profile",
+          "section-carousel-buttons"
+        ],
+        "React": [
+          "card-profile",
+          "section-carousel-buttons"
+        ],
+        "Vue": [
+          "card-profile",
+          "section-carousel-buttons"
+        ],
+        "Flutter": [
+          "card-profile",
+          "section-carousel-buttons"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionCarouselButtonsProps",
+          "type": "SectionCarouselButtonsProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardProfileProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

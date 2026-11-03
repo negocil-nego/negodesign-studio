@@ -61,13 +61,22 @@ class _SectionCarouselButtonsState extends State<SectionCarouselButtons> {
           ),
         ),
         SizedBox(
+          width: double.infinity,
           height: 360,
-          child: ListView.separated(
-            controller: _controller,
-            scrollDirection: Axis.horizontal,
-            itemCount: props.children.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 20),
-            itemBuilder: (_, index) => SizedBox(width: 272, child: props.children[index]),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final cardWidth = (constraints.maxWidth - 60) / 4;
+              return ListView.separated(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                itemCount: props.children.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 20),
+                itemBuilder: (_, index) => SizedBox(
+                  width: cardWidth,
+                  child: props.children[index],
+                ),
+              );
+            },
           ),
         ),
       ],

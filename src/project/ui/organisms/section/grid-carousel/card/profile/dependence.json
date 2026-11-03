@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "grid-carousel-card-profile",
+      "name": "GridCarouselCardProfile",
+      "entry": {
+        "Svelte": "ui/GridCarouselCardProfile.svelte",
+        "React": "ui/GridCarouselCardProfile.tsx",
+        "Vue": "ui/GridCarouselCardProfile.vue",
+        "Flutter": "ui/GridCarouselCardProfile.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-profile",
+          "section-grid-carousel"
+        ],
+        "React": [
+          "card-profile",
+          "section-grid-carousel"
+        ],
+        "Vue": [
+          "card-profile",
+          "section-grid-carousel"
+        ],
+        "Flutter": [
+          "card-profile",
+          "section-grid-carousel"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionGridCarouselProps",
+          "type": "SectionGridCarouselProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardProfileProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

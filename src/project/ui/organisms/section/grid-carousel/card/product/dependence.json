@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "grid-carousel-card-product",
+      "name": "GridCarouselCardProduct",
+      "entry": {
+        "Svelte": "ui/GridCarouselCardProduct.svelte",
+        "React": "ui/GridCarouselCardProduct.tsx",
+        "Vue": "ui/GridCarouselCardProduct.vue",
+        "Flutter": "ui/GridCarouselCardProduct.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-product",
+          "section-grid-carousel"
+        ],
+        "React": [
+          "card-product",
+          "section-grid-carousel"
+        ],
+        "Vue": [
+          "card-product",
+          "section-grid-carousel"
+        ],
+        "Flutter": [
+          "card-product",
+          "section-grid-carousel"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionGridCarouselProps",
+          "type": "SectionGridCarouselProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardProductProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

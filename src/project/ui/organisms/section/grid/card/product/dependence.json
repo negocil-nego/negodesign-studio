@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "grid-card-product",
+      "name": "GridCardProduct",
+      "entry": {
+        "Svelte": "ui/GridCardProduct.svelte",
+        "React": "ui/GridCardProduct.tsx",
+        "Vue": "ui/GridCardProduct.vue",
+        "Flutter": "ui/GridCardProduct.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-product",
+          "section-grid"
+        ],
+        "React": [
+          "card-product",
+          "section-grid"
+        ],
+        "Vue": [
+          "card-product",
+          "section-grid"
+        ],
+        "Flutter": [
+          "card-product",
+          "section-grid"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": [
+        {
+          "name": "sectionGridProps",
+          "type": "SectionGridProps",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "CardProductProps[]",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
