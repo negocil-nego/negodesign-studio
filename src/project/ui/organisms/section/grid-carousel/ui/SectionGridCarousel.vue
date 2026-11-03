@@ -17,7 +17,7 @@ function scroll(direction: -1 | 1) {
 </script>
 <template>
   <section :class="`w-full min-w-0 py-6 ${props.className}`.trim()">
-    <header class="mb-6 flex items-end justify-between gap-5">
+    <header class="mb-4 flex items-end justify-between gap-4">
       <div class="min-w-0">
         <h2 v-if="props.titleProps" class="text-2xl font-semibold leading-tight text-zinc-100 sm:text-3xl">
           {{ props.titleProps.text }}
@@ -47,10 +47,10 @@ function scroll(direction: -1 | 1) {
     </header>
     <div
       ref="viewport"
-      class="grid grid-flow-col gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      class="grid grid-flow-col gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:w-full [&>*]:min-w-0"
       :style="{
         gridTemplateRows: `repeat(${Math.max(1, Math.floor(props.rows))}, minmax(0, 1fr))`,
-        gridAutoColumns: `calc((100% - ${(Math.max(1, Math.floor(props.columns)) - 1) * 20}px) / ${Math.max(1, Math.floor(props.columns))})`,
+        gridAutoColumns: `calc((100% - ${(Math.max(1, Math.floor(props.columns)) - 1) * 8}px) / ${Math.max(1, Math.floor(props.columns))})`,
       }"
     >
       <slot />

@@ -19,7 +19,7 @@ export default function SectionGrid({ titleProps, descriptionProps, className = 
           )}
         </header>
       )}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 [&>*]:w-full [&>*]:min-w-0">
         {children}
       </div>
     </section>

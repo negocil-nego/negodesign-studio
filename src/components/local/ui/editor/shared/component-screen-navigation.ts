@@ -3,7 +3,7 @@ export type ComponentScreenGroup = {
   badge: string;
   description: string;
   ids: string[];
-  type: "input" | "card" | "menu";
+  type: "input" | "card" | "menu" | "carousel" | "grid" | "grid-carousel";
 };
 
 export const componentScreenNavigation: ComponentScreenGroup[] = [
@@ -39,5 +39,37 @@ export const componentScreenNavigation: ComponentScreenGroup[] = [
     description: "Menus de navegação e variações de submenu.",
     ids: ["menu-simple", "submenu-grid-title", "menu-sidebar-grid"],
     type: "menu",
+  },
+  {
+    label: "Organisms · Carousel",
+    badge: "Organism",
+    description: "Carousels de cartões para media, produtos e perfis.",
+    ids: [
+      "section-carousel-buttons",
+      "section-carousel",
+      "carousel-card-media",
+      "carousel-card-product",
+      "carousel-card-profile",
+    ],
+    type: "carousel",
+  },
+  {
+    label: "Organisms · Grid",
+    badge: "Organism",
+    description: "Cartões apresentados numa grelha responsiva.",
+    ids: ["section-grid", "grid-card-media", "grid-card-product", "grid-card-profile"],
+    type: "grid",
+  },
+  {
+    label: "Organisms · Grid Carousel",
+    badge: "Organism",
+    description: "Cartões em grupos de linhas e colunas com navegação horizontal.",
+    ids: [
+      "section-grid-carousel",
+      "grid-carousel-card-media",
+      "grid-carousel-card-product",
+      "grid-carousel-card-profile",
+    ],
+    type: "grid-carousel",
   },
 ];

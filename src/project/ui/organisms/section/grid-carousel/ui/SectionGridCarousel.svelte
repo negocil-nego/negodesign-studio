@@ -21,7 +21,7 @@
 </script>
 
 <section class={`w-full min-w-0 py-6 ${className}`.trim()}>
-  <header class="mb-6 flex items-end justify-between gap-5">
+  <header class="mb-4 flex items-end justify-between gap-4">
     <div class="min-w-0">
       {#if titleProps}
         <h2
@@ -59,8 +59,8 @@
   </header>
   <div
     bind:this={viewport}
-    class="grid grid-flow-col gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-    style={`grid-template-rows: repeat(${Math.max(1, Math.floor(rows))}, minmax(0, 1fr)); grid-auto-columns: calc((100% - ${(Math.max(1, Math.floor(columns)) - 1) * 1.25}rem) / ${Math.max(1, Math.floor(columns))})`}
+    class="grid grid-flow-col gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:w-full [&>*]:min-w-0"
+    style={`grid-template-rows: repeat(${Math.max(1, Math.floor(rows))}, minmax(0, 1fr)); grid-auto-columns: calc((100% - ${(Math.max(1, Math.floor(columns)) - 1) * 8}px) / ${Math.max(1, Math.floor(columns))})`}
   >
     {@render children()}
   </div>

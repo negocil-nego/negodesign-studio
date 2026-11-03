@@ -12,7 +12,7 @@ export default function SectionGridCarousel({ titleProps, descriptionProps, clas
   const scroll = (direction: -1 | 1) => viewport.current?.scrollBy({ left: direction * viewport.current.clientWidth, behavior: "smooth" });
   return (
     <section className={`w-full min-w-0 py-6 ${className}`.trim()}>
-      <header className="mb-6 flex items-end justify-between gap-5">
+      <header className="mb-4 flex items-end justify-between gap-4">
         <div className="min-w-0">
           {titleProps && <h2 className="text-2xl font-semibold leading-tight text-zinc-100 sm:text-3xl">{titleProps.text}</h2>}
           {descriptionProps && <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{descriptionProps.text}</p>}
@@ -26,11 +26,11 @@ export default function SectionGridCarousel({ titleProps, descriptionProps, clas
           </button>
         </div>
       </header>
-      <div ref={viewport} className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div ref={viewport} className="flex snap-x snap-mandatory gap-2 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {groups.map((group, index) => (
           <div
             key={index}
-            className="grid w-full shrink-0 snap-start gap-5"
+            className="grid w-full shrink-0 snap-start gap-2 [&>*]:w-full [&>*]:min-w-0"
             style={{
               gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))`,
               gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,

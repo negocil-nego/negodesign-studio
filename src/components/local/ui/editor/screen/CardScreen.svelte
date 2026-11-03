@@ -148,11 +148,15 @@
               titleProps={{ title: "Ana Silva" }}
               handleProps="@ana.silva"
               tagsProps={{ tags: cardTags, variant: "stats" }}
-              actionsProps={[
-                { icon: "User", label: "Follow" },
-                { icon: "Message", label: "Message" },
-              ]}
-              editActionProps={[{ icon: "Settings01", label: "Editar perfil" }]}
+              actionsProps={{
+                actions: [
+                  { icon: "User", label: "Follow" },
+                  { icon: "Message", label: "Message" },
+                ],
+              }}
+              editActionProps={{
+                actions: [{ icon: "Settings01", label: "Editar perfil" }],
+              }}
               descriptionProps={{ description: "Designer de produto em Luanda." }}
             />
           {:else}

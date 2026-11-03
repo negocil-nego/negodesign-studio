@@ -11,6 +11,7 @@ class SectionGrid extends StatelessWidget {
     if (width >= 2560) return 5;
     if (width >= 1536) return 4;
     if (width >= 768) return 3;
+    if (width >= 640) return 2;
     return 1;
   }
 
@@ -45,10 +46,18 @@ class SectionGrid extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: _columns(box.maxWidth),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               childAspectRatio: 0.72,
-              children: props.children,
+              children: props.children
+                  .map(
+                    (child) => FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.topCenter,
+                      child: child,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],

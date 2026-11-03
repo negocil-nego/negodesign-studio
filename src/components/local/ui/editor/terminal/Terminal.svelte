@@ -244,6 +244,61 @@
       description: "Carousel de imagens de fundo com título, descrição e indicadores navegáveis.",
       componentId: "section-carousel",
     },
+    "carousel-card-media": {
+      name: "CarouselCardMedia",
+      description: "Carousel de cartões de media, com quatro cartões visíveis por padrão.",
+      componentId: "carousel-card-media",
+    },
+    "carousel-card-product": {
+      name: "CarouselCardProduct",
+      description: "Carousel de cartões de produto, com quatro cartões visíveis por padrão.",
+      componentId: "carousel-card-product",
+    },
+    "carousel-card-profile": {
+      name: "CarouselCardProfile",
+      description: "Carousel de cartões de perfil, com quatro cartões visíveis por padrão.",
+      componentId: "carousel-card-profile",
+    },
+    "section-grid": {
+      name: "SectionGrid",
+      description: "Secção responsiva para cartões apresentados em grelha.",
+      componentId: "section-grid",
+    },
+    "grid-card-media": {
+      name: "GridCardMedia",
+      description: "Grelha responsiva de cartões de media.",
+      componentId: "grid-card-media",
+    },
+    "grid-card-product": {
+      name: "GridCardProduct",
+      description: "Grelha responsiva de cartões de produto.",
+      componentId: "grid-card-product",
+    },
+    "grid-card-profile": {
+      name: "GridCardProfile",
+      description: "Grelha responsiva de cartões de perfil.",
+      componentId: "grid-card-profile",
+    },
+    "section-grid-carousel": {
+      name: "SectionGridCarousel",
+      description: "Secção deslizável que organiza os cartões em linhas e colunas configuráveis.",
+      componentId: "section-grid-carousel",
+    },
+    "grid-carousel-card-media": {
+      name: "GridCarouselCardMedia",
+      description: "Carousel de cartões de media organizados em páginas de grelha.",
+      componentId: "grid-carousel-card-media",
+    },
+    "grid-carousel-card-product": {
+      name: "GridCarouselCardProduct",
+      description: "Carousel de cartões de produto organizados em páginas de grelha.",
+      componentId: "grid-carousel-card-product",
+    },
+    "grid-carousel-card-profile": {
+      name: "GridCarouselCardProfile",
+      description: "Carousel de cartões de perfil organizados em páginas de grelha.",
+      componentId: "grid-carousel-card-profile",
+    },
   };
 
   const info = $derived(componentInfo[id]);

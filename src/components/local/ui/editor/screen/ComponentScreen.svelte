@@ -5,6 +5,9 @@
   import InputScreen from "./InputScreen.svelte";
   import CardScreen from "./CardScreen.svelte";
   import MenuScreen from "./MenuScreen.svelte";
+  import CarouselScreen from "./CarouselScreen.svelte";
+  import GridScreen from "./GridScreen.svelte";
+  import GridCarouselScreen from "./GridCarouselScreen.svelte";
   import ComponentScreenHeader from "../shared/ComponentScreenHeader.svelte";
   import ComponentScreenGroup from "../shared/ComponentScreenGroup.svelte";
   import ComponentCopyDialog from "../shared/ComponentCopyDialog.svelte";
@@ -37,6 +40,12 @@
           <InputScreen components={group.components} onCopy={requestCopy} />
         {:else if group.type === "card"}
           <CardScreen components={group.components} onCopy={requestCopy} />
+        {:else if group.type === "carousel"}
+          <CarouselScreen showHeader={false} />
+        {:else if group.type === "grid"}
+          <GridScreen showHeader={false} />
+        {:else if group.type === "grid-carousel"}
+          <GridCarouselScreen showHeader={false} />
         {:else}
           <MenuScreen showHeader={false} />
         {/if}

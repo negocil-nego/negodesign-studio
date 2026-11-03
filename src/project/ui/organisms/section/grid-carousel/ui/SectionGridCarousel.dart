@@ -86,9 +86,17 @@ class _SectionGridCarouselState extends State<SectionGridCarousel> {
             onPageChanged: (page) => setState(() => _page = page),
             itemBuilder: (context, index) => GridView.count(
               crossAxisCount: columns,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              children: pages[index],
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              children: pages[index]
+                  .map(
+                    (child) => FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.topCenter,
+                      child: child,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ),
