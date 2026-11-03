@@ -129,11 +129,15 @@
                   {#if page.name === "PageHeroSimple"}
                     <PageHeroSimple
                       menuProps={heroMenuProps}
-                      titleProps={{ text: "Experiências digitais, feitas para crescer" }}
-                      subtitleProps={{ text: "Transforme boas ideias em produtos extraordinários." }}
-                      descriptionProps={{ text: "Uma base flexível para criar interfaces consistentes, acelerar equipas e levar cada projecto mais longe." }}
-                      backgroundMediaUrl="/img/programmer-02.jpg"
-                      backgroundColor="#10212b"
+                      sectionHeroProps={{
+                        backgroundMediaUrl: "/img/programmer-02.jpg",
+                        backgroundColor: "#10212b",
+                        textSectionProps: {
+                          titleProps: { text: "Experiências digitais, feitas para crescer" },
+                          subtitleProps: { text: "Transforme boas ideias em produtos extraordinários." },
+                          descriptionProps: { text: "Uma base flexível para criar interfaces consistentes, acelerar equipas e levar cada projecto mais longe." },
+                        },
+                      }}
                     />
                   {:else}
                     <PreviewComponent />

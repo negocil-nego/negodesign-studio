@@ -1,30 +1,23 @@
 <script lang="ts">
-  import Text from "../../../../atoms/text/ui/Text.svelte";
   import Menu from "../../../../organisms/menu/simple/ui/Menu.svelte";
   import { StyleComponent } from "../../../../../../components/local/data/style.component";
   import type { PageHeroSimpleProps } from "../data/types";
+  import SectionText from "../../../../organisms/section/hero/shared/ui/SectionText.svelte";
 
-  let {
-    menuProps,
-    titleProps,
-    subtitleProps,
-    descriptionProps,
-    backgroundColor,
-    backgroundMediaUrl,
-  }: PageHeroSimpleProps = $props();
+  let { menuProps, sectionHeroProps }: PageHeroSimpleProps = $props();
+  let heroProps = $derived(sectionHeroProps ?? {});
 </script>
 
 <header
   class={StyleComponent.pages.hero.simple.root}
-  style:background-color={backgroundColor ?? "#10212b"}
+  style:background-color={heroProps.backgroundColor ?? "#10212b"}
 >
-  {#if backgroundMediaUrl}
+  {#if heroProps.backgroundMediaUrl}
     <div
       class={StyleComponent.pages.hero.simple.background}
-      style={`background-image: url("${backgroundMediaUrl}")`}
+      style={`background-image: url("${heroProps.backgroundMediaUrl}")`}
       aria-hidden="true"
     ></div>
-    <div class="absolute h-screen w-screen bg-black/10"></div>
   {/if}
   <div
     class={StyleComponent.pages.hero.simple.overlay}
@@ -37,30 +30,7 @@
     </aside>
   {/if}
 
-  <section class={StyleComponent.pages.hero.simple.content}>
-    {#if titleProps}
-      <div class={StyleComponent.pages.hero.simple.eyebrow}>
-        <Text
-          {...titleProps}
-          className={StyleComponent.pages.hero.simple.eyebrowText}
-        />
-      </div>
-    {/if}
-
-    {#if subtitleProps}
-      <div role="heading" aria-level="1">
-        <Text
-          {...subtitleProps}
-          className={StyleComponent.pages.hero.simple.titleText}
-        />
-      </div>
-    {/if}
-
-    {#if descriptionProps}
-      <Text
-        {...descriptionProps}
-        className={StyleComponent.pages.hero.simple.descriptionText}
-      />
-    {/if}
-  </section>
+  {#if heroProps.textSectionProps}
+    <SectionText {...heroProps.textSectionProps} />
+  {/if}
 </header>

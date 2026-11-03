@@ -1,11 +1,7 @@
-import type { TextProps } from "../../../../atoms/text/data/types"
 import type { MenuProps } from "../../../../organisms/menu/simple/data/types"
+import type { SectionHereProps } from "../../../../organisms/section/hero/shared/data/types"
 
 export type PageHeroSimpleProps = {
-    titleProps?: TextProps
-    subtitleProps?: TextProps
-    descriptionProps?: TextProps
     menuProps?: MenuProps
-    backgroundMediaUrl?: string
-    backgroundColor?: string
+    sectionHeroProps?: SectionHereProps
 }
