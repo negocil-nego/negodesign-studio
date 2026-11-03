@@ -1,6 +1,6 @@
 <script lang="ts">
   import EditorPageShell from "../../../../../components/local/ui/editor/EditorPageShell.svelte";
-  import AtomicComponentScreen from "../../../../../components/local/ui/editor/screen/AtomicComponentScreen.svelte";
+  import InputScreen from "../../../../../components/local/ui/editor/screen/InputScreen.svelte";
   import { componentCatalog } from "../../../../../components/local/data/components";
   import { activeProject } from "../../../../../components/local/data/projects";
   import { copyComponentToActiveProject } from "../../../../../components/local/data/component-copy";
@@ -38,7 +38,7 @@
     </p>
   </div>
   
-  <AtomicComponentScreen 
+  <InputScreen 
     components={inputComponents} 
     viewMode="terminal" 
     {copyingId} 

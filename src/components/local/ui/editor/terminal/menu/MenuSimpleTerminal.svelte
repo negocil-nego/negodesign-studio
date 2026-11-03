@@ -1,9 +1,9 @@
 <script lang="ts">
   import MenuSimple from "../../../../../../project/ui/organisms/menu/simple/ui/Menu.svelte";
-  import svelteSource from "./SubmenuGridTitleMenu.svelte?raw";
-  import reactSource from "./SubmenuGridTitleMenu.tsx?raw";
-  import vueSource from "./SubmenuGridTitleMenu.vue?raw";
-  import flutterSource from "./SubmenuGridTitleMenu.dart?raw";
+  import svelteSource from "./MenuSimpleMenu.svelte?raw";
+  import reactSource from "./MenuSimpleMenu.tsx?raw";
+  import vueSource from "./MenuSimpleMenu.vue?raw";
+  import flutterSource from "./MenuSimpleMenu.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -21,79 +21,9 @@
         }}
         menus={[
           { href: "/", icon: { name: "Home" }, textProps: { text: "Início" } },
-          {
-            label: "Plataforma",
-            title: {
-              title: { text: "Uma plataforma para criar com confiança" },
-              description: {
-                text: "Organize projectos, componentes e sistemas num só espaço, pronto para crescer com a sua equipa.",
-              },
-              href: "/main/project",
-              link: { text: "Saiba mais" },
-            },
-            items: [
-              {
-                title: { textProps: { text: "PRINCIPAIS RECURSOS" } },
-                items: [
-                  {
-                    href: "/main/project",
-                    title: { text: "Biblioteca de componentes" },
-                    description: {
-                      text: "Construa interfaces consistentes com componentes reutilizáveis.",
-                    },
-                  },
-                  {
-                    href: "/main/project",
-                    title: { text: "Editor visual" },
-                    description: {
-                      text: "Explore e ajuste componentes num espaço interactivo.",
-                    },
-                  },
-                  {
-                    href: "/main/project",
-                    title: { text: "Gestão de projecto" },
-                    description: {
-                      text: "Mantenha recursos e decisões organizados.",
-                    },
-                  },
-                  {
-                    href: "/main/project",
-                    title: { text: "Colaboração" },
-                    description: {
-                      text: "Partilhe ferramentas e ideias com a sua equipa.",
-                    },
-                  },
-                ],
-              },
-              {
-                title: { textProps: { text: "DESCOBRIR" } },
-                items: [
-                  {
-                    href: "/main/project",
-                    title: { text: "Começar" },
-                    description: {
-                      text: "Conheça os primeiros passos da plataforma.",
-                    },
-                  },
-                  {
-                    href: "/main/project",
-                    title: { text: "Documentação" },
-                    description: {
-                      text: "Consulte padrões, propriedades e exemplos.",
-                    },
-                  },
-                  {
-                    href: "/main/project",
-                    title: { text: "Actualizações" },
-                    description: { text: "Veja as novidades mais recentes." },
-                  },
-                ],
-              },
-            ],
-          },
+          { href: "/main/project", textProps: { text: "Projectos" } },
           { href: "/main/project", textProps: { text: "Equipa" } },
         ]}
-        defaultOpenSubmenu={1}
         buttonsProps={[
           { text: "Entrar", variant: "outline" },
           { text: "Criar conta", variant: "solid" },
@@ -120,11 +50,11 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.svelte"
+      path="src/components/local/ui/editor/terminal/menu/MenuSimpleMenu.svelte"
       source={svelteSource}
     />
   {/snippet}
-  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.tsx" source={reactSource} />{/snippet}
-  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.vue" source={vueSource} />{/snippet}
-  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/menu/SubmenuGridTitleMenu.dart" source={flutterSource} />{/snippet}
+  {#snippet react()}<SourceCode path="src/components/local/ui/editor/terminal/menu/MenuSimpleMenu.tsx" source={reactSource} />{/snippet}
+  {#snippet vue()}<SourceCode path="src/components/local/ui/editor/terminal/menu/MenuSimpleMenu.vue" source={vueSource} />{/snippet}
+  {#snippet flutter()}<SourceCode path="src/components/local/ui/editor/terminal/menu/MenuSimpleMenu.dart" source={flutterSource} />{/snippet}
 </Terminal>

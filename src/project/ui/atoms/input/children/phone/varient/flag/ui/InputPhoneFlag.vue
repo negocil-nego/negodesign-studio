@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { FlagNamed } from "../../../../../../../../../hooks/flag.svelte";
 import type { InputPhoneFlagProps } from "../data/types";
-import Icon from "../../../../../../icon/ui/Icon.vue";
 import type { CountryPhoneOption } from "../../../../../../../molecules/popover/data/country-phone";
 import CountryPhonePopover from "../../../../../../../molecules/popover/ui/CountryPhonePopover.vue";
 import Label from "../../../../../../label/ui/Label.vue";
@@ -23,7 +22,6 @@ function handleCountrySelect(country: CountryPhoneOption) {
         <Label v-if="props.labelProps" v-bind="props.labelProps" />
         <div :class="style.form">
             <CountryPhonePopover :flag="selectedFlag" :locale="props.locale" @select="handleCountrySelect" />
-            <Icon :name="props.inputProps.icon ?? 'Phone'" className="shrink-0 text-zinc-400" />
             <input
                 :id="props.inputProps.id"
                 type="tel"
