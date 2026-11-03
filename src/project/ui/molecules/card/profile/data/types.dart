@@ -41,6 +41,36 @@ class CardProfileBaseProps {
   });
 }
 
+/// CardProfile v03 — Social/Twitter-style profile card.
+class CardProfileV03Props {
+  final CardLogoProps? logoProps;
+  final CardTitleProps? titleProps;
+  /// @handle text displayed below the name
+  final String? handleProps;
+  final CardVideoProps? videoProps;
+  final CardImageProps? imageProps;
+  final CardThumbnailVideoProps? thumbnailVideoProps;
+  final CardDescriptionProps? descriptionProps;
+  final CardTagsProps? tagsProps;
+  /// Follow + Message buttons (variant=mixed on CardActionsButton)
+  final CardActionsButtonProps? actionsProps;
+  /// Edit Profile button rendered top-right of cover (variant=icon-outline)
+  final CardActionsButtonProps? editActionProps;
+
+  const CardProfileV03Props({
+    this.logoProps,
+    this.titleProps,
+    this.handleProps,
+    this.videoProps,
+    this.imageProps,
+    this.thumbnailVideoProps,
+    this.descriptionProps,
+    this.tagsProps,
+    this.actionsProps,
+    this.editActionProps,
+  });
+}
+
 class CardProfileProps extends CardProfileBaseProps {
   final String variant;
 

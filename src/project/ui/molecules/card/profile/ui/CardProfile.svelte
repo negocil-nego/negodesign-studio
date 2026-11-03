@@ -1,13 +1,16 @@
 <script lang="ts">
-    import type { CardProfileProps } from "../data/types";
-    import CardProfile01 from "./card-01/CardProfile01.svelte";
-    import CardProfile02 from "./card-02/CardProfile02.svelte";
+  import type { CardProfileProps } from "../data/types";
+  import CardProfile01 from "./card-01/CardProfile01.svelte";
+  import CardProfile02 from "./card-02/CardProfile02.svelte";
+  import CardProfile03 from "./card-03/CardProfile03.svelte";
 
-    let { variant = "01", ...restProps }: CardProfileProps = $props();
+  let { variant = "01", ...restProps }: CardProfileProps = $props();
 </script>
 
 {#if variant === "01"}
-    <CardProfile01 {...restProps} />
+  <CardProfile01 {...restProps} />
 {:else if variant === "02"}
-    <CardProfile02 {...restProps} />
+  <CardProfile02 {...restProps} />
+{:else if variant === "03"}
+  <CardProfile03 {...restProps} />
 {/if}

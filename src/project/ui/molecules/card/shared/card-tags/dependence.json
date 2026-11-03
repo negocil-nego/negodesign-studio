@@ -56,7 +56,7 @@
                 ],
                 "Flutter": []
             },
-            "props": []
+            "props": ["variant"]
         }
     ]
 }

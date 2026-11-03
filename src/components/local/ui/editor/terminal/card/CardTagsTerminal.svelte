@@ -9,15 +9,29 @@
 
   import type { CardTag } from "../../../../../../project/ui/molecules/card/shared/card-tags/data/types";
 
-  const tags: CardTag[] = [
-    { icon: "Star", title: "Novo", description: "Acabado de chegar" },
-    { icon: "Location", title: "Luanda" },
+  const buttonTags: CardTag[] = [
+    { icon: "User", title: "Follow" },
+    { icon: "Message", title: "Message" },
+    { icon: "Email", title: "Email" },
+  ];
+  const statTags: CardTag[] = [
+    { icon: "User", title: "154" },
+    { icon: "CheckmarkSquare01", title: "34" },
   ];
 </script>
 
 <Terminal id="card-tags">
   {#snippet preview()}
-    <CardTags {tags} />
+    <div class="space-y-4">
+      <div>
+        <p class="mb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Botões</p>
+        <CardTags tags={buttonTags} variant="buttons" />
+      </div>
+      <div>
+        <p class="mb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Estatísticas</p>
+        <CardTags tags={statTags} variant="stats" />
+      </div>
+    </div>
   {/snippet}
 
   {#snippet svelte()}

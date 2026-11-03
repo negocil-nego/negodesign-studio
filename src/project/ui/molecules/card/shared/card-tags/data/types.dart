@@ -12,6 +12,7 @@ class CardTag {
 
 class CardTagsProps {
   final List<CardTag> tags;
+  final String variant;
   final String? className;
   final String? itemClassName;
   final String? titleClassName;
@@ -19,6 +20,7 @@ class CardTagsProps {
 
   const CardTagsProps({
     required this.tags,
+    this.variant = 'stats',
     this.className,
     this.itemClassName,
     this.titleClassName,
