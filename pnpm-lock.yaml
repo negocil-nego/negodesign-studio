@@ -12,7 +12,7 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@8.3.4(jiti@2.7.0))
       '@tauri-apps/api':
-        specifier: ^2
+        specifier: ^2.12.4
         version: 2.12.4
       '@tauri-apps/plugin-dialog':
         specifier: ^2.7.3
