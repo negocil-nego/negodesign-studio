@@ -5,6 +5,7 @@ class CardImageProps {
   final String? sizes;
   final String loading;
   final String? fetchpriority;
+  final String? className;
 
   const CardImageProps({
     required this.src,
@@ -13,5 +14,6 @@ class CardImageProps {
     this.sizes,
     this.loading = 'lazy',
     this.fetchpriority,
+    this.className,
   });
 }

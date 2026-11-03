@@ -82,6 +82,9 @@
   const variantOptions = [
     { value: "01", label: "Variação 01" },
     { value: "02", label: "Variação 02" },
+  ];
+  const profileVariantOptions = [
+    ...variantOptions,
     { value: "03", label: "Variação 03" },
   ];
   let cardVariants = $state<Record<string, "01" | "02" | "03">>({
@@ -92,6 +95,10 @@
 
   function setCardVariant(id: string, value: string) {
     if (value === "01" || value === "02" || value === "03") cardVariants[id] = value;
+  }
+
+  function standardVariant(id: string): "01" | "02" {
+    return cardVariants[id] === "02" ? "02" : "01";
   }
 </script>
 
@@ -110,7 +117,7 @@
             onOptionSelect={(option) => setCardVariant(component.id, option.value)}
           />
           <CardMedia
-            variant={cardVariants[component.id]}
+            variant={standardVariant(component.id)}
             logoProps={{ src: "/img/programmer-01.jpg", alt: "Marca" }}
             titleProps={{ title: "Auscultadores Pro" }}
             ratingProps={{ rating: 4 }}
@@ -130,7 +137,7 @@
             id="card-profile-variant"
             label={`Variação ${cardVariants[component.id]}`}
             value={cardVariants[component.id]}
-            options={variantOptions}
+            options={profileVariantOptions}
             onOptionSelect={(option) => setCardVariant(component.id, option.value)}
           />
           {#if cardVariants[component.id] === "03"}
@@ -173,7 +180,7 @@
             onOptionSelect={(option) => setCardVariant(component.id, option.value)}
           />
           <CardProduct
-            variant={cardVariants[component.id]}
+            variant={standardVariant(component.id)}
             logoProps={{ src: "/img/programmer-01.jpg", alt: "Marca" }}
             imageProps={{ src: "/img/ux-01.jpg", alt: "Produto" }}
             titleProps={{ title: "Teclado Mecânico" }}

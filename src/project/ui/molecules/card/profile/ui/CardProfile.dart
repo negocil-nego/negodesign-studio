@@ -12,18 +12,7 @@ class CardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (props.variant == '03') {
-      return CardProfile03(CardProfileV03Props(
-        logoProps: props.logoProps,
-        titleProps: props.titleProps,
-        handleProps: props.handleProps,
-        videoProps: props.videoProps,
-        imageProps: props.imageProps,
-        thumbnailVideoProps: props.thumbnailVideoProps,
-        descriptionProps: props.descriptionProps,
-        tagsProps: props.tagsProps,
-        actionsProps: props.actionsProps,
-        editActionProps: props.editActionProps,
-      ));
+      return CardProfile03(props);
     }
     if (props.variant == '02') return CardProfile02(props);
     return CardProfile01(props);

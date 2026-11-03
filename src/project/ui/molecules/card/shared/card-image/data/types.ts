@@ -5,4 +5,5 @@ export type CardImageProps = {
     sizes?: string;
     loading?: "lazy" | "eager";
     fetchpriority?: "high" | "low" | "auto";
+    className?: string;
 }

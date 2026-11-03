@@ -11,7 +11,7 @@ import '../../../shared/card-video/ui/CardVideo.dart';
 import '../../../shared/card-video/data/types.dart';
 
 class CardProfile03 extends StatelessWidget {
-  final CardProfileV03Props props;
+  final CardProfileBaseProps props;
 
   const CardProfile03(this.props, {super.key});
 

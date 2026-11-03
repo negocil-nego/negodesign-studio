@@ -1,5 +1,8 @@
 <script lang="ts">
-  import type { CardProfileProps } from "../data/types";
+  import type {
+    CardProfileBaseProps,
+    CardProfileProps,
+  } from "../data/types";
   import CardProfile01 from "./card-01/CardProfile01.svelte";
   import CardProfile02 from "./card-02/CardProfile02.svelte";
   import CardProfile03 from "./card-03/CardProfile03.svelte";
@@ -8,9 +11,9 @@
 </script>
 
 {#if variant === "01"}
-  <CardProfile01 {...restProps} />
+  <CardProfile01 {...restProps as CardProfileBaseProps} />
 {:else if variant === "02"}
-  <CardProfile02 {...restProps} />
+  <CardProfile02 {...restProps as CardProfileBaseProps} />
 {:else if variant === "03"}
-  <CardProfile03 {...restProps} />
+  <CardProfile03 {...restProps as CardProfileBaseProps} />
 {/if}

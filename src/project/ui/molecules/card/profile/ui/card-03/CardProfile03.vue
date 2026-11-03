@@ -8,7 +8,7 @@ import CardTags from "../../../shared/card-tags/ui/CardTags.vue";
 import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo.vue";
 import CardTitle from "../../../shared/card-title/ui/CardTitle.vue";
 import CardVideo from "../../../shared/card-video/ui/CardVideo.vue";
-import type { CardProfileV03Props } from "../../data/types";
+import type { CardProfileBaseProps } from "../../data/types";
 
 const {
     logoProps,
@@ -21,7 +21,7 @@ const {
     tagsProps,
     actionsProps,
     editActionProps,
-} = defineProps<CardProfileV03Props>();
+} = defineProps<CardProfileBaseProps>();
 
 const style = StyleComponent.card.profile.v03;
 </script>
@@ -37,7 +37,7 @@ const style = StyleComponent.card.profile.v03;
 
             <!-- Edit Profile button — top-right of cover -->
             <div v-if="editActionProps" :class="style.editAction">
-                <CardActionsButton :actions="editActionProps" variant="icon-outline" />
+                <CardActionsButton :actions="editActionProps.actions" variant="icon-outline" />
             </div>
 
             <!-- Avatar anchored to bottom of cover -->
@@ -56,7 +56,7 @@ const style = StyleComponent.card.profile.v03;
                 </div>
 
                 <div v-if="actionsProps" :class="style.actionsGroup">
-                    <CardActionsButton :actions="actionsProps" variant="mixed" />
+                    <CardActionsButton :actions="actionsProps.actions" variant="mixed" />
                 </div>
             </div>
 

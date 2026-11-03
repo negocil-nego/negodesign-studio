@@ -2,7 +2,7 @@
     import { StyleComponent } from "../../../../../../data/style.component";
     import type { CardImageProps } from "../data/types";
 
-    let { src, alt, srcset, sizes, loading = "lazy", fetchpriority }: CardImageProps = $props();
+    let { src, alt, srcset, sizes, loading = "lazy", fetchpriority, className }: CardImageProps = $props();
 </script>
 
 <img
@@ -13,5 +13,5 @@
     {fetchpriority}
     {loading}
     decoding="async"
-    class={`${StyleComponent.card.media.default} transition-opacity duration-500`}
+    class={`${StyleComponent.card.media.default} transition-opacity duration-500 ${className ?? ""}`}
 />

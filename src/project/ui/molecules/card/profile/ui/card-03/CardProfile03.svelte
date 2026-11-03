@@ -8,7 +8,7 @@
   import CardTitle from "../../../shared/card-title/ui/CardTitle.svelte";
   import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo.svelte";
   import CardVideo from "../../../shared/card-video/ui/CardVideo.svelte";
-  import type { CardProfileV03Props } from "../../data/types";
+  import type { CardProfileBaseProps } from "../../data/types";
 
   let {
     logoProps,
@@ -21,7 +21,7 @@
     tagsProps,
     actionsProps,
     editActionProps,
-  }: CardProfileV03Props = $props();
+  }: CardProfileBaseProps = $props();
 
   const style = StyleComponent.card.profile.v03;
 </script>
@@ -42,7 +42,7 @@
     <!-- Edit Profile action (top-right of cover) -->
     {#if editActionProps}
       <div class={style.editAction}>
-        <CardActionsButton actions={editActionProps} variant="icon-outline" />
+        <CardActionsButton actions={editActionProps.actions} variant="icon-outline" />
       </div>
     {/if}
 
@@ -69,7 +69,7 @@
 
       {#if actionsProps}
         <div class={style.actionsGroup}>
-          <CardActionsButton actions={actionsProps} variant="mixed" />
+          <CardActionsButton actions={actionsProps.actions} variant="mixed" />
         </div>
       {/if}
     </div>
@@ -77,17 +77,25 @@
     <!-- About / Description -->
     {#if descriptionProps || tagsProps}
       <div class={style.aboutSection}>
-        <span class={style.aboutLabel}>About</span>
         {#if descriptionProps}
-          <CardDescription {...descriptionProps} className={style.description} />
+          <CardDescription
+            {...descriptionProps}
+            className={style.description}
+          />
         {/if}
       </div>
     {/if}
 
     <!-- Stats -->
     {#if tagsProps}
-      <CardTags {...tagsProps} variant="stats" className={style.stats} itemClassName={style.statItem} titleClassName={style.statValue} descriptionClassName={style.statLabel} />
+      <CardTags
+        {...tagsProps}
+        variant="stats"
+        className={style.stats}
+        itemClassName={style.statItem}
+        titleClassName={style.statValue}
+        descriptionClassName={style.statLabel}
+      />
     {/if}
   </div>
 </aside>
-

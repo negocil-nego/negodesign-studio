@@ -24,17 +24,11 @@ export type CardProfileBaseProps = {
     thumbnailVideoProps?: CardThumbnailVideoProps;
     tagsProps?: CardTagsProps;
     actionsProps?: CardActionsButtonProps;
-}
-
-export type CardProfileV03Props = Omit<CardProfileBaseProps, "actionsProps"> & {
     /** @handle text displayed below the name */
     handleProps?: string;
-    /** Follow + Message buttons (variant="mixed" on CardActionsButton) */
-    actionsProps?: CardActionsButtonProps["actions"];
     /** Edit Profile button rendered top-right of cover (variant="icon-outline") */
-    editActionProps?: CardActionsButtonProps["actions"];
+    editActionProps?: CardActionsButtonProps;
 }
 
 export type CardProfileProps =
-    | (CardProfileBaseProps & { variant?: "01" | "02" })
-    | (CardProfileV03Props & { variant: "03" });
+    CardProfileBaseProps & { variant?: "01" | "02" | "03" };

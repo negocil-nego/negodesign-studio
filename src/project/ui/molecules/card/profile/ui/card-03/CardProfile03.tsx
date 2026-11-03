@@ -8,7 +8,7 @@ import CardTags from "../../../shared/card-tags/ui/CardTags";
 import CardThumbnailVideo from "../../../shared/card-thumbnail-video/ui/CardThumbnailVideo";
 import CardTitle from "../../../shared/card-title/ui/CardTitle";
 import CardVideo from "../../../shared/card-video/ui/CardVideo";
-import type { CardProfileV03Props } from "../../data/types";
+import type { CardProfileBaseProps } from "../../data/types";
 
 export default function CardProfile03({
     logoProps,
@@ -21,7 +21,7 @@ export default function CardProfile03({
     tagsProps,
     actionsProps,
     editActionProps,
-}: CardProfileV03Props) {
+}: CardProfileBaseProps) {
     const style = StyleComponent.card.profile.v03;
     return (
         <aside className={style.root}>
@@ -40,7 +40,7 @@ export default function CardProfile03({
                 {/* Edit Profile button — top-right of cover */}
                 {editActionProps && (
                     <div className={style.editAction}>
-                        <CardActionsButton actions={editActionProps} variant="icon-outline" />
+                        <CardActionsButton actions={editActionProps.actions} variant="icon-outline" />
                     </div>
                 )}
 
@@ -63,7 +63,7 @@ export default function CardProfile03({
 
                     {actionsProps && (
                         <div className={style.actionsGroup}>
-                            <CardActionsButton actions={actionsProps} variant="mixed" />
+                            <CardActionsButton actions={actionsProps.actions} variant="mixed" />
                         </div>
                     )}
                 </div>
