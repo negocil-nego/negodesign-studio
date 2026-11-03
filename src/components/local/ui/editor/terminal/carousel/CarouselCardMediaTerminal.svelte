@@ -1,9 +1,9 @@
 <script lang="ts">
   import CarouselCardMedia from "../../../../../../project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.dart?raw";
+  import svelteSource from "./usage/CarouselCardMediaUsage.svelte?raw";
+  import reactSource from "./usage/CarouselCardMediaUsage.tsx?raw";
+  import vueSource from "./usage/CarouselCardMediaUsage.vue?raw";
+  import flutterSource from "./usage/CarouselCardMediaUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 
@@ -42,25 +42,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.svelte"
+      path="src/components/local/ui/editor/terminal/carousel/usage/CarouselCardMediaUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.tsx"
+      path="src/components/local/ui/editor/terminal/carousel/usage/CarouselCardMediaUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.vue"
+      path="src/components/local/ui/editor/terminal/carousel/usage/CarouselCardMediaUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/carousel/card/media/ui/CarouselCardMedia.dart"
+      path="src/components/local/ui/editor/terminal/carousel/usage/CarouselCardMediaUsage.dart"
       source={flutterSource}
     />
   {/snippet}

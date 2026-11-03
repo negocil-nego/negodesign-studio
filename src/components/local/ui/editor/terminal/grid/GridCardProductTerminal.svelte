@@ -1,9 +1,9 @@
 <script lang="ts">
   import GridCardProduct from "../../../../../../project/ui/organisms/section/grid/card/product/ui/GridCardProduct.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/grid/card/product/ui/GridCardProduct.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/grid/card/product/ui/GridCardProduct.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/grid/card/product/ui/GridCardProduct.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/grid/card/product/ui/GridCardProduct.dart?raw";
+  import svelteSource from "./usage/GridCardProductUsage.svelte?raw";
+  import reactSource from "./usage/GridCardProductUsage.tsx?raw";
+  import vueSource from "./usage/GridCardProductUsage.vue?raw";
+  import flutterSource from "./usage/GridCardProductUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 
@@ -42,25 +42,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/product/ui/GridCardProduct.svelte"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardProductUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/product/ui/GridCardProduct.tsx"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardProductUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/product/ui/GridCardProduct.vue"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardProductUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/product/ui/GridCardProduct.dart"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardProductUsage.dart"
       source={flutterSource}
     />
   {/snippet}

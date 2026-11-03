@@ -1,9 +1,9 @@
 <script lang="ts">
   import SectionGridCarousel from "../../../../../../project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.dart?raw";
+  import svelteSource from "./usage/SectionGridCarouselUsage.svelte?raw";
+  import reactSource from "./usage/SectionGridCarouselUsage.tsx?raw";
+  import vueSource from "./usage/SectionGridCarouselUsage.vue?raw";
+  import flutterSource from "./usage/SectionGridCarouselUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
   import CardMedia from "../../../../../../project/ui/molecules/card/media/ui/CardMedia.svelte";
@@ -38,25 +38,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.svelte"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/SectionGridCarouselUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.tsx"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/SectionGridCarouselUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.vue"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/SectionGridCarouselUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/ui/SectionGridCarousel.dart"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/SectionGridCarouselUsage.dart"
       source={flutterSource}
     />
   {/snippet}

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import SectionCarouselButtonsUsage from "./SectionCarouselButtonsUsage.svelte";
-  import svelteSource from "./SectionCarouselButtonsUsage.svelte?raw";
-  import reactSource from "./SectionCarouselButtonsUsage.tsx?raw";
-  import vueSource from "./SectionCarouselButtonsUsage.vue?raw";
-  import flutterSource from "./SectionCarouselButtonsUsage.dart?raw";
+  import SectionCarouselButtonsUsage from "./usage/SectionCarouselButtonsUsage.svelte";
+  import svelteSource from "./usage/SectionCarouselButtonsUsage.svelte?raw";
+  import reactSource from "./usage/SectionCarouselButtonsUsage.tsx?raw";
+  import vueSource from "./usage/SectionCarouselButtonsUsage.vue?raw";
+  import flutterSource from "./usage/SectionCarouselButtonsUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -18,19 +18,19 @@
   {/snippet}
 
   {#snippet svelte()}<SourceCode
-      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.svelte"
+      path="src/components/local/ui/editor/terminal/carousel/usage/SectionCarouselButtonsUsage.svelte"
       source={svelteSource}
     />{/snippet}
   {#snippet react()}<SourceCode
-      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.tsx"
+      path="src/components/local/ui/editor/terminal/carousel/usage/SectionCarouselButtonsUsage.tsx"
       source={reactSource}
     />{/snippet}
   {#snippet vue()}<SourceCode
-      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.vue"
+      path="src/components/local/ui/editor/terminal/carousel/usage/SectionCarouselButtonsUsage.vue"
       source={vueSource}
     />{/snippet}
   {#snippet flutter()}<SourceCode
-      path="src/components/local/ui/editor/terminal/carousel/SectionCarouselButtonsUsage.dart"
+      path="src/components/local/ui/editor/terminal/carousel/usage/SectionCarouselButtonsUsage.dart"
       source={flutterSource}
     />{/snippet}
 </Terminal>

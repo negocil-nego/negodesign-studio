@@ -6,5 +6,5 @@
 </script>
 
 <div class={StyleComponent.card.root} id="card">
-    <div {...restProps} />
+    <div {...restProps}></div>
 </div>

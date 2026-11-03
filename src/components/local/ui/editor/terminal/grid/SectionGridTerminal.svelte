@@ -1,9 +1,9 @@
 <script lang="ts">
   import SectionGrid from "../../../../../../project/ui/organisms/section/grid/ui/SectionGrid.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/grid/ui/SectionGrid.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/grid/ui/SectionGrid.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/grid/ui/SectionGrid.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/grid/ui/SectionGrid.dart?raw";
+  import svelteSource from "./usage/SectionGridUsage.svelte?raw";
+  import reactSource from "./usage/SectionGridUsage.tsx?raw";
+  import vueSource from "./usage/SectionGridUsage.vue?raw";
+  import flutterSource from "./usage/SectionGridUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
   import CardMedia from "../../../../../../project/ui/molecules/card/media/ui/CardMedia.svelte";
@@ -36,25 +36,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/ui/SectionGrid.svelte"
+      path="src/components/local/ui/editor/terminal/grid/usage/SectionGridUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/ui/SectionGrid.tsx"
+      path="src/components/local/ui/editor/terminal/grid/usage/SectionGridUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/ui/SectionGrid.vue"
+      path="src/components/local/ui/editor/terminal/grid/usage/SectionGridUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/ui/SectionGrid.dart"
+      path="src/components/local/ui/editor/terminal/grid/usage/SectionGridUsage.dart"
       source={flutterSource}
     />
   {/snippet}

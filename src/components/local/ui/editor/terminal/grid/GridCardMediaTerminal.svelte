@@ -1,9 +1,9 @@
 <script lang="ts">
   import GridCardMedia from "../../../../../../project/ui/organisms/section/grid/card/media/ui/GridCardMedia.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/grid/card/media/ui/GridCardMedia.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/grid/card/media/ui/GridCardMedia.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/grid/card/media/ui/GridCardMedia.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/grid/card/media/ui/GridCardMedia.dart?raw";
+  import svelteSource from "./usage/GridCardMediaUsage.svelte?raw";
+  import reactSource from "./usage/GridCardMediaUsage.tsx?raw";
+  import vueSource from "./usage/GridCardMediaUsage.vue?raw";
+  import flutterSource from "./usage/GridCardMediaUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 
@@ -42,25 +42,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/media/ui/GridCardMedia.svelte"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardMediaUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/media/ui/GridCardMedia.tsx"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardMediaUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/media/ui/GridCardMedia.vue"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardMediaUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid/card/media/ui/GridCardMedia.dart"
+      path="src/components/local/ui/editor/terminal/grid/usage/GridCardMediaUsage.dart"
       source={flutterSource}
     />
   {/snippet}

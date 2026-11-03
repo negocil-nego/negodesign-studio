@@ -109,7 +109,7 @@
 
   {#if showProjectOptions}
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4" role="presentation" onclick={(event) => { if (event.target === event.currentTarget) showProjectOptions = false; }} onkeydown={(event) => { if (event.key === "Escape") showProjectOptions = false; }}>
-      <section class="w-full max-w-lg rounded-xl border border-blender-border bg-white p-6 text-slate-900 shadow-2xl dark:bg-blender-card dark:text-zinc-100" role="dialog" aria-modal="true" aria-labelledby="project-options-title">
+      <div class="w-full max-w-lg rounded-xl border border-blender-border bg-white p-6 text-slate-900 shadow-2xl dark:bg-blender-card dark:text-zinc-100" role="dialog" aria-modal="true" aria-labelledby="project-options-title">
         <div class="mb-5 flex items-start justify-between gap-4">
           <div>
             <p class="text-xs font-semibold uppercase tracking-wider text-blue-500">Frontend</p>
@@ -130,7 +130,7 @@
             <span class="mt-1 block text-sm text-zinc-500 dark:text-zinc-400">Explore os componentes disponíveis.</span>
           </button>
         </div>
-      </section>
+      </div>
     </div>
   {/if}
 </main>

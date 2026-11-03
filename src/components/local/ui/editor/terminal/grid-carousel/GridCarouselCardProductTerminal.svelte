@@ -1,9 +1,9 @@
 <script lang="ts">
   import GridCarouselCardProduct from "../../../../../../project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.svelte";
-  import svelteSource from "../../../../../../project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.svelte?raw";
-  import reactSource from "../../../../../../project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.tsx?raw";
-  import vueSource from "../../../../../../project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.vue?raw";
-  import flutterSource from "../../../../../../project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.dart?raw";
+  import svelteSource from "./usage/GridCarouselCardProductUsage.svelte?raw";
+  import reactSource from "./usage/GridCarouselCardProductUsage.tsx?raw";
+  import vueSource from "./usage/GridCarouselCardProductUsage.vue?raw";
+  import flutterSource from "./usage/GridCarouselCardProductUsage.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 
@@ -44,25 +44,25 @@
 
   {#snippet svelte()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.svelte"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/GridCarouselCardProductUsage.svelte"
       source={svelteSource}
     />
   {/snippet}
   {#snippet react()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.tsx"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/GridCarouselCardProductUsage.tsx"
       source={reactSource}
     />
   {/snippet}
   {#snippet vue()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.vue"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/GridCarouselCardProductUsage.vue"
       source={vueSource}
     />
   {/snippet}
   {#snippet flutter()}
     <SourceCode
-      path="src/project/ui/organisms/section/grid-carousel/card/product/ui/GridCarouselCardProduct.dart"
+      path="src/components/local/ui/editor/terminal/grid-carousel/usage/GridCarouselCardProductUsage.dart"
       source={flutterSource}
     />
   {/snippet}

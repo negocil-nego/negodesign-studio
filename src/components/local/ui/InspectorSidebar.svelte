@@ -196,6 +196,7 @@
         style="padding-left: {(depth * 0.75 + 0.75).toFixed(2)}rem"
         title={node.component?.name ?? node.name}
         role="treeitem"
+        aria-selected="false"
       >
         <span class="text-zinc-600" aria-hidden="true">└</span>
         <span class="text-blue-400" aria-hidden="true">▧</span>
@@ -328,6 +329,7 @@
           <div
             class="flex items-center gap-2 rounded px-2 py-1.5 text-xs font-semibold text-zinc-200"
             role="treeitem"
+            aria-selected="false"
           >
             <span class="text-amber-400" aria-hidden="true">📁</span>
             <span>Componentes instalados</span>

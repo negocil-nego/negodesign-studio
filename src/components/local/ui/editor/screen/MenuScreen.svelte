@@ -1,7 +1,7 @@
 <script lang="ts">
   import MenuSimpleTerminal from "../terminal/menu/MenuSimpleTerminal.svelte";
-  import SubmenuGridTitleTerminal from "../terminal/menu/SubmenuGridTitleTerminal.svelte";
-  import SubmenuSidebarGridTerminal from "../terminal/menu/SubmenuSidebarGridTerminal.svelte";
+  import SubmenuGridTitleTerminal from "../terminal/menu/submenu-grid-title/SubmenuGridTitleTerminal.svelte";
+  import SubmenuSidebarGridTerminal from "../terminal/menu/submenu-sidebar-grid/SubmenuSidebarGridTerminal.svelte";
 
   let { showHeader = true }: { showHeader?: boolean } = $props();
 </script>
