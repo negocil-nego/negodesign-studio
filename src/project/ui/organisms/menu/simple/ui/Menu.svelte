@@ -21,22 +21,31 @@
     openSubmenu === null ? undefined : menus[openSubmenu],
   );
 
-  function isSidebarSubmenu(menu: MenuTypeProps): menu is SubmenuSidebarGridProps {
+  function isSidebarSubmenu(
+    menu: MenuTypeProps,
+  ): menu is SubmenuSidebarGridProps {
     return "type" in menu && menu.type === "sidebar-grid";
   }
 
   function isGridSubmenu(menu: MenuTypeProps): menu is SubmenuGridTitleProps {
-    return !isSidebarSubmenu(menu) && ("items" in menu || "title" in menu || "label" in menu);
+    return (
+      !isSidebarSubmenu(menu) &&
+      ("items" in menu || "title" in menu || "label" in menu)
+    );
   }
 
-  function isSubmenu(menu: MenuTypeProps): menu is SubmenuGridTitleProps | SubmenuSidebarGridProps {
+  function isSubmenu(
+    menu: MenuTypeProps,
+  ): menu is SubmenuGridTitleProps | SubmenuSidebarGridProps {
     return isSidebarSubmenu(menu) || isGridSubmenu(menu);
   }
 
-  function getSubmenuLabel(menu: SubmenuGridTitleProps | SubmenuSidebarGridProps) {
+  function getSubmenuLabel(
+    menu: SubmenuGridTitleProps | SubmenuSidebarGridProps,
+  ) {
     return isSidebarSubmenu(menu)
-      ? menu.title?.title?.text ?? "Explorar"
-      : menu.label ?? menu.title?.title?.text ?? "Explorar";
+      ? (menu.title?.title?.text ?? "Explorar")
+      : (menu.label ?? menu.title?.title?.text ?? "Explorar");
   }
 
   function toggleSubmenu(index: number) {

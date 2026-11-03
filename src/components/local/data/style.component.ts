@@ -26,6 +26,22 @@ export const StyleComponent = {
         themeToggleDark: "border-amber-400/70 bg-amber-400/20 text-amber-300 shadow-sm shadow-amber-950/30 hover:border-amber-300 hover:bg-amber-400/30",
         circuitBg: CircuitBackground,
     },
+    pages: {
+        hero: {
+            simple: {
+                root: "relative isolate flex min-h-[min(820px,92vh)] w-full items-center justify-center overflow-hidden px-6 pb-20 pt-32 text-white sm:px-10",
+                background: "absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgb(8_18_27/78%),rgb(8_18_27/30%)_58%,rgb(8_18_27/55%))] bg-cover bg-center",
+                overlay: "absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_100%,rgb(57_109_116/35%),transparent_58%)]",
+                navigation: "absolute inset-x-4 top-5 z-20 mx-auto max-w-6xl px-3 sm:top-7",
+                content: "mx-auto w-full max-w-4xl text-center",
+                eyebrow: "mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 shadow-sm backdrop-blur-sm",
+                eyebrowText: "text-xs font-medium tracking-wide text-white/90 sm:text-sm",
+                titleText: "text-balance text-4xl font-semibold leading-[1.04] tracking-tight text-white drop-shadow-sm sm:text-6xl lg:text-7xl",
+                descriptionText: "mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg",
+                action: "mt-9 inline-flex items-center gap-3 rounded-full border border-amber-200/80 bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-amber-950/20 transition hover:-translate-y-0.5 hover:bg-amber-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white",
+            },
+        },
+    },
     menu: {
         navigation: {
             root: "relative w-full",
