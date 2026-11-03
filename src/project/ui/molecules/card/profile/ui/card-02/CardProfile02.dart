@@ -98,7 +98,7 @@ class CardProfile02 extends StatelessWidget {
                 const SizedBox(height: 32),
                 if (props.titleProps != null) CardTitle(props.titleProps!),
                 if (props.ratingProps != null) CardRating(props.ratingProps!),
-                if (props.tagsProps != null) CardTags(props.tagsProps!),
+                if (props.tagsProps != null) Center(child: CardTags(props.tagsProps!)),
                 if (props.actionsProps != null)
                   CardActionsButton(props.actionsProps!),
                 if (props.descriptionProps != null)

@@ -67,7 +67,10 @@
       {/if}
     </div>
     {#if tagsProps}
-      <CardTags {...tagsProps} />
+      <CardTags
+        {...tagsProps}
+        className={`${style.tags} ${tagsProps.className ?? ""}`}
+      />
     {/if}
 
     {#if actionsProps}

@@ -61,7 +61,7 @@ export default function CardProfile02({
 
                 {ratingProps && <CardRating {...ratingProps} />}
 
-                {tagsProps && <CardTags {...tagsProps} />}
+                {tagsProps && <CardTags {...tagsProps} className={`${style.tags} ${tagsProps.className ?? ""}`} />}
 
                 {actionsProps && <CardActionsButton {...actionsProps} />}
 

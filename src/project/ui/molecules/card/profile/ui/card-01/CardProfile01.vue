@@ -56,7 +56,7 @@ const style = StyleComponent.card.profile.v01;
                 <CardTitle v-if="titleProps" v-bind="titleProps" />
             </div>
 
-            <CardTags v-if="tagsProps" v-bind="tagsProps" />
+            <CardTags v-if="tagsProps" v-bind="tagsProps" :class-name="[style.tags, tagsProps.className].filter(Boolean).join(' ')" />
 
             <CardActionsButton v-if="actionsProps" v-bind="actionsProps" />
 

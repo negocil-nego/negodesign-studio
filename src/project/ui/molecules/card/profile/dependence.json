@@ -14,21 +14,25 @@
                 "Svelte": [
                     "ui/card-01/CardProfile01.svelte",
                     "ui/card-02/CardProfile02.svelte",
+                    "ui/card-03/CardProfile03.svelte",
                     "data/types.ts"
                 ],
                 "React": [
                     "ui/card-01/CardProfile01.tsx",
                     "ui/card-02/CardProfile02.tsx",
+                    "ui/card-03/CardProfile03.tsx",
                     "data/types.ts"
                 ],
                 "Vue": [
                     "ui/card-01/CardProfile01.vue",
                     "ui/card-02/CardProfile02.vue",
+                    "ui/card-03/CardProfile03.vue",
                     "data/types.ts"
                 ],
                 "Flutter": [
                     "ui/card-01/CardProfile01.dart",
                     "ui/card-02/CardProfile02.dart",
+                    "ui/card-03/CardProfile03.dart",
                     "data/types.dart"
                 ]
             },

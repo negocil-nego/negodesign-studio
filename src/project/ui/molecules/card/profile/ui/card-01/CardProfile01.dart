@@ -94,7 +94,7 @@ class CardProfile01 extends StatelessWidget {
                     ),
                   ),
                 const SizedBox(height: 16),
-                if (props.tagsProps != null) CardTags(props.tagsProps!),
+                if (props.tagsProps != null) Center(child: CardTags(props.tagsProps!)),
                 if (props.tagsProps != null) const SizedBox(height: 12),
                 if (props.actionsProps != null)
                   CardActionsButton(props.actionsProps!),

@@ -82,15 +82,16 @@
   const variantOptions = [
     { value: "01", label: "Variação 01" },
     { value: "02", label: "Variação 02" },
+    { value: "03", label: "Variação 03" },
   ];
-  let cardVariants = $state<Record<string, "01" | "02">>({
+  let cardVariants = $state<Record<string, "01" | "02" | "03">>({
     "card-media": "01",
     "card-profile": "01",
     "card-product": "01",
   });
 
   function setCardVariant(id: string, value: string) {
-    if (value === "01" || value === "02") cardVariants[id] = value;
+    if (value === "01" || value === "02" || value === "03") cardVariants[id] = value;
   }
 </script>
 
@@ -132,18 +133,35 @@
             options={variantOptions}
             onOptionSelect={(option) => setCardVariant(component.id, option.value)}
           />
-          <CardProfile
-            variant={cardVariants[component.id]}
-            logoProps={{ src: "/img/programmer-01.jpg", alt: "Perfil" }}
-            imageProps={{ src: "/img/programmer-02.jpg", alt: "Capa" }}
-            titleProps={{ title: "Ana Silva" }}
-            tagsProps={{ tags: cardTags }}
-            actionsProps={{ actions: cardActions }}
-            descriptionProps={{ description: "Designer de produto em Luanda." }}
-            buttonProps={{ text: "Seguir" }}
-            cartButtonProps={{}}
-            favoriteButtonProps={{}}
-          />
+          {#if cardVariants[component.id] === "03"}
+            <CardProfile
+              variant="03"
+              logoProps={{ src: "/img/programmer-01.jpg", alt: "Perfil" }}
+              imageProps={{ src: "/img/programmer-02.jpg", alt: "Capa" }}
+              titleProps={{ title: "Ana Silva" }}
+              handleProps="@ana.silva"
+              tagsProps={{ tags: cardTags, variant: "stats" }}
+              actionsProps={[
+                { icon: "User", label: "Follow" },
+                { icon: "Message", label: "Message" },
+              ]}
+              editActionProps={[{ icon: "Settings01", label: "Editar perfil" }]}
+              descriptionProps={{ description: "Designer de produto em Luanda." }}
+            />
+          {:else}
+            <CardProfile
+              variant={cardVariants[component.id] as "01" | "02"}
+              logoProps={{ src: "/img/programmer-01.jpg", alt: "Perfil" }}
+              imageProps={{ src: "/img/programmer-02.jpg", alt: "Capa" }}
+              titleProps={{ title: "Ana Silva" }}
+              tagsProps={{ tags: cardTags }}
+              actionsProps={{ actions: cardActions }}
+              descriptionProps={{ description: "Designer de produto em Luanda." }}
+              buttonProps={{ text: "Seguir" }}
+              cartButtonProps={{}}
+              favoriteButtonProps={{}}
+            />
+          {/if}
         </div>
       {:else if component.id === "card-product"}
         <div class="w-full max-w-xs space-y-3">

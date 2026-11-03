@@ -24,6 +24,8 @@ class CardProfileBaseProps {
   final CardThumbnailVideoProps? thumbnailVideoProps;
   final CardTagsProps? tagsProps;
   final CardActionsButtonProps? actionsProps;
+  final String? handleProps;
+  final CardActionsButtonProps? editActionProps;
 
   const CardProfileBaseProps({
     this.logoProps,
@@ -38,6 +40,8 @@ class CardProfileBaseProps {
     this.thumbnailVideoProps,
     this.tagsProps,
     this.actionsProps,
+    this.handleProps,
+    this.editActionProps,
   });
 }
 
@@ -87,6 +91,8 @@ class CardProfileProps extends CardProfileBaseProps {
     super.thumbnailVideoProps,
     super.tagsProps,
     super.actionsProps,
+    super.handleProps,
+    super.editActionProps,
     this.variant = '01',
   });
 }

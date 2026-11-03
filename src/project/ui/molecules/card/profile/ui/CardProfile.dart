@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/types.dart';
 import 'card-01/CardProfile01.dart';
 import 'card-02/CardProfile02.dart';
+import 'card-03/CardProfile03.dart';
 
 class CardProfile extends StatelessWidget {
   final CardProfileProps props;
@@ -10,6 +11,20 @@ class CardProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (props.variant == '03') {
+      return CardProfile03(CardProfileV03Props(
+        logoProps: props.logoProps,
+        titleProps: props.titleProps,
+        handleProps: props.handleProps,
+        videoProps: props.videoProps,
+        imageProps: props.imageProps,
+        thumbnailVideoProps: props.thumbnailVideoProps,
+        descriptionProps: props.descriptionProps,
+        tagsProps: props.tagsProps,
+        actionsProps: props.actionsProps,
+        editActionProps: props.editActionProps,
+      ));
+    }
     if (props.variant == '02') return CardProfile02(props);
     return CardProfile01(props);
   }
