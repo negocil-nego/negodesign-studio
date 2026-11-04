@@ -28,6 +28,7 @@ export const IconNamed = {
   Date: icon("date", "calendar-03"),
   DocumentValidation: icon("document", "document-validation"),
   Email: icon("email", "mail-01"),
+  Image02: icon("image-02", "image-02"),
   InputCursorText: icon("input-cursor-text", "input-cursor-text"),
   Favorite: icon("favourite", "favourite"),
   FolderAdd: icon("folder-add", "folder-add"),
@@ -75,6 +76,7 @@ const hugeiconsNames: Record<string, string> = {
   moreHorizontal: "more-horizontal",
   arrowDown: "arrow-down-01",
   arrowUp: "arrow-up-01",
+  image02: "image-02",
 };
 
 /** Accepts either a registry entry or a Hugeicons name. */

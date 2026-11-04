@@ -1,5 +1,6 @@
 <script lang="ts">
   import PageHeroSimple from "../../../../project/ui/pages/hero/simple/ui/PageHeroSimple.svelte";
+  import PageHeroDual from "../../../../project/ui/pages/hero/dual/ui/PageHeroDual.svelte";
   import PageLogin from "../../../../project/ui/pages/login/simple/ui/PageLogin.svelte";
   import PageLoginDual from "../../../../project/ui/pages/login/dual-section/ui/PageLoginDual.svelte";
   import PageRegister from "../../../../project/ui/pages/register/simple/ui/PageRegister.svelte";
@@ -11,7 +12,10 @@
     {
       id: "hero",
       name: "Hero",
-      pages: [{ name: "PageHeroSimple", component: PageHeroSimple }],
+      pages: [
+        { name: "PageHeroSimple", component: PageHeroSimple },
+        { name: "PageHeroDual", component: PageHeroDual },
+      ],
     },
     {
       id: "authentication",
@@ -26,11 +30,18 @@
       ],
     },
   ];
-  const totalPages = groups.reduce((total, group) => total + group.pages.length, 0);
+  const totalPages = groups.reduce(
+    (total, group) => total + group.pages.length,
+    0,
+  );
   let activeGroup = $state("hero");
 
   const heroMenuProps = {
-    logo: { src: "/favicon.png", alt: "Negodesign", className: "size-9 rounded-full" },
+    logo: {
+      src: "/favicon.png",
+      alt: "Negodesign",
+      className: "size-9 rounded-full",
+    },
     menus: [
       { href: "#hero", textProps: { text: "Início" } },
       { href: "#authentication", textProps: { text: "Autenticação" } },
@@ -40,7 +51,10 @@
       {
         text: "Ver páginas",
         variant: "solid" as const,
-        onClick: () => document.getElementById("authentication")?.scrollIntoView({ behavior: "smooth" }),
+        onClick: () =>
+          document
+            .getElementById("authentication")
+            ?.scrollIntoView({ behavior: "smooth" }),
       },
     ],
   };
@@ -63,7 +77,8 @@
           Templates
         </h1>
         <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Explore páginas de destaque e fluxos de autenticação prontos para adaptar.
+          Explore páginas de destaque e fluxos de autenticação prontos para
+          adaptar.
         </p>
       </div>
       <span
@@ -133,9 +148,40 @@
                         backgroundMediaUrl: "/img/programmer-02.jpg",
                         backgroundColor: "#10212b",
                         textSectionProps: {
-                          titleProps: { text: "Experiências digitais, feitas para crescer" },
-                          subtitleProps: { text: "Transforme boas ideias em produtos extraordinários." },
-                          descriptionProps: { text: "Uma base flexível para criar interfaces consistentes, acelerar equipas e levar cada projecto mais longe." },
+                          titleProps: {
+                            text: "Experiências digitais, feitas para crescer",
+                          },
+                          subtitleProps: {
+                            text: "Transforme boas ideias em produtos extraordinários.",
+                          },
+                          descriptionProps: {
+                            text: "Uma base flexível para criar interfaces consistentes, acelerar equipas e levar cada projecto mais longe.",
+                          },
+                        },
+                      }}
+                    />
+                  {:else if page.name === "PageHeroDual"}
+                    <PageHeroDual
+                      menuProps={heroMenuProps}
+                      leftSectionHereProps={{
+                        textSectionProps: {
+                          layout: "dual",
+                          titleProps: { text: "AI para o seu negócio" },
+                          subtitleProps: {
+                            text: "E-Commerce reinventado com inteligência artificial",
+                          },
+                          descriptionProps: {
+                            text: "Venda mais, ofereça uma experiência melhor e automatize operações com tecnologia de ponta.",
+                          },
+                        },
+                      }}
+                      rightSectionHereProps={{
+                        textSectionProps: {
+                          layout: "dual",
+                          imageUrl:
+                            "/img/8233822_career_businesswoman_coin_finance.png",
+                          imageAlt:
+                            "Demonstração visual de uma experiência digital com inteligência artificial",
                         },
                       }}
                     />

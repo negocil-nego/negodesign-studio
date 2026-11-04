@@ -77,6 +77,12 @@
   >
     Projecto
   </a>
+  <a
+    href="/main/illustrations"
+    class="rounded px-2.5 py-1.5 text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100"
+  >
+    Galeria
+  </a>
 
   <div class="relative">
     <button

@@ -28,6 +28,19 @@ export const StyleComponent = {
     },
     pages: {
         hero: {
+            dual: {
+                root: "relative isolate min-h-[min(820px,92vh)] w-full overflow-hidden bg-sky-100 px-6 pb-16 pt-28 text-slate-900 sm:px-10",
+                backdrop: "pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.42)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.42)_1px,transparent_1px),linear-gradient(115deg,#b4eaf2,#d8edff_55%,#d8efff)] bg-[size:42px_42px,42px_42px,auto]",
+                navigation: "absolute inset-x-4 top-3 z-20 mx-auto max-w-6xl px-3 sm:top-5 [&_nav]:border-0 [&_nav]:bg-transparent",
+                layout: "mx-auto grid w-full max-w-6xl items-center gap-8 pt-7 lg:grid-cols-2 lg:gap-12",
+                section: "min-w-0",
+                media: "block h-auto max-h-[560px] w-full rounded-[2rem] object-contain object-center drop-shadow-xl",
+                content: "mx-auto w-full max-w-xl text-left",
+                eyebrow: "mb-5 inline-flex items-center rounded-full border border-sky-300 bg-white/70 px-4 py-2 shadow-sm",
+                eyebrowText: "text-xs font-semibold text-slate-700 sm:text-sm",
+                titleText: "text-balance text-4xl font-semibold leading-[1.04] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl",
+                descriptionText: "mt-5 max-w-lg text-pretty text-sm leading-relaxed text-slate-700 sm:text-base",
+            },
             simple: {
                 root: "relative isolate flex min-h-[min(820px,92vh)] w-full items-center justify-center overflow-hidden px-6 pb-20 pt-32 text-white sm:px-10",
                 background: "absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgb(8_18_27/78%),rgb(8_18_27/30%)_58%,rgb(8_18_27/55%))] bg-cover bg-center",
