@@ -14,6 +14,7 @@
       name: "Hero",
       pages: [
         { name: "PageHeroSimple", component: PageHeroSimple },
+        { name: "PageHeroSimple02", component: PageHeroSimple },
         { name: "PageHeroDual", component: PageHeroDual },
       ],
     },
@@ -157,6 +158,49 @@
                           descriptionProps: {
                             text: "Uma base flexível para criar interfaces consistentes, acelerar equipas e levar cada projecto mais longe.",
                           },
+                        },
+                      }}
+                    />
+                  {:else if page.name === "PageHeroSimple02"}
+                    <PageHeroSimple
+                      menuProps={{
+                        style: "ghost",
+                        logo: {
+                          src: "/favicon.png",
+                          alt: "Adventure",
+                          className: "size-9 rounded-full",
+                        },
+                        logoText: "Adventure",
+                        logoSubtitle: "by Negodesign",
+                        menus: [
+                          { href: "#home", textProps: { text: "Home" } },
+                          { href: "#about", textProps: { text: "About" } },
+                          { href: "#destination", textProps: { text: "Destination" } },
+                          { href: "#features", textProps: { text: "Features" } },
+                          { href: "#pricing", textProps: { text: "Pricing" } },
+                        ],
+                        buttonsProps: [
+                          { text: "Sign Up", variant: "outline" as const },
+                        ],
+                      }}
+                      sectionHeroProps={{
+                        style: "light",
+                        backgroundColor: "#eef5f6",
+                        textSectionProps: {
+                          layout: "light",
+                          subtitleProps: {
+                            text: "Planning Your Next Virtual Journey",
+                          },
+                          descriptionProps: {
+                            text: "Getting more focus in a minutes with a simple movement through virtual vibes",
+                          },
+                          buttonsProps: [
+                            { text: "Explore Now", variant: "solid" as const },
+                          ],
+                          imageUrl:
+                            "/illustration-gallery/illustrations-color-green/8439488_family_generations_activity_family%20gathering_play_icon.png",
+                          imageAlt:
+                            "Família de várias gerações a dançar e a divertir-se em conjunto",
                         },
                       }}
                     />

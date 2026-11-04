@@ -9,24 +9,42 @@
 </script>
 
 <header
-  class={StyleComponent.pages.hero.simple.root}
-  style:background-color={heroProps.backgroundColor ?? "#10212b"}
+  class={heroProps.style === "light"
+    ? StyleComponent.pages.hero.light.root
+    : StyleComponent.pages.hero.simple.root}
+  style:background-color={heroProps.style === "light"
+    ? "#eef5f6"
+    : (heroProps.backgroundColor ?? "#10212b")}
 >
-  {#if heroProps.backgroundMediaUrl}
+  {#if heroProps.style === "light"}
+    <div class={StyleComponent.pages.hero.light.backdrop} aria-hidden="true"></div>
+  {:else if heroProps.backgroundMediaUrl}
     <div
       class={StyleComponent.pages.hero.simple.background}
       style={`background-image: url("${heroProps.backgroundMediaUrl}")`}
       aria-hidden="true"
     ></div>
   {/if}
-  <div
-    class={StyleComponent.pages.hero.simple.overlay}
-    aria-hidden="true"
-  ></div>
+  {#if heroProps.style !== "light"}
+    <div
+      class={StyleComponent.pages.hero.simple.overlay}
+      aria-hidden="true"
+    ></div>
+    <div
+      class={StyleComponent.pages.hero.simple.shade}
+      style:opacity={Math.min(1, Math.max(0, heroProps.backgroundOverlayOpacity ?? 0.55))}
+      aria-hidden="true"
+    ></div>
+  {/if}
 
   {#if menuProps}
-    <aside class={StyleComponent.pages.hero.simple.navigation}>
-      <Menu {...menuProps} />
+    <aside class={heroProps.style === "light"
+      ? StyleComponent.pages.hero.light.navigation
+      : StyleComponent.pages.hero.simple.navigation}>
+      <Menu
+        {...menuProps}
+        style={heroProps.style === "light" ? "ghost" : "ghost-inverse"}
+      />
     </aside>
   {/if}
 

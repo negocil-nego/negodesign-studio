@@ -7,7 +7,10 @@ import type { SubmenuGridTitleProps } from "../../shared/submenu/grid/title/data
 export type MenuTypeProps = MenuTextProps | SubmenuGridTitleProps | SubmenuSidebarGridProps
 
 export type MenuProps = {
+    style?: "default" | "ghost" | "ghost-inverse"
     logo?: ImageProps
+    logoText?: string
+    logoSubtitle?: string
     menus?: MenuTypeProps[]
     buttonsProps?: ButtonProps[]
     defaultOpenSubmenu?: number | null

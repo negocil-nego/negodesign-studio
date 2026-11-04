@@ -15,7 +15,7 @@
   <div class={StyleComponent.pages.hero.dual.backdrop} aria-hidden="true"></div>
   {#if menuProps}
     <aside class={StyleComponent.pages.hero.dual.navigation}>
-      <Menu {...menuProps} />
+      <Menu {...menuProps} style={menuProps.style ?? "ghost"} />
     </aside>
   {/if}
 

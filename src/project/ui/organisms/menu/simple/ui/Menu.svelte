@@ -10,7 +10,10 @@
   import { StyleComponent } from "../../../../../../components/local/data/style.component";
 
   let {
+    style = "default",
     logo,
+    logoText,
+    logoSubtitle,
     menus = [],
     buttonsProps = [],
     defaultOpenSubmenu = null,
@@ -20,6 +23,8 @@
   let activeMenu = $derived(
     openSubmenu === null ? undefined : menus[openSubmenu],
   );
+  let isGhost = $derived(style === "ghost" || style === "ghost-inverse");
+  let isInverseGhost = $derived(style === "ghost-inverse");
 
   function isSidebarSubmenu(
     menu: MenuTypeProps,
@@ -59,19 +64,27 @@
   });
 </script>
 
-<nav class={StyleComponent.menu.navigation.root} aria-label="Menu principal">
-  <div class={StyleComponent.menu.navigation.bar}>
+<nav class={isGhost ? StyleComponent.menu.navigation.ghostRoot : StyleComponent.menu.navigation.root} aria-label="Menu principal">
+  <div class={isGhost ? StyleComponent.menu.navigation.ghostBar : StyleComponent.menu.navigation.bar}>
     <div class={StyleComponent.menu.navigation.logoContainer}>
       {#if logo}<Image {...logoProps} />{/if}
+      {#if logoText}
+        <div class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseBrand : StyleComponent.menu.navigation.ghostBrand}>
+          <span class={StyleComponent.menu.navigation.ghostBrandName}>{logoText}</span>
+          {#if logoSubtitle}
+            <span class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseBrandSubtitle : StyleComponent.menu.navigation.ghostBrandSubtitle}>{logoSubtitle}</span>
+          {/if}
+        </div>
+      {/if}
     </div>
 
-    <ul class={StyleComponent.menu.navigation.list}>
+    <ul class={isGhost ? StyleComponent.menu.navigation.ghostList : StyleComponent.menu.navigation.list}>
       {#each menus as menu, index (index)}
         <li class={StyleComponent.menu.navigation.item}>
           {#if isSubmenu(menu)}
             <button
               type="button"
-              class={StyleComponent.menu.navigation.submenuTrigger}
+              class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseSubmenuTrigger : style === "ghost" ? StyleComponent.menu.navigation.ghostSubmenuTrigger : StyleComponent.menu.navigation.submenuTrigger}
               aria-expanded={openSubmenu === index}
               aria-haspopup="true"
               onkeydown={(event) => {
@@ -88,7 +101,7 @@
               />
             </button>
           {:else if menu.href}
-            <a href={menu.href} class={StyleComponent.menu.navigation.link}>
+            <a href={menu.href} class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseLink : style === "ghost" ? StyleComponent.menu.navigation.ghostLink : StyleComponent.menu.navigation.link}>
               {#if menu.icon}
                 <Icon
                   name={menu.icon.name}
@@ -103,7 +116,7 @@
               {/if}
             </a>
           {:else}
-            <button type="button" class={StyleComponent.menu.navigation.link}>
+            <button type="button" class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseLink : style === "ghost" ? StyleComponent.menu.navigation.ghostLink : StyleComponent.menu.navigation.link}>
               {#if menu.icon}
                 <Icon
                   name={menu.icon.name}
@@ -122,9 +135,13 @@
       {/each}
     </ul>
 
-    <div class={StyleComponent.menu.navigation.actions}>
+    <div class={isGhost ? StyleComponent.menu.navigation.ghostActions : StyleComponent.menu.navigation.actions}>
       {#each buttonsProps as button, index (index)}
-        <Button {...button} />
+        <Button
+          {...button}
+          variant={isGhost ? "outline" : button.variant}
+          className={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseButton : style === "ghost" ? StyleComponent.menu.navigation.ghostButton : button.className}
+        />
       {/each}
     </div>
   </div>
