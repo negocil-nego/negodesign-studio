@@ -1,6 +1,8 @@
 <script lang="ts">
   import PageHeroSimple from "../../../../project/ui/pages/hero/simple/ui/PageHeroSimple.svelte";
   import PageHeroDual from "../../../../project/ui/pages/hero/dual/ui/PageHeroDual.svelte";
+  import PageHeroGrid from "../../../../project/ui/pages/hero/grid/ui/PageHeroGrid.svelte";
+  import type { PageHeroGridCardProps } from "../../../../project/ui/pages/hero/grid/data/types";
   import PageLogin from "../../../../project/ui/pages/login/simple/ui/PageLogin.svelte";
   import PageLoginDual from "../../../../project/ui/pages/login/dual-section/ui/PageLoginDual.svelte";
   import PageRegister from "../../../../project/ui/pages/register/simple/ui/PageRegister.svelte";
@@ -16,6 +18,7 @@
         { name: "PageHeroSimple", component: PageHeroSimple },
         { name: "PageHeroSimple02", component: PageHeroSimple },
         { name: "PageHeroDual", component: PageHeroDual },
+        { name: "PageHeroGrid", component: PageHeroGrid },
       ],
     },
     {
@@ -59,6 +62,99 @@
       },
     ],
   };
+
+  const heroGridCards: PageHeroGridCardProps[] = [
+    {
+      id: "feature",
+      colSpan: 5,
+      rowSpan: 7,
+      backgroundColor: "#2b292e",
+      imageUrl: "/img/ux-01.jpg",
+      imageAlt: "Equipe trabalhando em uma nova experiência digital",
+      imageMode: "cover",
+      showOverlay: true,
+      sectionCardProps: {
+        contentPosition: "start",
+        titleProps: { text: "CERKO / INTELLIGENCE" },
+        subtitleProps: { text: "Intelligence behind every decision." },
+        descriptionProps: {
+          text: "A clearer view of your work, your people and what comes next.",
+        },
+      },
+    },
+    {
+      id: "campaign",
+      colSpan: 7,
+      rowSpan: 3,
+      backgroundColor: "#f1bd50",
+      sectionCardProps: {
+        tone: "light",
+        contentPosition: "between",
+        titleProps: { text: "CERKO · AI FOR WORK" },
+        subtitleProps: { text: "Designed for modern workflows." },
+        descriptionProps: {
+          text: "Less busywork. Better decisions. More room to do your best work.",
+        },
+        buttonsProps: [
+          { text: "Try Cerko Free", variant: "outline" },
+        ],
+      },
+    },
+    {
+      id: "insights",
+      colSpan: 3,
+      rowSpan: 2,
+      backgroundColor: "#11131c",
+      imageUrl: "/img/programmer-01.jpg",
+      imageAlt: "Painel digital com dados e informações",
+      imageMode: "cover",
+      showOverlay: true,
+      sectionCardProps: {
+        subtitleProps: { text: "Find the signal in every workflow." },
+      },
+    },
+    {
+      id: "teamwork",
+      colSpan: 2,
+      rowSpan: 2,
+      backgroundColor: "#f3e9db",
+      imageUrl:
+        "/illustration-gallery/archive-bunsiness/8233824_team_target_aim_goal.png",
+      imageAlt: "Ilustração de uma equipe definindo objetivos em conjunto",
+      imageMode: "contain",
+    },
+    {
+      id: "decisions",
+      colSpan: 2,
+      rowSpan: 2,
+      backgroundColor: "#25232b",
+      imageUrl: "/img/8233822_career_businesswoman_coin_finance.png",
+      imageAlt: "Ilustração de uma profissional com uma moeda",
+      imageMode: "contain",
+    },
+    {
+      id: "brand",
+      colSpan: 4,
+      rowSpan: 2,
+      backgroundColor: "#f5e6ca",
+      sectionCardProps: {
+        tone: "light",
+        contentPosition: "center",
+        titleProps: { text: "CERKO" },
+        subtitleProps: { text: "Make the next move count." },
+      },
+    },
+    {
+      id: "people",
+      colSpan: 3,
+      rowSpan: 2,
+      backgroundColor: "#d2a878",
+      imageUrl:
+        "/illustration-gallery/archive-bunsiness/8233827_business_meeting_brainstorm_teamwork.png",
+      imageAlt: "Equipe colaborando em uma sessão de ideias",
+      imageMode: "contain",
+    },
+  ];
 </script>
 
 <div class="min-h-full w-full bg-blender-base p-4 md:p-6 xl:p-8">
@@ -129,14 +225,20 @@
           >
         </div>
 
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-5">
           {#each group.pages as page (page.name)}
             {@const PreviewComponent = page.component}
             <article
               class="group flex min-w-0 flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-500/60 hover:shadow-lg"
             >
               <div
-                class="relative aspect-[1.55] min-h-70 max-h-115 overflow-hidden bg-blender-base"
+                class={`relative overflow-hidden bg-blender-base ${
+                  page.name === "PageHeroGrid"
+                    ? "aspect-[1.05] min-h-80 max-h-170"
+                    : group.id === "hero"
+                      ? "min-h-70 flex-1"
+                      : "aspect-[1.55] min-h-70 max-h-115"
+                }`}
               >
                 <div
                   class="origin-top-left scale-75"
@@ -229,6 +331,8 @@
                         },
                       }}
                     />
+                  {:else if page.name === "PageHeroGrid"}
+                    <PageHeroGrid cards={heroGridCards} />
                   {:else}
                     <PreviewComponent />
                   {/if}
