@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "sidebar",
+      "name": "Sidebar",
+      "entry": {
+        "Svelte": "ui/Sidebar.svelte",
+        "React": "ui/Sidebar.tsx",
+        "Vue": "ui/Sidebar.vue",
+        "Flutter": "ui/Sidebar.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts",
+          "shared/sidebar-item/ui/SidebarItem.svelte",
+          "shared/sidebar-section/ui/SidebarSection.svelte",
+          "shared/sidebar-profile/ui/SidebarProfile.svelte"
+        ],
+        "React": [
+          "data/types.ts",
+          "shared/sidebar-item/ui/SidebarItem.tsx",
+          "shared/sidebar-section/ui/SidebarSection.tsx",
+          "shared/sidebar-profile/ui/SidebarProfile.tsx"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "shared/sidebar-item/ui/SidebarItem.vue",
+          "shared/sidebar-section/ui/SidebarSection.vue",
+          "shared/sidebar-profile/ui/SidebarProfile.vue"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "shared/sidebar-item/ui/SidebarItem.dart",
+          "shared/sidebar-section/ui/SidebarSection.dart",
+          "shared/sidebar-profile/ui/SidebarProfile.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": ["icon"],
+        "React": ["icon"],
+        "Vue": ["icon"],
+        "Flutter": []
+      },
+      "assets": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
+      "props": [
+        {
+          "name": "variant",
+          "type": "01 | 02 | 03 | 04",
+          "required": false,
+          "description": "Composição visual do menu lateral."
+        },
+        {
+          "name": "theme",
+          "type": "light | dark",
+          "required": false,
+          "description": "Tema claro ou escuro."
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "required": false,
+          "description": "Apresenta a navegação em formato compacto."
+        },
+        {
+          "name": "sections",
+          "type": "SidebarSectionProps[]",
+          "required": false,
+          "description": "Grupos e itens de navegação."
+        },
+        {
+          "name": "footerSections",
+          "type": "SidebarSectionProps[]",
+          "required": false,
+          "description": "Itens fixos apresentados no rodapé da navegação."
+        },
+        {
+          "name": "user",
+          "type": "SidebarProfileProps",
+          "required": false,
+          "description": "Perfil apresentado no rodapé."
+        }
+      ]
+    }
+  ]
+}

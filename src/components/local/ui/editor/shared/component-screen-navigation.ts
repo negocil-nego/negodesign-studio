@@ -3,7 +3,7 @@ export type ComponentScreenGroup = {
   badge: string;
   description: string;
   ids: string[];
-  type: "input" | "card" | "menu" | "carousel" | "grid" | "grid-carousel";
+  type: "input" | "card" | "menu" | "sidebar" | "carousel" | "grid" | "grid-carousel";
 };
 
 export const componentScreenNavigation: ComponentScreenGroup[] = [
@@ -41,6 +41,13 @@ export const componentScreenNavigation: ComponentScreenGroup[] = [
     type: "menu",
   },
   {
+    label: "Organisms · Sidebar",
+    badge: "Organism",
+    description: "Sidebars de navegação com secções, temas e modos compactos.",
+    ids: ["sidebar"],
+    type: "sidebar",
+  },
+  {
     label: "Organisms · Carousel",
     badge: "Organism",
     description: "Carousels de cartões para media, produtos e perfis.",
@@ -73,3 +80,7 @@ export const componentScreenNavigation: ComponentScreenGroup[] = [
     type: "grid-carousel",
   },
 ];
+
+
+
+

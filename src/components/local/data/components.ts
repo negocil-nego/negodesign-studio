@@ -559,6 +559,18 @@ export const componentCatalog: ComponentDefinition[] = [
     description: "Menu com submenu lateral e conteúdo organizado por secção.",
   },
   {
+    id: "sidebar",
+    name: "Sidebar",
+    label: "Sidebar",
+    category: "Input",
+    href: "/main/project/sidebar#sidebar",
+    sourceDirectory: "project/ui/organisms/sidebar",
+    dependence: "src/project/ui/organisms/sidebar/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism · Sidebar",
+    description: "Navegação lateral modular com quatro variações e suporte a temas claro e escuro.",
+  },
+  {
     id: "section-carousel-buttons",
     name: "SectionCarouselButtons",
     label: "Buttons",
@@ -900,3 +912,6 @@ export const componentNavigationGroups: ComponentNavigationGroup[] = [
     ],
   },
 ];
+
+
+

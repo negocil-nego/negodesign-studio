@@ -234,6 +234,11 @@
       description: "Menu de navegação com submenu lateral e conteúdo por secção.",
       componentId: "menu-simple",
     },
+    "sidebar": {
+      name: "Sidebar",
+      description: "Navegação lateral modular com quatro variações e suporte a temas claro e escuro.",
+      componentId: "sidebar",
+    },
     "section-carousel-buttons": {
       name: "SectionCarouselButtons",
       description: "Secção de carousel que recebe os cartões através de children.",
@@ -473,3 +478,5 @@
     >
   </nav>
 </section>
+
+
