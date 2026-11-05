@@ -4,6 +4,7 @@
   import DataTable from "../../../../project/ui/organisms/data-table/ui/DataTable.svelte";
   import Form from "../../../../project/ui/molecules/form/ui/form.svelte";
   import ModalForm from "../../../../project/ui/organisms/modal/form/ui/ModalForm.svelte";
+  import type { FormIt, FormProps } from "../../../../project/ui/molecules/form/data/types";
 
   let { 
     table, 
@@ -35,17 +36,60 @@
     };
   }
 
-  function getFormProps() {
-    return {
-      fields: table.columns
-        .filter((col: DatabaseColumn) => mappings[col.name] && mappings[col.name] !== "ignore")
-        .map((col: DatabaseColumn) => ({
+  function getFormProps(): FormProps {
+    if (!table || !table.columns) return { fields: [] };
+    
+    const fields = table.columns
+      .filter((col: DatabaseColumn) => {
+        const mapping = mappings[col.name];
+        return mapping && mapping !== "ignore" && mapping !== "column";
+      })
+      .map((col: DatabaseColumn) => {
+        const component = mappings[col.name];
+        const inputTypeByComponent: Record<string, string> = {
+          "input-text": "text",
+          "input-email": "email",
+          "input-password": "password",
+          "input-number": "number",
+          "input-date": "date",
+          "input-phone": "tel",
+          "input-age": "number",
+        };
+        const common = {
           id: col.name,
-          component: mappings[col.name] as any,
+          name: col.name,
+          component: component as any,
           label: col.name,
-          placeholder: `Introduza ${col.name}...`
-        }))
-    };
+          required: !col.nullable,
+          placeholder: `Introduza ${col.name}...`,
+        };
+
+        if (component?.startsWith("input-")) {
+          return {
+            ...common,
+            labelProps: { label: col.name, for: col.name },
+            inputProps: {
+              id: col.name,
+              name: col.name,
+              type: (inputTypeByComponent[component] ?? "text") as NonNullable<FormIt["inputProps"]>["type"],
+              required: !col.nullable,
+              placeholder: `Introduza ${col.name}...`,
+            },
+          };
+        }
+
+        return {
+          ...common,
+          ...(component === "textarea"
+            ? { labelProps: { label: col.name, for: col.name } }
+            : {}),
+          ...(component === "radio"
+            ? { options: [{ label: "Sim", value: "true" }, { label: "Não", value: "false" }] }
+            : {}),
+        };
+      });
+      
+    return { style: "grid" as const, fields };
   }
 </script>
 
@@ -73,8 +117,13 @@
               <option value="input-number">Número</option>
               <option value="input-date">Data</option>
               <option value="input-email">Email</option>
+              <option value="input-password">Palavra-passe</option>
+              <option value="input-phone">Telefone</option>
+              <option value="input-age">Idade</option>
               <option value="textarea">Área de Texto</option>
               <option value="toggle">Interruptor</option>
+              <option value="checkbox">Caixa de Verificação</option>
+              <option value="radio">Botão de Rádio</option>
             {/if}
           </select>
         </label>
@@ -89,28 +138,37 @@
         <p class="text-xs text-zinc-400">O componente reflecte as alterações de mapeamento em tempo real.</p>
       </div>
 
-      <div class="flex justify-center p-8 bg-blender-card rounded-xl border border-blender-border shadow-2xl overflow-x-auto min-h-[300px]">
+      <div class="flex justify-center p-8 bg-blender-card rounded-xl border border-blender-border shadow-2xl overflow-x-auto min-h-[400px]">
         {#if selectedComponentId === 'data-table'}
           <DataTable {...getTableProps()} />
         {:else if selectedComponentId === 'form'}
-          <Form {...getFormProps()} />
+          <div class="w-full max-w-2xl">
+            <Form {...getFormProps()} />
+          </div>
         {:else if selectedComponentId === 'modal-form'}
-          <div class="text-center space-y-4">
-            <p class="text-xs text-zinc-500 italic">O formulário será apresentado dentro de um diálogo.</p>
-            <button 
-              class={StyleComponent.migration.primaryButton}
+          <div class="flex w-full flex-col items-center gap-4">
+            <div class="w-full max-w-2xl rounded-xl border border-blender-border bg-blender-base p-6 shadow-sm">
+              <div class="mb-5 border-b border-blender-border pb-3">
+                <h2 class="text-base font-semibold text-zinc-100">Formulário: {table.name}</h2>
+                <p class="mt-1 text-xs text-zinc-400">Pré-visualização do formulário que será apresentado no modal.</p>
+              </div>
+              <Form {...getFormProps()} />
+              <div class="mt-5 flex justify-end">
+                <button class={StyleComponent.migration.primaryButton} onclick={() => isModalOpen = true}>
+                  Abrir no modal
+                </button>
+              </div>
+            </div>
+            <button
+              class={StyleComponent.migration.ghostButton}
               onclick={() => isModalOpen = true}
             >
-              Abrir Modal Exemplo
+              Abrir modal interactivo
             </button>
-            <div class="opacity-50 pointer-events-none scale-90 origin-top">
-              <Form {...getFormProps()} />
-            </div>
-
             {#if isModalOpen}
-              <ModalForm 
-                open={isModalOpen} 
-                onClose={() => isModalOpen = false} 
+              <ModalForm
+                open={isModalOpen}
+                onClose={() => isModalOpen = false}
                 title={`Formulário: ${table.name}`}
                 form={getFormProps()}
               />

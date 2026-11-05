@@ -51,13 +51,22 @@
 
   function selectComponent(comp: ComponentDefinition) {
     if (!comp) return;
-    selectedComponent = comp;
-    mappings = inferMappings(comp.id);
-    step = "mapping";
+    try {
+      // Garantir que criamos um novo objecto de mappings para disparar reactividade
+      const newMappings = inferMappings(comp.id);
+      
+      // Actualizar estados
+      selectedComponent = comp;
+      mappings = newMappings;
+      step = "mapping";
+    } catch (e) {
+      console.error("Error transitioning to mapping step:", e);
+    }
   }
 
   function handleMappingChange(key: string, value: string) {
-    mappings = { ...mappings, [key]: value };
+    if (!mappings) mappings = {};
+    mappings[key] = value;
   }
 </script>
 
