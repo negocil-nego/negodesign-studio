@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { StyleComponent } from "../../data/style.component";
-  import { connectDatabase, type DatabaseDriver } from "../../data/migration";
+  import { connectDatabase, connectSavedDatabase, listSavedDatabaseConnections, type DatabaseConnection, type DatabaseDriver, type SavedDatabaseConnection } from "../../data/migration";
 
   let {
     oncomplete,
@@ -20,6 +21,15 @@
   let password = $state("");
   let connecting = $state(false);
   let errorMessage = $state("");
+  let recentConnections = $state<SavedDatabaseConnection[]>([]);
+
+  onMount(async () => {
+    try {
+      recentConnections = await listSavedDatabaseConnections();
+    } catch (error) {
+      console.error("Não foi possível carregar as ligações recentes:", error);
+    }
+  });
 
   function selectDriver(id: DatabaseDriver) {
     const target = drivers.find((item) => item.id === id);
@@ -30,10 +40,29 @@
 
   async function submit(event: SubmitEvent) {
     event.preventDefault();
+    await connectAndOpen({ driver, host, port: Number(port), database, user, password });
+  }
+
+  async function connectAndOpen(connection: DatabaseConnection) {
     connecting = true;
     errorMessage = "";
     try {
-      await connectDatabase({ driver, host, port: Number(port), database, user, password });
+      await connectDatabase(connection);
+      recentConnections = await listSavedDatabaseConnections();
+      oncomplete();
+    } catch (error) {
+      errorMessage = error instanceof Error ? error.message : String(error);
+    } finally {
+      connecting = false;
+    }
+  }
+
+  async function useRecent(connection: SavedDatabaseConnection) {
+    connecting = true;
+    errorMessage = "";
+    try {
+      await connectSavedDatabase(connection.id);
+      recentConnections = await listSavedDatabaseConnections();
       oncomplete();
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : String(error);
@@ -50,7 +79,7 @@
   onkeydown={(event) => event.key === "Escape" && !connecting && oncancel()}
 >
   <div
-    class="{StyleComponent.migration.dialog} max-w-md"
+    class="{StyleComponent.migration.dialog} max-h-[90vh] max-w-md overflow-y-auto"
     role="dialog"
     aria-modal="true"
     aria-labelledby="db-dialog-title"
@@ -107,6 +136,28 @@
         <input class={StyleComponent.migration.field} type="password" bind:value={password} disabled={connecting} autocomplete="current-password" />
       </label>
     </div>
+
+    {#if recentConnections.length}
+      <section class="mt-5 space-y-2" aria-label="Ligações recentes">
+        <h3 class={StyleComponent.migration.label}>Ligações recentes</h3>
+        <div class="max-h-36 space-y-2 overflow-y-auto">
+          {#each recentConnections as connection (connection.id)}
+            <button
+              type="button"
+              class="flex w-full items-center justify-between gap-3 rounded-lg border border-blender-border bg-blender-base px-3 py-2 text-left transition hover:border-blue-500/60 hover:bg-blender-hover disabled:opacity-50"
+              onclick={() => useRecent(connection)}
+              disabled={connecting}
+            >
+              <span class="min-w-0">
+                <span class="block truncate text-xs font-medium text-zinc-200">{connection.database}</span>
+                <span class="block truncate text-[10px] text-zinc-500">{connection.driver === "postgres" ? "PostgreSQL" : "MySQL"} · {connection.host}:{connection.port} · {connection.user}</span>
+              </span>
+              <span class="shrink-0 text-[10px] font-semibold text-blue-400">Ligar</span>
+            </button>
+          {/each}
+        </div>
+      </section>
+    {/if}
 
     {#if errorMessage}<p class={StyleComponent.migration.error} role="alert">{errorMessage}</p>{/if}
 

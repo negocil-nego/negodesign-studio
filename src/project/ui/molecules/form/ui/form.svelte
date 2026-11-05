@@ -24,12 +24,14 @@
     style = "grid",
     className,
     fields = [],
+    submitLabel,
     onSubmit,
   }: FormProps = $props();
 
   function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-    onSubmit?.();
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
+    onSubmit?.(Object.fromEntries(formData.entries()));
   }
 </script>
 
@@ -82,4 +84,9 @@
       {/if}
     </div>
   {/each}
+  {#if submitLabel}
+    <div class="flex justify-end md:col-span-2">
+      <button type="submit" class="rounded-md bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-500">{submitLabel}</button>
+    </div>
+  {/if}
 </form>

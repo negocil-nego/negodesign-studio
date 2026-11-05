@@ -1,6 +1,6 @@
 <script lang="ts">
   import { StyleComponent } from "../../data/style.component";
-  import { fetchOpenApi } from "../../data/migration";
+  import { fetchOpenApi, importOpenApiFile } from "../../data/migration";
 
   let {
     oncomplete,
@@ -10,6 +10,7 @@
   let url = $state("");
   let loading = $state(false);
   let errorMessage = $state("");
+  let sourceMode = $state<"url" | "file">("url");
 
   async function submit(event: SubmitEvent) {
     event.preventDefault();
@@ -17,6 +18,26 @@
     errorMessage = "";
     try {
       await fetchOpenApi(url.trim());
+      oncomplete();
+    } catch (error) {
+      errorMessage = error instanceof Error ? error.message : String(error);
+    } finally {
+      loading = false;
+    }
+  }
+
+  async function chooseFile() {
+    loading = true;
+    errorMessage = "";
+    try {
+      const { open } = await import("@tauri-apps/plugin-dialog");
+      const path = await open({
+        multiple: false,
+        title: "Seleccionar ficheiro OpenAPI",
+        filters: [{ name: "OpenAPI", extensions: ["json", "yaml", "yml"] }],
+      });
+      if (!path || Array.isArray(path)) return;
+      await importOpenApiFile(path);
       oncomplete();
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : String(error);
@@ -43,7 +64,7 @@
       <div>
         <h2 id="openapi-dialog-title" class="text-base font-semibold text-zinc-100">Importar OpenApi</h2>
         <p class="mt-1 text-xs leading-5 text-zinc-400">
-          Indique a rota da documentação Swagger/OpenAPI (JSON).
+          Importe OpenAPI por URL ou seleccione um ficheiro JSON/YAML.
         </p>
       </div>
       <button
@@ -55,17 +76,20 @@
       >
     </div>
 
-    <label class="mt-5 block">
-      <span class={StyleComponent.migration.label}>Rota da documentação</span>
-      <input
-        class={StyleComponent.migration.field}
-        type="url"
-        bind:value={url}
-        required
-        disabled={loading}
-        placeholder="https://api.exemplo.com/v3/api-docs"
-      />
-    </label>
+    <div class="mt-5 flex gap-2">
+      <button type="button" class="{StyleComponent.migration.driverTab} {sourceMode === 'url' ? StyleComponent.migration.driverTabActive : ''}" onclick={() => sourceMode = "url"}>URL</button>
+      <button type="button" class="{StyleComponent.migration.driverTab} {sourceMode === 'file' ? StyleComponent.migration.driverTabActive : ''}" onclick={() => sourceMode = "file"}>Ficheiro JSON/YAML</button>
+    </div>
+    {#if sourceMode === "url"}
+      <label class="mt-4 block">
+        <span class={StyleComponent.migration.label}>URL OpenAPI</span>
+        <input class={StyleComponent.migration.field} type="url" bind:value={url} required disabled={loading} placeholder="http://localhost:8080/v3/api-docs" />
+      </label>
+    {:else}
+      <button type="button" class="{StyleComponent.migration.ghostButton} mt-4 w-full" onclick={chooseFile} disabled={loading}>
+        {loading ? "A importar…" : "Seleccionar ficheiro JSON, YAML ou YML"}
+      </button>
+    {/if}
 
     {#if errorMessage}<p class={StyleComponent.migration.error} role="alert">{errorMessage}</p>{/if}
 
@@ -73,9 +97,9 @@
       <button type="button" class={StyleComponent.migration.ghostButton} onclick={oncancel} disabled={loading}>
         Cancelar
       </button>
-      <button type="submit" class={StyleComponent.migration.primaryButton} disabled={loading || !url.trim()}>
+      {#if sourceMode === "url"}<button type="submit" class={StyleComponent.migration.primaryButton} disabled={loading || !url.trim()}>
         {loading ? "A extrair…" : "Extrair entidades"}
-      </button>
+      </button>{/if}
     </div>
     </form>
   </div>

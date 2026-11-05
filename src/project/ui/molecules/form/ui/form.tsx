@@ -15,7 +15,7 @@ function Field({ field }: { field: FormIt }) {
   return <label className="block space-y-1 text-sm">{label}<input {...common} type={type} className={StyleComponent.input.form} /></label>;
 }
 
-export default function Form({ style = "grid", className = "", fields = [], onSubmit }: FormProps) {
-  const submit = (event: FormEvent) => { event.preventDefault(); onSubmit?.(); };
-  return <form className={`w-full grid grid-cols-1 ${style === "grid" ? "md:grid-cols-2" : ""} gap-4 ${className}`} onSubmit={submit}>{fields.map((field, i) => <div key={field.id ?? `${field.component ?? field.type}-${i}`}><Field field={field} /></div>)}</form>;
+export default function Form({ style = "grid", className = "", fields = [], submitLabel, onSubmit }: FormProps) {
+  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); onSubmit?.(Object.fromEntries(new FormData(event.currentTarget).entries())); };
+  return <form className={`w-full grid grid-cols-1 ${style === "grid" ? "md:grid-cols-2" : ""} gap-4 ${className}`} onSubmit={submit}>{fields.map((field, i) => <div key={field.id ?? `${field.component ?? field.type}-${i}`}><Field field={field} /></div>)}{submitLabel && <div className="flex justify-end md:col-span-2"><button type="submit" className="rounded-md bg-blue-600 px-4 py-2 text-xs font-semibold text-white">{submitLabel}</button></div>}</form>;
 }

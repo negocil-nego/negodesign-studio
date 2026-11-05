@@ -575,7 +575,7 @@ export const componentCatalog: ComponentDefinition[] = [
     name: "DataTable",
     label: "Data table",
     category: "Input",
-    href: "/main/project/data-table#data-table",
+    href: "/main/project#data-table",
     sourceDirectory: "project/ui/organisms/data-table",
     dependence: "src/project/ui/organisms/data-table/dependence.json",
     icon: IconNamed.Layout04,

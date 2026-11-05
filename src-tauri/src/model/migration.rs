@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct DatabaseConnection {
     pub driver: String,
     pub host: String,
@@ -8,6 +9,18 @@ pub struct DatabaseConnection {
     pub database: String,
     pub user: String,
     pub password: String,
+}
+
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SavedDatabaseConnection {
+    pub id: i64,
+    pub driver: String,
+    pub host: String,
+    pub port: u16,
+    pub database: String,
+    pub user: String,
+    pub last_connected: String,
 }
 
 #[derive(Debug, Serialize)]
@@ -35,8 +48,22 @@ pub struct OpenApiField {
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct OpenApiEntity {
     pub name: String,
     pub kind: String,
     pub fields: Vec<OpenApiField>,
+    #[serde(default)]
+    pub operations: Vec<OpenApiOperation>,
+    #[serde(default)]
+    pub server_url: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenApiOperation {
+    pub method: String,
+    pub path: String,
+    pub operation_id: Option<String>,
+    pub summary: Option<String>,
 }

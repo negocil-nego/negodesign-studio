@@ -1,6 +1,6 @@
 use crate::{
     model::{
-        migration::{DatabaseConnection, DatabaseTable, OpenApiEntity},
+        migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
         project::{ComponentExport, ComponentFile, ComponentInstallResult, Project},
     },
     repository::{database_repository, openapi_repository, project_repository},
@@ -42,11 +42,26 @@ pub fn install_component(
 }
 
 #[tauri::command]
-pub fn connect_database(connection: DatabaseConnection) -> Result<Vec<DatabaseTable>, String> {
-    database_repository::inspect(&connection)
+pub fn connect_database(app: AppHandle, connection: DatabaseConnection) -> Result<Vec<DatabaseTable>, String> {
+    database_repository::inspect_and_save(&app, &connection)
+}
+
+#[tauri::command]
+pub fn list_saved_database_connections(app: AppHandle) -> Result<Vec<SavedDatabaseConnection>, String> {
+    database_repository::list_saved_connections(&app)
+}
+
+#[tauri::command]
+pub fn connect_saved_database(app: AppHandle, id: i64) -> Result<Vec<DatabaseTable>, String> {
+    database_repository::inspect_saved_connection(&app, id)
 }
 
 #[tauri::command]
 pub fn fetch_openapi(url: String) -> Result<Vec<OpenApiEntity>, String> {
     openapi_repository::extract(&url)
+}
+
+#[tauri::command]
+pub fn import_openapi_file(path: String) -> Result<Vec<OpenApiEntity>, String> {
+    openapi_repository::extract_file(&path)
 }

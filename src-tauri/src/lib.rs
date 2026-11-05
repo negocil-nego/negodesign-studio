@@ -15,7 +15,10 @@ pub fn run() {
             commands::set_active_project,
             commands::install_component,
             commands::connect_database,
-            commands::fetch_openapi
+            commands::list_saved_database_connections,
+            commands::connect_saved_database,
+            commands::fetch_openapi,
+            commands::import_openapi_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

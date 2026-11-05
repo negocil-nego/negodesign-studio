@@ -103,5 +103,6 @@ export type FormProps = {
   style?: 'inline' | 'grid'
   className?: string
   fields?: FormIt[];
-  onSubmit?: () => void;
+  submitLabel?: string;
+  onSubmit?: (values?: Record<string, unknown>) => void;
 };

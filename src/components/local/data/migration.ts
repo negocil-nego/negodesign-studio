@@ -13,6 +13,11 @@ export type DatabaseConnection = {
   password: string;
 };
 
+export type SavedDatabaseConnection = Omit<DatabaseConnection, "password"> & {
+  id: number;
+  lastConnected: string;
+};
+
 export type DatabaseColumn = {
   name: string;
   dataType: string;
@@ -39,6 +44,15 @@ export type OpenApiEntity = {
   name: string;
   kind: OpenApiEntityKind;
   fields: OpenApiField[];
+  operations: OpenApiOperation[];
+  serverUrl?: string | null;
+};
+
+export type OpenApiOperation = {
+  method: string;
+  path: string;
+  operationId?: string | null;
+  summary?: string | null;
 };
 
 export const databaseTables = writable<DatabaseTable[]>([]);
@@ -52,8 +66,24 @@ export async function connectDatabase(
   return tables;
 }
 
+export async function listSavedDatabaseConnections(): Promise<SavedDatabaseConnection[]> {
+  return invoke<SavedDatabaseConnection[]>("list_saved_database_connections");
+}
+
+export async function connectSavedDatabase(id: number): Promise<DatabaseTable[]> {
+  const tables = await invoke<DatabaseTable[]>("connect_saved_database", { id });
+  databaseTables.set(tables);
+  return tables;
+}
+
 export async function fetchOpenApi(url: string): Promise<OpenApiEntity[]> {
   const entities = await invoke<OpenApiEntity[]>("fetch_openapi", { url });
+  openApiEntities.set(entities);
+  return entities;
+}
+
+export async function importOpenApiFile(path: string): Promise<OpenApiEntity[]> {
+  const entities = await invoke<OpenApiEntity[]>("import_openapi_file", { path });
   openApiEntities.set(entities);
   return entities;
 }
