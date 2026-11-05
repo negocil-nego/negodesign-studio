@@ -2,10 +2,10 @@
   import { goto } from "$app/navigation";
   import { StyleComponent } from "../../data/style.component";
   import DatabaseConnectDialog from "./DatabaseConnectDialog.svelte";
-  import OpenApiConnectDialog from "./OpenApiConnectDialog.svelte";
+  import ApiDocsSection from "./ApiDocsSection.svelte";
 
   let { onclose }: { onclose: () => void } = $props();
-  let activeDialog = $state<"database" | "openapi" | null>(null);
+  let activeDialog = $state<"database" | "apidocs" | null>(null);
 
   function finish(path: string) {
     activeDialog = null;
@@ -31,12 +31,12 @@
     <button
       type="button"
       class={StyleComponent.migration.optionCard}
-      onclick={() => (activeDialog = "openapi")}
+      onclick={() => (activeDialog = "apidocs")}
     >
       <span class={StyleComponent.migration.optionIcon} aria-hidden="true">◈</span>
-      <span class={StyleComponent.migration.optionTitle}>OpenApi</span>
+      <span class={StyleComponent.migration.optionTitle}>ApiDocs</span>
       <span class={StyleComponent.migration.optionHint}>
-        Indique a rota Swagger/OpenAPI e extraia as entidades (response, dto).
+        Ligue-se ao OpenAPI/Swagger por URL ou ficheiro JSON/YAML e componentize os DTOs e responses.
       </span>
     </button>
   </div>
@@ -47,9 +47,15 @@
     oncomplete={() => finish("/main/database")}
     oncancel={() => (activeDialog = null)}
   />
-{:else if activeDialog === "openapi"}
-  <OpenApiConnectDialog
-    oncomplete={() => finish("/main/openapi")}
-    oncancel={() => (activeDialog = null)}
-  />
+{:else if activeDialog === "apidocs"}
+  <div
+    class={StyleComponent.migration.overlay}
+    role="presentation"
+    onclick={(e) => e.target === e.currentTarget && (activeDialog = null)}
+    onkeydown={(e) => e.key === "Escape" && (activeDialog = null)}
+  >
+    <div class="{StyleComponent.migration.dialog} max-w-lg">
+      <ApiDocsSection onclose={() => finish("/main/openapi")} />
+    </div>
+  </div>
 {/if}
