@@ -571,6 +571,18 @@ export const componentCatalog: ComponentDefinition[] = [
     description: "Navegação lateral modular com quatro variações e suporte a temas claro e escuro.",
   },
   {
+    id: "data-table",
+    name: "DataTable",
+    label: "Data table",
+    category: "Input",
+    href: "/main/project#data-table",
+    sourceDirectory: "project/ui/organisms/data-table",
+    dependence: "src/project/ui/organisms/data-table/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism · Data Table",
+    description: "Tabela de dados responsiva com cinco variações, ordenação, selecção e paginação.",
+  },
+  {
     id: "section-carousel-buttons",
     name: "SectionCarouselButtons",
     label: "Buttons",

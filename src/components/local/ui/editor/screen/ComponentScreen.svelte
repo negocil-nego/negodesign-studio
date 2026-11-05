@@ -9,7 +9,7 @@
   import Tabs from "../shared/Tabs.svelte";
 
   type ScreenGroupType = (typeof componentScreenNavigation)[number]["type"];
-  type ScreenLoader = () => Promise<{ default: any }>;
+  type ScreenLoader = () => Promise<any>;
 
   const catalogById = Object.fromEntries(
     componentCatalog.map((component) => [component.id, component]),
@@ -32,6 +32,7 @@
     card: () => import("./CardScreen.svelte"),
     menu: () => import("./MenuScreen.svelte"),
     sidebar: () => import("./SidebarScreen.svelte"),
+    "data-table": () => import("./DataTableScreen.svelte"),
     carousel: () => import("./CarouselScreen.svelte"),
     grid: () => import("./GridScreen.svelte"),
     "grid-carousel": () => import("./GridCarouselScreen.svelte"),
@@ -70,6 +71,7 @@
 
     if (
       activeGroup.type === "menu" ||
+      activeGroup.type === "data-table" ||
       activeGroup.type === "carousel" ||
       activeGroup.type === "grid" ||
       activeGroup.type === "grid-carousel"

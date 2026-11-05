@@ -106,7 +106,7 @@
     {/if}
 
     <div class="min-h-0 flex-1 space-y-3 overflow-y-auto">
-      {#each sections as section (section.title)}
+      {#each sections as section, index (`${section.title ?? "section"}-${index}`)}
         <SidebarSection
           {section}
           compact={compact}
@@ -141,7 +141,7 @@
 
     {#if footerSections.length}
       <div class="space-y-1 border-t border-current/10 py-3">
-        {#each footerSections as section (section.title)}
+        {#each footerSections as section, index (`footer-${section.title ?? "section"}-${index}`)}
           <SidebarSection {section} compact={compact} {dark} />
         {/each}
       </div>

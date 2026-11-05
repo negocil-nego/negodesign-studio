@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "data-table",
+      "name": "DataTable",
+      "entry": {
+        "Svelte": "ui/DataTable.svelte",
+        "React": "ui/DataTable.tsx",
+        "Vue": "ui/DataTable.vue",
+        "Flutter": "ui/DataTable.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts", "data/examples.ts"],
+        "React": ["data/types.ts", "data/examples.ts"],
+        "Vue": ["data/types.ts", "data/examples.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": { "Svelte": ["icon"], "React": [], "Vue": [], "Flutter": [] },
+      "assets": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
+      "props": [
+        { "name": "variant", "type": "01 | 02 | 03 | 04 | 05", "required": false, "description": "Variação visual e conjunto de dados da tabela." },
+        { "name": "title", "type": "string", "required": false, "description": "Título acessível ou visível da tabela." },
+        { "name": "columns", "type": "DataTableColumn[]", "required": false, "description": "Colunas a apresentar, com chave e cabeçalho." },
+        { "name": "rows", "type": "DataTableRow[]", "required": false, "description": "Linhas a apresentar, com identificador e valores das células." }
+      ]
+    }
+  ]
+}

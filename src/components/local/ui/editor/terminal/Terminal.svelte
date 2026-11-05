@@ -239,6 +239,11 @@
       description: "Navegação lateral modular com quatro variações e suporte a temas claro e escuro.",
       componentId: "sidebar",
     },
+    "data-table": {
+      name: "DataTable",
+      description: "Tabela de dados responsiva com cinco variações visuais.",
+      componentId: "data-table",
+    },
     "section-carousel-buttons": {
       name: "SectionCarouselButtons",
       description: "Secção de carousel que recebe os cartões através de children.",
@@ -306,7 +311,14 @@
     },
   };
 
-  const info = $derived(componentInfo[id]);
+  const info = $derived(
+    componentInfo[id] ??
+      (id.startsWith("sidebar-")
+        ? { ...componentInfo.sidebar, name: name ?? componentInfo.sidebar.name }
+        : id.startsWith("data-table-")
+          ? { ...componentInfo["data-table"], name: name ?? componentInfo["data-table"].name }
+          : undefined),
+  );
 
   async function copyToProject() {
     if (!info) return;

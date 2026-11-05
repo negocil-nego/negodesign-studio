@@ -12,3 +12,11 @@
   </div>
   {@render children()}
 </div>
+
+<style>
+  :global(html),
+  :global(body) {
+    height: 100%;
+    overflow: hidden;
+  }
+</style>

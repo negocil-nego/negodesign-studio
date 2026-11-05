@@ -4,7 +4,7 @@
 </script>
 
 <div
-  class="my-2 flex h-auto min-h-0 min-w-0 flex-1 items-start justify-center overflow-visible bg-blender-base"
+  class="flex min-h-0 min-w-0 flex-1 items-start justify-center overflow-x-hidden overflow-y-auto bg-blender-base"
 >
   {#if children}
     {@render children()}
