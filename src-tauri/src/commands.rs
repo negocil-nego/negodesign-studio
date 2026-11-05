@@ -1,6 +1,9 @@
 use crate::{
-    model::project::{ComponentExport, ComponentFile, ComponentInstallResult, Project},
-    repository::project_repository,
+    model::{
+        migration::{DatabaseConnection, DatabaseTable, OpenApiEntity},
+        project::{ComponentExport, ComponentFile, ComponentInstallResult, Project},
+    },
+    repository::{database_repository, openapi_repository, project_repository},
 };
 use tauri::AppHandle;
 
@@ -36,4 +39,14 @@ pub fn install_component(
     components: Vec<ComponentExport>,
 ) -> Result<ComponentInstallResult, String> {
     project_repository::install_component(&app, files, components)
+}
+
+#[tauri::command]
+pub fn connect_database(connection: DatabaseConnection) -> Result<Vec<DatabaseTable>, String> {
+    database_repository::inspect(&connection)
+}
+
+#[tauri::command]
+pub fn fetch_openapi(url: String) -> Result<Vec<OpenApiEntity>, String> {
+    openapi_repository::extract(&url)
 }

@@ -333,9 +333,15 @@ fn build_index(language: &str, components: &mut [ComponentExport]) -> Result<Str
         }
     }
     if language != "Flutter" {
-        index.push_str(
-            "\nif (typeof document !== \"undefined\" && !document.querySelector('link[data-negodesign-hugeicons]')) {\n  const hugeiconsStylesheet = document.createElement(\"link\");\n  hugeiconsStylesheet.rel = \"stylesheet\";\n  hugeiconsStylesheet.href = \"/hugeicons/css/hugeicons.css\";\n  hugeiconsStylesheet.dataset.negodesignHugeicons = \"true\";\n  document.head.append(hugeiconsStylesheet);\n}\n",
-        );
+        // Em projectos Svelte os assets públicos são instalados em `static/nego`.
+        let hugeicons_href = if language == "Svelte" {
+            "/nego/hugeicons/css/hugeicons.css"
+        } else {
+            "/hugeicons/css/hugeicons.css"
+        };
+        index.push_str(&format!(
+            "\nif (typeof document !== \"undefined\" && !document.querySelector('link[data-negodesign-hugeicons]')) {{\n  const hugeiconsStylesheet = document.createElement(\"link\");\n  hugeiconsStylesheet.rel = \"stylesheet\";\n  hugeiconsStylesheet.href = \"{hugeicons_href}\";\n  hugeiconsStylesheet.dataset.negodesignHugeicons = \"true\";\n  document.head.append(hugeiconsStylesheet);\n}}\n",
+        ));
     }
     Ok(index)
 }

@@ -13,7 +13,9 @@ pub fn run() {
             commands::list_active_project_components,
             commands::save_project,
             commands::set_active_project,
-            commands::install_component
+            commands::install_component,
+            commands::connect_database,
+            commands::fetch_openapi
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

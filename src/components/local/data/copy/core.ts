@@ -27,6 +27,10 @@ export type ComponentCopyResult = {
   exportedComponents: number;
   project: ProjectRecord;
 };
+export type ComponentCopyOptions = {
+  /** Subpasta de `static/` onde os assets públicos do componente são instalados (ex.: "nego"). */
+  staticDirectory?: string;
+};
 type ManifestRecord = {
   directory: string;
   path: string;
@@ -117,6 +121,37 @@ function assetsFor(
   return component.assets[language] ?? [];
 }
 
+/** Pastas públicas referenciadas por caminho absoluto nos componentes (ex.: /flags/4x3/us.svg). */
+const PUBLIC_ASSET_DIRECTORIES = ["hugeicons", "flags", "styles"];
+
+function rewritePublicAssetPaths(content: string, directory: string): string {
+  if (content.startsWith("base64:")) return content;
+  let rewritten = content;
+  for (const segment of PUBLIC_ASSET_DIRECTORIES) {
+    rewritten = rewritten.replaceAll(`/${segment}/`, `/${directory}/${segment}/`);
+  }
+  return rewritten;
+}
+
+/**
+ * Move os assets de `static/` para uma subpasta (ex.: `static/nego`) e reescreve os
+ * caminhos absolutos usados pelos componentes, para que continuem a resolver no
+ * projecto de destino.
+ */
+function relocateStaticAssets(
+  filesByPath: Map<string, string>,
+  directory: string,
+): Map<string, string> {
+  const relocated = new Map<string, string>();
+  for (const [path, content] of filesByPath) {
+    const target = path.startsWith("static/")
+      ? `static/${directory}/${path.slice("static/".length)}`
+      : path;
+    relocated.set(target, rewritePublicAssetPaths(content, directory));
+  }
+  return relocated;
+}
+
 function addSource(
   path: string,
   filesByPath: Map<string, string>,
@@ -180,6 +215,7 @@ export async function copyComponentForProject(
   project: ProjectRecord,
   manifestLanguage: ProjectLanguage,
   selectedLocales: string[] = Object.keys(translations),
+  options: ComponentCopyOptions = {},
 ): Promise<ComponentCopyResult> {
   const filesByPath = new Map<string, string>();
   const exportedById = new Map<string, ComponentExport>();
@@ -257,7 +293,10 @@ export async function copyComponentForProject(
   }
   await collect(componentId, definition.dependence);
 
-  const files: ProjectSourceFile[] = [...filesByPath].map(([path, content]) => ({
+  const collectedFiles = options.staticDirectory
+    ? relocateStaticAssets(filesByPath, options.staticDirectory)
+    : filesByPath;
+  const files: ProjectSourceFile[] = [...collectedFiles].map(([path, content]) => ({
     path,
     content,
   }));
