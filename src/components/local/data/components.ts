@@ -762,6 +762,18 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Organism · Modal",
     description: "Modal que apresenta um formulário configurado através das propriedades do componente Form.",
   },
+  {
+    id: "form",
+    name: "Form",
+    label: "Form",
+    category: "Input",
+    href: "/main/project/form#form",
+    sourceDirectory: "project/ui/molecules/form",
+    dependence: "src/project/ui/molecules/form/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Organism",
+    description: "Formulário composto por múltiplos campos.",
+  },
 ];
 
 // ─── Navigation groups (Atomic Design) ──────────────────────────────────────

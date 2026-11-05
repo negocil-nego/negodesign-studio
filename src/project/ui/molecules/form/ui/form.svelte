@@ -18,25 +18,6 @@
   import InputUsernameOrPhone from "../../../atoms/input/children/username/varient/username-or-phone/ui/InputUsernameOrPhone.svelte";
   import InputOtp from "../../../atoms/input/children/otp/ui/InputOtp.svelte";
   import InputTime from "../../../atoms/input/children/time/ui/InputTime.svelte";
-  import type { SelectProps } from "../../../atoms/select/data/types";
-  import type { CheckboxProps } from "../../../atoms/checkbox/data/types";
-  import type { RadioProps } from "../../../atoms/radio/data/types";
-  import type { ToggleProps } from "../../../atoms/toggle/data/types";
-  import type { TextareaProps } from "../../../atoms/textarea/data/types";
-  import type { InputLabelProps } from "../../../atoms/input/children/label/data/types";
-  import type { InputAgeProps } from "../../../atoms/input/children/age/data/types";
-  import type { InputDateProps } from "../../../atoms/input/children/date/data/types";
-  import type { InputEmailProps } from "../../../atoms/input/children/email/data/types";
-  import type { InputNumberProps } from "../../../atoms/input/children/number/data/types";
-  import type { InputPasswordProps } from "../../../atoms/input/children/password/data/types";
-  import type { InputPhoneProps } from "../../../atoms/input/children/phone/data/types";
-  import type { InputPhoneFlagProps } from "../../../atoms/input/children/phone/varient/flag/data/types";
-  import type { InputTextProps } from "../../../atoms/input/children/text/data/types";
-  import type { InputUsernameProps } from "../../../atoms/input/children/username/data/types";
-  import type { InputUsernameOrEmailProps } from "../../../atoms/input/children/username/varient/username-or-email/data/types";
-  import type { InputUsernameOrPhoneProps } from "../../../atoms/input/children/username/varient/username-or-phone/data/types";
-  import type { InputOtpProps } from "../../../atoms/input/children/otp/data/types";
-  import type { InputTimeProps } from "../../../atoms/input/children/time/data/types";
   import type { FormProps } from "../data/types";
 
   let {
@@ -58,68 +39,46 @@
   onsubmit={handleSubmit}
 >
   {#each fields as field, index (field.id ?? `${field.component ?? field.type ?? "field"}-${index}`)}
+    {@const component = field.component ?? field.type}
     <div id={`i-${index}`}>
-      {const component = field.component ?? field.type}
       {#if component === "select"}
-        {@const props = field as SelectProps}
-        <Select {...props} />
+        <Select {...(field as any)} />
       {:else if component === "checkbox"}
-        {@const props = field as CheckboxProps}
-        <Checkbox {...props} />
+        <Checkbox {...(field as any)} />
       {:else if component === "radio"}
-        {@const props = field as RadioProps}
-        <Radio {...props} />
+        <Radio {...(field as any)} />
       {:else if component === "toggle"}
-        {@const props = field as ToggleProps}
-        <Toggle {...props} />
+        <Toggle {...(field as any)} />
       {:else if component === "textarea"}
-        {@const props = field as TextareaProps}
-        <Textarea {...props} />
+        <Textarea {...(field as any)} />
       {:else if component === "input-label"}
-        {@const props = field as InputLabelProps}
-        <InputLabel {...props} />
+        <InputLabel {...(field as any)} />
       {:else if component === "input-age"}
-        {@const props = field as InputAgeProps}
-        <InputAge {...props} />
+        <InputAge {...(field as any)} />
       {:else if component === "input-date"}
-        {@const props = field as InputDateProps}
-        <InputDate {...props} />
+        <InputDate {...(field as any)} />
       {:else if component === "input-email"}
-        {@const props = field as InputEmailProps}
-        <InputEmail {...props} />
+        <InputEmail {...(field as any)} />
       {:else if component === "input-number"}
-        {@const props = field as InputNumberProps}
-        <InputNumber {...props} />
+        <InputNumber {...(field as any)} />
       {:else if component === "input-password"}
-        {@const props = field as InputPasswordProps}
-        <InputPassword {...props} />
+        <InputPassword {...(field as any)} />
       {:else if component === "input-phone"}
-        {@const props = field as InputPhoneProps}
-        <InputPhone {...props} />
+        <InputPhone {...(field as any)} />
       {:else if component === "input-phone-flag"}
-        {@const props = {
-          ...field,
-          flag: field.flag ?? [],
-        } as InputPhoneFlagProps}
-        <InputPhoneFlag {...props} />
+        <InputPhoneFlag {...(field as any)} flag={field.flag ?? []} />
       {:else if component === "input-text"}
-        {@const props = field as InputTextProps}
-        <InputText {...props} />
+        <InputText {...(field as any)} />
       {:else if component === "input-username"}
-        {@const props = field as InputUsernameProps}
-        <InputUsername {...props} />
+        <InputUsername {...(field as any)} />
       {:else if component === "input-username-or-email"}
-        {@const props = field as InputUsernameOrEmailProps}
-        <InputUsernameOrEmail {...props} />
+        <InputUsernameOrEmail {...(field as any)} />
       {:else if component === "input-username-or-phone"}
-        {@const props = field as InputUsernameOrPhoneProps}
-        <InputUsernameOrPhone {...props} />
+        <InputUsernameOrPhone {...(field as any)} />
       {:else if component === "input-otp"}
-        {@const props = field as InputOtpProps}
-        <InputOtp {...props} />
+        <InputOtp {...(field as any)} />
       {:else if component === "input-time"}
-        {@const props = field as InputTimeProps}
-        <InputTime {...props} />
+        <InputTime {...(field as any)} />
       {/if}
     </div>
   {/each}
