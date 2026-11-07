@@ -16,13 +16,49 @@
         "Vue": ["data/types.ts", "data/examples.ts"],
         "Flutter": ["data/types.dart"]
       },
-      "dependencies": { "Svelte": ["icon"], "React": [], "Vue": [], "Flutter": [] },
-      "assets": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
+      "dependencies": {
+        "Svelte": ["text", "icon"],
+        "React": ["text"],
+        "Vue": ["text"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
       "props": [
-        { "name": "variant", "type": "01 | 02 | 03 | 04 | 05", "required": false, "description": "Variação visual e conjunto de dados da tabela." },
-        { "name": "title", "type": "string", "required": false, "description": "Título acessível ou visível da tabela." },
-        { "name": "columns", "type": "DataTableColumn[]", "required": false, "description": "Colunas a apresentar, com chave e cabeçalho." },
-        { "name": "rows", "type": "DataTableRow[]", "required": false, "description": "Linhas a apresentar, com identificador e valores das células." }
+        {
+          "name": "variant",
+          "type": "\"01\" | \"02\" | \"03\" | \"04\" | \"05\"",
+          "required": false,
+          "description": "Variação visual e conjunto de dados de exemplo da tabela."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Título visível ou acessível da tabela."
+        },
+        {
+          "name": "columns",
+          "type": "TextProps[]",
+          "required": false,
+          "description": "Lista plana de cabeçalhos de coluna. Cada item é um TextProps { text, className? }."
+        },
+        {
+          "name": "rows",
+          "type": "TextProps[]",
+          "required": false,
+          "description": "Lista plana de todos os valores de célula, agrupados internamente pelo número de colunas."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Classes adicionais aplicadas ao elemento section."
+        }
       ]
     }
   ]

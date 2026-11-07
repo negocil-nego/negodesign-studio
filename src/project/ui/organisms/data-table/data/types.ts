@@ -1,22 +1,13 @@
+import type { TextProps } from "../../../atoms/text/data/types";
+
 export type DataTableVariant = "01" | "02" | "03" | "04" | "05";
-
-export type DataTableColumn = {
-  label: string;
-  key: string;
-  sortable?: boolean;
-};
-
-export type DataTableRow = {
-  id: string;
-  cells: string[];
-  avatar?: string;
-  badge?: string;
-};
 
 export type DataTableProps = {
   variant?: DataTableVariant;
   title?: string;
-  columns?: DataTableColumn[];
-  rows?: DataTableRow[];
+  /** Flat list of column headers. */
+  columns?: TextProps[];
+  /** Flat list of all cell values — chunked by columns.length inside the component. */
+  rows?: TextProps[];
   className?: string;
 };
