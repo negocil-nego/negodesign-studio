@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "data-table-filter",
+      "name": "DataTableFilter",
+      "entry": {
+        "Svelte": "ui/DataTableFilter.svelte",
+        "React": "ui/DataTableFilter.tsx",
+        "Vue": "ui/DataTableFilter.vue",
+        "Flutter": "ui/DataTableFilter.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart"]
+      },
+      "dependencies": {
+        "Svelte": ["icon"],
+        "React": ["icon"],
+        "Vue": ["icon"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

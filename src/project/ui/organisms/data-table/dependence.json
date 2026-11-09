@@ -17,15 +17,15 @@
         "Flutter": ["data/types.dart"]
       },
       "dependencies": {
-        "Svelte": ["text", "icon"],
-        "React": ["text"],
-        "Vue": ["text"],
-        "Flutter": []
+        "Svelte": ["text", "icon", "data-table-filter"],
+        "React": ["text", "icon", "data-table-filter"],
+        "Vue": ["text", "icon", "data-table-filter"],
+        "Flutter": ["data-table-filter"]
       },
       "assets": {
-        "Svelte": [],
-        "React": [],
-        "Vue": [],
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
         "Flutter": []
       },
       "props": [
