@@ -6,7 +6,7 @@
   } from "../../../../components/local/data/migration";
   import MigrationEmptyState from "../../../../components/local/ui/migration/MigrationEmptyState.svelte";
   import ApiDocsSection from "../../../../components/local/ui/migration/ApiDocsSection.svelte";
-  import { StyleComponent } from "../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../components/local/data/style.component";
   import OpenApiEntityBuilder from "../../../../components/local/ui/migration/OpenApiEntityBuilder.svelte";
 
   type EntityFilter = OpenApiEntityKind | "all";
@@ -34,14 +34,23 @@
 
 <svelte:head>
   <title>OpenApi · Negodesign</title>
-  <meta name="description" content="Entidades extraídas da documentação Swagger/OpenAPI." />
+  <meta
+    name="description"
+    content="Entidades extraídas da documentação Swagger/OpenAPI."
+  />
 </svelte:head>
 
 <div class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-8 sm:px-8">
   <header class="flex flex-wrap items-start justify-between gap-4">
     <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">Migração</p>
-      <h1 class="mt-2 text-3xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500"
+      >
+        Migração
+      </p>
+      <h1
+        class="mt-2 text-3xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
+      >
         Entidades OpenApi
       </h1>
       <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -50,7 +59,7 @@
     </div>
     <button
       type="button"
-      class={StyleComponent.migration.primaryButton}
+      class={LocalStyleComponent.migration.primaryButton}
       onclick={() => (showConnect = !showConnect)}
     >
       {showConnect ? "Fechar ligação" : "◈ Ligar / reimportar OpenAPI"}
@@ -58,7 +67,9 @@
   </header>
 
   {#if showConnect}
-    <div class="rounded-xl border border-blender-border bg-blender-card p-5 shadow-sm">
+    <div
+      class="rounded-xl border border-blender-border bg-blender-card p-5 shadow-sm"
+    >
       <ApiDocsSection onclose={() => (showConnect = false)} />
     </div>
   {/if}
@@ -84,20 +95,22 @@
 
     <div class="flex flex-wrap gap-4 text-[10px] text-zinc-500">
       <span>
-        <span class="font-semibold text-blue-400">DTO / Request</span> →
-        Formulário de criação · Modal Form
+        <span class="font-semibold text-blue-400">DTO / Request</span> → Formulário
+        de criação · Modal Form
       </span>
       <span>
-        <span class="font-semibold text-purple-400">Response / Schema</span> →
-        DataTable · Grid · Carousel · Grid-Carousel
+        <span class="font-semibold text-purple-400">Response / Schema</span> → DataTable
+        · Grid · Carousel · Grid-Carousel
       </span>
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2">
       {#each filtered as entity (entity.name)}
         {@const isCreation = entity.kind === "dto" || entity.kind === "request"}
-        <article class={StyleComponent.migration.card}>
-          <header class="flex items-center justify-between gap-3 border-b border-blender-border px-4 py-3">
+        <article class={LocalStyleComponent.migration.card}>
+          <header
+            class="flex items-center justify-between gap-3 border-b border-blender-border px-4 py-3"
+          >
             <div class="flex items-center gap-2 min-w-0">
               <span
                 class="shrink-0 rounded px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider {isCreation
@@ -106,23 +119,33 @@
               >
                 {isCreation ? "DTO/Request" : "Response"}
               </span>
-              <h2 class="truncate font-mono text-sm font-semibold text-zinc-800 dark:text-zinc-100" title={entity.name}>
+              <h2
+                class="truncate font-mono text-sm font-semibold text-zinc-800 dark:text-zinc-100"
+                title={entity.name}
+              >
                 {entity.name}
               </h2>
             </div>
-            <span class={StyleComponent.migration.badge}>{entityKindLabels[entity.kind]}</span>
+            <span class={LocalStyleComponent.migration.badge}
+              >{entityKindLabels[entity.kind]}</span
+            >
           </header>
           {#if entity.operations?.length}
-            <div class="flex flex-wrap gap-1.5 border-b border-blender-border/60 px-4 py-2">
+            <div
+              class="flex flex-wrap gap-1.5 border-b border-blender-border/60 px-4 py-2"
+            >
               {#each entity.operations as operation (`${operation.method}-${operation.path}`)}
-                <span class="rounded bg-blender-base px-2 py-1 font-mono text-[10px] text-zinc-500">{operation.method} {operation.path}</span>
+                <span
+                  class="rounded bg-blender-base px-2 py-1 font-mono text-[10px] text-zinc-500"
+                  >{operation.method} {operation.path}</span
+                >
               {/each}
             </div>
           {/if}
           {#if entity.fields.length}
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
-                <thead class={StyleComponent.migration.cellHead}>
+                <thead class={LocalStyleComponent.migration.cellHead}>
                   <tr>
                     <th class="px-4 py-2 font-semibold">Campo</th>
                     <th class="px-4 py-2 font-semibold">Tipo</th>
@@ -132,9 +155,14 @@
                 <tbody>
                   {#each entity.fields as field (field.name)}
                     <tr class="border-t border-blender-border/60">
-                      <td class="px-4 py-2 font-mono text-zinc-700 dark:text-zinc-200">{field.name}</td>
+                      <td
+                        class="px-4 py-2 font-mono text-zinc-700 dark:text-zinc-200"
+                        >{field.name}</td
+                      >
                       <td class="px-4 py-2 text-zinc-500">{field.type}</td>
-                      <td class="px-4 py-2 text-zinc-500">{field.required ? "Sim" : "Não"}</td>
+                      <td class="px-4 py-2 text-zinc-500"
+                        >{field.required ? "Sim" : "Não"}</td
+                      >
                     </tr>
                   {/each}
                 </tbody>
@@ -143,12 +171,16 @@
           {:else}
             <p class="px-4 py-3 text-xs text-zinc-500">Sem campos definidos.</p>
           {/if}
-          <footer class="flex items-center justify-between gap-3 border-t border-blender-border/60 px-4 py-3">
+          <footer
+            class="flex items-center justify-between gap-3 border-t border-blender-border/60 px-4 py-3"
+          >
             <p class="text-[10px] text-zinc-500">
               {#if isCreation}
                 Componentes: <span class="text-blue-400">Form · ModalForm</span>
               {:else}
-                Componentes: <span class="text-purple-400">DataTable · Grid · Carousel · GridCarousel</span>
+                Componentes: <span class="text-purple-400"
+                  >DataTable · Grid · Carousel · GridCarousel</span
+                >
               {/if}
             </p>
             <button
@@ -171,5 +203,8 @@
 </div>
 
 {#if selectedEntity}
-  <OpenApiEntityBuilder entity={selectedEntity} onclose={() => (selectedEntity = null)} />
+  <OpenApiEntityBuilder
+    entity={selectedEntity}
+    onclose={() => (selectedEntity = null)}
+  />
 {/if}

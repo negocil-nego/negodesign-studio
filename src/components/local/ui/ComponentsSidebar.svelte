@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
-  import { StyleComponent } from "../data/style.component";
+  import { LocalStyleComponent } from "../data/style.component";
   import {
     componentNavigationGroups,
     type ComponentDefinition,
@@ -48,10 +48,9 @@
   function matches(item: ComponentDefinition) {
     const q = search.trim().toLowerCase();
     if (!q) return true;
-    const ownMatch = (
+    const ownMatch =
       displayName(item).toLowerCase().includes(q) ||
-      item.name.toLowerCase().includes(q)
-    );
+      item.name.toLowerCase().includes(q);
     return ownMatch || (item.children ?? []).some(matches);
   }
 
@@ -96,7 +95,7 @@
                 {#if item.href}
                   <a
                     href={item.href}
-                    class="{StyleComponent.layout
+                    class="{LocalStyleComponent.layout
                       .item} w-full text-left gap-2 py-2"
                     style="padding-left: {(0.75 + depth * 0.75).toFixed(
                       2,
@@ -116,15 +115,21 @@
                           {#if child.href}
                             <a
                               href={child.href}
-                              class="{StyleComponent.layout.item} w-full text-left gap-2 py-1.5 text-zinc-400 hover:text-zinc-100"
-                              style="padding-left: {(0.75 + (depth + 1) * 0.75).toFixed(2)}rem; padding-right: 0.75rem"
+                              class="{LocalStyleComponent.layout
+                                .item} w-full text-left gap-2 py-1.5 text-zinc-400 hover:text-zinc-100"
+                              style="padding-left: {(
+                                0.75 +
+                                (depth + 1) * 0.75
+                              ).toFixed(2)}rem; padding-right: 0.75rem"
                               title={displayName(child)}
                             >
                               <i
                                 class={`${getIconClass(child.icon)} h-4 w-4 text-sm opacity-65 shrink-0`}
                                 aria-hidden="true"
                               ></i>
-                              <span class="text-xs truncate">{displayName(child)}</span>
+                              <span class="text-xs truncate"
+                                >{displayName(child)}</span
+                              >
                             </a>
                           {/if}
                         </li>
@@ -133,7 +138,7 @@
                   {/if}
                 {:else}
                   <button
-                    class="{StyleComponent.layout
+                    class="{LocalStyleComponent.layout
                       .item} w-full text-left gap-2 py-2"
                     style="padding-left: {(0.75 + depth * 0.75).toFixed(
                       2,
@@ -163,20 +168,21 @@
 {/snippet}
 
 <aside
-  class="{StyleComponent.layout
+  class="{LocalStyleComponent.layout
     .sidebar} flex flex-col w-60 min-w-40 h-full overflow-hidden"
 >
   <div
-    class="{StyleComponent.layout.topbar} px-3 border-b border-blender-border"
+    class="{LocalStyleComponent.layout
+      .topbar} px-3 border-b border-blender-border"
   >
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Library</span
     >
     <div class="flex items-center gap-1">
       <button
-        class="{StyleComponent.layout.themeToggle} {theme === 'light'
-          ? StyleComponent.layout.themeToggleLight
-          : StyleComponent.layout.themeToggleDark}"
+        class="{LocalStyleComponent.layout.themeToggle} {theme === 'light'
+          ? LocalStyleComponent.layout.themeToggleLight
+          : LocalStyleComponent.layout.themeToggleDark}"
         type="button"
         onclick={toggleTheme}
         title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
@@ -185,7 +191,7 @@
           : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
       >
       <button
-        class="{StyleComponent.layout.iconButton} h-7 w-7"
+        class="{LocalStyleComponent.layout.iconButton} h-7 w-7"
         title="Settings"
       >
         <i

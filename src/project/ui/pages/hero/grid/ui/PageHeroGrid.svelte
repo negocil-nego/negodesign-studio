@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../components/local/data/style.component";
   import Menu from "../../../../organisms/menu/simple/ui/Menu.svelte";
   import SectionCardGrid from "../../../../organisms/section/hero/grid/ui/SectionCardGrid.svelte";
   import type { PageHeroGridCardProps, PageHeroGridProps } from "../data/types";
@@ -40,20 +40,20 @@
 </script>
 
 <section
-  class={StyleComponent.pages.hero.grid.root}
+  class={LocalStyleComponent.pages.hero.grid.root}
   style:background-color={backgroundColor}
   aria-label="Hero em mosaico"
 >
   {#if menuProps}
-    <aside class={StyleComponent.pages.hero.grid.navigation}>
+    <aside class={LocalStyleComponent.pages.hero.grid.navigation}>
       <Menu {...menuProps} style={menuProps.style ?? "ghost-inverse"} />
     </aside>
   {/if}
 
-  <div class={StyleComponent.pages.hero.grid.tiles}>
+  <div class={LocalStyleComponent.pages.hero.grid.tiles}>
     {#each cards as card (card.id)}
       <article
-        class={`${StyleComponent.pages.hero.grid.card} ${cardGridClasses(card)}`}
+        class={`${LocalStyleComponent.pages.hero.grid.card} ${cardGridClasses(card)}`}
         style:background-color={card.backgroundColor ?? "#28262e"}
         aria-label={card.sectionCardProps?.subtitleProps?.text ?? card.id}
       >
@@ -62,14 +62,19 @@
             src={card.imageUrl}
             alt={card.imageAlt ?? ""}
             loading="lazy"
-            class={`${card.imageMode === "contain"
-              ? StyleComponent.pages.hero.grid.imageContain
-              : StyleComponent.pages.hero.grid.imageCover} ${card.imageClassName ?? ""}`}
+            class={`${
+              card.imageMode === "contain"
+                ? LocalStyleComponent.pages.hero.grid.imageContain
+                : LocalStyleComponent.pages.hero.grid.imageCover
+            } ${card.imageClassName ?? ""}`}
           />
         {/if}
 
         {#if card.showOverlay}
-          <div class={StyleComponent.pages.hero.grid.overlay} aria-hidden="true"></div>
+          <div
+            class={LocalStyleComponent.pages.hero.grid.overlay}
+            aria-hidden="true"
+          ></div>
         {/if}
 
         {#if card.sectionCardProps}

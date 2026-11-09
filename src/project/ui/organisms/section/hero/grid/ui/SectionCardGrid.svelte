@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../../components/local/data/style.component";
   import Button from "../../../../../atoms/button/variant/default/ui/Button.svelte";
   import Text from "../../../../../atoms/text/ui/Text.svelte";
   import type { SectionCardGridProps } from "../data/types";
@@ -15,8 +15,8 @@
 
   let styles = $derived(
     tone === "light"
-      ? StyleComponent.pages.hero.gridLight
-      : StyleComponent.pages.hero.grid,
+      ? LocalStyleComponent.pages.hero.gridLight
+      : LocalStyleComponent.pages.hero.grid,
   );
   const positionClasses = {
     start: "justify-start",
@@ -46,10 +46,7 @@
   {#if buttonsProps.length}
     <div class="relative z-20 mt-4 flex flex-wrap justify-start gap-3">
       {#each buttonsProps as button, index (index)}
-        <Button
-          {...button}
-          className={button.className ?? styles.action}
-        />
+        <Button {...button} className={button.className ?? styles.action} />
       {/each}
     </div>
   {/if}

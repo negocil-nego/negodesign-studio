@@ -3,13 +3,13 @@
   import ButtonProject from "../../../components/local/ui/button/ButtonProject.svelte";
   import ButtonSettings from "../../../components/local/ui/button/ButtonSettings.svelte";
   import ButtonTemplate from "../../../components/local/ui/button/ButtonTemplate.svelte";
-  import { StyleComponent } from "../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../components/local/data/style.component";
 
   let { children }: { children: Snippet } = $props();
 </script>
 
-<div class="{StyleComponent.layout.app} flex flex-col">
-  <header class="{StyleComponent.layout.topbar} mt-5">
+<div class="{LocalStyleComponent.layout.app} flex flex-col">
+  <header class="{LocalStyleComponent.layout.topbar} mt-5">
     <div class="flex items-center gap-3">
       <a
         href="/"

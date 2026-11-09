@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../../components/local/data/style.component";
   import Button from "../../../../../atoms/button/variant/default/ui/Button.svelte";
   import Text from "../../../../../atoms/text/ui/Text.svelte";
   import type { SectionTextProps } from "../data/types";
@@ -17,26 +17,26 @@
 
 <section
   class={layout === "light"
-    ? StyleComponent.pages.hero.light.content
+    ? LocalStyleComponent.pages.hero.light.content
     : layout === "dual"
-      ? StyleComponent.pages.hero.dual.content
-      : StyleComponent.pages.hero.simple.content}
+      ? LocalStyleComponent.pages.hero.dual.content
+      : LocalStyleComponent.pages.hero.simple.content}
 >
   {#if titleProps}
     <div
       class={layout === "light"
-        ? StyleComponent.pages.hero.light.eyebrow
+        ? LocalStyleComponent.pages.hero.light.eyebrow
         : layout === "dual"
-          ? StyleComponent.pages.hero.dual.eyebrow
-          : StyleComponent.pages.hero.simple.eyebrow}
+          ? LocalStyleComponent.pages.hero.dual.eyebrow
+          : LocalStyleComponent.pages.hero.simple.eyebrow}
     >
       <Text
         {...titleProps}
         className={layout === "light"
-          ? StyleComponent.pages.hero.light.eyebrowText
+          ? LocalStyleComponent.pages.hero.light.eyebrowText
           : layout === "dual"
-            ? StyleComponent.pages.hero.dual.eyebrowText
-            : StyleComponent.pages.hero.simple.eyebrowText}
+            ? LocalStyleComponent.pages.hero.dual.eyebrowText
+            : LocalStyleComponent.pages.hero.simple.eyebrowText}
       />
     </div>
   {/if}
@@ -46,10 +46,10 @@
       <Text
         {...subtitleProps}
         className={layout === "light"
-          ? StyleComponent.pages.hero.light.titleText
+          ? LocalStyleComponent.pages.hero.light.titleText
           : layout === "dual"
-            ? StyleComponent.pages.hero.dual.titleText
-            : StyleComponent.pages.hero.simple.titleText}
+            ? LocalStyleComponent.pages.hero.dual.titleText
+            : LocalStyleComponent.pages.hero.simple.titleText}
       />
     </div>
   {/if}
@@ -58,10 +58,10 @@
     <Text
       {...descriptionProps}
       className={layout === "light"
-        ? StyleComponent.pages.hero.light.descriptionText
+        ? LocalStyleComponent.pages.hero.light.descriptionText
         : layout === "dual"
-          ? StyleComponent.pages.hero.dual.descriptionText
-          : StyleComponent.pages.hero.simple.descriptionText}
+          ? LocalStyleComponent.pages.hero.dual.descriptionText
+          : LocalStyleComponent.pages.hero.simple.descriptionText}
     />
   {/if}
 
@@ -70,7 +70,10 @@
       {#each buttonsProps as button, index (index)}
         <Button
           {...button}
-          className={button.className ?? (layout === "light" ? StyleComponent.pages.hero.light.action : undefined)}
+          className={button.className ??
+            (layout === "light"
+              ? LocalStyleComponent.pages.hero.light.action
+              : undefined)}
         />
       {/each}
     </div>
@@ -81,8 +84,8 @@
       src={imageUrl}
       alt={imageAlt ?? ""}
       class={layout === "light"
-        ? StyleComponent.pages.hero.light.illustration
-        : StyleComponent.pages.hero.dual.media}
+        ? LocalStyleComponent.pages.hero.light.illustration
+        : LocalStyleComponent.pages.hero.dual.media}
     />
   {/if}
 </section>

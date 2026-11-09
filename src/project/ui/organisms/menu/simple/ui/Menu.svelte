@@ -7,7 +7,7 @@
   import type { MenuProps, MenuTypeProps } from "../data/types";
   import type { SubmenuGridTitleProps } from "../../shared/submenu/grid/title/data/types";
   import type { SubmenuSidebarGridProps } from "../../shared/submenu/grid/sidebar/data/types";
-  import { StyleComponent } from "../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../components/local/data/style.component";
 
   let {
     style = "default",
@@ -60,31 +60,59 @@
   let logoProps = $derived({
     ...logo,
     className:
-      `${logo?.className ?? ""} ${StyleComponent.menu.navigation.logo}`.trim(),
+      `${logo?.className ?? ""} ${LocalStyleComponent.menu.navigation.logo}`.trim(),
   });
 </script>
 
-<nav class={isGhost ? StyleComponent.menu.navigation.ghostRoot : StyleComponent.menu.navigation.root} aria-label="Menu principal">
-  <div class={isGhost ? StyleComponent.menu.navigation.ghostBar : StyleComponent.menu.navigation.bar}>
-    <div class={StyleComponent.menu.navigation.logoContainer}>
+<nav
+  class={isGhost
+    ? LocalStyleComponent.menu.navigation.ghostRoot
+    : LocalStyleComponent.menu.navigation.root}
+  aria-label="Menu principal"
+>
+  <div
+    class={isGhost
+      ? LocalStyleComponent.menu.navigation.ghostBar
+      : LocalStyleComponent.menu.navigation.bar}
+  >
+    <div class={LocalStyleComponent.menu.navigation.logoContainer}>
       {#if logo}<Image {...logoProps} />{/if}
       {#if logoText}
-        <div class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseBrand : StyleComponent.menu.navigation.ghostBrand}>
-          <span class={StyleComponent.menu.navigation.ghostBrandName}>{logoText}</span>
+        <div
+          class={isInverseGhost
+            ? LocalStyleComponent.menu.navigation.ghostInverseBrand
+            : LocalStyleComponent.menu.navigation.ghostBrand}
+        >
+          <span class={LocalStyleComponent.menu.navigation.ghostBrandName}
+            >{logoText}</span
+          >
           {#if logoSubtitle}
-            <span class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseBrandSubtitle : StyleComponent.menu.navigation.ghostBrandSubtitle}>{logoSubtitle}</span>
+            <span
+              class={isInverseGhost
+                ? LocalStyleComponent.menu.navigation.ghostInverseBrandSubtitle
+                : LocalStyleComponent.menu.navigation.ghostBrandSubtitle}
+              >{logoSubtitle}</span
+            >
           {/if}
         </div>
       {/if}
     </div>
 
-    <ul class={isGhost ? StyleComponent.menu.navigation.ghostList : StyleComponent.menu.navigation.list}>
+    <ul
+      class={isGhost
+        ? LocalStyleComponent.menu.navigation.ghostList
+        : LocalStyleComponent.menu.navigation.list}
+    >
       {#each menus as menu, index (index)}
-        <li class={StyleComponent.menu.navigation.item}>
+        <li class={LocalStyleComponent.menu.navigation.item}>
           {#if isSubmenu(menu)}
             <button
               type="button"
-              class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseSubmenuTrigger : style === "ghost" ? StyleComponent.menu.navigation.ghostSubmenuTrigger : StyleComponent.menu.navigation.submenuTrigger}
+              class={isInverseGhost
+                ? LocalStyleComponent.menu.navigation.ghostInverseSubmenuTrigger
+                : style === "ghost"
+                  ? LocalStyleComponent.menu.navigation.ghostSubmenuTrigger
+                  : LocalStyleComponent.menu.navigation.submenuTrigger}
               aria-expanded={openSubmenu === index}
               aria-haspopup="true"
               onkeydown={(event) => {
@@ -92,40 +120,54 @@
               }}
               onclick={() => toggleSubmenu(index)}
             >
-              <span class={StyleComponent.menu.navigation.submenuLabel}
+              <span class={LocalStyleComponent.menu.navigation.submenuLabel}
                 >{getSubmenuLabel(menu)}</span
               >
               <Icon
                 name={openSubmenu === index ? "ArrowUp" : "ArrowDown"}
-                className={StyleComponent.menu.navigation.submenuIcon}
+                className={LocalStyleComponent.menu.navigation.submenuIcon}
               />
             </button>
           {:else if menu.href}
-            <a href={menu.href} class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseLink : style === "ghost" ? StyleComponent.menu.navigation.ghostLink : StyleComponent.menu.navigation.link}>
+            <a
+              href={menu.href}
+              class={isInverseGhost
+                ? LocalStyleComponent.menu.navigation.ghostInverseLink
+                : style === "ghost"
+                  ? LocalStyleComponent.menu.navigation.ghostLink
+                  : LocalStyleComponent.menu.navigation.link}
+            >
               {#if menu.icon}
                 <Icon
                   name={menu.icon.name}
                   isLoading={menu.icon.isLoading}
-                  className={`${StyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
+                  className={`${LocalStyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
                 />
               {/if}
               {#if menu.textProps}
-                <span class={StyleComponent.menu.navigation.linkLabel}
+                <span class={LocalStyleComponent.menu.navigation.linkLabel}
                   >{menu.textProps.text}</span
                 >
               {/if}
             </a>
           {:else}
-            <button type="button" class={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseLink : style === "ghost" ? StyleComponent.menu.navigation.ghostLink : StyleComponent.menu.navigation.link}>
+            <button
+              type="button"
+              class={isInverseGhost
+                ? LocalStyleComponent.menu.navigation.ghostInverseLink
+                : style === "ghost"
+                  ? LocalStyleComponent.menu.navigation.ghostLink
+                  : LocalStyleComponent.menu.navigation.link}
+            >
               {#if menu.icon}
                 <Icon
                   name={menu.icon.name}
                   isLoading={menu.icon.isLoading}
-                  className={`${StyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
+                  className={`${LocalStyleComponent.menu.navigation.linkIcon} ${menu.icon.className ?? ""}`}
                 />
               {/if}
               {#if menu.textProps}
-                <span class={StyleComponent.menu.navigation.linkLabel}
+                <span class={LocalStyleComponent.menu.navigation.linkLabel}
                   >{menu.textProps.text}</span
                 >
               {/if}
@@ -135,19 +177,27 @@
       {/each}
     </ul>
 
-    <div class={isGhost ? StyleComponent.menu.navigation.ghostActions : StyleComponent.menu.navigation.actions}>
+    <div
+      class={isGhost
+        ? LocalStyleComponent.menu.navigation.ghostActions
+        : LocalStyleComponent.menu.navigation.actions}
+    >
       {#each buttonsProps as button, index (index)}
         <Button
           {...button}
           variant={isGhost ? "outline" : button.variant}
-          className={isInverseGhost ? StyleComponent.menu.navigation.ghostInverseButton : style === "ghost" ? StyleComponent.menu.navigation.ghostButton : button.className}
+          className={isInverseGhost
+            ? LocalStyleComponent.menu.navigation.ghostInverseButton
+            : style === "ghost"
+              ? LocalStyleComponent.menu.navigation.ghostButton
+              : button.className}
         />
       {/each}
     </div>
   </div>
 
   {#if activeMenu && isSubmenu(activeMenu)}
-    <div class={StyleComponent.menu.navigation.panel}>
+    <div class={LocalStyleComponent.menu.navigation.panel}>
       {#if isSidebarSubmenu(activeMenu)}
         <SubmenuSidebarGrid {...activeMenu} />
       {:else}

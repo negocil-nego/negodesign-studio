@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
-  import { StyleComponent } from "../data/style.component";
+  import { LocalStyleComponent } from "../data/style.component";
   import { componentCatalog } from "../data/components";
   import {
     activeProject as activeProjectStore,
@@ -36,7 +36,9 @@
     components: ComponentExport[],
   ): ComponentTreeNode {
     const root: ComponentTreeNode = { name: "Componentes", children: [] };
-    const installed = new Map(components.map((component) => [component.id, component]));
+    const installed = new Map(
+      components.map((component) => [component.id, component]),
+    );
     const definitions = componentCatalog.filter((definition) =>
       installed.has(definition.id),
     );
@@ -90,7 +92,9 @@
     }
 
     for (const component of components) {
-      if (!componentCatalog.some((definition) => definition.id === component.id)) {
+      if (
+        !componentCatalog.some((definition) => definition.id === component.id)
+      ) {
         root.children.push({ name: component.name, children: [], component });
       }
     }
@@ -200,19 +204,17 @@
       >
         <span class="text-zinc-600" aria-hidden="true">└</span>
         <span class="text-blue-400" aria-hidden="true">▧</span>
-        <span class="min-w-0 flex-1 truncate"
-          >{node.name}</span
-        >
+        <span class="min-w-0 flex-1 truncate">{node.name}</span>
       </div>
     {/if}
   </li>
 {/snippet}
 
 <aside
-  class="{StyleComponent.layout
+  class="{LocalStyleComponent.layout
     .sidebar} flex h-full w-80 min-w-60 flex-col overflow-hidden border-l border-blender-border"
 >
-  <div class="{StyleComponent.layout.topbar} px-3">
+  <div class="{LocalStyleComponent.layout.topbar} px-3">
     <span class="text-xs font-semibold uppercase tracking-widest text-zinc-500"
       >Projecto</span
     >
@@ -231,7 +233,7 @@
         </div>
         <button
           type="button"
-          class="{StyleComponent.layout
+          class="{LocalStyleComponent.layout
             .action} shrink-0 gap-2 px-2.5 py-1.5 text-xs"
           onclick={chooseProject}
           disabled={busy}
@@ -296,7 +298,7 @@
         </div>
         <button
           type="button"
-          class="{StyleComponent.layout.iconButton} h-7 w-7 text-xs"
+          class="{LocalStyleComponent.layout.iconButton} h-7 w-7 text-xs"
           onclick={refreshComponentTree}
           disabled={!activeProject || treeLoading}
           aria-label="Actualizar árvore de componentes"

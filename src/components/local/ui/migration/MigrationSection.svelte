@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { StyleComponent } from "../../data/style.component";
+  import { LocalStyleComponent } from "../../data/style.component";
   import DatabaseConnectDialog from "./DatabaseConnectDialog.svelte";
   import ApiDocsSection from "./ApiDocsSection.svelte";
 
@@ -15,28 +15,37 @@
 </script>
 
 <div>
-  <h3 class={StyleComponent.migration.sectionTitle}>Migração de projecto</h3>
+  <h3 class={LocalStyleComponent.migration.sectionTitle}>
+    Migração de projecto
+  </h3>
   <div class="grid gap-3 sm:grid-cols-2">
     <button
       type="button"
-      class={StyleComponent.migration.optionCard}
+      class={LocalStyleComponent.migration.optionCard}
       onclick={() => (activeDialog = "database")}
     >
-      <span class={StyleComponent.migration.optionIcon} aria-hidden="true">⛁</span>
-      <span class={StyleComponent.migration.optionTitle}>Banco de dados</span>
-      <span class={StyleComponent.migration.optionHint}>
+      <span class={LocalStyleComponent.migration.optionIcon} aria-hidden="true"
+        >⛁</span
+      >
+      <span class={LocalStyleComponent.migration.optionTitle}
+        >Banco de dados</span
+      >
+      <span class={LocalStyleComponent.migration.optionHint}>
         Ligue-se a um MySQL ou PostgreSQL e importe a estrutura das tabelas.
       </span>
     </button>
     <button
       type="button"
-      class={StyleComponent.migration.optionCard}
+      class={LocalStyleComponent.migration.optionCard}
       onclick={() => (activeDialog = "apidocs")}
     >
-      <span class={StyleComponent.migration.optionIcon} aria-hidden="true">◈</span>
-      <span class={StyleComponent.migration.optionTitle}>ApiDocs</span>
-      <span class={StyleComponent.migration.optionHint}>
-        Ligue-se ao OpenAPI/Swagger por URL ou ficheiro JSON/YAML e componentize os DTOs e responses.
+      <span class={LocalStyleComponent.migration.optionIcon} aria-hidden="true"
+        >◈</span
+      >
+      <span class={LocalStyleComponent.migration.optionTitle}>ApiDocs</span>
+      <span class={LocalStyleComponent.migration.optionHint}>
+        Ligue-se ao OpenAPI/Swagger por URL ou ficheiro JSON/YAML e componentize
+        os DTOs e responses.
       </span>
     </button>
   </div>
@@ -49,12 +58,12 @@
   />
 {:else if activeDialog === "apidocs"}
   <div
-    class={StyleComponent.migration.overlay}
+    class={LocalStyleComponent.migration.overlay}
     role="presentation"
     onclick={(e) => e.target === e.currentTarget && (activeDialog = null)}
     onkeydown={(e) => e.key === "Escape" && (activeDialog = null)}
   >
-    <div class="{StyleComponent.migration.dialog} max-w-lg">
+    <div class="{LocalStyleComponent.migration.dialog} max-w-lg">
       <ApiDocsSection onclose={() => finish("/main/openapi")} />
     </div>
   </div>

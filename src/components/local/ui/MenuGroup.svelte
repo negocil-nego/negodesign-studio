@@ -1,11 +1,16 @@
 <script lang="ts">
   import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import { type IconNamed, getIconClass } from "../../../hooks/icon.svelte";
-  import { StyleComponent } from "../data/style.component";
+  import { LocalStyleComponent } from "../data/style.component";
 
   type Props = {
     name: string;
-    items: { name: string; path: string; icon: IconNamed; onclick?: () => void }[];
+    items: {
+      name: string;
+      path: string;
+      icon: IconNamed;
+      onclick?: () => void;
+    }[];
   };
 
   let { name, items }: Props = $props();
@@ -15,7 +20,8 @@
 <div class="space-y-3 select-none font-commissioner">
   <button
     type="button"
-    class="{StyleComponent.layout.header} w-full justify-start px-2 py-1 text-zinc-400 hover:text-zinc-200"
+    class="{LocalStyleComponent.layout
+      .header} w-full justify-start px-2 py-1 text-zinc-400 hover:text-zinc-200"
     aria-expanded={open}
     onclick={() => (open = !open)}
   >
@@ -31,15 +37,25 @@
       {#each items as item}
         <li>
           {#if item.onclick}
-            <button type="button" onclick={item.onclick} class="{StyleComponent.layout.item} group w-full text-left">
-              <i class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`} aria-hidden="true"></i>
+            <button
+              type="button"
+              onclick={item.onclick}
+              class="{LocalStyleComponent.layout.item} group w-full text-left"
+            >
+              <i
+                class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`}
+                aria-hidden="true"
+              ></i>
               <span class="truncate">{item.name}</span>
             </button>
           {:else}
-          <a href={item.path} class="{StyleComponent.layout.item} group">
-            <i class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`} aria-label={item.name}></i>
-            <span class="truncate">{item.name}</span>
-          </a>
+            <a href={item.path} class="{LocalStyleComponent.layout.item} group">
+              <i
+                class={`${getIconClass(item.icon)} w-5 h-5 text-base opacity-70 group-hover:opacity-100 transition-opacity`}
+                aria-label={item.name}
+              ></i>
+              <span class="truncate">{item.name}</span>
+            </a>
           {/if}
         </li>
       {/each}

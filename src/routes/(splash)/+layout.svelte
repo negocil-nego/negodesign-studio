@@ -4,7 +4,7 @@
   import LogoApp from "../../components/local/ui/varients/LogoApp.svelte";
   import VersionApp from "../../components/local/ui/varients/VersionApp.svelte";
   import { IconNamed } from "../../hooks/icon.svelte";
-  import { StyleComponent } from "../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../components/local/data/style.component";
   import ProjectOptionsDialog from "../../components/local/ui/migration/ProjectOptionsDialog.svelte";
 
   const { children } = $props();
@@ -24,10 +24,10 @@
   }
 </script>
 
-<main class="{StyleComponent.layout.app} flex flex-col">
+<main class="{LocalStyleComponent.layout.app} flex flex-col">
   <div class="flex min-h-0 flex-1">
     <aside
-      class="{StyleComponent.layout
+      class="{LocalStyleComponent.layout
         .sidebar} h-full w-64 shrink-0 p-4 flex flex-col justify-between"
     >
       <div class="space-y-4">
@@ -35,7 +35,7 @@
           <div class="min-w-0 flex-1"><LogoApp /></div>
           <button
             type="button"
-            class="{StyleComponent.layout.iconButton} h-8 w-8 shrink-0"
+            class="{LocalStyleComponent.layout.iconButton} h-8 w-8 shrink-0"
             onclick={toggleTheme}
             title={theme === "light"
               ? "Ativar modo escuro"
@@ -109,7 +109,7 @@
     </aside>
 
     <section
-      class="{StyleComponent.layout.workspace} {StyleComponent.layout
+      class="{LocalStyleComponent.layout.workspace} {LocalStyleComponent.layout
         .circuitBg}"
     >
       {@render children()}

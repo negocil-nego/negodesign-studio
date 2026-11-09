@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getIconClass, IconNamed } from "../../../../hooks/icon.svelte";
-  import { StyleComponent } from "../../data/style.component";
+  import { LocalStyleComponent } from "../../data/style.component";
 
   const actions = [
     {
@@ -29,31 +29,42 @@
 
 <div class="space-y-3 flex-1 flex flex-col justify-between">
   <div>
-    <div class="{StyleComponent.layout.header} justify-between border-b border-blender-border pb-2 mb-3">
+    <div
+      class="{LocalStyleComponent.layout
+        .header} justify-between border-b border-blender-border pb-2 mb-3"
+    >
       <span>Início Rápido</span>
-      <span class="text-[10px] text-zinc-400 font-normal">Criar ou Importar</span>
+      <span class="text-[10px] text-zinc-400 font-normal"
+        >Criar ou Importar</span
+      >
     </div>
 
     <div class="space-y-2.5">
       {#each actions as item}
-        <a href={item.href} class="{StyleComponent.layout.action} group">
+        <a href={item.href} class="{LocalStyleComponent.layout.action} group">
           <div class="flex items-center gap-3.5 min-w-0">
-            <div class="w-9 h-9 rounded bg-blender-base border border-blender-border flex items-center justify-center shrink-0 group-hover:border-blue-400/60 group-hover:scale-105 transition-all">
+            <div
+              class="w-9 h-9 rounded bg-blender-base border border-blender-border flex items-center justify-center shrink-0 group-hover:border-blue-400/60 group-hover:scale-105 transition-all"
+            >
               <i
                 class={`${getIconClass(item.icon)} w-5 h-5 text-lg opacity-80 group-hover:opacity-100`}
                 aria-label={item.title}
               ></i>
             </div>
             <div class="min-w-0">
-              <div class="text-xs md:text-sm font-semibold text-zinc-100 group-hover:text-blue-400 transition-colors truncate">
+              <div
+                class="text-xs md:text-sm font-semibold text-zinc-100 group-hover:text-blue-400 transition-colors truncate"
+              >
                 {item.title}
               </div>
-              <div class="text-[11px] md:text-xs text-zinc-400 line-clamp-1 mt-0.5">
+              <div
+                class="text-[11px] md:text-xs text-zinc-400 line-clamp-1 mt-0.5"
+              >
                 {item.desc}
               </div>
             </div>
           </div>
-          <span class="{StyleComponent.layout.badge} ml-3">
+          <span class="{LocalStyleComponent.layout.badge} ml-3">
             {item.badge}
           </span>
         </a>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../../../components/local/data/style.component";
   import Text from "../../../../../../atoms/text/ui/Text.svelte";
   import type { MenuTitleProps } from "../data/types";
 
@@ -12,8 +12,8 @@
   }: MenuTitleProps = $props();
   let classes = $derived(
     variant === "featured"
-      ? StyleComponent.menu.title.featured
-      : StyleComponent.menu.title.item,
+      ? LocalStyleComponent.menu.title.featured
+      : LocalStyleComponent.menu.title.item,
   );
 </script>
 

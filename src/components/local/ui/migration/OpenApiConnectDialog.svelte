@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { StyleComponent } from "../../data/style.component";
+  import { LocalStyleComponent } from "../../data/style.component";
   import { fetchOpenApi, importOpenApiFile } from "../../data/migration";
 
   let {
@@ -48,59 +48,104 @@
 </script>
 
 <div
-  class={StyleComponent.migration.overlay}
+  class={LocalStyleComponent.migration.overlay}
   role="presentation"
-  onclick={(event) => event.target === event.currentTarget && !loading && oncancel()}
+  onclick={(event) =>
+    event.target === event.currentTarget && !loading && oncancel()}
   onkeydown={(event) => event.key === "Escape" && !loading && oncancel()}
 >
   <div
-    class="{StyleComponent.migration.dialog} max-w-md"
+    class="{LocalStyleComponent.migration.dialog} max-w-md"
     role="dialog"
     aria-modal="true"
     aria-labelledby="openapi-dialog-title"
   >
     <form onsubmit={submit}>
-    <div class="flex items-start justify-between gap-4">
-      <div>
-        <h2 id="openapi-dialog-title" class="text-base font-semibold text-zinc-100">Importar OpenApi</h2>
-        <p class="mt-1 text-xs leading-5 text-zinc-400">
-          Importe OpenAPI por URL ou seleccione um ficheiro JSON/YAML.
-        </p>
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2
+            id="openapi-dialog-title"
+            class="text-base font-semibold text-zinc-100"
+          >
+            Importar OpenApi
+          </h2>
+          <p class="mt-1 text-xs leading-5 text-zinc-400">
+            Importe OpenAPI por URL ou seleccione um ficheiro JSON/YAML.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="rounded px-2 py-1 text-zinc-400 hover:bg-blender-hover hover:text-zinc-100"
+          aria-label="Fechar"
+          onclick={oncancel}
+          disabled={loading}>×</button
+        >
       </div>
-      <button
-        type="button"
-        class="rounded px-2 py-1 text-zinc-400 hover:bg-blender-hover hover:text-zinc-100"
-        aria-label="Fechar"
-        onclick={oncancel}
-        disabled={loading}>×</button
-      >
-    </div>
 
-    <div class="mt-5 flex gap-2">
-      <button type="button" class="{StyleComponent.migration.driverTab} {sourceMode === 'url' ? StyleComponent.migration.driverTabActive : ''}" onclick={() => sourceMode = "url"}>URL</button>
-      <button type="button" class="{StyleComponent.migration.driverTab} {sourceMode === 'file' ? StyleComponent.migration.driverTabActive : ''}" onclick={() => sourceMode = "file"}>Ficheiro JSON/YAML</button>
-    </div>
-    {#if sourceMode === "url"}
-      <label class="mt-4 block">
-        <span class={StyleComponent.migration.label}>URL OpenAPI</span>
-        <input class={StyleComponent.migration.field} type="url" bind:value={url} required disabled={loading} placeholder="http://localhost:8080/v3/api-docs" />
-      </label>
-    {:else}
-      <button type="button" class="{StyleComponent.migration.ghostButton} mt-4 w-full" onclick={chooseFile} disabled={loading}>
-        {loading ? "A importar…" : "Seleccionar ficheiro JSON, YAML ou YML"}
-      </button>
-    {/if}
+      <div class="mt-5 flex gap-2">
+        <button
+          type="button"
+          class="{LocalStyleComponent.migration.driverTab} {sourceMode === 'url'
+            ? LocalStyleComponent.migration.driverTabActive
+            : ''}"
+          onclick={() => (sourceMode = "url")}>URL</button
+        >
+        <button
+          type="button"
+          class="{LocalStyleComponent.migration.driverTab} {sourceMode ===
+          'file'
+            ? LocalStyleComponent.migration.driverTabActive
+            : ''}"
+          onclick={() => (sourceMode = "file")}>Ficheiro JSON/YAML</button
+        >
+      </div>
+      {#if sourceMode === "url"}
+        <label class="mt-4 block">
+          <span class={LocalStyleComponent.migration.label}>URL OpenAPI</span>
+          <input
+            class={LocalStyleComponent.migration.field}
+            type="url"
+            bind:value={url}
+            required
+            disabled={loading}
+            placeholder="http://localhost:8080/v3/api-docs"
+          />
+        </label>
+      {:else}
+        <button
+          type="button"
+          class="{LocalStyleComponent.migration.ghostButton} mt-4 w-full"
+          onclick={chooseFile}
+          disabled={loading}
+        >
+          {loading ? "A importar…" : "Seleccionar ficheiro JSON, YAML ou YML"}
+        </button>
+      {/if}
 
-    {#if errorMessage}<p class={StyleComponent.migration.error} role="alert">{errorMessage}</p>{/if}
+      {#if errorMessage}<p
+          class={LocalStyleComponent.migration.error}
+          role="alert"
+        >
+          {errorMessage}
+        </p>{/if}
 
-    <div class="mt-5 flex justify-end gap-2">
-      <button type="button" class={StyleComponent.migration.ghostButton} onclick={oncancel} disabled={loading}>
-        Cancelar
-      </button>
-      {#if sourceMode === "url"}<button type="submit" class={StyleComponent.migration.primaryButton} disabled={loading || !url.trim()}>
-        {loading ? "A extrair…" : "Extrair entidades"}
-      </button>{/if}
-    </div>
+      <div class="mt-5 flex justify-end gap-2">
+        <button
+          type="button"
+          class={LocalStyleComponent.migration.ghostButton}
+          onclick={oncancel}
+          disabled={loading}
+        >
+          Cancelar
+        </button>
+        {#if sourceMode === "url"}<button
+            type="submit"
+            class={LocalStyleComponent.migration.primaryButton}
+            disabled={loading || !url.trim()}
+          >
+            {loading ? "A extrair…" : "Extrair entidades"}
+          </button>{/if}
+      </div>
     </form>
   </div>
 </div>

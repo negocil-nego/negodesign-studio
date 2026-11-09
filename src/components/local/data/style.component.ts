@@ -6,7 +6,7 @@ const PanelDefault = "bg-white dark:bg-blender-card border border-blender-border
 /* Fundo decorativo do workspace com a textura de circuito */
 const CircuitBackground = "bg-[linear-gradient(to_bottom,rgba(248,250,252,0.82),rgba(248,250,252,0.92)),url('/img/pawel-d-browski-circuit-7447920.png')] bg-cover bg-center bg-no-repeat dark:bg-[linear-gradient(to_bottom,rgba(24,24,27,0.88),rgba(24,24,27,0.96)),url('/img/pawel-d-browski-circuit-7447920.png')]"
 
-export const StyleComponent = {
+export const LocalStyleComponent = {
     // ── Layout / Shell ─────────────────────────────────────
     layout: {
         app: "h-screen overflow-hidden bg-blender-base text-slate-900 dark:text-zinc-100 font-commissioner select-none",
