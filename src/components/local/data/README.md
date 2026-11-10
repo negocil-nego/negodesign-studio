@@ -15,7 +15,8 @@ src/components/local/data/
 │   ├── core.ts                  # Barrel re-exporting all per-framework copy functions & types
 │   ├── shared/
 │   │   ├── types.ts             # Shared TypeScript types (ComponentCopyOptions, ComponentCopyResult, etc.)
-│   │   └── ipc.ts               # Tauri IPC dispatcher (invokeRustComponentCopy)
+│   │   ├── ipc.ts               # Tauri IPC dispatcher (invokeRustComponentCopy)
+│   │   └── notify.ts            # Native OS notifications for component copy success and error
 │   ├── svelte/index.ts          # copyComponentForProjectSvelte (invokes Rust `copy_component_svelte`)
 │   ├── react/index.ts           # copyComponentForProjectReact (invokes Rust `copy_component_react`)
 │   ├── nextjs/index.ts          # copyComponentForProjectNextjs (invokes Rust `copy_component_nextjs`)
@@ -64,11 +65,15 @@ Routes component copy requests to technology-specific modules that invoke dedica
     - `Nuxt` -> `copyComponentForProjectNuxt(componentId, project, options)`
     - `Flutter` -> `copyComponentForProjectFlutter(componentId, project, options)`
 
-#### `copy/shared/ipc.ts`
+#### `copy/shared/ipc.ts` & `copy/shared/notify.ts`
 - **`invokeRustComponentCopy(command: RustCopyCommand, componentId: string, project: ProjectRecord, options?: ComponentCopyOptions): Promise<ComponentCopyResult>`**:
   - Looks up the component's `dependence.json` path from `componentCatalog`.
   - Calls the corresponding Rust Tauri command (`copy_component_svelte`, `copy_component_react`, `copy_component_nextjs`, `copy_component_vue`, `copy_component_nuxt`, or `copy_component_flutter`) with `{ componentId, manifestPath, locales, theme, staticDirectory }`.
-  - Calls `refreshActiveProjectComponents()` after installation completes and returns `{ copiedFiles, exportedComponents, project }`.
+  - Calls `refreshActiveProjectComponents()` after installation completes, triggers `notifyCopySuccess` (or `notifyCopyError` on failure), and returns `{ copiedFiles, exportedComponents, project }`.
+- **`notifyCopySuccess(componentName: string, result: ComponentCopyResult, theme?: string): Promise<void>`** (`copy/shared/notify.ts`):
+  - Uses `@tauri-apps/plugin-notification` (`isPermissionGranted`, `requestPermission`, `sendNotification`) to display a native OS notification confirming the component name, target project, number of copied files, and exported Bootswatch theme.
+- **`notifyCopyError(componentName: string, error: unknown): Promise<void>`** (`copy/shared/notify.ts`):
+  - Dispatches a native OS notification whenever a component copy fails (either pre-flight validation or Rust IPC failure).
 
 #### Technology Copy Functions (`copy/[framework]/index.ts`)
 - **`copyComponentForProjectSvelte(componentId, project, options)`** (`copy/svelte/index.ts`)

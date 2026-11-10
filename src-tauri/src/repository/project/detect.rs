@@ -16,7 +16,11 @@ pub fn detect_language(project_path: &str) -> String {
     let has_dependency = |packages: &[&str]| {
         ["dependencies", "devDependencies", "peerDependencies"]
             .iter()
-            .filter_map(|section| manifest.get(*section).and_then(serde_json::Value::as_object))
+            .filter_map(|section| {
+                manifest
+                    .get(*section)
+                    .and_then(serde_json::Value::as_object)
+            })
             .any(|deps| packages.iter().any(|pkg| deps.contains_key(*pkg)))
     };
 
@@ -57,4 +61,3 @@ pub fn detect_language(project_path: &str) -> String {
     }
     "Unknown".to_string()
 }
-

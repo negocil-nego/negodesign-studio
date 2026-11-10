@@ -78,4 +78,3 @@ pub fn map_project(row: &rusqlite::Row<'_>) -> rusqlite::Result<Project> {
         active: row.get::<_, i64>("active")? != 0,
     })
 }
-

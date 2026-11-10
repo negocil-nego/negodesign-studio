@@ -186,4 +186,3 @@ fn ensure_flutter_icons(project_root: &Path) -> Result<bool, String> {
     fs::write(pubspec_path, format!("{}\n", lines.join("\n"))).map_err(|e| e.to_string())?;
     Ok(true)
 }
-

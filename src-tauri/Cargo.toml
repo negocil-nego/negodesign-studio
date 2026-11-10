@@ -28,6 +28,7 @@ rusqlite = { version = "0.31", features = ["bundled"] }
 mysql = "28"
 postgres = "0.19"
 ureq = "3"
+tauri-plugin-notification = "2"
 
 # Optimize dev builds to drastically reduce disk usage (.pdb / .rmeta size) and avoid LNK1201/LNK1108 on OneDrive
 [profile.dev]

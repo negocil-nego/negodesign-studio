@@ -93,7 +93,9 @@ pub fn list_saved_connections(app: &AppHandle) -> Result<Vec<SavedDatabaseConnec
             })
         })
         .map_err(|e| e.to_string())?;
-    saved.collect::<Result<Vec<_>, _>>().map_err(|e| e.to_string())
+    saved
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|e| e.to_string())
 }
 
 pub fn inspect_saved_connection(app: &AppHandle, id: i64) -> Result<Vec<DatabaseTable>, String> {

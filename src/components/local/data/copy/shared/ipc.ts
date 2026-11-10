@@ -5,6 +5,7 @@ import {
   type ComponentInstallResult,
   type ProjectRecord,
 } from "../../projects";
+import { notifyCopyError, notifyCopySuccess } from "./notify";
 import type { ComponentCopyOptions, ComponentCopyResult } from "./types";
 
 export type RustCopyCommand =
@@ -30,20 +31,29 @@ export async function invokeRustComponentCopy(
   options: ComponentCopyOptions = {},
 ): Promise<ComponentCopyResult> {
   const catalogEntry = componentCatalog.find((entry) => entry.id === componentId);
+  const componentName = catalogEntry?.name ?? componentId;
+  const selectedTheme = options.theme ?? "default";
+
   const request: RustComponentCopyRequest = {
     componentId,
     manifestPath: catalogEntry?.dependence ?? null,
     locales: options.locales,
-    theme: options.theme ?? "default",
+    theme: selectedTheme,
     staticDirectory: options.staticDirectory,
   };
 
-  const result = await invoke<ComponentInstallResult>(command, { request });
-  await refreshActiveProjectComponents();
+  try {
+    const result = await invoke<ComponentInstallResult>(command, { request });
+    await refreshActiveProjectComponents();
 
-  return {
-    ...result,
-    project,
-  };
+    const copyResult: ComponentCopyResult = {
+      ...result,
+      project,
+    };
+    await notifyCopySuccess(componentName, copyResult, selectedTheme);
+    return copyResult;
+  } catch (error) {
+    await notifyCopyError(componentName, error);
+    throw error;
+  }
 }
-

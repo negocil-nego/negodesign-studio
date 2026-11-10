@@ -94,12 +94,17 @@ pub fn copy_component_flutter(
 }
 
 #[tauri::command]
-pub fn connect_database(app: AppHandle, connection: DatabaseConnection) -> Result<Vec<DatabaseTable>, String> {
+pub fn connect_database(
+    app: AppHandle,
+    connection: DatabaseConnection,
+) -> Result<Vec<DatabaseTable>, String> {
     database_repository::inspect_and_save(&app, &connection)
 }
 
 #[tauri::command]
-pub fn list_saved_database_connections(app: AppHandle) -> Result<Vec<SavedDatabaseConnection>, String> {
+pub fn list_saved_database_connections(
+    app: AppHandle,
+) -> Result<Vec<SavedDatabaseConnection>, String> {
     database_repository::list_saved_connections(&app)
 }
 

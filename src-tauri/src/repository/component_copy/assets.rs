@@ -121,4 +121,3 @@ pub fn relocate_static_assets(
     }
     relocated
 }
-

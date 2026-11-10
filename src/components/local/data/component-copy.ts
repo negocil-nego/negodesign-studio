@@ -1,4 +1,5 @@
 import { get } from "svelte/store";
+import { componentCatalog } from "./components";
 import {
   activeProject,
   type ProjectLanguage,
@@ -8,6 +9,7 @@ import { copyComponentForProjectFlutter } from "./copy/flutter";
 import { copyComponentForProjectNextjs } from "./copy/nextjs";
 import { copyComponentForProjectNuxt } from "./copy/nuxt";
 import { copyComponentForProjectReact } from "./copy/react";
+import { notifyCopyError } from "./copy/shared/notify";
 import { copyComponentForProjectSvelte } from "./copy/svelte";
 import { copyComponentForProjectVue } from "./copy/vue";
 import type { ComponentCopyOptions, ComponentCopyResult } from "./copy/core";
@@ -18,8 +20,14 @@ export async function copyComponentToActiveProject(
   componentId: string,
   options: ComponentCopyOptions = {},
 ): Promise<ComponentCopyResult> {
+  const componentName =
+    componentCatalog.find((entry) => entry.id === componentId)?.name ?? componentId;
   const project = get(activeProject);
-  if (!project) throw new Error("Seleccione primeiro um projecto activo.");
+  if (!project) {
+    const err = new Error("Seleccione primeiro um projecto activo.");
+    await notifyCopyError(componentName, err);
+    throw err;
+  }
 
   const copyByLanguage: Partial<
     Record<
@@ -40,6 +48,10 @@ export async function copyComponentToActiveProject(
   };
 
   const copy = copyByLanguage[project.language];
-  if (!copy) throw new Error("A linguagem do projecto não foi identificada.");
+  if (!copy) {
+    const err = new Error("A linguagem do projecto não foi identificada.");
+    await notifyCopyError(componentName, err);
+    throw err;
+  }
   return copy(componentId, project, options);
 }

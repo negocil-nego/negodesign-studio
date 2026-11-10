@@ -118,8 +118,7 @@
       colSpan: 2,
       rowSpan: 2,
       backgroundColor: "#f3e9db",
-      imageUrl:
-        "/illustration-gallery/archive-bunsiness/8233824_team_target_aim_goal.png",
+      imageUrl: "/img/8233822_career_businesswoman_coin_finance.png",
       imageAlt: "Ilustração de uma equipe definindo objetivos em conjunto",
       imageMode: "contain",
     },
@@ -149,8 +148,7 @@
       colSpan: 3,
       rowSpan: 2,
       backgroundColor: "#d2a878",
-      imageUrl:
-        "/illustration-gallery/archive-bunsiness/8233827_business_meeting_brainstorm_teamwork.png",
+      imageUrl: "/img/8233822_career_businesswoman_coin_finance.png",
       imageAlt: "Equipe colaborando em uma sessão de ideias",
       imageMode: "contain",
     },
@@ -300,7 +298,7 @@
                             { text: "Explore Now", variant: "solid" as const },
                           ],
                           imageUrl:
-                            "/illustration-gallery/illustrations-color-green/8439488_family_generations_activity_family%20gathering_play_icon.png",
+                            "/img/8233822_career_businesswoman_coin_finance.png",
                           imageAlt:
                             "Família de várias gerações a dançar e a divertir-se em conjunto",
                         },

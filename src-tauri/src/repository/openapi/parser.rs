@@ -49,7 +49,13 @@ pub fn operations_for(spec: &Value) -> Vec<(Vec<String>, OpenApiOperation)> {
 fn schema_refs(schema: &Value) -> Option<Vec<String>> {
     let mut refs = Vec::new();
     if let Some(reference) = schema.get("$ref").and_then(Value::as_str) {
-        refs.push(reference.rsplit('/').next().unwrap_or(reference).to_string());
+        refs.push(
+            reference
+                .rsplit('/')
+                .next()
+                .unwrap_or(reference)
+                .to_string(),
+        );
     }
     for key in ["items", "allOf", "oneOf", "anyOf"] {
         match schema.get(key) {
@@ -115,7 +121,11 @@ pub fn fields_for(schema: &Value) -> Vec<OpenApiField> {
 
 fn type_of(property: &Value) -> String {
     if let Some(reference) = property.get("$ref").and_then(Value::as_str) {
-        return reference.rsplit('/').next().unwrap_or(reference).to_string();
+        return reference
+            .rsplit('/')
+            .next()
+            .unwrap_or(reference)
+            .to_string();
     }
     let Some(kind) = property.get("type").and_then(Value::as_str) else {
         return "any".to_string();
@@ -132,4 +142,3 @@ fn type_of(property: &Value) -> String {
         None => kind.to_string(),
     }
 }
-

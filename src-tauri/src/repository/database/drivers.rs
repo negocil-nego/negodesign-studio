@@ -64,10 +64,10 @@ pub fn inspect_postgres(
         .password(&connection.password)
         .dbname(&connection.database);
 
-    let mut client = config
-        .connect(postgres::NoTls)
+    let mut client = config.connect(postgres::NoTls).map_err(|e| e.to_string())?;
+    let rows = client
+        .query(POSTGRES_QUERY, &[])
         .map_err(|e| e.to_string())?;
-    let rows = client.query(POSTGRES_QUERY, &[]).map_err(|e| e.to_string())?;
 
     for row in rows {
         push(
@@ -83,4 +83,3 @@ pub fn inspect_postgres(
     }
     Ok(())
 }
-
