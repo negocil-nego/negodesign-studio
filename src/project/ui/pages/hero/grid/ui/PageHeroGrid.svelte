@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LocalStyleComponent } from "../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../data/style.component";
   import Menu from "../../../../organisms/menu/simple/ui/Menu.svelte";
   import SectionCardGrid from "../../../../organisms/section/hero/grid/ui/SectionCardGrid.svelte";
   import type { PageHeroGridCardProps, PageHeroGridProps } from "../data/types";

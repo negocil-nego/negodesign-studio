@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LocalStyleComponent } from "../../../../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../../../data/style.component";
   import MenuText from "../../../../menu/menu-grid/ui/MenuText.svelte";
   import MenuTitle from "../../../../menu/menu-title/ui/MenuTitle.svelte";
   import type { SubmenuTitleProps } from "../data/types";

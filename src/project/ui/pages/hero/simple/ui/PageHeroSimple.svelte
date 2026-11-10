@@ -1,6 +1,6 @@
 <script lang="ts">
   import Menu from "../../../../organisms/menu/simple/ui/Menu.svelte";
-  import { LocalStyleComponent } from "../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../data/style.component";
   import type { PageHeroSimpleProps } from "../data/types";
   import SectionText from "../../../../organisms/section/hero/shared/ui/SectionText.svelte";
 

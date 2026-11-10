@@ -2,7 +2,21 @@
 import type { SubmenuGridTitleProps } from "../data/types";
 import MenuTitle from "../../../../menu/menu-title/ui/MenuTitle.vue";
 import SubmenuTitle from "../../../simple/title/ui/SubmenuTitle.vue";
-import { StyleComponent } from "../../../../../../../../../components/local/data/style.component";
+import { StyleComponent } from "../../../../../../../../data/style.component";
+
 defineProps<SubmenuGridTitleProps>();
+const s = StyleComponent.menu.submenu.gridTitle;
 </script>
-<template><div :class="StyleComponent.menu.submenu.gridTitle.root"><aside v-if="title" :class="StyleComponent.menu.submenu.gridTitle.intro"><MenuTitle v-bind="title" variant="featured" /></aside><div v-if="items?.length" :class="StyleComponent.menu.submenu.gridTitle.groups"><div v-for="(item, i) in items" :key="i" :class="StyleComponent.menu.submenu.gridTitle.group"><SubmenuTitle v-bind="item" /></div></div></div></template>
+
+<template>
+  <div :class="s.root">
+    <aside v-if="title" :class="s.intro">
+      <MenuTitle v-bind="title" variant="featured" />
+    </aside>
+    <div v-if="items?.length" :class="s.groups">
+      <div v-for="(item, i) in items" :key="i" :class="s.group">
+        <SubmenuTitle v-bind="item" />
+      </div>
+    </div>
+  </div>
+</template>

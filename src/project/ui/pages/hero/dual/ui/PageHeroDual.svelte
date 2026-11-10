@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LocalStyleComponent } from "../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../data/style.component";
   import Menu from "../../../../organisms/menu/simple/ui/Menu.svelte";
   import SectionText from "../../../../organisms/section/hero/shared/ui/SectionText.svelte";
   import type { PageHeroDualProps } from "../data/types";

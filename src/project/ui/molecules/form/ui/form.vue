@@ -1,10 +1,96 @@
 <script setup lang="ts">
 import type { FormProps, FormIt } from "../data/types";
 import { StyleComponent } from "../../../../data/style.component";
-const props = withDefaults(defineProps<FormProps>(), { style: "grid", fields: () => [] });
+
+const props = withDefaults(defineProps<FormProps>(), {
+  style: "grid",
+  fields: () => [],
+});
+
 const emit = defineEmits<{ submit: [] }>();
-function submit(event: Event) { event.preventDefault(); props.onSubmit?.(Object.fromEntries(new FormData(event.currentTarget as HTMLFormElement).entries())); emit("submit"); }
-function fieldType(field: FormIt) { return field.inputProps?.type ?? (field.type === "email" || field.type === "password" || field.type === "number" || field.type === "tel" ? field.type : "text"); }
-function updateChecked(field: FormIt, event: Event) { field.onCheckedChange?.((event.target as HTMLInputElement).checked); }
+
+function submit(event: Event) {
+  event.preventDefault();
+  props.onSubmit?.(Object.fromEntries(new FormData(event.currentTarget as HTMLFormElement).entries()));
+  emit("submit");
+}
+
+function fieldType(field: FormIt) {
+  const isKnownType = ["email", "password", "number", "tel"].includes(field.type ?? "");
+  return field.inputProps?.type ?? (isKnownType ? field.type : "text");
+}
+
+function updateChecked(field: FormIt, event: Event) {
+  field.onCheckedChange?.((event.target as HTMLInputElement).checked);
+}
 </script>
-<template><form :class="`w-full grid grid-cols-1 ${style === 'grid' ? 'md:grid-cols-2' : ''} gap-4 ${className ?? ''}`" @submit="submit"><div v-for="(field, index) in fields" :key="field.id ?? `${field.component ?? field.type}-${index}`"><label v-if="field.component === 'checkbox' || field.component === 'toggle'" class="flex items-center gap-2 text-sm"><input type="checkbox" :name="field.name ?? field.id" :checked="field.checked" :disabled="field.disabled" :required="field.required" @change="updateChecked(field, $event)" />{{ field.labelProps?.label ?? field.label }}</label><fieldset v-else-if="field.component === 'radio'"><legend>{{ field.labelProps?.label ?? field.label }}</legend><label v-for="option in field.options" :key="option.value" class="mr-3 inline-flex gap-2"><input type="radio" :name="field.name ?? field.id" :value="option.value" :disabled="option.disabled" />{{ option.label }}</label></fieldset><label v-else class="block space-y-1 text-sm">{{ field.labelProps?.label ?? field.label }}<select v-if="field.component === 'select'" :id="field.id" :name="field.name ?? field.id" :required="field.required" :disabled="field.disabled" :class="StyleComponent.select.trigger"><option value="">{{ field.placeholder ?? 'Seleccione' }}</option><option v-for="option in field.options" :key="option.value" :value="option.value" :disabled="option.disabled">{{ option.label }}</option></select><textarea v-else-if="field.component === 'textarea'" :id="field.id" :name="field.name ?? field.id" :rows="field.rows ?? 4" :placeholder="field.placeholder" :required="field.required" :disabled="field.disabled" :class="StyleComponent.input.form" /><input v-else :id="field.id ?? field.inputProps?.id" :name="field.name ?? field.inputProps?.name" :type="fieldType(field)" :value="field.value ?? field.inputProps?.value" :placeholder="field.placeholder ?? field.inputProps?.placeholder" :required="field.required ?? field.inputProps?.required" :disabled="field.disabled ?? field.inputProps?.disabled" :class="StyleComponent.input.form" /></label></div><div v-if="submitLabel" class="flex justify-end md:col-span-2"><button type="submit" class="rounded-md bg-blue-600 px-4 py-2 text-xs font-semibold text-white">{{ submitLabel }}</button></div></form></template>
+
+<template>
+  <form :class="`w-full grid grid-cols-1 ${style === 'grid' ? 'md:grid-cols-2' : ''} gap-4 ${className ?? ''}`" @submit="submit">
+    <div v-for="(field, index) in fields" :key="field.id ?? `${field.component ?? field.type}-${index}`">
+      <label
+        v-if="field.component === 'checkbox' || field.component === 'toggle'"
+        class="flex items-center gap-2 text-sm"
+      >
+        <input
+          type="checkbox"
+          :name="field.name ?? field.id"
+          :checked="field.checked"
+          :disabled="field.disabled"
+          :required="field.required"
+          @change="updateChecked(field, $event)"
+        />
+        {{ field.labelProps?.label ?? field.label }}
+      </label>
+      <fieldset v-else-if="field.component === 'radio'">
+        <legend>{{ field.labelProps?.label ?? field.label }}</legend>
+        <label v-for="option in field.options" :key="option.value" class="mr-3 inline-flex gap-2">
+          <input type="radio" :name="field.name ?? field.id" :value="option.value" :disabled="option.disabled" />
+          {{ option.label }}
+        </label>
+      </fieldset>
+      <label v-else class="block space-y-1 text-sm">
+        {{ field.labelProps?.label ?? field.label }}
+        <select
+          v-if="field.component === 'select'"
+          :id="field.id"
+          :name="field.name ?? field.id"
+          :required="field.required"
+          :disabled="field.disabled"
+          :class="StyleComponent.select.trigger"
+        >
+          <option value="">{{ field.placeholder ?? "Seleccione" }}</option>
+          <option v-for="option in field.options" :key="option.value" :value="option.value" :disabled="option.disabled">
+            {{ option.label }}
+          </option>
+        </select>
+        <textarea
+          v-else-if="field.component === 'textarea'"
+          :id="field.id"
+          :name="field.name ?? field.id"
+          :rows="field.rows ?? 4"
+          :placeholder="field.placeholder"
+          :required="field.required"
+          :disabled="field.disabled"
+          :class="StyleComponent.input.form"
+        />
+        <input
+          v-else
+          :id="field.id ?? field.inputProps?.id"
+          :name="field.name ?? field.inputProps?.name"
+          :type="fieldType(field)"
+          :value="field.value ?? field.inputProps?.value"
+          :placeholder="field.placeholder ?? field.inputProps?.placeholder"
+          :required="field.required ?? field.inputProps?.required"
+          :disabled="field.disabled ?? field.inputProps?.disabled"
+          :class="StyleComponent.input.form"
+        />
+      </label>
+    </div>
+    <div v-if="submitLabel" class="flex justify-end md:col-span-2">
+      <button type="submit" class="rounded-md bg-blue-600 px-4 py-2 text-xs font-semibold text-white">
+        {{ submitLabel }}
+      </button>
+    </div>
+  </form>
+</template>

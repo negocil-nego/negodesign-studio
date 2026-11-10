@@ -1,4 +1,4 @@
-import { LocalStyleComponent } from "../../components/local/data/style.component";
+import { LocalStyleComponent } from "../data/style.component";
 import type { MenuTypeProps } from "../ui/organisms/menu/simple/data/types";
 import type { SubmenuGridTitleProps } from "../ui/organisms/menu/shared/submenu/grid/title/data/types";
 import type { SubmenuSidebarGridProps } from "../ui/organisms/menu/shared/submenu/grid/sidebar/data/types";

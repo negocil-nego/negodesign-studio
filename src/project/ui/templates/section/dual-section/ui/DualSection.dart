@@ -1,4 +1,46 @@
 import 'package:flutter/material.dart';
 import '../../../../organisms/section/form/data/types.dart';
-import '..\..\..\..\organisms\section\form\ui\SectionForm.dart';
-class DualSection extends StatelessWidget { final SectionFormProps leftSectionForm, rightSectionForm; const DualSection({super.key, required this.leftSectionForm, required this.rightSectionForm}); @override Widget build(BuildContext context) => LayoutBuilder(builder: (context, c) { final left=SectionForm(isScreen:leftSectionForm.isScreen,className:leftSectionForm.className,titleProps:leftSectionForm.titleProps,subtitleProps:leftSectionForm.subtitleProps,descriptionProps:leftSectionForm.descriptionProps,formProps:leftSectionForm.formProps,buttonSubmitProps:leftSectionForm.buttonSubmitProps,buttonsLoginProps:leftSectionForm.buttonsLoginProps); final right=SectionForm(isScreen:rightSectionForm.isScreen,className:rightSectionForm.className,titleProps:rightSectionForm.titleProps,subtitleProps:rightSectionForm.subtitleProps,descriptionProps:rightSectionForm.descriptionProps,formProps:rightSectionForm.formProps,buttonSubmitProps:rightSectionForm.buttonSubmitProps,buttonsLoginProps:rightSectionForm.buttonsLoginProps); return c.maxWidth >= 768 ? Row(children:[Expanded(child:left),Expanded(child:right)]) : Column(children:[left,right]); }); }
+import '../../../../organisms/section/form/ui/SectionForm.dart';
+
+class DualSection extends StatelessWidget {
+  final SectionFormProps leftSectionForm;
+  final SectionFormProps rightSectionForm;
+
+  const DualSection({
+    super.key,
+    required this.leftSectionForm,
+    required this.rightSectionForm,
+  });
+
+  Widget _buildSection(SectionFormProps props) {
+    return SectionForm(
+      isScreen: props.isScreen,
+      className: props.className,
+      titleProps: props.titleProps,
+      subtitleProps: props.subtitleProps,
+      descriptionProps: props.descriptionProps,
+      formProps: props.formProps,
+      buttonSubmitProps: props.buttonSubmitProps,
+      buttonsLoginProps: props.buttonsLoginProps,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final left = _buildSection(leftSectionForm);
+        final right = _buildSection(rightSectionForm);
+        if (constraints.maxWidth >= 768) {
+          return Row(
+            children: [
+              Expanded(child: left),
+              Expanded(child: right),
+            ],
+          );
+        }
+        return Column(children: [left, right]);
+      },
+    );
+  }
+}

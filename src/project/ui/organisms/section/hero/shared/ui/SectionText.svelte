@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LocalStyleComponent } from "../../../../../../../components/local/data/style.component";
+  import { LocalStyleComponent } from "../../../../../../data/style.component";
   import Button from "../../../../../atoms/button/variant/default/ui/Button.svelte";
   import Text from "../../../../../atoms/text/ui/Text.svelte";
   import type { SectionTextProps } from "../data/types";

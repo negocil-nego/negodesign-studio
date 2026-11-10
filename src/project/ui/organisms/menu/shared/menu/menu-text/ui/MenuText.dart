@@ -5,10 +5,17 @@ import '../../../../../../atoms/text/ui/text.dart' as textui;
 
 class MenuText extends StatelessWidget {
   final MenuTextProps props;
+
   const MenuText(this.props, {super.key});
+
   @override
-  Widget build(BuildContext context) => Row(mainAxisSize: MainAxisSize.min, children: [
-    if (props.icon != null) iconui.Icon(props.icon!),
-    if (props.textProps != null) textui.Text(props.textProps!),
-  ]);
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (props.icon != null) iconui.Icon(props.icon!),
+        if (props.textProps != null) textui.Text(props.textProps!),
+      ],
+    );
+  }
 }

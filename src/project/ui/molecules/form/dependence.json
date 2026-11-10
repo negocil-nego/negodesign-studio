@@ -21,7 +21,8 @@
           "data/types.ts"
         ],
         "Flutter": [
-          "data/types.dart"
+          "data/types.dart",
+          "data/viewmodel.dart"
         ]
       },
       "dependencies": {

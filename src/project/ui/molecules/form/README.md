@@ -9,6 +9,7 @@ Follows NegoDesign's Object Calisthenics pattern (`*Props` composition), MVVM fo
 - **React**: `ui/form.tsx`
 - **Vue**: `ui/form.vue`
 - **Flutter View**: `ui/Form.dart`
+- **Flutter MVVM ViewModel**: `data/viewmodel.dart` (`FormViewModel`)
 - **Component Dependencies**: `checkbox`, `country-popover`, `input-age`, `input-date`, `input-email`, `input-label`, `input-number`, `input-otp`, `input-password`, `input-phone`, `input-phone-flag`, `input-text`, `input-time`, `input-username`, `input-username-or-email`, `input-username-or-phone`, `radio`, `select`, `textarea`, `toggle`
 
 ## Props (`FormProps`)
