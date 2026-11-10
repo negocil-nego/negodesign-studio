@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { activeProject } from "../../../data/projects";
-  import { copyComponentToActiveProject } from "../../../data/component-copy";
+  import { componentCatalog, type ComponentDefinition } from "../../../data/components";
+  import ComponentCopyDialog from "../shared/ComponentCopyDialog.svelte";
 
   type Language = "svelte" | "react" | "vue" | "flutter";
   type TerminalProps = {
@@ -311,26 +312,31 @@
     },
   };
 
+  const catalogMatch = $derived(componentCatalog.find((c) => c.id === id));
+
   const info = $derived(
     componentInfo[id] ??
-      (id.startsWith("sidebar-")
-        ? { ...componentInfo.sidebar, name: name ?? componentInfo.sidebar.name }
-        : id.startsWith("data-table-")
-          ? { ...componentInfo["data-table"], name: name ?? componentInfo["data-table"].name }
-          : undefined),
+      (catalogMatch
+        ? {
+            name: catalogMatch.label ?? catalogMatch.name,
+            description: catalogMatch.description,
+            componentId: catalogMatch.id,
+          }
+        : id.startsWith("sidebar-")
+          ? { ...componentInfo.sidebar, name: name ?? componentInfo.sidebar.name }
+          : id.startsWith("data-table-")
+            ? { ...componentInfo["data-table"], name: name ?? componentInfo["data-table"].name }
+            : undefined),
   );
 
-  async function copyToProject() {
+  let dialogComponent = $state<ComponentDefinition | null>(null);
+
+  function copyToProject() {
     if (!info) return;
-    copying = true;
-    copyMessage = "";
-    try {
-      const result = await copyComponentToActiveProject(info.componentId);
-      copyMessage = `${result.copiedFiles} ficheiro(s) e ${result.exportedComponents} componente(s) disponíveis em ${result.project.name}/negodesign.`;
-    } catch (error) {
-      copyMessage = error instanceof Error ? error.message : String(error);
-    } finally {
-      copying = false;
+    const targetDef =
+      componentCatalog.find((c) => c.id === info.componentId) ?? catalogMatch;
+    if (targetDef) {
+      dialogComponent = targetDef;
     }
   }
 
@@ -490,5 +496,13 @@
     >
   </nav>
 </section>
+
+{#if dialogComponent}
+  <ComponentCopyDialog
+    component={dialogComponent}
+    onclose={() => (dialogComponent = null)}
+    onmessage={(msg) => (copyMessage = msg)}
+  />
+{/if}
 
 

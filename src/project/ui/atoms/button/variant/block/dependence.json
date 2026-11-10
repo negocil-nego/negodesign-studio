@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "block-button",
+      "name": "BlockButton",
+      "entry": {
+        "Svelte": "ui/BlockButton.svelte",
+        "React": "ui/BlockButton.tsx",
+        "Vue": "ui/BlockButton.vue",
+        "Flutter": "ui/BlockButton.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/block_button_view_model.dart"
+        ]
+      },
+      "dependencies": [
+        "button-base"
+      ],
+      "assets": [],
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Button label text."
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'outline'",
+          "required": false,
+          "description": "Visual button style."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables button interaction."
+        }
+      ]
+    }
+  ]
+}

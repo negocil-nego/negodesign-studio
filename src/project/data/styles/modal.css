@@ -1,0 +1,24 @@
+@layer components {
+  .modal-dialog {
+    @apply mx-auto w-full max-w-lg;
+  }
+
+  .modal-content {
+    @apply relative flex w-full flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card p-6 text-zinc-100 shadow-2xl;
+    background-color: var(--bs-card-bg, var(--theme-blender-card));
+    border-color: var(--bs-border-color, var(--theme-blender-border));
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between gap-3 border-b border-blender-border pb-3;
+  }
+
+  .modal-body {
+    @apply relative flex-1 py-4;
+  }
+
+  .modal-footer {
+    @apply flex flex-wrap items-center justify-end gap-2 border-t border-blender-border pt-3;
+  }
+}
+

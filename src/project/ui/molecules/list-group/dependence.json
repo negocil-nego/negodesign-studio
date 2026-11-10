@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "list-groups",
+      "name": "ListGroups",
+      "entry": {
+        "Svelte": "ui/ListGroups.svelte",
+        "React": "ui/ListGroups.tsx",
+        "Vue": "ui/ListGroups.vue",
+        "Flutter": "ui/ListGroups.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/list_groups_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "items",
+          "type": "ListGroupEntry[]",
+          "required": true,
+          "description": "List group entries with optional badges or rich content."
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "required": false,
+          "description": "Currently selected entry id."
+        }
+      ]
+    }
+  ]
+}

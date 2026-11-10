@@ -1,0 +1,60 @@
+@layer components {
+  .breadcrumb {
+    @apply flex flex-wrap items-center gap-1.5 rounded-md border border-blender-border bg-blender-surface px-4 py-2.5 text-xs text-zinc-400;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .breadcrumb-item {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    @apply text-zinc-500;
+  }
+
+  .breadcrumb-item.active {
+    @apply font-medium text-zinc-200;
+  }
+
+  .nav-underline {
+    @apply flex flex-wrap items-center gap-4 border-b border-blender-border;
+  }
+
+  .nav-underline .nav-link {
+    @apply -mb-px rounded-none border-b-2 border-transparent px-1 py-2.5 text-sm font-medium text-zinc-400 transition-colors hover:border-zinc-400 hover:text-zinc-100;
+  }
+
+  .nav-underline .nav-link.active {
+    @apply font-semibold text-zinc-100;
+    border-bottom-color: var(--bs-primary, #2563eb);
+    color: var(--bs-primary, #2563eb);
+  }
+
+  .pagination {
+    @apply inline-flex items-center overflow-hidden rounded-md border border-blender-border bg-blender-surface;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .pagination-lg .page-link {
+    @apply px-4 py-2.5 text-sm;
+  }
+
+  .pagination-sm .page-link {
+    @apply px-2.5 py-1 text-xs;
+  }
+
+  .page-item:not(:first-child) .page-link {
+    @apply border-l border-blender-border;
+  }
+
+  .page-link {
+    @apply inline-flex items-center justify-center px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:bg-blender-hover disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .page-item.active .page-link {
+    @apply text-white;
+    background-color: var(--bs-primary, #2563eb);
+  }
+}
+

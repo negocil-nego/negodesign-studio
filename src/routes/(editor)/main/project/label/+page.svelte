@@ -1,24 +1,15 @@
 <script lang="ts">
   import EditorPageShell from "../../../../../components/local/ui/editor/EditorPageShell.svelte";
   import AtomicComponentScreen from "../../../../../components/local/ui/editor/screen/AtomicComponentScreen.svelte";
-  import { componentCatalog } from "../../../../../components/local/data/components";
-  import { activeProject } from "../../../../../components/local/data/projects";
-  import { copyComponentToActiveProject } from "../../../../../components/local/data/component-copy";
+  import ComponentCopyDialog from "../../../../../components/local/ui/editor/shared/ComponentCopyDialog.svelte";
+  import { componentCatalog, type ComponentDefinition } from "../../../../../components/local/data/components";
 
-  const labelComponents = componentCatalog.filter(c => c.id === "label");
-  
-  let copyingId = $state<string | null>(null);
+  const labelComponents = componentCatalog.filter((c) => c.id === "label");
+  let componentToCopy = $state<ComponentDefinition | null>(null);
 
-  async function handleCopy(component: any) {
+  function handleCopy(component: ComponentDefinition) {
     if (!component.dependence) return;
-    copyingId = component.id;
-    try {
-      await copyComponentToActiveProject(component.id);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      copyingId = null;
-    }
+    componentToCopy = component;
   }
 </script>
 
@@ -36,11 +27,19 @@
       o utilizador possa focar o controlo ao seleccionar o rótulo.
     </p>
   </div>
-  
-  <AtomicComponentScreen 
-    components={labelComponents} 
-    viewMode="terminal" 
-    {copyingId} 
-    onCopy={handleCopy} 
+
+  <AtomicComponentScreen
+    components={labelComponents}
+    viewMode="terminal"
+    copyingId={null}
+    onCopy={handleCopy}
   />
 </EditorPageShell>
+
+{#if componentToCopy}
+  <ComponentCopyDialog
+    component={componentToCopy}
+    onclose={() => (componentToCopy = null)}
+    onmessage={() => {}}
+  />
+{/if}

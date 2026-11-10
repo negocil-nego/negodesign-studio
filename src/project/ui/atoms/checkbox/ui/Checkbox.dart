@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../data/theme/dart/theme_data.dart';
 import '../data/types.dart';
 import '../data/viewmodel.dart';
 
@@ -33,12 +34,42 @@ class _CheckboxState extends State<Checkbox> {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
     return ListenableBuilder(
       listenable: _vm,
-      builder: (context, _) => CheckboxListTile(
-        value: _vm.checked,
-        title: widget.props.label != null ? Text(widget.props.label!) : null,
-        onChanged: widget.props.disabled ? null : _vm.toggle,
+      builder: (context, _) => InkWell(
+        onTap: widget.props.disabled ? null : () => _vm.toggle(!_vm.checked),
+        borderRadius: BorderRadius.circular(NegoThemeData.radiusSm),
+        child: Opacity(
+          opacity: widget.props.disabled ? 0.5 : 1.0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                width: 16,
+                height: 16,
+                decoration: BoxDecoration(
+                  color: _vm.checked ? primary : NegoThemeData.blenderSurface,
+                  borderRadius: BorderRadius.circular(NegoThemeData.radiusSm),
+                  border: Border.all(
+                    color: _vm.checked ? primary : NegoThemeData.blenderBorder,
+                  ),
+                ),
+                child: _vm.checked
+                    ? const Icon(Icons.check, size: 12, color: Colors.white)
+                    : null,
+              ),
+              if (widget.props.label != null) ...[
+                const SizedBox(width: 10),
+                Text(
+                  widget.props.label!,
+                  style: const TextStyle(fontSize: 13, color: NegoThemeData.textPrimary),
+                ),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }

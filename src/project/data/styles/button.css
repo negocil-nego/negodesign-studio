@@ -1,0 +1,82 @@
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-transparent px-3.5 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white shadow-xs hover:opacity-90;
+    background-color: var(--bs-primary, #2563eb);
+    border-color: var(--bs-primary, #2563eb);
+  }
+
+  .btn-secondary {
+    @apply border-blender-border bg-blender-hover text-zinc-100 hover:bg-blender-active;
+    background-color: var(--bs-secondary, var(--theme-blender-hover));
+    border-color: var(--bs-border-color, var(--theme-blender-border));
+  }
+
+  .btn-success {
+    @apply bg-emerald-600 text-white hover:opacity-90;
+    background-color: var(--bs-success, #059669);
+    border-color: var(--bs-success, #059669);
+  }
+
+  .btn-info {
+    @apply bg-sky-500 text-white hover:opacity-90;
+    background-color: var(--bs-info, #0ea5e9);
+    border-color: var(--bs-info, #0ea5e9);
+  }
+
+  .btn-warning {
+    @apply bg-amber-500 text-white hover:opacity-90;
+    background-color: var(--bs-warning, #d97706);
+    border-color: var(--bs-warning, #d97706);
+  }
+
+  .btn-danger {
+    @apply bg-rose-600 text-white hover:opacity-90;
+    background-color: var(--bs-danger, #dc2626);
+    border-color: var(--bs-danger, #dc2626);
+  }
+
+  .btn-outline-primary {
+    @apply border-blue-500 bg-transparent text-blue-500 hover:bg-blue-600 hover:text-white;
+    border-color: var(--bs-primary, #2563eb);
+    color: var(--bs-primary, #2563eb);
+  }
+
+  .btn-outline-secondary {
+    @apply border-blender-border bg-blender-surface text-zinc-200 hover:bg-blender-hover hover:text-zinc-100;
+    border-color: var(--bs-border-color, var(--theme-blender-border));
+  }
+
+  .btn-block {
+    @apply flex w-full items-center justify-center;
+  }
+
+  .d-grid {
+    @apply grid w-full gap-2;
+  }
+
+  .btn-group {
+    @apply inline-flex items-stretch overflow-hidden rounded-md border border-blender-border;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .btn-group > .btn {
+    @apply rounded-none border-0 border-r border-blender-border last:border-r-0;
+  }
+
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+
+  .btn-lg {
+    @apply px-5 py-2.5 text-sm;
+  }
+
+  .btn-icon {
+    @apply inline-flex size-9 shrink-0 items-center justify-center rounded-md border border-blender-border bg-blender-surface p-0 text-zinc-200 transition-colors hover:bg-blender-hover;
+  }
+}

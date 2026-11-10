@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "underline-nav",
+      "name": "UnderlineNav",
+      "entry": {
+        "Svelte": "ui/UnderlineNav.svelte",
+        "React": "ui/UnderlineNav.tsx",
+        "Vue": "ui/UnderlineNav.vue",
+        "Flutter": "ui/UnderlineNav.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/underline_nav_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "items",
+          "type": "UnderlineNavItem[]",
+          "required": true,
+          "description": "Navigation tab items."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Active item key."
+        }
+      ]
+    }
+  ]
+}

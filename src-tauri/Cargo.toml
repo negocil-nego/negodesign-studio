@@ -18,8 +18,8 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-tauri = { version = "2", features = [] }
-tauri-plugin-opener = "2"
+tauri = { version = "2.12", features = [] }
+tauri-plugin-opener = "2.7"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 serde_yaml = "0.9"
@@ -29,6 +29,16 @@ mysql = "28"
 postgres = "0.19"
 ureq = "3"
 
+# Optimize dev builds to drastically reduce disk usage (.pdb / .rmeta size) and avoid LNK1201/LNK1108 on OneDrive
+[profile.dev]
+debug = 0
+strip = "debuginfo"
+incremental = false
+
+[profile.dev.package."*"]
+debug = 0
+strip = "debuginfo"
+opt-level = 1
 
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
 [profile.release]

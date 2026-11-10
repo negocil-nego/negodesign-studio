@@ -1,9 +1,13 @@
 use crate::{
     model::{
         migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
-        project::{ComponentExport, ComponentFile, ComponentInstallResult, Project},
+        project::{
+            ComponentCopyRequest, ComponentExport, ComponentFile, ComponentInstallResult, Project,
+        },
     },
-    repository::{database_repository, openapi_repository, project_repository},
+    repository::{
+        component_copy_repository, database_repository, openapi_repository, project_repository,
+    },
 };
 use tauri::AppHandle;
 
@@ -39,6 +43,54 @@ pub fn install_component(
     components: Vec<ComponentExport>,
 ) -> Result<ComponentInstallResult, String> {
     project_repository::install_component(&app, files, components)
+}
+
+#[tauri::command]
+pub fn copy_component_svelte(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_svelte(&app, request)
+}
+
+#[tauri::command]
+pub fn copy_component_react(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_react(&app, request)
+}
+
+#[tauri::command]
+pub fn copy_component_nextjs(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_nextjs(&app, request)
+}
+
+#[tauri::command]
+pub fn copy_component_vue(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_vue(&app, request)
+}
+
+#[tauri::command]
+pub fn copy_component_nuxt(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_nuxt(&app, request)
+}
+
+#[tauri::command]
+pub fn copy_component_flutter(
+    app: AppHandle,
+    request: ComponentCopyRequest,
+) -> Result<ComponentInstallResult, String> {
+    component_copy_repository::copy_flutter(&app, request)
 }
 
 #[tauri::command]

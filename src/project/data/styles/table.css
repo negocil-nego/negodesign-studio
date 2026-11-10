@@ -1,0 +1,30 @@
+@layer components {
+  .table-responsive {
+    @apply w-full overflow-x-auto;
+  }
+
+  .table {
+    @apply w-full border-collapse text-left text-xs text-zinc-200;
+  }
+
+  .table thead th {
+    @apply border-b border-blender-border bg-blender-surface px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-400;
+  }
+
+  .table tbody td {
+    @apply border-b border-blender-border/70 px-4 py-3.5 align-middle text-xs text-zinc-300;
+  }
+
+  .table-hover tbody tr {
+    @apply transition-colors hover:bg-blender-hover/50;
+  }
+
+  .pagination {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  .page-link {
+    @apply inline-flex h-8 min-w-8 items-center justify-center rounded-md border border-blender-border bg-blender-surface px-2.5 text-xs font-medium text-zinc-300 transition-colors hover:bg-blender-hover hover:text-zinc-100 disabled:pointer-events-none disabled:opacity-40;
+  }
+}
+

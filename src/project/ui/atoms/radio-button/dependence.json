@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "radio-button",
+      "name": "RadioButton",
+      "entry": {
+        "Svelte": "ui/RadioButton.svelte",
+        "React": "ui/RadioButton.tsx",
+        "Vue": "ui/RadioButton.vue",
+        "Flutter": "ui/RadioButton.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/radio_button_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "options",
+          "type": "RadioButtonOption[]",
+          "required": true,
+          "description": "List of button options."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Selected option value (single mode)."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "Enables checkbox button-group multi-select."
+        }
+      ]
+    }
+  ]
+}

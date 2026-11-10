@@ -1,0 +1,56 @@
+@layer components {
+  .badge {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-transparent px-2.5 py-0.5 text-xs font-semibold leading-4;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .rounded-pill {
+    @apply rounded-full!;
+  }
+
+  .bg-primary,
+  .text-bg-primary {
+    @apply text-white;
+    background-color: var(--bs-primary, #2563eb);
+  }
+
+  .bg-secondary,
+  .text-bg-secondary {
+    @apply text-zinc-100;
+    background-color: var(--bs-secondary, var(--theme-blender-hover));
+  }
+
+  .bg-success,
+  .text-bg-success {
+    @apply text-white;
+    background-color: var(--bs-success, #059669);
+  }
+
+  .bg-danger,
+  .text-bg-danger {
+    @apply text-white;
+    background-color: var(--bs-danger, #dc2626);
+  }
+
+  .bg-warning,
+  .text-bg-warning {
+    @apply text-white;
+    background-color: var(--bs-warning, #d97706);
+  }
+
+  .bg-info,
+  .text-bg-info {
+    @apply text-white;
+    background-color: var(--bs-info, #0ea5e9);
+  }
+
+  .bg-light,
+  .text-bg-light {
+    @apply border-blender-border bg-zinc-100 text-zinc-900;
+  }
+
+  .bg-dark,
+  .text-bg-dark {
+    @apply bg-zinc-900 text-zinc-100;
+  }
+}

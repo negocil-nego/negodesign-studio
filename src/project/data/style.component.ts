@@ -1,9 +1,23 @@
-import { AtomsStyle } from "./theme/atoms.style";
-import { CardsStyle } from "./theme/cards.style";
-import { InputsStyle } from "./theme/inputs.style";
-import { OrganismsStyle } from "./theme/organisms.style";
-import { createStyleTheme, type DeepPartial } from "./theme/theme.builder";
-import { DesignTokens } from "./theme/tokens";
+import { AtomsStyle } from "./theme/ts/atoms.style";
+import { BootswatchComponentsStyle } from "./theme/ts/bootswatch_components.style";
+import { CardsStyle } from "./theme/ts/cards.style";
+import { InputsStyle } from "./theme/ts/inputs.style";
+import { MenuStyle } from "./theme/ts/menu.style";
+import { OrganismsStyle } from "./theme/ts/organisms.style";
+import { PagesStyle } from "./theme/ts/pages.style";
+import { createStyleTheme, type DeepPartial } from "./theme/ts/theme.builder";
+import { DesignTokens } from "./theme/ts/tokens";
+
+export {
+  BOOTSWATCH_THEMES,
+  BOOTSWATCH_THEME_LIST,
+  getBootswatchTheme,
+  applyBootswatchThemeToRoot,
+  type BootswatchThemeId,
+  type BootswatchThemePalette,
+  type BootswatchThemeScope,
+  type BootswatchThemeSelection,
+} from "./theme/ts/bootswatch.themes";
 
 const BaseStyleComponent = {
   tokens: DesignTokens,
@@ -11,6 +25,9 @@ const BaseStyleComponent = {
   ...InputsStyle,
   ...CardsStyle,
   ...OrganismsStyle,
+  ...MenuStyle,
+  ...PagesStyle,
+  ...BootswatchComponentsStyle,
 } as const;
 
 export type StyleComponentType = typeof BaseStyleComponent;
@@ -20,6 +37,7 @@ export type StyleComponentType = typeof BaseStyleComponent;
  * Can be customized globally via `extendStyleComponent(overrides)`.
  */
 export const StyleComponent = BaseStyleComponent;
+export const LocalStyleComponent = BaseStyleComponent;
 
 export function extendStyleComponent(overrides: DeepPartial<StyleComponentType>): StyleComponentType {
   return createStyleTheme(BaseStyleComponent, overrides);

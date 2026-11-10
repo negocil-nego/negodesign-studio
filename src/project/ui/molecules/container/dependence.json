@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "containers",
+      "name": "Containers",
+      "entry": {
+        "Svelte": "ui/Containers.svelte",
+        "React": "ui/Containers.tsx",
+        "Vue": "ui/Containers.vue",
+        "Flutter": "ui/Containers.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/containers_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Hero heading title."
+        },
+        {
+          "name": "lead",
+          "type": "string",
+          "required": false,
+          "description": "Lead subtitle paragraph."
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": false,
+          "description": "Secondary body text."
+        },
+        {
+          "name": "actionLabel",
+          "type": "string",
+          "required": false,
+          "description": "Primary CTA button text."
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../data/theme/theme_data.dart';
+import '../../../../../data/theme/dart/theme_data.dart';
 
 class DataTableCellText extends StatelessWidget {
   const DataTableCellText({super.key, required this.text, this.className});

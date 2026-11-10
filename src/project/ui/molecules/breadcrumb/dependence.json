@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "entry": {
+        "Svelte": "ui/Breadcrumbs.svelte",
+        "React": "ui/Breadcrumbs.tsx",
+        "Vue": "ui/Breadcrumbs.vue",
+        "Flutter": "ui/Breadcrumbs.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/breadcrumbs_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "description": "Ordered breadcrumb trail items."
+        }
+      ]
+    }
+  ]
+}

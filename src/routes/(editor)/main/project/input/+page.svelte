@@ -1,29 +1,21 @@
 <script lang="ts">
   import EditorPageShell from "../../../../../components/local/ui/editor/EditorPageShell.svelte";
   import InputScreen from "../../../../../components/local/ui/editor/screen/InputScreen.svelte";
-  import { componentCatalog } from "../../../../../components/local/data/components";
-  import { activeProject } from "../../../../../components/local/data/projects";
-  import { copyComponentToActiveProject } from "../../../../../components/local/data/component-copy";
+  import ComponentCopyDialog from "../../../../../components/local/ui/editor/shared/ComponentCopyDialog.svelte";
+  import { componentCatalog, type ComponentDefinition } from "../../../../../components/local/data/components";
 
   const inputComponents = componentCatalog.filter(
     (c) =>
       (c.group === "Atom · Input" ||
         (c.group === "Atom" && c.category === "Input")) &&
-      c.id !== "input"
+      c.id !== "input",
   );
-  
-  let copyingId = $state<string | null>(null);
 
-  async function handleCopy(component: any) {
+  let componentToCopy = $state<ComponentDefinition | null>(null);
+
+  function handleCopy(component: ComponentDefinition) {
     if (!component.dependence) return;
-    copyingId = component.id;
-    try {
-      await copyComponentToActiveProject(component.id);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      copyingId = null;
-    }
+    componentToCopy = component;
   }
 </script>
 
@@ -37,11 +29,19 @@
       Pré-visualização interactiva e código-fonte dos componentes de entrada.
     </p>
   </div>
-  
-  <InputScreen 
-    components={inputComponents} 
-    viewMode="terminal" 
-    {copyingId} 
-    onCopy={handleCopy} 
+
+  <InputScreen
+    components={inputComponents}
+    viewMode="terminal"
+    copyingId={null}
+    onCopy={handleCopy}
   />
 </EditorPageShell>
+
+{#if componentToCopy}
+  <ComponentCopyDialog
+    component={componentToCopy}
+    onclose={() => (componentToCopy = null)}
+    onmessage={() => {}}
+  />
+{/if}

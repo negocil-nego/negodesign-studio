@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "indicators",
+      "name": "Indicators",
+      "entry": {
+        "Svelte": "ui/Indicators.svelte",
+        "React": "ui/Indicators.tsx",
+        "Vue": "ui/Indicators.vue",
+        "Flutter": "ui/Indicators.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/indicators_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "alerts",
+          "type": "AlertItem[]",
+          "required": false,
+          "description": "Contextual dismissible alert banners."
+        },
+        {
+          "name": "badges",
+          "type": "BadgeItem[]",
+          "required": false,
+          "description": "Contextual badges and pills."
+        }
+      ]
+    }
+  ]
+}

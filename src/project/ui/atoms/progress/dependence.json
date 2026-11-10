@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "progress",
+      "name": "Progress",
+      "entry": {
+        "Svelte": "ui/Progress.svelte",
+        "React": "ui/Progress.tsx",
+        "Vue": "ui/Progress.vue",
+        "Flutter": "ui/Progress.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/progress_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "description": "Progress percentage (0..100)."
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'success' | 'info' | 'warning' | 'danger'",
+          "required": false,
+          "description": "Contextual bar color."
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "required": false,
+          "description": "Renders striped gradient."
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "required": false,
+          "description": "Animates striped progress bar."
+        }
+      ]
+    }
+  ]
+}

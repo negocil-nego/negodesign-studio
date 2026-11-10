@@ -1,0 +1,54 @@
+@layer components {
+  .alert {
+    @apply relative flex w-full flex-col gap-1 rounded-md border px-4 py-3 text-sm text-white shadow-xs;
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  .alert-heading {
+    @apply text-base font-semibold leading-snug;
+  }
+
+  .alert-link {
+    @apply font-semibold underline underline-offset-2 hover:opacity-90;
+  }
+
+  .alert-dismissible {
+    @apply pr-10;
+  }
+
+  .btn-close {
+    @apply absolute top-2.5 right-2.5 inline-flex size-6 items-center justify-center rounded text-current opacity-75 transition-opacity hover:opacity-100;
+  }
+
+  .alert-primary {
+    background-color: var(--bs-primary, #2563eb);
+    border-color: var(--bs-primary, #2563eb);
+  }
+
+  .alert-secondary {
+    background-color: var(--bs-secondary, var(--theme-blender-hover));
+    border-color: var(--bs-border-color, var(--theme-blender-border));
+    @apply text-zinc-100;
+  }
+
+  .alert-success {
+    background-color: var(--bs-success, #059669);
+    border-color: var(--bs-success, #059669);
+  }
+
+  .alert-danger {
+    background-color: var(--bs-danger, #dc2626);
+    border-color: var(--bs-danger, #dc2626);
+  }
+
+  .alert-warning {
+    background-color: var(--bs-warning, #d97706);
+    border-color: var(--bs-warning, #d97706);
+  }
+
+  .alert-info {
+    background-color: var(--bs-info, #0ea5e9);
+    border-color: var(--bs-info, #0ea5e9);
+  }
+}
+

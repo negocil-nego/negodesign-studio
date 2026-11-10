@@ -3,6 +3,8 @@
   import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
   import { IconNamed, getIconClass } from "../../../hooks/icon.svelte";
   import { LocalStyleComponent } from "../data/style.component";
+  import { bootswatchUi } from "../data/bootswatch-ui.svelte";
+  import BootswatchThemeDropdown from "./BootswatchThemeDropdown.svelte";
   import {
     componentNavigationGroups,
     type ComponentDefinition,
@@ -23,18 +25,13 @@
     componentNavigationGroups.map(cloneGroup),
   );
   let search = $state("");
-  let theme = $state<"light" | "dark">("light");
 
   onMount(() => {
-    const savedTheme = localStorage.getItem("negodesign-theme");
-    theme = savedTheme === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = theme;
+    bootswatchUi.init();
   });
 
   function toggleTheme() {
-    theme = theme === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("negodesign-theme", theme);
+    bootswatchUi.toggleColorMode();
   }
 
   function toggle(group: ComponentNavigationGroup) {
@@ -179,16 +176,17 @@
       >Library</span
     >
     <div class="flex items-center gap-1">
+      <BootswatchThemeDropdown compact={true} align="right" />
       <button
-        class="{LocalStyleComponent.layout.themeToggle} {theme === 'light'
+        class="{LocalStyleComponent.layout.themeToggle} {bootswatchUi.colorMode === 'light'
           ? LocalStyleComponent.layout.themeToggleLight
           : LocalStyleComponent.layout.themeToggleDark}"
         type="button"
         onclick={toggleTheme}
-        title={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-        aria-label={theme === "light"
+        title={bootswatchUi.colorMode === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+        aria-label={bootswatchUi.colorMode === "light"
           ? "Ativar modo escuro"
-          : "Ativar modo claro"}>{theme === "light" ? "☾" : "☀"}</button
+          : "Ativar modo claro"}>{bootswatchUi.colorMode === "light" ? "☾" : "☀"}</button
       >
       <button
         class="{LocalStyleComponent.layout.iconButton} h-7 w-7"

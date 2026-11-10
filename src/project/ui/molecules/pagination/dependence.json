@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "pagination-nav",
+      "name": "PaginationNav",
+      "entry": {
+        "Svelte": "ui/PaginationNav.svelte",
+        "React": "ui/PaginationNav.tsx",
+        "Vue": "ui/PaginationNav.vue",
+        "Flutter": "ui/PaginationNav.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/pagination_nav_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "totalPages",
+          "type": "number",
+          "required": false,
+          "description": "Total number of pages."
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "required": false,
+          "description": "Active page index (1-based)."
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Pagination size variant."
+        }
+      ]
+    }
+  ]
+}

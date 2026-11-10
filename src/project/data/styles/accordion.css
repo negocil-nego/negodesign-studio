@@ -1,0 +1,22 @@
+@layer components {
+  .accordion {
+    @apply overflow-hidden rounded-xl border border-blender-border bg-blender-card;
+  }
+
+  .accordion-item {
+    @apply border-b border-blender-border last:border-b-0 bg-blender-card text-zinc-100;
+  }
+
+  .accordion-header {
+    @apply m-0;
+  }
+
+  .accordion-button {
+    @apply flex w-full cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-zinc-100 transition-colors hover:bg-blender-hover;
+  }
+
+  .accordion-body {
+    @apply border-t border-blender-border p-4 text-xs text-zinc-300;
+  }
+}
+

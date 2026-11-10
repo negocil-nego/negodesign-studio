@@ -1,0 +1,22 @@
+@layer components {
+  .offcanvas {
+    @apply flex h-full flex-col border-r border-blender-border bg-blender-sidebar text-zinc-200;
+  }
+
+  .offcanvas-header {
+    @apply flex items-center justify-between gap-3 border-b border-blender-border px-4 py-3;
+  }
+
+  .offcanvas-title {
+    @apply text-sm font-semibold text-zinc-100;
+  }
+
+  .offcanvas-body {
+    @apply flex-1 overflow-y-auto p-3;
+  }
+
+  .nav-pills .nav-link {
+    @apply rounded-lg;
+  }
+}
+

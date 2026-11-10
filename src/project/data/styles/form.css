@@ -1,0 +1,41 @@
+@layer components {
+  .form-label {
+    @apply mb-1 block text-xs font-medium text-zinc-300 select-none;
+  }
+
+  .form-check {
+    @apply inline-flex cursor-pointer items-center gap-2.5 text-sm text-zinc-200 select-none;
+  }
+
+  .form-check-input {
+    @apply size-4 shrink-0 cursor-pointer rounded border border-blender-border bg-blender-surface transition-colors focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:cursor-not-allowed disabled:opacity-50;
+    accent-color: var(--bs-primary, #2563eb);
+  }
+
+  .form-check-label {
+    @apply cursor-pointer text-sm text-zinc-200 select-none;
+  }
+
+  .form-switch {
+    @apply inline-flex cursor-pointer items-center gap-2.5 select-none;
+  }
+
+  .form-range {
+    @apply h-2 w-full cursor-pointer appearance-none rounded-full border border-blender-border bg-blender-surface transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-50;
+    accent-color: var(--bs-primary, #2563eb);
+  }
+
+  .form-range::-webkit-slider-thumb {
+    @apply size-4 appearance-none rounded-full border-0 shadow-sm transition-transform hover:scale-110;
+    background-color: var(--bs-primary, #2563eb);
+  }
+
+  .form-range::-moz-range-thumb {
+    @apply size-4 rounded-full border-0 shadow-sm transition-transform hover:scale-110;
+    background-color: var(--bs-primary, #2563eb);
+  }
+
+  .form-text {
+    @apply mt-1 block text-xs text-zinc-400;
+  }
+}

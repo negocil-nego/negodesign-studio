@@ -1,0 +1,65 @@
+import { CardsProfileStyle } from "./cards_profile.style";
+
+export const CardsStyle = {
+  card: {
+    shared: {
+      container: "w-full min-w-0",
+      title: "card-title text-base font-semibold leading-snug text-zinc-100",
+      description: "card-text text-xs leading-relaxed text-zinc-400",
+      imageWrapper: "relative w-full overflow-hidden bg-blender-surface",
+      image: "card-img-top h-full w-full object-cover",
+      videoWrapper: "relative w-full overflow-hidden bg-black",
+      video: "h-full w-full object-cover",
+      thumbnailButton: "group relative block w-full overflow-hidden bg-blender-surface text-left",
+      thumbnailOverlay: "absolute inset-0 flex items-center justify-center bg-black/40 transition-colors group-hover:bg-black/25",
+      thumbnailPlay: "flex size-12 items-center justify-center rounded-full bg-white/90 text-zinc-900 shadow-lg transition-transform group-hover:scale-105",
+      rating: "inline-flex items-center gap-1 text-xs font-medium text-amber-400",
+      ratingValue: "tabular-nums text-zinc-200",
+      ratingCount: "text-zinc-500",
+      price: "inline-flex items-baseline gap-2",
+      priceCurrent: "text-lg font-bold tabular-nums text-zinc-100",
+      priceOriginal: "text-xs tabular-nums text-zinc-500 line-through",
+      tags: "flex flex-wrap gap-1.5",
+      tag: "badge text-bg-secondary rounded-md border border-blender-border bg-blender-surface px-2 py-0.5 text-[11px] font-medium text-zinc-300",
+      logo: "size-8 shrink-0 rounded-md border border-blender-border bg-blender-surface object-contain p-1",
+      phone: "inline-flex items-center gap-1.5 text-xs text-zinc-300 hover:text-blue-400",
+      minFiles: "flex items-center gap-1.5 overflow-x-auto py-1",
+      minFile: "size-11 shrink-0 overflow-hidden rounded-md border border-blender-border bg-blender-surface transition-all hover:border-blue-500/60",
+      minFileActive: "border-blue-500 ring-1 ring-blue-500",
+      button: "btn btn-primary inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500 disabled:opacity-50",
+      iconAction: "btn-icon inline-flex size-8 items-center justify-center rounded-full border border-blender-border bg-blender-surface/90 text-zinc-200 backdrop-blur-xs transition-colors hover:bg-blender-hover hover:text-white",
+      iconActionActive: "border-rose-500/40 bg-rose-500/15 text-rose-400",
+    },
+    media: {
+      v01: {
+        root: "card group flex w-full flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card shadow-sm transition-all hover:border-zinc-700",
+        media: "relative aspect-video w-full overflow-hidden bg-blender-surface",
+        body: "card-body flex flex-1 flex-col justify-between gap-3 p-4",
+        header: "flex items-start justify-between gap-2",
+        footer: "card-footer flex items-center justify-between gap-2 border-t border-blender-border/60 pt-3",
+      },
+      v02: {
+        root: "card group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-xl border border-blender-border bg-blender-card",
+        media: "absolute inset-0 z-0",
+        overlay: "absolute inset-0 z-10 bg-gradient-to-t from-black/85 via-black/35 to-transparent",
+        body: "card-body relative z-20 flex flex-col gap-2 p-4 text-white",
+      },
+    },
+    product: {
+      v01: {
+        root: "card flex w-full flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card shadow-sm",
+        media: "relative aspect-square w-full overflow-hidden bg-blender-surface",
+        badges: "absolute right-2.5 top-2.5 z-10 flex flex-col gap-1.5",
+        body: "card-body flex flex-1 flex-col gap-3 p-4",
+        footer: "card-footer mt-auto flex items-center justify-between gap-2 pt-2",
+      },
+      v02: {
+        root: "card grid w-full grid-cols-1 overflow-hidden rounded-xl border border-blender-border bg-blender-card sm:grid-cols-[11rem_minmax(0,1fr)]",
+        media: "relative aspect-square w-full bg-blender-surface sm:aspect-auto sm:h-full",
+        body: "card-body flex flex-col justify-between gap-3 p-4",
+        footer: "card-footer flex flex-wrap items-center justify-between gap-2 border-t border-blender-border/60 pt-3",
+      },
+    },
+    profile: CardsProfileStyle,
+  },
+} as const;

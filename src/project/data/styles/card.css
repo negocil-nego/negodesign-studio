@@ -1,0 +1,44 @@
+@layer components {
+  .card {
+    @apply relative flex flex-col overflow-hidden rounded-xl border border-blender-border bg-blender-card text-zinc-100 shadow-sm transition-colors;
+    background-color: var(--bs-card-bg, var(--theme-blender-card));
+    border-color: var(--bs-border-color, var(--theme-blender-border));
+  }
+
+  .card-header {
+    @apply flex items-center justify-between gap-3 border-b border-blender-border bg-blender-surface px-4 py-3;
+  }
+
+  .card-body {
+    @apply flex flex-1 flex-col gap-3 p-4;
+  }
+
+  .card-footer {
+    @apply flex items-center justify-between gap-3 border-t border-blender-border bg-blender-surface px-4 py-3;
+  }
+
+  .card-title {
+    @apply text-base font-semibold leading-snug text-zinc-100;
+  }
+
+  .card-subtitle {
+    @apply text-xs font-medium text-zinc-400;
+  }
+
+  .card-text {
+    @apply text-xs leading-relaxed text-zinc-400;
+  }
+
+  .card-img-top {
+    @apply w-full object-cover;
+  }
+
+  .list-group {
+    @apply flex flex-col divide-y divide-blender-border overflow-hidden rounded-lg border border-blender-border bg-blender-card;
+  }
+
+  .list-group-item {
+    @apply flex items-center justify-between gap-2 px-3 py-2 text-xs text-zinc-200 transition-colors hover:bg-blender-hover;
+  }
+}
+

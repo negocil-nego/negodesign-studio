@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "../../../project/ui/atoms/icon/ui/Icon.svelte";
+  import BootswatchThemeDropdown from "./BootswatchThemeDropdown.svelte";
   import {
     componentNavigationGroups,
     type ComponentNavigationGroup,
@@ -108,4 +109,6 @@
       </div>
     {/if}
   </div>
+
+  <BootswatchThemeDropdown />
 </nav>

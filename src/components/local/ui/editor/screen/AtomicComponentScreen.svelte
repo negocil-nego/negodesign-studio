@@ -19,6 +19,16 @@
   import Toggle from "../../../../../project/ui/atoms/toggle/ui/Toggle.svelte";
   import Radio from "../../../../../project/ui/atoms/radio/ui/Radio.svelte";
   import Checkbox from "../../../../../project/ui/atoms/checkbox/ui/Checkbox.svelte";
+  import InputRange from "../../../../../project/ui/atoms/input/children/range/ui/InputRange.svelte";
+  import RadioButton from "../../../../../project/ui/atoms/radio-button/ui/RadioButton.svelte";
+  import BlockButton from "../../../../../project/ui/atoms/button/variant/block/ui/BlockButton.svelte";
+  import Progress from "../../../../../project/ui/atoms/progress/ui/Progress.svelte";
+  import PaginationNav from "../../../../../project/ui/molecules/pagination/ui/PaginationNav.svelte";
+  import Breadcrumbs from "../../../../../project/ui/molecules/breadcrumb/ui/Breadcrumbs.svelte";
+  import UnderlineNav from "../../../../../project/ui/molecules/underline-nav/ui/UnderlineNav.svelte";
+  import Indicators from "../../../../../project/ui/molecules/indicators/ui/Indicators.svelte";
+  import Containers from "../../../../../project/ui/molecules/container/ui/Containers.svelte";
+  import ListGroups from "../../../../../project/ui/molecules/list-group/ui/ListGroups.svelte";
   import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
   import { FlagNamed } from "../../../../../hooks/flag.svelte";
   import type { ComponentDefinition } from "../../../data/components";
@@ -44,6 +54,16 @@
   import ToggleTerminal from "../terminal/control/ToggleTerminal.svelte";
   import SelectTerminal from "../terminal/control/SelectTerminal.svelte";
   import TextareaTerminal from "../terminal/control/TextareaTerminal.svelte";
+  import InputRangeTerminal from "../terminal/control/InputRangeTerminal.svelte";
+  import RadioButtonTerminal from "../terminal/control/RadioButtonTerminal.svelte";
+  import BlockButtonTerminal from "../terminal/control/BlockButtonTerminal.svelte";
+  import ProgressTerminal from "../terminal/control/ProgressTerminal.svelte";
+  import PaginationNavTerminal from "../terminal/control/PaginationNavTerminal.svelte";
+  import BreadcrumbsTerminal from "../terminal/control/BreadcrumbsTerminal.svelte";
+  import UnderlineNavTerminal from "../terminal/control/UnderlineNavTerminal.svelte";
+  import IndicatorsTerminal from "../terminal/control/IndicatorsTerminal.svelte";
+  import ContainersTerminal from "../terminal/control/ContainersTerminal.svelte";
+  import ListGroupsTerminal from "../terminal/control/ListGroupsTerminal.svelte";
   import LabelTerminal from "../terminal/LabelTerminal.svelte";
 
   let {
@@ -110,6 +130,26 @@
           <SelectTerminal />
         {:else if component.id === "textarea"}
           <TextareaTerminal />
+        {:else if component.id === "input-range"}
+          <InputRangeTerminal />
+        {:else if component.id === "radio-button"}
+          <RadioButtonTerminal />
+        {:else if component.id === "block-button"}
+          <BlockButtonTerminal />
+        {:else if component.id === "progress"}
+          <ProgressTerminal />
+        {:else if component.id === "pagination-nav"}
+          <PaginationNavTerminal />
+        {:else if component.id === "breadcrumbs"}
+          <BreadcrumbsTerminal />
+        {:else if component.id === "underline-nav"}
+          <UnderlineNavTerminal />
+        {:else if component.id === "indicators"}
+          <IndicatorsTerminal />
+        {:else if component.id === "containers"}
+          <ContainersTerminal />
+        {:else if component.id === "list-groups"}
+          <ListGroupsTerminal />
         {:else if component.id === "label"}
           <LabelTerminal />
         {/if}
@@ -303,13 +343,58 @@
             <div class="flex flex-col gap-3">
               <Checkbox
                 id={`gallery-${component.id}-off`}
-                label="Não seleccionado"
+                label="Default checkbox"
               />
               <Checkbox
                 id={`gallery-${component.id}-on`}
                 checked={true}
-                label="Seleccionado"
+                label="Checked checkbox"
               />
+            </div>
+          {:else if component.id === "input-range"}
+            <div class="w-full max-w-xs">
+              <InputRange id={`gallery-${component.id}`} label="Example range" value={60} />
+            </div>
+          {:else if component.id === "radio-button"}
+            <RadioButton
+              id={`gallery-${component.id}`}
+              value="r1"
+              options={[
+                { value: "r1", label: "Radio 1" },
+                { value: "r2", label: "Radio 2" },
+                { value: "r3", label: "Radio 3" },
+              ]}
+            />
+          {:else if component.id === "block-button"}
+            <div class="w-full max-w-xs">
+              <BlockButton label="Block button" />
+            </div>
+          {:else if component.id === "progress"}
+            <div class="w-full max-w-xs space-y-2">
+              <Progress value={45} variant="primary" />
+              <Progress value={75} variant="success" striped={true} animated={true} />
+            </div>
+          {:else if component.id === "pagination-nav"}
+            <PaginationNav totalPages={5} currentPage={2} size="sm" />
+          {:else if component.id === "breadcrumbs"}
+            <div class="w-full max-w-xs">
+              <Breadcrumbs />
+            </div>
+          {:else if component.id === "underline-nav"}
+            <div class="w-full max-w-xs">
+              <UnderlineNav />
+            </div>
+          {:else if component.id === "indicators"}
+            <div class="w-full max-w-xs">
+              <Indicators alerts={[]} />
+            </div>
+          {:else if component.id === "containers"}
+            <div class="w-full max-w-xs">
+              <Containers title="Hello, world!" lead="Hero container unit." body="Utility spacing." />
+            </div>
+          {:else if component.id === "list-groups"}
+            <div class="w-full max-w-xs">
+              <ListGroups />
             </div>
           {/if}
         </div>

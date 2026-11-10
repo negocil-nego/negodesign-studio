@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../data/theme/dart/theme_data.dart';
 import '../data/types.dart';
 import '../data/viewmodel.dart';
 
@@ -33,16 +34,56 @@ class _RadioState extends State<Radio> {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
     return ListenableBuilder(
       listenable: _vm,
       builder: (context, _) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: widget.props.options.map((option) {
-          return RadioListTile<String>(
-            title: Text(option.label),
-            value: option.value,
-            groupValue: _vm.selected,
-            onChanged: (option.disabled || widget.props.disabled) ? null : _vm.select,
+          final isDisabled = option.disabled || widget.props.disabled;
+          final isSelected = _vm.selected == option.value;
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: InkWell(
+              onTap: isDisabled ? null : () => _vm.select(option.value),
+              borderRadius: BorderRadius.circular(NegoThemeData.radiusSm),
+              child: Opacity(
+                opacity: isDisabled ? 0.5 : 1.0,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      width: 16,
+                      height: 16,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isSelected ? primary : NegoThemeData.blenderSurface,
+                        border: Border.all(
+                          color: isSelected ? primary : NegoThemeData.blenderBorder,
+                        ),
+                      ),
+                      child: isSelected
+                          ? Container(
+                              width: 6,
+                              height: 6,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                            )
+                          : null,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      option.label,
+                      style: const TextStyle(fontSize: 13, color: NegoThemeData.textPrimary),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         }).toList(),
       ),

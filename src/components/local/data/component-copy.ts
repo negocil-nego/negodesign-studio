@@ -4,20 +4,20 @@ import {
   type ProjectLanguage,
   type ProjectRecord,
 } from "./projects";
-import { copyFlutterComponent } from "./copy/flutter.copy";
-import { copyNextjsComponent } from "./copy/nextjs.copy";
-import { copyNuxtComponent } from "./copy/nuxt.copy";
-import { copyReactComponent } from "./copy/react.copy";
-import { copySvelteComponent } from "./copy/svelte.copy";
-import { copyVueComponent } from "./copy/vue.copy";
-import type { ComponentCopyResult } from "./copy/core";
+import { copyComponentForProjectFlutter } from "./copy/flutter";
+import { copyComponentForProjectNextjs } from "./copy/nextjs";
+import { copyComponentForProjectNuxt } from "./copy/nuxt";
+import { copyComponentForProjectReact } from "./copy/react";
+import { copyComponentForProjectSvelte } from "./copy/svelte";
+import { copyComponentForProjectVue } from "./copy/vue";
+import type { ComponentCopyOptions, ComponentCopyResult } from "./copy/core";
 
-export type ComponentCopyOptions = { locales?: string[] };
+export type { ComponentCopyOptions } from "./copy/core";
 
 export async function copyComponentToActiveProject(
   componentId: string,
   options: ComponentCopyOptions = {},
-) {
+): Promise<ComponentCopyResult> {
   const project = get(activeProject);
   if (!project) throw new Error("Seleccione primeiro um projecto activo.");
 
@@ -27,18 +27,19 @@ export async function copyComponentToActiveProject(
       (
         id: string,
         target: ProjectRecord,
-        locales?: string[],
+        opts?: ComponentCopyOptions,
       ) => Promise<ComponentCopyResult>
     >
   > = {
-    Svelte: copySvelteComponent,
-    Nextjs: copyNextjsComponent,
-    React: copyReactComponent,
-    Nuxt: copyNuxtComponent,
-    Vue: copyVueComponent,
-    Flutter: copyFlutterComponent,
+    Svelte: copyComponentForProjectSvelte,
+    Nextjs: copyComponentForProjectNextjs,
+    React: copyComponentForProjectReact,
+    Nuxt: copyComponentForProjectNuxt,
+    Vue: copyComponentForProjectVue,
+    Flutter: copyComponentForProjectFlutter,
   };
+
   const copy = copyByLanguage[project.language];
   if (!copy) throw new Error("A linguagem do projecto não foi identificada.");
-  return copy(componentId, project, options.locales);
+  return copy(componentId, project, options);
 }

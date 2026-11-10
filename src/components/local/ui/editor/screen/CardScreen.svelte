@@ -1,6 +1,6 @@
 <script lang="ts">
   import { componentCatalog, type ComponentDefinition } from "../../../data/components";
-  import { copyComponentToActiveProject } from "../../../data/component-copy";
+  import ComponentCopyDialog from "../shared/ComponentCopyDialog.svelte";
   import CardMedia from "../../../../../project/ui/molecules/card/media/ui/CardMedia.svelte";
   import CardProfile from "../../../../../project/ui/molecules/card/profile/ui/CardProfile.svelte";
   import CardProduct from "../../../../../project/ui/molecules/card/product/ui/CardProduct.svelte";
@@ -42,14 +42,11 @@
   ));
   const activeCopyingId = $derived(copyingId ?? internalCopyingId);
 
-  async function handleCopy(component: ComponentDefinition) {
+  let dialogComponent = $state<ComponentDefinition | null>(null);
+
+  function handleCopy(component: ComponentDefinition) {
     if (onCopy) return onCopy(component);
-    internalCopyingId = component.id;
-    try {
-      await copyComponentToActiveProject(component.id);
-    } finally {
-      internalCopyingId = null;
-    }
+    dialogComponent = component;
   }
 
   const sharedCardComponents = $derived(
@@ -324,3 +321,11 @@
     </details>
   {/if}
 </div>
+
+{#if dialogComponent}
+  <ComponentCopyDialog
+    component={dialogComponent}
+    onclose={() => (dialogComponent = null)}
+    onmessage={() => {}}
+  />
+{/if}

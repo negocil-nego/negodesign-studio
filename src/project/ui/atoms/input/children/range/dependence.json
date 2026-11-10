@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "input-range",
+      "name": "InputRange",
+      "entry": {
+        "Svelte": "ui/InputRange.svelte",
+        "React": "ui/InputRange.tsx",
+        "Vue": "ui/InputRange.vue",
+        "Flutter": "ui/InputRange.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/input_range_view_model.dart"
+        ]
+      },
+      "dependencies": [],
+      "assets": [],
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Range input label."
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "description": "Current numeric value."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "description": "Minimum value."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "description": "Maximum value."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "description": "Step increment."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables slider control."
+        }
+      ]
+    }
+  ]
+}

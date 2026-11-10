@@ -1,0 +1,23 @@
+@layer components {
+  .carousel {
+    @apply relative w-full overflow-hidden rounded-xl border border-blender-border bg-blender-card;
+  }
+
+  .carousel-inner {
+    @apply relative w-full overflow-hidden;
+  }
+
+  .carousel-item {
+    @apply relative w-full;
+  }
+
+  .carousel-indicators {
+    @apply absolute inset-x-0 bottom-5 z-20 flex items-center justify-center gap-2;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    @apply flex size-10 items-center justify-center rounded-full border border-blender-border bg-blender-card text-zinc-300 transition-colors hover:border-blue-500/60 hover:bg-blender-hover hover:text-zinc-100;
+  }
+}
+
