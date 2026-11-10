@@ -11,27 +11,66 @@
         "Flutter": "ui/CountryPhonePopover.dart"
       },
       "files": {
-        "Svelte": ["data/country-phone.ts"],
-        "React": ["data/country-phone.ts"],
-        "Vue": ["data/country-phone.ts"],
-        "Flutter": ["data/country-phone.dart"]
+        "Svelte": [
+          "data/country-phone.ts"
+        ],
+        "React": [
+          "data/country-phone.ts"
+        ],
+        "Vue": [
+          "data/country-phone.ts"
+        ],
+        "Flutter": [
+          "data/country-phone.dart",
+          "data/country_phone_a.dart",
+          "data/country_phone_b.dart",
+          "data/country_phone_c.dart",
+          "data/viewmodel.dart",
+          "ui/flutter/country_phone_dialog.dart"
+        ]
       },
       "dependencies": {
-        "Svelte": ["popover"],
+        "Svelte": [
+          "popover"
+        ],
         "React": [],
         "Vue": [],
         "Flutter": []
       },
       "assets": {
-        "Svelte": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
-        "React": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
-        "Vue": ["hooks/flag.svelte.ts", "static/flags/4x3/*.svg"],
+        "Svelte": [
+          "hooks/flag.svelte.ts",
+          "static/flags/4x3/*.svg"
+        ],
+        "React": [
+          "hooks/flag.svelte.ts",
+          "static/flags/4x3/*.svg"
+        ],
+        "Vue": [
+          "hooks/flag.svelte.ts",
+          "static/flags/4x3/*.svg"
+        ],
         "Flutter": []
       },
       "props": [
-        { "name": "flag", "type": "FlagNamed | string", "required": true, "description": "Bandeira seleccionada inicialmente." },
-        { "name": "locale", "type": "string", "required": false, "description": "Localização usada para pesquisar e ordenar países." },
-        { "name": "onselect", "type": "(country: CountryPhoneOption) => void", "required": false, "description": "Callback executado ao escolher um país." }
+        {
+          "name": "flag",
+          "type": "FlagNamed | string",
+          "required": true,
+          "description": "Initially selected country flag."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "description": "Locale used for searching and sorting countries."
+        },
+        {
+          "name": "onselect",
+          "type": "(country: CountryPhoneOption) => void",
+          "required": false,
+          "description": "Callback executed when selecting a country."
+        }
       ]
     }
   ]

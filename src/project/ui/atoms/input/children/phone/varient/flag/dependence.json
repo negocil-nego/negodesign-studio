@@ -21,7 +21,8 @@
           "data/types.ts"
         ],
         "Flutter": [
-          "data/types.dart"
+          "data/types.dart",
+          "data/viewmodel.dart"
         ]
       },
       "dependencies": [
@@ -30,9 +31,18 @@
         "country-popover"
       ],
       "assets": {
-        "Svelte": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
-        "React": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
-        "Vue": ["static/styles/input-phone-flag.css", "project/data/style.component.ts"],
+        "Svelte": [
+          "static/styles/input-phone-flag.css",
+          "project/data/style.component.ts"
+        ],
+        "React": [
+          "static/styles/input-phone-flag.css",
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "static/styles/input-phone-flag.css",
+          "project/data/style.component.ts"
+        ],
         "Flutter": []
       },
       "props": [

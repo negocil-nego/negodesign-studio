@@ -4,9 +4,50 @@
     {
       "id": "input-date",
       "name": "InputDate",
-      "entry": { "Svelte": "ui/InputDate.svelte", "React": "ui/InputDate.tsx", "Vue": "ui/InputDate.vue", "Flutter": "ui/InputDate.dart" },
-      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
-      "dependencies": { "Svelte": ["input", "input-label", "icon", "popover"], "React": ["input", "input-label", "icon"], "Vue": ["input", "input-label", "icon"], "Flutter": ["input", "input-label"] },
+      "entry": {
+        "Svelte": "ui/InputDate.svelte",
+        "React": "ui/InputDate.tsx",
+        "Vue": "ui/InputDate.vue",
+        "Flutter": "ui/InputDate.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/flutter/calendar_dialog.dart",
+          "data/viewmodel.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "input",
+          "input-label",
+          "icon",
+          "popover"
+        ],
+        "React": [
+          "input",
+          "input-label",
+          "icon"
+        ],
+        "Vue": [
+          "input",
+          "input-label",
+          "icon"
+        ],
+        "Flutter": [
+          "input",
+          "input-label"
+        ]
+      },
       "assets": {
         "Svelte": [
           "project/data/i18n/index.ts",
@@ -19,8 +60,18 @@
         "Flutter": []
       },
       "props": [
-        { "name": "inputProps", "type": "InputProps", "required": true, "description": "Propriedades do campo; o tipo é definido como date." },
-        { "name": "labelProps", "type": "LabelProps", "required": false, "description": "Rótulo opcional associado ao campo." }
+        {
+          "name": "inputProps",
+          "type": "InputProps",
+          "required": true,
+          "description": "Input field properties configured as a date picker."
+        },
+        {
+          "name": "labelProps",
+          "type": "LabelProps",
+          "required": false,
+          "description": "Optional label associated with the field."
+        }
       ]
     }
   ]

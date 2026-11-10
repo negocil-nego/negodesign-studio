@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class Checkbox extends StatefulWidget {
   final CheckboxProps props;
@@ -10,25 +11,35 @@ class Checkbox extends StatefulWidget {
 }
 
 class _CheckboxState extends State<Checkbox> {
-  late bool _checked;
+  late final CheckboxViewModel _vm;
 
   @override
   void initState() {
     super.initState();
-    _checked = widget.props.checked;
+    _vm = CheckboxViewModel(widget.props);
+  }
+
+  @override
+  void didUpdateWidget(covariant Checkbox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _vm.didUpdate(widget.props);
+  }
+
+  @override
+  void dispose() {
+    _vm.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      value: _checked,
-      title: widget.props.label != null ? Text(widget.props.label!) : null,
-      onChanged: widget.props.disabled
-          ? null
-          : (value) {
-              setState(() => _checked = value ?? false);
-              widget.props.onchange?.call(_checked);
-            },
+    return ListenableBuilder(
+      listenable: _vm,
+      builder: (context, _) => CheckboxListTile(
+        value: _vm.checked,
+        title: widget.props.label != null ? Text(widget.props.label!) : null,
+        onChanged: widget.props.disabled ? null : _vm.toggle,
+      ),
     );
   }
 }

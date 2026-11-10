@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class Toggle extends StatefulWidget {
   final ToggleProps props;
@@ -10,33 +11,43 @@ class Toggle extends StatefulWidget {
 }
 
 class _ToggleState extends State<Toggle> {
-  late bool _checked;
+  late final ToggleViewModel _vm;
 
   @override
   void initState() {
     super.initState();
-    _checked = widget.props.checked;
+    _vm = ToggleViewModel(widget.props);
+  }
+
+  @override
+  void didUpdateWidget(covariant Toggle oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _vm.didUpdate(widget.props);
+  }
+
+  @override
+  void dispose() {
+    _vm.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Switch(
-          value: _checked,
-          onChanged: widget.props.disabled
-              ? null
-              : (value) {
-                  setState(() => _checked = value);
-                  widget.props.onchange?.call(value);
-                },
-        ),
-        if (widget.props.label != null) ...[
-          const SizedBox(width: 8),
-          Text(widget.props.label!),
+    return ListenableBuilder(
+      listenable: _vm,
+      builder: (context, _) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Switch(
+            value: _vm.checked,
+            onChanged: widget.props.disabled ? null : _vm.toggle,
+          ),
+          if (widget.props.label != null) ...[
+            const SizedBox(width: 8),
+            Text(widget.props.label!),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

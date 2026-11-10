@@ -1,66 +1,34 @@
 {
-    "version": 1,
-    "components": [
-        {
-            "id": "card-actions-button",
-            "name": "CardActionsButton",
-            "entry": {
-                "Svelte": "ui/CardActionsButton.svelte",
-                "React": "ui/CardActionsButton.tsx",
-                "Vue": "ui/CardActionsButton.vue",
-                "Flutter": "ui/CardActionsButton.dart"
-            },
-            "files": {
-                "Svelte": [
-                    "data/types.ts"
-                ],
-                "React": [
-                    "data/types.ts"
-                ],
-                "Vue": [
-                    "data/types.ts"
-                ],
-                "Flutter": [
-                    "data/types.dart"
-                ]
-            },
-            "dependencies": {
-                "Svelte": [
-                    "icon",
-                    "button-outline"
-                ],
-                "React": [
-                    "icon",
-                    "button-outline"
-                ],
-                "Vue": [
-                    "icon",
-                    "button-outline"
-                ],
-                "Flutter": [
-                    "icon",
-                    "button-outline"
-                ]
-            },
-            "assets": {
-                "Svelte": [
-                    "hooks/icon.svelte.ts",
-                    "static/hugeicons/css/hugeicons.css",
-                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
-                ],
-                "React": [
-                    "hooks/icon.svelte.ts",
-                    "static/hugeicons/css/hugeicons.css",
-                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
-                ],
-                "Vue": [
-                    "hooks/icon.svelte.ts",
-                    "static/hugeicons/css/hugeicons.css",
-                    "static/hugeicons/css/hgi-stroke-rounded.woff2"
-                ],
-                "Flutter": []
-            },
-            "props": []
-        }
-    ]
+  "version": 1,
+  "components": [
+    {
+      "id": "card-actions-button",
+      "name": "CardActionsButton",
+      "entry": {
+        "Svelte": "ui/CardActionsButton.svelte",
+        "React": "ui/CardActionsButton.tsx",
+        "Vue": "ui/CardActionsButton.vue",
+        "Flutter": "ui/CardActionsButton.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": ["data/types.dart", "ui/flutter/card_actions_variants.dart"]
+      },
+      "dependencies": {
+        "Svelte": ["icon", "button-outline"],
+        "React": ["icon", "button-outline"],
+        "Vue": ["icon", "button-outline"],
+        "Flutter": ["icon", "button-outline"]
+      },
+      "assets": {
+        "Svelte": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "React": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "Vue": ["hooks/icon.svelte.ts", "static/hugeicons/css/hugeicons.css", "static/hugeicons/css/hgi-stroke-rounded.woff2"],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
 }

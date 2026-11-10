@@ -4,17 +4,78 @@
     {
       "id": "select",
       "name": "Select",
-      "entry": { "Svelte": "ui/Select.svelte", "React": "ui/Select.tsx", "Vue": "ui/Select.vue", "Flutter": "ui/Select.dart" },
-      "files": { "Svelte": ["data/types.ts"], "React": ["data/types.ts"], "Vue": ["data/types.ts"], "Flutter": ["data/types.dart"] },
-      "dependencies": { "Svelte": ["icon"], "React": ["icon"], "Vue": ["icon"], "Flutter": [] },
+      "entry": {
+        "Svelte": "ui/Select.svelte",
+        "React": "ui/Select.tsx",
+        "Vue": "ui/Select.vue",
+        "Flutter": "ui/Select.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/flutter/select_dialog.dart",
+          "data/viewmodel.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "icon"
+        ],
+        "React": [
+          "icon"
+        ],
+        "Vue": [
+          "icon"
+        ],
+        "Flutter": []
+      },
       "assets": [],
       "props": [
-        { "name": "id", "type": "string", "required": true, "description": "Identificador único do elemento select." },
-        { "name": "options", "type": "SelectOption[]", "required": true, "description": "Lista de opções a apresentar." },
-        { "name": "value", "type": "string", "required": false, "description": "Valor seleccionado." },
-        { "name": "placeholder", "type": "string", "required": false, "description": "Texto de substituição quando nenhuma opção está seleccionada." },
-        { "name": "disabled", "type": "boolean", "required": false, "description": "Desactiva o controlo." },
-        { "name": "required", "type": "boolean", "required": false, "description": "Torna o campo obrigatório." }
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for the select element."
+        },
+        {
+          "name": "options",
+          "type": "SelectOption[]",
+          "required": true,
+          "description": "List of options to display."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Currently selected value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text when no option is selected."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the control."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Marks the field as required."
+        }
       ]
     }
   ]

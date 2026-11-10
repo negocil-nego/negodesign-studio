@@ -11,25 +11,69 @@
         "Flutter": "ui/InputUsername.dart"
       },
       "files": {
-        "Svelte": ["data/types.ts", "data/validation.ts"],
-        "React": ["data/types.ts", "data/validation.ts"],
-        "Vue": ["data/types.ts", "data/validation.ts"],
-        "Flutter": ["data/types.dart"]
+        "Svelte": [
+          "data/types.ts",
+          "data/validation.ts"
+        ],
+        "React": [
+          "data/types.ts",
+          "data/validation.ts"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "data/validation.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "data/viewmodel.dart"
+        ]
       },
-      "dependencies": ["input-label"],
+      "dependencies": [
+        "input-label"
+      ],
       "assets": {
-        "Svelte": ["project/data/style.component.ts"],
-        "React": ["project/data/style.component.ts"],
-        "Vue": ["project/data/style.component.ts"],
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts"
+        ],
         "Flutter": []
       },
       "props": [
-        { "name": "labelProps", "type": "LabelProps", "required": false },
-        { "name": "inputProps", "type": "InputProps", "required": true },
-        { "name": "validationMode", "type": "UsernameValidationMode", "required": false },
-        { "name": "errorMessage", "type": "string", "required": false },
-        { "name": "onValueChange", "type": "(value: string) => void", "required": false },
-        { "name": "onValidityChange", "type": "(isValid: boolean) => void", "required": false }
+        {
+          "name": "labelProps",
+          "type": "LabelProps",
+          "required": false
+        },
+        {
+          "name": "inputProps",
+          "type": "InputProps",
+          "required": true
+        },
+        {
+          "name": "validationMode",
+          "type": "UsernameValidationMode",
+          "required": false
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false
+        },
+        {
+          "name": "onValidityChange",
+          "type": "(isValid: boolean) => void",
+          "required": false
+        }
       ]
     }
   ]

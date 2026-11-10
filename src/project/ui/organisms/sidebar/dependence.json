@@ -31,54 +31,67 @@
         ],
         "Flutter": [
           "data/types.dart",
+          "ui/flutter/sidebar_rail.dart",
           "shared/sidebar-item/ui/SidebarItem.dart",
           "shared/sidebar-section/ui/SidebarSection.dart",
-          "shared/sidebar-profile/ui/SidebarProfile.dart"
+          "shared/sidebar-profile/ui/SidebarProfile.dart",
+          "data/viewmodel.dart"
         ]
       },
       "dependencies": {
-        "Svelte": ["icon"],
-        "React": ["icon"],
-        "Vue": ["icon"],
+        "Svelte": [
+          "icon"
+        ],
+        "React": [
+          "icon"
+        ],
+        "Vue": [
+          "icon"
+        ],
         "Flutter": []
       },
-      "assets": { "Svelte": [], "React": [], "Vue": [], "Flutter": [] },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
       "props": [
         {
           "name": "variant",
           "type": "01 | 02 | 03 | 04",
           "required": false,
-          "description": "Composição visual do menu lateral."
+          "description": "Visual layout composition of the sidebar."
         },
         {
           "name": "theme",
           "type": "light | dark",
           "required": false,
-          "description": "Tema claro ou escuro."
+          "description": "Light or dark color theme."
         },
         {
           "name": "collapsed",
           "type": "boolean",
           "required": false,
-          "description": "Apresenta a navegação em formato compacto."
+          "description": "Renders navigation in compact mode."
         },
         {
           "name": "sections",
           "type": "SidebarSectionProps[]",
           "required": false,
-          "description": "Grupos e itens de navegação."
+          "description": "Navigation groups and items."
         },
         {
           "name": "footerSections",
           "type": "SidebarSectionProps[]",
           "required": false,
-          "description": "Itens fixos apresentados no rodapé da navegação."
+          "description": "Pinned items displayed in the navigation footer."
         },
         {
           "name": "user",
           "type": "SidebarProfileProps",
           "required": false,
-          "description": "Perfil apresentado no rodapé."
+          "description": "User profile displayed in the footer."
         }
       ]
     }

@@ -24,7 +24,9 @@
           "data/background.ts"
         ],
         "Flutter": [
-          "data/types.dart"
+          "data/types.dart",
+          "ui/flutter/carousel_color_parser.dart",
+          "data/viewmodel.dart"
         ]
       },
       "dependencies": {
@@ -54,19 +56,19 @@
           "name": "items",
           "type": "SectionImageCarouselItem[]",
           "required": false,
-          "description": "Slides com imagem de fundo, título e descrição."
+          "description": "Slides with background image, title, and description."
         },
         {
           "name": "className",
           "type": "string",
           "required": false,
-          "description": "Classes adicionais para o contentor do carousel."
+          "description": "Additional CSS classes for the carousel container."
         },
         {
           "name": "backgroundColor",
           "type": "string",
           "required": false,
-          "description": "Gradiente CSS ou classe CSS utilitária aplicada ao fundo dos slides."
+          "description": "CSS gradient or utility class applied to the slide background."
         }
       ]
     }

@@ -1,110 +1,111 @@
 {
-    "version": 1,
-    "components": [
-        {
-            "id": "card-profile",
-            "name": "CardProfile",
-            "entry": {
-                "Svelte": "ui/CardProfile.svelte",
-                "React": "ui/CardProfile.tsx",
-                "Vue": "ui/CardProfile.vue",
-                "Flutter": "ui/CardProfile.dart"
-            },
-            "files": {
-                "Svelte": [
-                    "ui/card-01/CardProfile01.svelte",
-                    "ui/card-02/CardProfile02.svelte",
-                    "ui/card-03/CardProfile03.svelte",
-                    "data/types.ts"
-                ],
-                "React": [
-                    "ui/card-01/CardProfile01.tsx",
-                    "ui/card-02/CardProfile02.tsx",
-                    "ui/card-03/CardProfile03.tsx",
-                    "data/types.ts"
-                ],
-                "Vue": [
-                    "ui/card-01/CardProfile01.vue",
-                    "ui/card-02/CardProfile02.vue",
-                    "ui/card-03/CardProfile03.vue",
-                    "data/types.ts"
-                ],
-                "Flutter": [
-                    "ui/card-01/CardProfile01.dart",
-                    "ui/card-02/CardProfile02.dart",
-                    "ui/card-03/CardProfile03.dart",
-                    "data/types.dart"
-                ]
-            },
-            "dependencies": {
-                "Svelte": [
-                    "card-button",
-                    "card-cart-button",
-                    "card-description",
-                    "card-favorite-button",
-                    "card-image",
-                    "card-logo",
-                    "card-rating",
-                    "card-thumbnail-video",
-                    "card-title",
-                    "card-video",
-                    "card-tags",
-                    "card-actions-button",
-                    "icon"
-                ],
-                "React": [
-                    "card-button",
-                    "card-cart-button",
-                    "card-description",
-                    "card-favorite-button",
-                    "card-image",
-                    "card-logo",
-                    "card-rating",
-                    "card-thumbnail-video",
-                    "card-title",
-                    "card-video",
-                    "card-tags",
-                    "card-actions-button",
-                    "icon"
-                ],
-                "Vue": [
-                    "card-button",
-                    "card-cart-button",
-                    "card-description",
-                    "card-favorite-button",
-                    "card-image",
-                    "card-logo",
-                    "card-rating",
-                    "card-thumbnail-video",
-                    "card-title",
-                    "card-video",
-                    "card-tags",
-                    "card-actions-button",
-                    "icon"
-                ],
-                "Flutter": [
-                    "card-button",
-                    "card-cart-button",
-                    "card-description",
-                    "card-favorite-button",
-                    "card-image",
-                    "card-logo",
-                    "card-rating",
-                    "card-thumbnail-video",
-                    "card-title",
-                    "card-video",
-                    "card-tags",
-                    "card-actions-button",
-                    "icon"
-                ]
-            },
-            "assets": {
-                "Svelte": [],
-                "React": [],
-                "Vue": [],
-                "Flutter": []
-            },
-            "props": []
-        }
-    ]
+  "version": 1,
+  "components": [
+    {
+      "id": "card-profile",
+      "name": "CardProfile",
+      "entry": {
+        "Svelte": "ui/CardProfile.svelte",
+        "React": "ui/CardProfile.tsx",
+        "Vue": "ui/CardProfile.vue",
+        "Flutter": "ui/CardProfile.dart"
+      },
+      "files": {
+        "Svelte": [
+          "ui/card-01/CardProfile01.svelte",
+          "ui/card-02/CardProfile02.svelte",
+          "ui/card-03/CardProfile03.svelte",
+          "data/types.ts"
+        ],
+        "React": [
+          "ui/card-01/CardProfile01.tsx",
+          "ui/card-02/CardProfile02.tsx",
+          "ui/card-03/CardProfile03.tsx",
+          "data/types.ts"
+        ],
+        "Vue": [
+          "ui/card-01/CardProfile01.vue",
+          "ui/card-02/CardProfile02.vue",
+          "ui/card-03/CardProfile03.vue",
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "ui/card-01/CardProfile01.dart",
+          "ui/card-02/CardProfile02.dart",
+          "ui/card-03/CardProfile03.dart",
+          "data/types.dart",
+          "data/viewmodel.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "card-button",
+          "card-cart-button",
+          "card-description",
+          "card-favorite-button",
+          "card-image",
+          "card-logo",
+          "card-rating",
+          "card-thumbnail-video",
+          "card-title",
+          "card-video",
+          "card-tags",
+          "card-actions-button",
+          "icon"
+        ],
+        "React": [
+          "card-button",
+          "card-cart-button",
+          "card-description",
+          "card-favorite-button",
+          "card-image",
+          "card-logo",
+          "card-rating",
+          "card-thumbnail-video",
+          "card-title",
+          "card-video",
+          "card-tags",
+          "card-actions-button",
+          "icon"
+        ],
+        "Vue": [
+          "card-button",
+          "card-cart-button",
+          "card-description",
+          "card-favorite-button",
+          "card-image",
+          "card-logo",
+          "card-rating",
+          "card-thumbnail-video",
+          "card-title",
+          "card-video",
+          "card-tags",
+          "card-actions-button",
+          "icon"
+        ],
+        "Flutter": [
+          "card-button",
+          "card-cart-button",
+          "card-description",
+          "card-favorite-button",
+          "card-image",
+          "card-logo",
+          "card-rating",
+          "card-thumbnail-video",
+          "card-title",
+          "card-video",
+          "card-tags",
+          "card-actions-button",
+          "icon"
+        ]
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
 }

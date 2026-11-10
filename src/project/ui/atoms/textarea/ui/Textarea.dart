@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class Textarea extends StatefulWidget {
   final TextareaProps props;
@@ -10,31 +11,35 @@ class Textarea extends StatefulWidget {
 }
 
 class _TextareaState extends State<Textarea> {
-  late TextEditingController _controller;
+  late final TextareaViewModel _vm;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.props.value ?? "");
+    _vm = TextareaViewModel(widget.props);
+  }
+
+  @override
+  void didUpdateWidget(covariant Textarea oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _vm.didUpdate(oldWidget.props, widget.props);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _vm.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _controller,
+      controller: _vm.controller,
       maxLines: widget.props.rows,
       maxLength: widget.props.maxlength,
       enabled: !widget.props.disabled,
       readOnly: widget.props.readonly,
-      decoration: InputDecoration(
-        hintText: widget.props.placeholder,
-      ),
+      decoration: InputDecoration(hintText: widget.props.placeholder),
     );
   }
 }

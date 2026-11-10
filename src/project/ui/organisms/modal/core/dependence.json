@@ -20,7 +20,9 @@
         "Vue": [
           "data/types.ts"
         ],
-        "Flutter": []
+        "Flutter": [
+          "data/viewmodel.dart"
+        ]
       },
       "dependencies": {
         "Svelte": [],

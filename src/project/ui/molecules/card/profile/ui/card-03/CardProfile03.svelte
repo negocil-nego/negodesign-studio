@@ -27,7 +27,6 @@
 </script>
 
 <aside class={style.root}>
-  <!-- Cover -->
   <div class={style.cover}>
     {#if thumbnailVideoProps}
       <CardThumbnailVideo {...thumbnailVideoProps} />
@@ -38,15 +37,11 @@
     {:else}
       <div class={style.coverFallback}></div>
     {/if}
-
-    <!-- Edit Profile action (top-right of cover) -->
     {#if editActionProps}
       <div class={style.editAction}>
         <CardActionsButton actions={editActionProps.actions} variant="icon-outline" />
       </div>
     {/if}
-
-    <!-- Avatar anchored to bottom of cover -->
     {#if logoProps}
       <div class={style.logoWrapper}>
         <CardLogo {...logoProps} className={style.logoImage} />
@@ -54,19 +49,12 @@
     {/if}
   </div>
 
-  <!-- Body -->
   <div class={style.body}>
-    <!-- Name row + Follow / Message buttons -->
     <div class={style.headRow}>
       <div class={style.nameGroup}>
-        {#if titleProps}
-          <CardTitle {...titleProps} className={style.name} />
-        {/if}
-        {#if handleProps}
-          <span class={style.handle}>{handleProps}</span>
-        {/if}
+        {#if titleProps}<CardTitle {...titleProps} className={style.name} />{/if}
+        {#if handleProps}<span class={style.handle}>{handleProps}</span>{/if}
       </div>
-
       {#if actionsProps}
         <div class={style.actionsGroup}>
           <CardActionsButton actions={actionsProps.actions} variant="mixed" />
@@ -74,19 +62,12 @@
       {/if}
     </div>
 
-    <!-- About / Description -->
-    {#if descriptionProps || tagsProps}
+    {#if descriptionProps}
       <div class={style.aboutSection}>
-        {#if descriptionProps}
-          <CardDescription
-            {...descriptionProps}
-            className={style.description}
-          />
-        {/if}
+        <CardDescription {...descriptionProps} className={style.description} />
       </div>
     {/if}
 
-    <!-- Stats -->
     {#if tagsProps}
       <CardTags
         {...tagsProps}

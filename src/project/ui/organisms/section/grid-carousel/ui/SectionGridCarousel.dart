@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class SectionGridCarousel extends StatefulWidget {
   final SectionGridCarouselProps props;
-
   const SectionGridCarousel(this.props, {super.key});
 
   @override
@@ -12,95 +11,73 @@ class SectionGridCarousel extends StatefulWidget {
 }
 
 class _SectionGridCarouselState extends State<SectionGridCarousel> {
-  final PageController _pages = PageController();
-  int _page = 0;
+  late final SectionGridCarouselViewModel _vm;
+
+  @override
+  void initState() {
+    super.initState();
+    _vm = SectionGridCarouselViewModel(widget.props);
+  }
+
+  @override
+  void didUpdateWidget(covariant SectionGridCarousel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _vm.didUpdate(widget.props);
+  }
 
   @override
   void dispose() {
-    _pages.dispose();
+    _vm.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final props = widget.props;
-    final columns = props.columns.clamp(1, 1000).toInt();
-    final rows = props.rows.clamp(1, 1000).toInt();
-    final pageSize = rows * columns;
-    final pages = <List<Widget>>[];
-
-    for (var index = 0; index < props.children.length; index += pageSize) {
-      pages.add(props.children.skip(index).take(pageSize).toList());
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (props.titleProps != null)
-                      Text(
-                        props.titleProps!.Text,
-                        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-                      ),
-                    if (props.descriptionProps != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(props.descriptionProps!.Text),
-                      ),
-                  ],
+    return ListenableBuilder(
+      listenable: _vm,
+      builder: (context, _) {
+        final pages = _vm.pages;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (props.titleProps != null)
+                          Text(props.titleProps!.Text, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+                        if (props.descriptionProps != null)
+                          Padding(padding: const EdgeInsets.only(top: 8), child: Text(props.descriptionProps!.Text)),
+                      ],
+                    ),
+                  ),
+                  IconButton(onPressed: _vm.canGoPrevious ? _vm.previousPage : null, icon: const Icon(Icons.arrow_back)),
+                  IconButton(onPressed: _vm.canGoNext ? _vm.nextPage : null, icon: const Icon(Icons.arrow_forward)),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 360,
+              child: PageView.builder(
+                controller: _vm.pageController,
+                itemCount: pages.length,
+                onPageChanged: _vm.onPageChanged,
+                itemBuilder: (context, index) => GridView.count(
+                  crossAxisCount: _vm.columns,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  children: pages[index].map((c) => FittedBox(fit: BoxFit.scaleDown, alignment: Alignment.topCenter, child: c)).toList(),
                 ),
               ),
-              IconButton(
-                onPressed: _page > 0
-                    ? () => _pages.previousPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        )
-                    : null,
-                icon: const Icon(Icons.arrow_back),
-              ),
-              IconButton(
-                onPressed: _page < pages.length - 1
-                    ? () => _pages.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        )
-                    : null,
-                icon: const Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 360,
-          child: PageView.builder(
-            controller: _pages,
-            itemCount: pages.length,
-            onPageChanged: (page) => setState(() => _page = page),
-            itemBuilder: (context, index) => GridView.count(
-              crossAxisCount: columns,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: pages[index]
-                  .map(
-                    (child) => FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.topCenter,
-                      child: child,
-                    ),
-                  )
-                  .toList(),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

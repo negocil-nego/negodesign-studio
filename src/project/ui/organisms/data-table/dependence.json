@@ -11,53 +11,92 @@
         "Flutter": "ui/DataTable.dart"
       },
       "files": {
-        "Svelte": ["data/types.ts", "data/examples.ts"],
-        "React": ["data/types.ts", "data/examples.ts"],
-        "Vue": ["data/types.ts", "data/examples.ts"],
-        "Flutter": ["data/types.dart"]
+        "Svelte": [
+          "data/types.ts",
+          "data/examples.ts"
+        ],
+        "React": [
+          "data/types.ts",
+          "data/examples.ts"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "data/examples.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/flutter/data_table_cell.dart",
+          "ui/flutter/data_table_examples.dart",
+          "data/viewmodel.dart"
+        ]
       },
       "dependencies": {
-        "Svelte": ["text", "icon", "data-table-filter"],
-        "React": ["text", "icon", "data-table-filter"],
-        "Vue": ["text", "icon", "data-table-filter"],
-        "Flutter": ["data-table-filter"]
+        "Svelte": [
+          "text",
+          "icon",
+          "data-table-filter"
+        ],
+        "React": [
+          "text",
+          "icon",
+          "data-table-filter"
+        ],
+        "Vue": [
+          "text",
+          "icon",
+          "data-table-filter"
+        ],
+        "Flutter": [
+          "data-table-filter"
+        ]
       },
       "assets": {
-        "Svelte": ["project/data/style.component.ts"],
-        "React": ["project/data/style.component.ts"],
-        "Vue": ["project/data/style.component.ts"],
-        "Flutter": []
+        "Svelte": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "Flutter": [
+          "project/data/theme/theme_data.dart"
+        ]
       },
       "props": [
         {
           "name": "variant",
           "type": "\"01\" | \"02\" | \"03\" | \"04\" | \"05\"",
           "required": false,
-          "description": "Variação visual e conjunto de dados de exemplo da tabela."
+          "description": "Visual variation and preset dataset."
         },
         {
           "name": "title",
           "type": "string",
           "required": false,
-          "description": "Título visível ou acessível da tabela."
+          "description": "Visible or accessible table heading."
         },
         {
           "name": "columns",
           "type": "TextProps[]",
           "required": false,
-          "description": "Lista plana de cabeçalhos de coluna. Cada item é um TextProps { text, className? }."
+          "description": "Flat list of column headers."
         },
         {
           "name": "rows",
           "type": "TextProps[]",
           "required": false,
-          "description": "Lista plana de todos os valores de célula, agrupados internamente pelo número de colunas."
+          "description": "Flat list of cells grouped by column count."
         },
         {
           "name": "className",
           "type": "string",
           "required": false,
-          "description": "Classes adicionais aplicadas ao elemento section."
+          "description": "Additional CSS classes."
         }
       ]
     }

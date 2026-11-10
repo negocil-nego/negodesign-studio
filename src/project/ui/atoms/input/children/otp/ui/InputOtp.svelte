@@ -1,6 +1,12 @@
 <script lang="ts">
   import type { InputOtpProps } from "../data/types";
   import { StyleComponent } from "../../../../../../data/style.component";
+  import {
+    applyOtpDigit,
+    applyOtpPaste,
+    normalizeOtpDigits,
+    resolveOtpKeyFocus,
+  } from "../../../../../../hooks/otp-input.hook";
 
   let {
     id,
@@ -21,8 +27,7 @@
   let inputs: HTMLInputElement[] = [];
 
   $effect(() => {
-    const nextValue = String(value ?? "").replace(/\D/g, "").slice(0, digitCount);
-    digits = Array.from({ length: digitCount }, (_, index) => nextValue[index] ?? "");
+    digits = normalizeOtpDigits(value, digitCount);
   });
 
   function updateValue(nextDigits: string[]) {
@@ -32,77 +37,44 @@
   }
 
   function handleInput(index: number, event: Event) {
-    const input = event.currentTarget as HTMLInputElement;
-    const digit = input.value.replace(/\D/g, "").slice(-1);
-    const next = [...digits];
-    next[index] = digit;
-    updateValue(next);
-
-    if (digit && index < digitCount - 1) inputs[index + 1]?.focus();
+    const res = applyOtpDigit(digits, index, (event.currentTarget as HTMLInputElement).value);
+    updateValue(res.nextDigits);
+    if (res.focusIndex !== null) inputs[res.focusIndex]?.focus();
   }
 
   function handleKeydown(index: number, event: KeyboardEvent) {
-    if (event.key === "ArrowLeft" && index > 0) {
-      event.preventDefault();
-      inputs[index - 1]?.focus();
-    } else if (event.key === "ArrowRight" && index < digitCount - 1) {
-      event.preventDefault();
-      inputs[index + 1]?.focus();
-    } else if (event.key === "Backspace" && !digits[index] && index > 0) {
-      inputs[index - 1]?.focus();
+    const nextIdx = resolveOtpKeyFocus(event.key, index, digitCount, digits[index]);
+    if (nextIdx !== null) {
+      if (event.key !== "Backspace") event.preventDefault();
+      inputs[nextIdx]?.focus();
     }
   }
 
   function handlePaste(index: number, event: ClipboardEvent) {
-    const pasted = event.clipboardData?.getData("text").replace(/\D/g, "");
-    if (!pasted) return;
-
+    const res = applyOtpPaste(digits, index, event.clipboardData?.getData("text") ?? "");
+    if (!res) return;
     event.preventDefault();
-    const next = [...digits];
-    const characters = pasted.slice(0, digitCount - index).split("");
-    characters.forEach((digit, offset) => (next[index + offset] = digit));
-    updateValue(next);
-    inputs[Math.min(index + characters.length, digitCount - 1)]?.focus();
+    updateValue(res.nextDigits);
+    inputs[res.focusIndex]?.focus();
   }
 </script>
 
-<div
-  class="{StyleComponent.input.otp.root} {position === 'center' ? 'mx-auto w-fit' : ''}"
->
+<div class="{StyleComponent.input.otp.root} {position === 'center' ? 'mx-auto w-fit' : ''}">
   {#if labelProps}
-    <label
-      for={labelProps.for}
-      class="{StyleComponent.input.otp.label} {StyleComponent.input.otp.labelPosition[position]} block"
-      data-name="label">{labelProps.label}</label
-    >
+    <label for={labelProps.for} class="{StyleComponent.input.otp.label} {StyleComponent.input.otp.labelPosition[position]} block"
+      data-name="label">{labelProps.label}</label>
   {/if}
-
-  <div
-    class={StyleComponent.input.otp.group}
-    role="group"
-    aria-label={labelProps?.label ?? "Código de verificação"}
-  >
+  <div class={StyleComponent.input.otp.group} role="group" aria-label={labelProps?.label ?? "Verification code"}>
     {#each digits as digit, index (index)}
       {#if separatorPosition > 0 && index > 0 && index % separatorPosition === 0}
         <span class={StyleComponent.input.otp.separator} aria-hidden="true">•</span>
       {/if}
-      <input
-        bind:this={inputs[index]}
+      <input bind:this={inputs[index]}
         id={index === 0 ? (labelProps?.for ?? id) : `${id ?? labelProps?.for ?? "otp"}-${index}`}
-        type="text"
-        inputmode="numeric"
-        pattern="[0-9]*"
-        maxlength="1"
-        autocomplete={index === 0 ? "one-time-code" : "off"}
-        value={digit}
-        {disabled}
-        {required}
-        aria-label={`Dígito ${index + 1} de ${digitCount}`}
-        class={StyleComponent.input.otp.slot}
-        oninput={(event) => handleInput(index, event)}
-        onkeydown={(event) => handleKeydown(index, event)}
-        onpaste={(event) => handlePaste(index, event)}
-      />
+        type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+        autocomplete={index === 0 ? "one-time-code" : "off"} value={digit} {disabled} {required}
+        aria-label={`Digit ${index + 1} of ${digitCount}`} class={StyleComponent.input.otp.slot}
+        oninput={(e) => handleInput(index, e)} onkeydown={(e) => handleKeydown(index, e)} onpaste={(e) => handlePaste(index, e)} />
     {/each}
   </div>
   {#if name}<input type="hidden" {name} {value} />{/if}

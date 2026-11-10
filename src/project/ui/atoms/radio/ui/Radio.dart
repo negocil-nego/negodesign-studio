@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class Radio extends StatefulWidget {
   final RadioProps props;
@@ -10,31 +11,41 @@ class Radio extends StatefulWidget {
 }
 
 class _RadioState extends State<Radio> {
-  late String? _selected;
+  late final RadioViewModel _vm;
 
   @override
   void initState() {
     super.initState();
-    _selected = widget.props.value;
+    _vm = RadioViewModel(widget.props);
+  }
+
+  @override
+  void didUpdateWidget(covariant Radio oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _vm.didUpdate(widget.props);
+  }
+
+  @override
+  void dispose() {
+    _vm.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: widget.props.options.map((option) {
-        return RadioListTile<String>(
-          title: Text(option.label),
-          value: option.value,
-          groupValue: _selected,
-          onChanged: (option.disabled || widget.props.disabled)
-              ? null
-              : (value) {
-                  setState(() => _selected = value);
-                  if (value != null) widget.props.onchange?.call(value);
-                },
-        );
-      }).toList(),
+    return ListenableBuilder(
+      listenable: _vm,
+      builder: (context, _) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: widget.props.options.map((option) {
+          return RadioListTile<String>(
+            title: Text(option.label),
+            value: option.value,
+            groupValue: _vm.selected,
+            onChanged: (option.disabled || widget.props.disabled) ? null : _vm.select,
+          );
+        }).toList(),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/types.dart';
+import '../data/viewmodel.dart';
 
 class SectionCarouselButtons extends StatefulWidget {
   final SectionCarouselButtonsProps props;
@@ -10,23 +11,12 @@ class SectionCarouselButtons extends StatefulWidget {
 }
 
 class _SectionCarouselButtonsState extends State<SectionCarouselButtons> {
-  final ScrollController _controller = ScrollController();
+  final SectionCarouselButtonsViewModel _vm = SectionCarouselButtonsViewModel();
 
   @override
   void dispose() {
-    _controller.dispose();
+    _vm.dispose();
     super.dispose();
-  }
-
-  void _scroll(int direction) {
-    if (!_controller.hasClients) return;
-    _controller.animateTo(
-      (_controller.offset + direction * _controller.position.viewportDimension * 0.8)
-          .clamp(0, _controller.position.maxScrollExtent)
-          .toDouble(),
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
   }
 
   @override
@@ -47,16 +37,13 @@ class _SectionCarouselButtonsState extends State<SectionCarouselButtons> {
                     if (props.titleProps != null)
                       Text(props.titleProps!.Text, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
                     if (props.descriptionProps != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(props.descriptionProps!.Text, style: const TextStyle(color: Colors.grey)),
-                      ),
+                      Padding(padding: const EdgeInsets.only(top: 8), child: Text(props.descriptionProps!.Text, style: const TextStyle(color: Colors.grey))),
                   ],
                 ),
               ),
-              IconButton.filledTonal(onPressed: () => _scroll(-1), tooltip: 'Itens anteriores', icon: const Icon(Icons.arrow_back)),
+              IconButton.filledTonal(onPressed: () => _vm.scroll(-1), tooltip: 'Previous items', icon: const Icon(Icons.arrow_back)),
               const SizedBox(width: 8),
-              IconButton.filledTonal(onPressed: () => _scroll(1), tooltip: 'Itens seguintes', icon: const Icon(Icons.arrow_forward)),
+              IconButton.filledTonal(onPressed: () => _vm.scroll(1), tooltip: 'Next items', icon: const Icon(Icons.arrow_forward)),
             ],
           ),
         ),
@@ -64,19 +51,13 @@ class _SectionCarouselButtonsState extends State<SectionCarouselButtons> {
           width: double.infinity,
           height: 360,
           child: LayoutBuilder(
-            builder: (context, constraints) {
-              final cardWidth = (constraints.maxWidth - 60) / 4;
-              return ListView.separated(
-                controller: _controller,
-                scrollDirection: Axis.horizontal,
-                itemCount: props.children.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 20),
-                itemBuilder: (_, index) => SizedBox(
-                  width: cardWidth,
-                  child: props.children[index],
-                ),
-              );
-            },
+            builder: (context, constraints) => ListView.separated(
+              controller: _vm.controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: props.children.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 20),
+              itemBuilder: (_, index) => SizedBox(width: _vm.cardWidth(constraints.maxWidth), child: props.children[index]),
+            ),
           ),
         ),
       ],

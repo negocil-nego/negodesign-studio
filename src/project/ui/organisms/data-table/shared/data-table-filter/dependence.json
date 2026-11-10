@@ -11,22 +11,49 @@
         "Flutter": "ui/DataTableFilter.dart"
       },
       "files": {
-        "Svelte": ["data/types.ts"],
-        "React": ["data/types.ts"],
-        "Vue": ["data/types.ts"],
-        "Flutter": ["data/types.dart"]
+        "Svelte": [
+          "data/types.ts"
+        ],
+        "React": [
+          "data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/flutter/filter_controls.dart",
+          "data/viewmodel.dart"
+        ]
       },
       "dependencies": {
-        "Svelte": ["icon"],
-        "React": ["icon"],
-        "Vue": ["icon"],
+        "Svelte": [
+          "icon"
+        ],
+        "React": [
+          "icon"
+        ],
+        "Vue": [
+          "icon"
+        ],
         "Flutter": []
       },
       "assets": {
-        "Svelte": ["project/data/style.component.ts"],
-        "React": ["project/data/style.component.ts"],
-        "Vue": ["project/data/style.component.ts"],
-        "Flutter": []
+        "Svelte": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts",
+          "project/hooks/data-table.hook.ts"
+        ],
+        "Flutter": [
+          "project/data/theme/theme_data.dart"
+        ]
       },
       "props": []
     }
