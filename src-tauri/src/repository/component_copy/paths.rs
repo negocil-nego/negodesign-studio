@@ -76,3 +76,4 @@ pub fn transform_react_or_vue_hooks(content: &str) -> String {
     result.push_str(rest);
     result
 }
+

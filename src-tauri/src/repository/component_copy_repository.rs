@@ -60,14 +60,14 @@ pub fn copy_component_with_language(
     request: ComponentCopyRequest,
 ) -> Result<ComponentInstallResult, String> {
     let root = workspace_root()?;
-    let catalog = ManifestCatalog::load(&root.join("src"))?;
+    let catalog = ManifestCatalog::global(&root.join("src"))?;
 
     let locales = request
         .locales
         .unwrap_or_else(|| vec!["en".to_string(), "pt".to_string()]);
     let selected_theme = request.theme.unwrap_or_else(|| "default".to_string());
 
-    let mut collector = CopyCollector::new(&root, &catalog, manifest_lang, &locales);
+    let mut collector = CopyCollector::new(&root, catalog, manifest_lang, &locales);
     collector.collect(&request.component_id, request.manifest_path.as_deref())?;
 
     attach_theme_and_styles(

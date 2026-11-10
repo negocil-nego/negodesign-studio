@@ -1,6 +1,8 @@
 use super::paths::normalize_logical_path;
 use serde::Deserialize;
-use std::{collections::HashMap, fs, path::Path};
+use std::{collections::HashMap, fs, path::Path, sync::OnceLock};
+
+static CATALOG_CACHE: OnceLock<ManifestCatalog> = OnceLock::new();
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(untagged)]
@@ -55,6 +57,17 @@ pub struct ManifestCatalog {
 }
 
 impl ManifestCatalog {
+    pub fn global(src_root: &Path) -> Result<&'static Self, String> {
+        if let Some(cached) = CATALOG_CACHE.get() {
+            return Ok(cached);
+        }
+        let loaded = Self::load(src_root)?;
+        let _ = CATALOG_CACHE.set(loaded);
+        CATALOG_CACHE
+            .get()
+            .ok_or_else(|| "Falha ao inicializar a cache de manifestos.".to_string())
+    }
+
     pub fn load(src_root: &Path) -> Result<Self, String> {
         let ui_root = src_root.join("project/ui");
         let mut by_path = HashMap::new();
@@ -63,7 +76,11 @@ impl ManifestCatalog {
         Ok(Self { by_path, by_id })
     }
 
-    pub fn resolve(&self, id: &str, manifest_hint: Option<&str>) -> Result<(ManifestComponent, String), String> {
+    pub fn resolve(
+        &self,
+        id: &str,
+        manifest_hint: Option<&str>,
+    ) -> Result<(ManifestComponent, String), String> {
         let from_hint = manifest_hint.and_then(|hint| {
             let clean = normalize_logical_path(hint);
             let rel = clean.strip_prefix("src/").unwrap_or(&clean);
@@ -97,11 +114,20 @@ impl ManifestCatalog {
                         .map_err(|e| e.to_string())?
                         .to_string_lossy()
                         .replace('\\', "/");
-                    let directory = rel.strip_suffix("/dependence.json").unwrap_or(&rel).to_string();
+                    let directory = rel
+                        .strip_suffix("/dependence.json")
+                        .unwrap_or(&rel)
+                        .to_string();
                     for comp in &parsed.components {
                         by_id.insert(comp.id.clone(), (comp.clone(), directory.clone()));
                     }
-                    by_path.insert(rel, IndexedManifest { directory, components: parsed.components });
+                    by_path.insert(
+                        rel,
+                        IndexedManifest {
+                            directory,
+                            components: parsed.components,
+                        },
+                    );
                 }
             }
         }
