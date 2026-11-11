@@ -10,10 +10,12 @@
     searchQuery = "",
     categoryFilter = "all",
     hiddenColumns = [],
+    addLabel,
     onSearchChange,
     onCategoryChange,
     onToggleColumn,
     onReset,
+    onAdd,
   }: DataTableFilterProps = $props();
 
   const S = StyleComponent.dataTable;
@@ -36,7 +38,7 @@
     <label class={S.filterSelect}>
       <select class={S.filterSelectInput} value={categoryFilter}
         onchange={(e) => onCategoryChange?.((e.currentTarget as HTMLSelectElement).value)} aria-label="Category filter">
-        <option value="all">All Campaigns</option>
+        <option value="all">All</option>
         {#each filterOptions as opt (opt)}<option value={opt}>{opt}</option>{/each}
       </select>
       <span class={S.filterSelectIcon}><Icon name="ArrowDown01" /></span>
@@ -49,7 +51,7 @@
       </button>
       {#if activePanel === "filter"}
         <div class={S.panelLeft} role="menu">
-          <button type="button" class={S.option} onclick={() => selectCategory("all")}><span class={S.optionLabel}>All Campaigns</span></button>
+          <button type="button" class={S.option} onclick={() => selectCategory("all")}><span class={S.optionLabel}>All</span></button>
           {#each filterOptions as opt (opt)}
             <button type="button" class={S.option} onclick={() => selectCategory(opt)}><span class={S.optionLabel}>{opt}</span></button>
           {/each}
@@ -86,5 +88,11 @@
         </div>
       {/if}
     </div>
+
+    {#if addLabel || onAdd}
+      <button type="button" class={S.primaryButton} onclick={() => onAdd?.()}>
+        <span>+ {addLabel ?? "Add new"}</span>
+      </button>
+    {/if}
   </div>
 </div>

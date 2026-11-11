@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "admin-crud",
+      "name": "AdminCrud",
+      "entry": {
+        "Svelte": "ui/AdminCrud.svelte",
+        "React": "ui/AdminCrud.tsx",
+        "Vue": "ui/AdminCrud.vue",
+        "Flutter": "ui/AdminCrud.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts",
+          "ui/Admin.svelte"
+        ],
+        "React": [
+          "data/types.ts",
+          "ui/Admin.tsx"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "ui/Admin.vue"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/Admin.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "sidebar",
+          "menu-simple",
+          "data-table",
+          "modal-form"
+        ],
+        "React": [
+          "sidebar",
+          "menu-simple",
+          "data-table",
+          "modal-form"
+        ],
+        "Vue": [
+          "sidebar",
+          "menu-simple",
+          "data-table",
+          "modal-form"
+        ],
+        "Flutter": [
+          "sidebar",
+          "menu-simple",
+          "data-table",
+          "modal-form"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts"
+        ],
+        "Flutter": [
+          "project/data/theme/theme_data.dart"
+        ]
+      },
+      "props": [
+        {
+          "name": "datatableProps",
+          "type": "DataTableProps",
+          "required": false,
+          "description": "Configuração da tabela paginada com badges e coluna dropdown de acção."
+        },
+        {
+          "name": "sidebarProps",
+          "type": "SidebarProps",
+          "required": false,
+          "description": "Navegação lateral com os menus correspondentes às tabelas."
+        },
+        {
+          "name": "modalFormProps",
+          "type": "ModalFormProps",
+          "required": false,
+          "description": "Formulário em modal para criação e edição de registos."
+        },
+        {
+          "name": "menuProps",
+          "type": "MenuProps",
+          "required": false,
+          "description": "Barra de navegação superior da página administrativa."
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "name": "Admin",
+      "entry": {
+        "Svelte": "ui/Admin.svelte",
+        "React": "ui/Admin.tsx",
+        "Vue": "ui/Admin.vue",
+        "Flutter": "ui/Admin.dart"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts",
+          "ui/AdminCrud.svelte"
+        ],
+        "React": [
+          "data/types.ts",
+          "ui/AdminCrud.tsx"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "ui/AdminCrud.vue"
+        ],
+        "Flutter": [
+          "data/types.dart",
+          "ui/AdminCrud.dart"
+        ]
+      },
+      "dependencies": {
+        "Svelte": [
+          "admin-crud"
+        ],
+        "React": [
+          "admin-crud"
+        ],
+        "Vue": [
+          "admin-crud"
+        ],
+        "Flutter": [
+          "admin-crud"
+        ]
+      },
+      "assets": {
+        "Svelte": [
+          "project/data/style.component.ts"
+        ],
+        "React": [
+          "project/data/style.component.ts"
+        ],
+        "Vue": [
+          "project/data/style.component.ts"
+        ],
+        "Flutter": [
+          "project/data/theme/theme_data.dart"
+        ]
+      },
+      "props": []
+    }
+  ]
+}
+

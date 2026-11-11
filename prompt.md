@@ -1,34 +1,42 @@
-Para este projecto irás ótmizar todos códigos seguindos essas regras:
+Na funcionalidade de conexão ao banco de dados em src/routes/(editor)/main/database/+page.svelte
+deve ter uma opção para gerar o backend para uma aplicação frontend,
+irá funcionar da seguinte forma será pedido o caminho da aplicação
+frontend (sveltekit, nuxt, nextjs) de backend sendo (spring boot, nestjs, laravel, asp.net core) a ideia é ler 
+podes se basear nesta organização de projecto (
+    /home/sedrac-slc/Documentos/project/negoturismo/api/negoturismo-api-admin/src/main/java/com/negocil/negoturismo/admin/feature
+), para construir a o backend baseado no padrão de feature semelhante ao nestjs 
+ou spring modulith.
 
--Máximo são 100 linhas
--Os componentes irão seguir o padrão de flutter utilizar a programação declarativa
-como exemplo o "CardMediaBaseProps" que todos propriedades são objectos composto como
-recomenda o "Object Calisthenics" nas suas 9 regras de Jeff Bay no livro The ThoughtWorks Anthology,
--Para os componentes que são de linguagem ts, como vue, react, svelte, deves criar o padrão devem usar
-o mesmo Propriedade, todo que é lógica de para os componentes deves criar a lógica fora em hook, de forma
-que possas reaproveitar para as os três tecnologias (vue, react, svelte), arranja forma de reaproveitar o Máximo
-de código porque essas tecnologias são frontend em TS. Um mal exemplo de que não quero é o que esta no componente
-src\project\ui\organisms\data-table\shared\data-table-filter\ui
--Para o flutter será diferente porque não é uma tecnologia equivalente porque é uma linguagem diferente e um
-tipo de desenvolvimento mobile a idea é fazer a equivalencia para flutter em uma aplicação mobile, de aqui deves
-ser extremanente com a quantidade de linhas que não deve passar de 100 linhas. Olha podes criar componente novos ou
-diferente de ts para ser exclucivo de flutter, não gosto de componentes internos seram criados em mesma classe caso precisares
-criar podes criar uma pasta flutter dentro de ui que irás colocar a componentes privados e irás actualizar o arquivo,
-dependence.json.
--Se baseando na ideia de ThemaData de Flutter e StyleComponente de React Nativa, encontra uma forma melhor de estilazação dos
-dos componenes além do que seguido neste projecto que utiliza o "src\project\data\style.component.ts",
-eu quero que da forma que estilizo deve ser jeito sempre por um arquivo de configuração externo não tenho que entrar no componente
-para estilizar de modo se querer alterar alguma coisa não tenho que procurar os componente sempre foi no arquivo de estelização
-a idea é ter uma arquivo intermediário que eu possa converte em ThemaData para Flutter e StyleComponente para as tecnologia de
-(vue, react, svelte).
--Do mesmo jeito que terás um arquivo de estelização terás um arquivo icones que para a tecnologias (vue, react, svelte) utilizas
-as classes do hugeicons e para Flutter ele carregar os arquvios svg.
+Para aplicação spring deves perguntar de irás utilizar o como repositorio (orm) o Spring DATA JPA ou Spring JDBC usando API nova.
 
-Para cada componente faça a documentação dele, de forma que tenha um README.md a acada componente a explicar e que tenha tenha um README.md
-para treinamento de IA que explicar do jeito que deve ser construído os componentes desta aplicação.
+Para Nestjs deves escolher se as consultas dos repositórios serão gerado por
+prisma, drizzle ou typeorm.
 
-Para funcionalidade de copiar deves para projectos de "tecnologias (vue, react, svelte)" que trabalham com frameworks
-SvelteKit, Nuxt, Next, Vue, React a ideia é sempre copiar tudo na colocar na pasta "/src" criar a pasta negodesign com os componentes
-(semelhante com shacdcn faz) e seus próprios arquivos de configuração como de estilização e icones todo de de importe é por pacote tanto
-em flutter também apenas tenho que chamar o "negodesign", tantos hooks, componente tudo virá dele.
-para o flutter irás colocar dentro do "lib".
+Para Laravel deves escolher se as consultas dos repositórios serão gerado por
+Eloquent, Query Builder ou Raw SQL.
+
+Para ASP.net core deves escolher se as consultas dos repositórios serão gerado por
+Entity Framework Core, Dapper ou Raw SQL.
+
+Irás fazer os crud das tabelas fazend o método insert, update, delete, findAll,
+seguindo o padrão se criar as controller -> service -> repositório, ao gerar o backend.
+
+Para integrar com o frontend deves para sveltekit, nuxtjs, nextjs deves perguntar
+se irá seguir o padrão de usar BFF ou chamar o backend diretamente, e para esses frameworks deve utilizar os que eles trazem de nativo para requisição, no caso do nuxt tem o useFetch, e o sveltekit, nextjs utiliza mesmo o fetch api, mais também deves perguntar e utilizador que utilizar o axios ou fetch api,, e caso é para usar o TanStack Query de cada framework (tanstack/react-query, tanstack/svelte-query, tanstack/vue-query)
+
+e para construir as telas de crud no frontend deves usar o componente "src/project/ui/pages/admin/ui", que irás utilizar como sidebar os menus corresponder
+as tabelas que tens na tua base dados (sidebarProps), o datatableProps (será construído com base ao rota do backend que retorna os registro páginados) e o
+  let { datatableProps, sidebarProps, modalFormProps, menuProps }: AdminProps =
+ (irás criar este formulário para o processo de criação e edição)
+ --------------------------------------------------------------------------------
+
+ Mas também a parte do banco de dados caso seja escolhido o sveltekit, nuxtjs, nextjs, podes utilizar a mesma aplicação  como backend criando as rotas de api fazendo conexão direta com a base de dados (postgres, mysql, sqlite), deveras escolher opção de gerar tudo numa apliacão ou devider em duas aplicações.
+
+
+ --------------------------------------------------------------------------------
+
+Essas opção de gerar o backend para uma aplicação frontend posso escolher todas tabelas ou apenas algumas.
+
+---------------------------------------------------------------------------------
+Neste projecto já tens a funções que copia os components para outros projecto em rust e para esse processo dessas funcionalidade deves colocar no rust a criar os reajust nos projectos frontend e backend e organiza bem "src-tauri/src"
+de modo que é lógica de spring boot, sveltekit, e outras tecnologias fica  separado qual é a estrategia a utilizar para os repositórios escolha do orm também fica separado, nada de god class, god code.

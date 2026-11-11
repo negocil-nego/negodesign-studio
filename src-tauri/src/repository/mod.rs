@@ -1,3 +1,5 @@
+pub mod codegen;
+pub mod codegen_repository;
 pub mod component_copy;
 pub mod component_copy_repository;
 pub mod database;

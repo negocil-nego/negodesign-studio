@@ -3,9 +3,9 @@
   import SourceCode from "./SourceCode.svelte";
   import Label from "../../../../../project/ui/atoms/label/ui/Label.svelte";
   import svelteSource from "../../../../../project/ui/atoms/label/ui/Label.svelte?raw";
-  import reactSource from "../../../../../project/ui/atoms/label/ui/label.tsx?raw";
+  import reactSource from "../../../../../project/ui/atoms/label/ui/Label.tsx?raw";
   import vueSource from "../../../../../project/ui/atoms/label/ui/Label.vue?raw";
-  import flutterSource from "../../../../../project/ui/atoms/label/ui/label.dart?raw";
+  import flutterSource from "../../../../../project/ui/atoms/label/ui/Label.dart?raw";
 </script>
 
 <Terminal id="label">
@@ -26,7 +26,7 @@
   {/snippet}
 
   {#snippet react()}
-    <SourceCode path="src/project/ui/atoms/label/ui/label.tsx" source={reactSource} />
+    <SourceCode path="src/project/ui/atoms/label/ui/Label.tsx" source={reactSource} />
   {/snippet}
 
   {#snippet vue()}
@@ -34,7 +34,7 @@
   {/snippet}
 
   {#snippet flutter()}
-    <SourceCode path="src/project/ui/atoms/label/ui/label.dart" source={flutterSource} />
+    <SourceCode path="src/project/ui/atoms/label/ui/Label.dart" source={flutterSource} />
   {/snippet}
 </Terminal>
 

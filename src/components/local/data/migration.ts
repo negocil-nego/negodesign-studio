@@ -55,6 +55,38 @@ export type OpenApiOperation = {
   summary?: string | null;
 };
 
+export type ArchitectureMode = "split" | "monolith";
+export type FrontendFramework = "sveltekit" | "nuxt" | "nextjs";
+export type BackendFramework = "spring-boot" | "nestjs" | "laravel" | "aspnet-core";
+export type ApiCallPattern = "bff" | "direct";
+export type HttpClientKind = "native" | "axios";
+export type DatabaseEngine = "postgres" | "mysql" | "sqlite";
+
+export type FullstackCodegenRequest = {
+  architectureMode: ArchitectureMode;
+  tables: DatabaseTable[];
+  frontendPath: string;
+  frontendFramework: FrontendFramework;
+  apiCallPattern: ApiCallPattern;
+  httpClient: HttpClientKind;
+  useTanstackQuery: boolean;
+  backendPath?: string;
+  backendFramework?: BackendFramework;
+  ormStrategy?: string;
+  basePackage?: string;
+  databaseEngine: DatabaseEngine;
+  backendBaseUrl?: string;
+  theme?: string;
+};
+
+export type FullstackCodegenResult = {
+  generatedBackendFiles: number;
+  generatedFrontendFiles: number;
+  copiedUiFiles: number;
+  tablesProcessed: number;
+  summary: string[];
+};
+
 export const databaseTables = writable<DatabaseTable[]>([]);
 export const openApiEntities = writable<OpenApiEntity[]>([]);
 
@@ -86,6 +118,12 @@ export async function importOpenApiFile(path: string): Promise<OpenApiEntity[]> 
   const entities = await invoke<OpenApiEntity[]>("import_openapi_file", { path });
   openApiEntities.set(entities);
   return entities;
+}
+
+export async function generateFullstackCrud(
+  request: FullstackCodegenRequest,
+): Promise<FullstackCodegenResult> {
+  return invoke<FullstackCodegenResult>("generate_fullstack_crud", { request });
 }
 
 export const entityKindLabels: Record<OpenApiEntityKind, string> = {

@@ -5,18 +5,25 @@
   import Terminal from "../terminal/Terminal.svelte";
 
   function svelteUsage(example: (typeof dataTableExamples)[number]) {
-    return `<script lang="ts">\n  import DataTable from "./DataTable.svelte";\n  const columns = ${JSON.stringify(example.columns, null, 2)};\n  const rows = ${JSON.stringify(example.rows, null, 2)};\n<${"/scr" + "ipt"}>\n\n<DataTable variant="${example.variant}" {columns} {rows} />`;
+    return `<script lang="ts">\n  import DataTable from "./DataTable.svelte";\n  import type { DataTextProps } from "../data/types";\n  const columns: DataTextProps[] = ${JSON.stringify(example.columns, null, 2)};\n  const rows: DataTextProps[] = ${JSON.stringify(example.rows, null, 2)};\n<${"/scr" + "ipt"}>\n\n<DataTable variant="${example.variant}" {columns} {rows} />`;
   }
   function reactUsage(example: (typeof dataTableExamples)[number]) {
-    return `import DataTable from "./DataTable";\n\nconst columns = ${JSON.stringify(example.columns, null, 2)};\nconst rows = ${JSON.stringify(example.rows, null, 2)};\n\nexport function Example() {\n  return <DataTable variant="${example.variant}" columns={columns} rows={rows} />;\n}`;
+    return `import DataTable from "./DataTable";\nimport type { DataTextProps } from "../data/types";\n\nconst columns: DataTextProps[] = ${JSON.stringify(example.columns, null, 2)};\nconst rows: DataTextProps[] = ${JSON.stringify(example.rows, null, 2)};\n\nexport function Example() {\n  return <DataTable variant="${example.variant}" columns={columns} rows={rows} />;\n}`;
   }
   function vueUsage(example: (typeof dataTableExamples)[number]) {
-    return `<script setup lang="ts">\nimport DataTable from "./DataTable.vue";\nconst columns = ${JSON.stringify(example.columns, null, 2)};\nconst rows = ${JSON.stringify(example.rows, null, 2)};\n<${"/scr" + "ipt"}>\n\n<template>\n  <DataTable variant="${example.variant}" :columns="columns" :rows="rows" />\n<${"/tem" + "plate"}>`;
+    return `<script setup lang="ts">\nimport DataTable from "./DataTable.vue";\nimport type { DataTextProps } from "../data/types";\nconst columns: DataTextProps[] = ${JSON.stringify(example.columns, null, 2)};\nconst rows: DataTextProps[] = ${JSON.stringify(example.rows, null, 2)};\n<${"/scr" + "ipt"}>\n\n<template>\n  <DataTable variant="${example.variant}" :columns="columns" :rows="rows" />\n<${"/tem" + "plate"}>`;
   }
   function flutterUsage(example: (typeof dataTableExamples)[number]) {
-    const columns = example.columns.map((column) => `DataTableColumn(label: '${column.label}', key: '${column.key}')`).join(",\n  ");
-    const rows = example.rows.map((row) => `DataTableRowData(id: '${row.id}', cells: ${JSON.stringify(row.cells)},${row.avatar ? ` avatar: '${row.avatar}',` : ""}${row.badge ? ` badge: '${row.badge}',` : ""})`).join(",\n  ");
-    return `import 'DataTable.dart';\nimport '../data/types.dart';\n\nfinal columns = <DataTableColumn>[\n  ${columns}\n];\nfinal rows = <DataTableRowData>[\n  ${rows}\n];\n\nDataTableWidget(variant: '${example.variant}', columns: columns, rows: rows);`;
+    const columns = example.columns
+      .map((column) => `DataTextProps(text: '${column.text}'${column.type ? `, type: '${column.type}'` : ""})`)
+      .join(",\n  ");
+    const rows = example.rows
+      .map(
+        (row) =>
+          `DataTextProps(text: '${row.text}'${row.type ? `, type: '${row.type}'` : ""}${row.badgeVariant ? `, badgeVariant: '${row.badgeVariant}'` : ""})`,
+      )
+      .join(",\n  ");
+    return `import 'DataTable.dart';\nimport '../data/types.dart';\n\nfinal columns = <DataTextProps>[\n  ${columns}\n];\nfinal rows = <DataTextProps>[\n  ${rows}\n];\n\nDataTableWidget(variant: '${example.variant}', columns: columns, rows: rows);`;
   }
 </script>
 
@@ -24,7 +31,7 @@
   <div>
     <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-400">Organismos / Data Table</p>
     <h2 class="mt-1 text-lg font-semibold text-zinc-100">Data tables</h2>
-    <p class="mt-2 text-xs leading-5 text-zinc-400">Cada tabela recebe as suas colunas e linhas e inclui exemplos de utilização nas quatro linguagens.</p>
+    <p class="mt-2 text-xs leading-5 text-zinc-400">Cada tabela recebe as suas colunas e linhas (`DataTextProps`) com suporte a badges, toggles e dropdown de acções nas quatro linguagens.</p>
   </div>
 
   <div class="grid min-w-0 grid-cols-1 gap-4">

@@ -1,12 +1,14 @@
 use crate::{
     model::{
+        codegen::{FullstackCodegenRequest, FullstackCodegenResult},
         migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
         project::{
             ComponentCopyRequest, ComponentExport, ComponentFile, ComponentInstallResult, Project,
         },
     },
     repository::{
-        component_copy_repository, database_repository, openapi_repository, project_repository,
+        codegen_repository, component_copy_repository, database_repository, openapi_repository,
+        project_repository,
     },
 };
 use tauri::AppHandle;
@@ -121,4 +123,11 @@ pub fn fetch_openapi(url: String) -> Result<Vec<OpenApiEntity>, String> {
 #[tauri::command]
 pub fn import_openapi_file(path: String) -> Result<Vec<OpenApiEntity>, String> {
     openapi_repository::extract_file(&path)
+}
+
+#[tauri::command]
+pub fn generate_fullstack_crud(
+    request: FullstackCodegenRequest,
+) -> Result<FullstackCodegenResult, String> {
+    codegen_repository::generate_fullstack_crud(request)
 }

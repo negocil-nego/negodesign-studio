@@ -29,7 +29,7 @@ const activePanel = ref<FilterPanelType>(null);
       <label :class="S.filterSelect">
         <select :class="S.filterSelectInput" :value="categoryFilter"
           @change="onCategoryChange?.(($event.target as HTMLSelectElement).value)" aria-label="Category filter">
-          <option value="all">All Campaigns</option>
+          <option value="all">All</option>
           <option v-for="opt in filterOptions" :key="opt" :value="opt">{{ opt }}</option>
         </select>
         <span :class="S.filterSelectIcon"><Icon name="ArrowDown01" /></span>
@@ -41,7 +41,7 @@ const activePanel = ref<FilterPanelType>(null);
           <Icon name="FilterHorizontal" /><span>Filter</span>
         </button>
         <div v-if="activePanel === 'filter'" :class="S.panelLeft" role="menu">
-          <button type="button" :class="S.option" @click="onCategoryChange?.('all'); activePanel = null"><span :class="S.optionLabel">All Campaigns</span></button>
+          <button type="button" :class="S.option" @click="onCategoryChange?.('all'); activePanel = null"><span :class="S.optionLabel">All</span></button>
           <button v-for="opt in filterOptions" :key="opt" type="button" :class="S.option"
             @click="onCategoryChange?.(opt); activePanel = null"><span :class="S.optionLabel">{{ opt }}</span></button>
         </div>
@@ -71,6 +71,10 @@ const activePanel = ref<FilterPanelType>(null);
           <button type="button" :class="S.menuItem" @click="activePanel = null">Export CSV</button>
         </div>
       </div>
+
+      <button v-if="addLabel || onAdd" type="button" :class="S.primaryButton" @click="onAdd?.()">
+        <span>+ {{ addLabel ?? 'Add new' }}</span>
+      </button>
     </div>
   </div>
 </template>

@@ -7,11 +7,26 @@ import '../shared/data-table-filter/ui/DataTableFilter.dart';
 import 'flutter/data_table_cell.dart';
 
 class DataTableWidget extends StatefulWidget {
-  const DataTableWidget({super.key, this.variant = '01', this.title, this.columns, this.rows});
+  const DataTableWidget({
+    super.key,
+    this.variant = '01',
+    this.title,
+    this.columns,
+    this.rows,
+    this.actions,
+    this.onRowAction,
+    this.addLabel,
+    this.onAdd,
+  });
+
   final String variant;
   final String? title;
   final List<TextSegment>? columns;
   final List<TextSegment>? rows;
+  final List<String>? actions;
+  final void Function(String action, int rowIndex, List<TextSegment> row)? onRowAction;
+  final String? addLabel;
+  final VoidCallback? onAdd;
 
   @override
   State<DataTableWidget> createState() => _DataTableWidgetState();
@@ -49,17 +64,36 @@ class _DataTableWidgetState extends State<DataTableWidget> {
           decoration: NegoThemeData.cardDecoration(),
           clipBehavior: Clip.antiAlias,
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            if (widget.title != null)
+            if (widget.title != null || widget.addLabel != null || widget.onAdd != null)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.w600, color: NegoThemeData.textPrimary)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (widget.title != null)
+                      Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.w600, color: NegoThemeData.textPrimary))
+                    else
+                      const SizedBox.shrink(),
+                    if (widget.addLabel != null || widget.onAdd != null)
+                      ElevatedButton.icon(
+                        onPressed: widget.onAdd,
+                        icon: const Icon(Icons.add, size: 16),
+                        label: Text(widget.addLabel ?? 'Add new'),
+                      ),
+                  ],
+                ),
               ),
             DataTableFilterWidget(
               props: DataTableFilterProps(
-                columns: cols, filterOptions: _vm.filterOptions, searchQuery: _vm.search,
-                categoryFilter: _vm.category, hiddenColumns: _vm.hiddenCols,
-                onSearchChange: _vm.setSearch, onCategoryChange: _vm.setCategory,
-                onToggleColumn: _vm.toggleColumn, onReset: _vm.reset,
+                columns: cols,
+                filterOptions: _vm.filterOptions,
+                searchQuery: _vm.search,
+                categoryFilter: _vm.category,
+                hiddenColumns: _vm.hiddenCols,
+                onSearchChange: _vm.setSearch,
+                onCategoryChange: _vm.setCategory,
+                onToggleColumn: _vm.toggleColumn,
+                onReset: _vm.reset,
               ),
             ),
             SingleChildScrollView(
@@ -69,7 +103,10 @@ class _DataTableWidgetState extends State<DataTableWidget> {
                 columns: [
                   for (var i = 0; i < cols.length; i++)
                     if (!_vm.hiddenCols.contains(i))
-                      DataColumn(label: Text(cols[i].text, style: const TextStyle(fontSize: 11, color: NegoThemeData.textMuted)), onSort: (_, __) => _vm.toggleSort()),
+                      DataColumn(
+                        label: Text(cols[i].text, style: const TextStyle(fontSize: 11, color: NegoThemeData.textMuted)),
+                        onSort: (_, __) => _vm.toggleSort(),
+                      ),
                 ],
                 rows: [
                   for (var ri = 0; ri < rows.length; ri++)
@@ -79,7 +116,14 @@ class _DataTableWidgetState extends State<DataTableWidget> {
                       cells: [
                         for (var ci = 0; ci < rows[ri].length; ci++)
                           if (!_vm.hiddenCols.contains(ci))
-                            DataCell(DataTableCellText(text: rows[ri][ci].text, className: rows[ri][ci].className)),
+                            DataCell(
+                              DataTableCellText(
+                                cell: rows[ri][ci],
+                                column: ci < cols.length ? cols[ci] : null,
+                                defaultActions: widget.actions,
+                                onAction: (act) => widget.onRowAction?.call(act, ri, rows[ri]),
+                              ),
+                            ),
                       ],
                     ),
                 ],

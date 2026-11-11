@@ -894,6 +894,18 @@ export const componentCatalog: ComponentDefinition[] = [
     group: "Organism",
     description: "Formulário composto por múltiplos campos.",
   },
+  {
+    id: "admin-crud",
+    name: "AdminCrud",
+    label: "Admin CRUD Page",
+    category: "Input",
+    href: "/main/project/admin#admin-crud",
+    sourceDirectory: "project/ui/pages/admin",
+    dependence: "src/project/ui/pages/admin/dependence.json",
+    icon: IconNamed.Layout04,
+    group: "Template",
+    description: "Página administrativa completa com Sidebar, Menu, DataTable (com badges e dropdown) e ModalForm.",
+  },
 ];
 
 // ─── Navigation groups (Atomic Design) ──────────────────────────────────────

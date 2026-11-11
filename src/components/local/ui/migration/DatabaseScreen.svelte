@@ -2,6 +2,7 @@
   import { LocalStyleComponent } from "../../data/style.component";
   import type { DatabaseTable, DatabaseColumn } from "../../data/migration";
   import DataTable from "../../../../project/ui/organisms/data-table/ui/DataTable.svelte";
+  import type { DataTableProps, DataTextProps } from "../../../../project/ui/organisms/data-table/data/types";
   import Form from "../../../../project/ui/molecules/form/ui/form.svelte";
   import ModalForm from "../../../../project/ui/organisms/modal/form/ui/ModalForm.svelte";
   import type {
@@ -28,16 +29,42 @@
   );
   const isTable = $derived(selectedComponentId === "data-table");
 
-  function getTableProps() {
+  function getTableProps(): DataTableProps {
+    const activeCols = table.columns.filter(
+      (col: DatabaseColumn) => mappings[col.name] !== "ignore",
+    );
+    const columns: DataTextProps[] = [
+      ...activeCols.map((col: DatabaseColumn) => ({
+        text: col.name,
+        type: (mappings[col.name] === "badge" ? "badge" : "text") as DataTextProps["type"],
+      })),
+      { text: "Actions", type: "dropdown" },
+    ];
+
+    const buildSampleRow = (idx: number): DataTextProps[] => [
+      ...activeCols.map((col: DatabaseColumn) => {
+        const mapType = mappings[col.name];
+        if (mapType === "badge") {
+          return {
+            text: idx === 1 ? "Active" : "Pending",
+            type: "badge" as const,
+            badgeVariant: (idx === 1 ? "success" : "warning") as DataTextProps["badgeVariant"],
+            dot: true,
+          };
+        }
+        return { text: `${col.name} #${idx}` };
+      }),
+      {
+        text: "",
+        type: "dropdown",
+        actions: ["Edit", "Details", "Delete"],
+      },
+    ];
+
     return {
       title: table.name,
-      columns: table.columns
-        .filter((col: DatabaseColumn) => mappings[col.name] !== "ignore")
-        .map((col: DatabaseColumn) => ({ key: col.name, label: col.name })),
-      rows: [
-        { id: "1", cells: table.columns.map(() => "Exemplo") },
-        { id: "2", cells: table.columns.map(() => "Dados") },
-      ],
+      columns,
+      rows: [...buildSampleRow(1), ...buildSampleRow(2)],
     };
   }
 
@@ -47,7 +74,7 @@
     const fields = table.columns
       .filter((col: DatabaseColumn) => {
         const mapping = mappings[col.name];
-        return mapping && mapping !== "ignore" && mapping !== "column";
+        return mapping && mapping !== "ignore" && mapping !== "column" && mapping !== "badge";
       })
       .map((col: DatabaseColumn) => {
         const component = mappings[col.name];
@@ -130,7 +157,8 @@
           >
             <option value="ignore">Ignorar</option>
             {#if isTable}
-              <option value="column">Coluna da Tabela</option>
+              <option value="column">Coluna de Texto</option>
+              <option value="badge">Coluna Badge</option>
             {:else if isForm}
               <option value="input-text">Texto</option>
               <option value="input-number">Número</option>

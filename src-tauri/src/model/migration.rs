@@ -23,7 +23,7 @@ pub struct SavedDatabaseConnection {
     pub last_connected: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DatabaseColumn {
     pub name: String,
@@ -32,7 +32,7 @@ pub struct DatabaseColumn {
     pub primary_key: bool,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct DatabaseTable {
     pub name: String,
     pub columns: Vec<DatabaseColumn>,

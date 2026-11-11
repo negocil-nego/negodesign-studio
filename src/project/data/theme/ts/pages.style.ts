@@ -65,6 +65,18 @@ export const PagesStyle = {
         action: "mt-9 inline-flex items-center gap-3 rounded-full border border-amber-200/80 bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-amber-950/20 transition hover:-translate-y-0.5 hover:bg-amber-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white",
       },
     },
+    admin: {
+      root: "flex min-h-screen w-full overflow-hidden bg-blender-base text-zinc-100",
+      sidebarWrap: "shrink-0 border-r border-blender-border bg-blender-card",
+      mainWrap: "flex min-w-0 flex-1 flex-col bg-blender-base",
+      topBar: "border-b border-blender-border bg-blender-card px-6 py-3",
+      headerBar: "flex flex-wrap items-center justify-between gap-4 border-b border-blender-border bg-blender-card/60 px-6 py-4",
+      title: "text-lg font-bold tracking-tight text-zinc-100",
+      breadcrumb: "mt-1 flex items-center gap-1.5 text-xs text-zinc-400",
+      breadcrumbActive: "font-medium text-blue-400",
+      content: "flex-1 space-y-5 overflow-y-auto p-6",
+      addButton: "inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+    },
   },
 } as const;
 

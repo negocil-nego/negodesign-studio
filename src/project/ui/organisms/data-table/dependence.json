@@ -82,15 +82,21 @@
         },
         {
           "name": "columns",
-          "type": "TextProps[]",
+          "type": "DataTextProps[]",
           "required": false,
-          "description": "Flat list of column headers."
+          "description": "Flat list of column headers supporting text, badge, dropdown, email, toggle."
         },
         {
           "name": "rows",
-          "type": "TextProps[]",
+          "type": "DataTextProps[]",
           "required": false,
-          "description": "Flat list of cells grouped by column count."
+          "description": "Flat list of cells grouped by column count supporting badge and dropdown."
+        },
+        {
+          "name": "actions",
+          "type": "(string | DataTableActionItem)[]",
+          "required": false,
+          "description": "Dropdown actions displayed in the action column."
         },
         {
           "name": "className",

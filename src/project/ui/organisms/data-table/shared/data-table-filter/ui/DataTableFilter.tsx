@@ -10,10 +10,12 @@ export default function DataTableFilter({
   searchQuery = "",
   categoryFilter = "all",
   hiddenColumns = [],
+  addLabel,
   onSearchChange,
   onCategoryChange,
   onToggleColumn,
   onReset,
+  onAdd,
 }: DataTableFilterProps) {
   const S = StyleComponent.dataTable;
   const [activePanel, setActivePanel] = useState<FilterPanelType>(null);
@@ -33,7 +35,7 @@ export default function DataTableFilter({
           <label className={S.filterSelect}>
             <select className={S.filterSelectInput} value={categoryFilter}
               onChange={(e) => onCategoryChange?.(e.target.value)} aria-label="Category filter">
-              <option value="all">All Campaigns</option>
+              <option value="all">All</option>
               {filterOptions.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
             </select>
             <span className={S.filterSelectIcon}><Icon name="ArrowDown01" /></span>
@@ -46,7 +48,7 @@ export default function DataTableFilter({
             </button>
             {activePanel === "filter" && (
               <div className={S.panelLeft} role="menu">
-                <button type="button" className={S.option} onClick={() => selectCategory("all")}><span className={S.optionLabel}>All Campaigns</span></button>
+                <button type="button" className={S.option} onClick={() => selectCategory("all")}><span className={S.optionLabel}>All</span></button>
                 {filterOptions.map((opt) => (
                   <button key={opt} type="button" className={S.option} onClick={() => selectCategory(opt)}><span className={S.optionLabel}>{opt}</span></button>
                 ))}
@@ -83,6 +85,12 @@ export default function DataTableFilter({
               </div>
             )}
           </div>
+
+          {(addLabel || onAdd) && (
+            <button type="button" className={S.primaryButton} onClick={() => onAdd?.()}>
+              <span>+ {addLabel ?? "Add new"}</span>
+            </button>
+          )}
         </div>
       </div>
     </>

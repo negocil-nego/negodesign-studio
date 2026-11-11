@@ -3,7 +3,7 @@
   import svelteSource from "./FormUsage.svelte?raw";
   import reactSource from "../../../../../../project/ui/molecules/form/ui/form.tsx?raw";
   import vueSource from "../../../../../../project/ui/molecules/form/ui/form.vue?raw";
-  import flutterSource from "../../../../../../project/ui/molecules/form/ui/form.dart?raw";
+  import flutterSource from "../../../../../../project/ui/molecules/form/ui/Form.dart?raw";
   import Terminal from "../Terminal.svelte";
   import SourceCode from "../SourceCode.svelte";
 </script>
@@ -20,6 +20,6 @@
     <SourceCode path="src/project/ui/molecules/form/ui/form.vue" source={vueSource} />
   {/snippet}
   {#snippet flutter()}
-    <SourceCode path="src/project/ui/molecules/form/ui/form.dart" source={flutterSource} />
+    <SourceCode path="src/project/ui/molecules/form/ui/Form.dart" source={flutterSource} />
   {/snippet}
 </Terminal>
