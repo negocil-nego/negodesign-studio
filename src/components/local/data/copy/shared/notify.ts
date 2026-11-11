@@ -1,19 +1,34 @@
-import {
-  isPermissionGranted,
-  requestPermission,
-  sendNotification,
-} from "@tauri-apps/plugin-notification";
+import { invoke } from "@tauri-apps/api/core";
 import type { ComponentCopyResult } from "./types";
 
 async function dispatchSystemNotification(title: string, body: string): Promise<void> {
   try {
-    let granted = await isPermissionGranted();
-    if (!granted) {
-      const permission = await requestPermission();
-      granted = permission === "granted";
+    let granted = false;
+    try {
+      granted = await invoke<boolean>("plugin:notification|is_permission_granted");
+      if (!granted) {
+        const permission = await invoke<string>("plugin:notification|request_permission");
+        granted = permission === "granted";
+      }
+      if (granted) {
+        await invoke("plugin:notification|notify", {
+          options: { title, body },
+        });
+        return;
+      }
+    } catch {
+      // Fallback para Web Notification API ou ambiente sem plugin nativo registrado
     }
-    if (granted) {
-      sendNotification({ title, body });
+
+    if (typeof Notification !== "undefined") {
+      if (Notification.permission === "granted") {
+        new Notification(title, { body });
+      } else if (Notification.permission !== "denied") {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          new Notification(title, { body });
+        }
+      }
     }
   } catch {
     // Fallback silencioso caso o ambiente não suporte notificações nativas
