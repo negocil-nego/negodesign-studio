@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "section-hero-text",
+      "name": "SectionText",
+      "entry": {
+        "Svelte": "shared/ui/SectionText.svelte"
+      },
+      "files": {
+        "Svelte": ["shared/data/types.ts"]
+      },
+      "dependencies": {
+        "Svelte": ["button", "text"]
+      },
+      "assets": {
+        "Svelte": []
+      },
+      "props": []
+    },
+    {
+      "id": "section-hero-card-grid",
+      "name": "SectionCardGrid",
+      "entry": {
+        "Svelte": "grid/ui/SectionCardGrid.svelte"
+      },
+      "files": {
+        "Svelte": ["grid/data/types.ts"]
+      },
+      "dependencies": {
+        "Svelte": ["button", "text"]
+      },
+      "assets": {
+        "Svelte": []
+      },
+      "props": []
+    }
+  ]
+}

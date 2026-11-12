@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-hero-dual",
+      "name": "PageHeroDual",
+      "entry": {
+        "Svelte": "ui/PageHeroDual.svelte",
+        "React": "ui/PageHeroDual.tsx",
+        "Vue": "ui/PageHeroDual.vue",
+        "Flutter": "ui/PageHeroDual.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": [
+          "data/types.ts",
+          "../../../organisms/section/hero/shared/data/types.ts"
+        ],
+        "Vue": ["data/types.ts"],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": ["menu-simple", "section-hero-text"],
+        "React": ["menu-simple", "button", "text"],
+        "Vue": ["menu-simple", "button", "text"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

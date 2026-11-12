@@ -16,8 +16,14 @@ export const InputsStyle = {
     },
     otp: {
       field: "w-full min-w-0",
+      root: "w-full min-w-0",
       label: "form-label mb-1",
-      group: "grid w-full grid-cols-6 gap-2",
+      labelPosition: {
+        start: "",
+        center: "text-center",
+      },
+      group: "flex w-full items-center gap-2",
+      separator: "shrink-0 px-1 text-zinc-500",
       slot: `${DesignTokens.primitives.inputForm} h-11 justify-center px-0 text-center text-base font-semibold tracking-widest tabular-nums`,
     },
     range: {

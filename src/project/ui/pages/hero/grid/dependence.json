@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-hero-grid",
+      "name": "PageHeroGrid",
+      "entry": {
+        "Svelte": "ui/PageHeroGrid.svelte",
+        "React": "ui/PageHeroGrid.tsx",
+        "Vue": "ui/PageHeroGrid.vue",
+        "Flutter": "ui/PageHeroGrid.dart"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": [
+          "data/types.ts",
+          "../../../organisms/section/hero/grid/data/types.ts"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "../../../organisms/section/hero/grid/data/types.ts"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": ["menu-simple", "section-hero-card-grid"],
+        "React": ["menu-simple", "button", "text"],
+        "Vue": ["menu-simple", "button", "text"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": [],
+        "React": [],
+        "Vue": [],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

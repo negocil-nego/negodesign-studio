@@ -7,6 +7,7 @@
   type Language = "svelte" | "react" | "vue" | "flutter";
   type TerminalProps = {
     id: string;
+    componentId?: string;
     name?: string;
     description?: string;
     preview?: Snippet;
@@ -16,7 +17,17 @@
     flutter?: Snippet;
   };
 
-  let { id, name, description, preview, svelte, react, vue, flutter }: TerminalProps = $props();
+  let {
+    id,
+    componentId,
+    name,
+    description,
+    preview,
+    svelte,
+    react,
+    vue,
+    flutter,
+  }: TerminalProps = $props();
   let activeTab = $state<"preview" | Language>("preview");
   let copyMessage = $state("");
   let copying = $state(false);
@@ -312,10 +323,13 @@
     },
   };
 
-  const catalogMatch = $derived(componentCatalog.find((c) => c.id === id));
+  const baseId = $derived(componentId ?? id);
+  const catalogMatch = $derived(
+    componentCatalog.find((c) => c.id === baseId),
+  );
 
   const info = $derived(
-    componentInfo[id] ??
+    componentInfo[baseId] ??
       (catalogMatch
         ? {
             name: catalogMatch.label ?? catalogMatch.name,
@@ -361,7 +375,7 @@
   {#if info || name}
     <div class="flex flex-wrap items-start justify-between gap-3 border-b border-blender-border px-4 py-3">
       <div class="min-w-0">
-        <h2 class="text-sm font-semibold text-zinc-100">{info?.name ?? name}</h2>
+        <h2 class="text-sm font-semibold text-zinc-100">{name ?? info?.name}</h2>
         {#if info?.description || description}<p class="mt-1 max-w-2xl text-xs leading-5 text-zinc-400">{info?.description ?? description}</p>{/if}
         {#if copyMessage}<p class="mt-1 text-[11px] text-blue-400" role="status">{copyMessage}</p>{/if}
       </div>
