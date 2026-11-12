@@ -1,3 +1,4 @@
+import type { BreadcrumbProps } from "../../../molecules/breadcrumb/data/types";
 import type { DataTableProps, DataTextProps } from "../../../organisms/data-table/data/types";
 import type { ModalFormProps } from "../../../organisms/modal/form/data/types";
 import type { MenuProps } from "../../../organisms/menu/simple/data/types";
@@ -8,8 +9,9 @@ export interface AdminProps {
   modalFormProps?: ModalFormProps;
   sidebarProps?: SidebarProps;
   menuProps?: MenuProps;
+  breadcrumb?: BreadcrumbProps;
+  breadcrumbProps?: BreadcrumbProps;
   title?: string;
-  breadcrumb?: string[];
   addButtonLabel?: string;
   className?: string;
   onCreateClick?: () => void;

@@ -7,7 +7,7 @@ podes se basear nesta organização de projecto (
 ), para construir a o backend baseado no padrão de feature semelhante ao nestjs 
 ou spring modulith.
 
-Para aplicação spring deves perguntar de irás utilizar o como repositorio (orm) o Spring DATA JPA ou Spring JDBC usando API nova.
+Para aplicação spring deves perguntar de irás utilizar o como repositorio (orm) o Spring DATA JPA ou Spring JDBC usando API nova, para rotas de get deves retornar com paginação.
 
 Para Nestjs deves escolher se as consultas dos repositórios serão gerado por
 prisma, drizzle ou typeorm.
@@ -40,3 +40,17 @@ Essas opção de gerar o backend para uma aplicação frontend posso escolher to
 ---------------------------------------------------------------------------------
 Neste projecto já tens a funções que copia os components para outros projecto em rust e para esse processo dessas funcionalidade deves colocar no rust a criar os reajust nos projectos frontend e backend e organiza bem "src-tauri/src"
 de modo que é lógica de spring boot, sveltekit, e outras tecnologias fica  separado qual é a estrategia a utilizar para os repositórios escolha do orm também fica separado, nada de god class, god code.
+
+>-----------------------------------------------
+
+para a página "src/routes/(editor)/main/openapi/+page.svelte"
+quando receber as o openai podes gerar também aplicação frontend
+Para integrar com o frontend deves para sveltekit, nuxtjs, nextjs deves perguntar se irá seguir o padrão de usar BFF ou chamar o backend diretamente, e para esses frameworks deve utilizar os que eles trazem de nativo para requisição, no caso do nuxt tem o useFetch, e o sveltekit, nextjs utiliza mesmo o fetch api, mais também deves perguntar e utilizador que utilizar o axios ou fetch api,, e caso é para usar o TanStack Query de cada framework (tanstack/react-query, tanstack/svelte-query, tanstack/vue-query), irás criar os dtos e response baseado no openapi, posso escollher qual endpoint será feito a integração<
+para gerar o AdminCrud, 
+para iddentificar na página "src/routes/(editor)/main/openapi/+page.svelte" seja os endpoint que para criar o AdminCrud no projecto fronted senja se são API Resteful [GET; POST; PUT/PATCH, DELETE] ou seguem o padrão de nomenclatura de métodos como 
+[
+  GET (/list, /all, os nomes de enpoint mais comun),
+  POST (/create, /add,os nomes de enpoint mais comun),
+  PUT/PATCH (/update, /edit, /save,os nomes de enpoint mais comun),
+  DELETE (/delete, /remove,os nomes de enpoint mais comun)
+]

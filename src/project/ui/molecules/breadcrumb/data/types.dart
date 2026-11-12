@@ -21,3 +21,5 @@ class BreadcrumbsProps {
     this.onSelect,
   });
 }
+
+typedef BreadcrumbProps = BreadcrumbsProps;

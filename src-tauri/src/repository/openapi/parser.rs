@@ -1,4 +1,7 @@
-use crate::model::migration::{OpenApiField, OpenApiOperation};
+use crate::{
+    model::migration::{OpenApiField, OpenApiOperation},
+    repository::openapi::crud_matcher::{classify_operation, operation_matches_entity},
+};
 use serde_json::Value;
 
 pub fn operations_for(spec: &Value) -> Vec<(Vec<String>, OpenApiOperation)> {
@@ -26,19 +29,24 @@ pub fn operations_for(spec: &Value) -> Vec<(Vec<String>, OpenApiOperation)> {
                     }
                 }
             }
+            let op_id = operation
+                .get("operationId")
+                .and_then(Value::as_str)
+                .map(str::to_string);
+            let (crud_role, pattern_style) =
+                classify_operation(method, path, op_id.as_deref());
             result.push((
                 refs,
                 OpenApiOperation {
                     method: method.to_uppercase(),
                     path: path.clone(),
-                    operation_id: operation
-                        .get("operationId")
-                        .and_then(Value::as_str)
-                        .map(str::to_string),
+                    operation_id: op_id,
                     summary: operation
                         .get("summary")
                         .and_then(Value::as_str)
                         .map(str::to_string),
+                    crud_role: Some(crud_role),
+                    pattern_style: Some(pattern_style),
                 },
             ));
         }
@@ -75,11 +83,17 @@ pub fn operations_for_schema(
     name: &str,
     operations: &[(Vec<String>, OpenApiOperation)],
 ) -> Vec<OpenApiOperation> {
-    operations
-        .iter()
-        .filter(|(refs, _)| refs.iter().any(|r| r == name))
-        .map(|(_, op)| op.clone())
-        .collect()
+    let mut matched = Vec::new();
+    for (refs, op) in operations {
+        if operation_matches_entity(name, refs, op)
+            && !matched
+                .iter()
+                .any(|existing: &OpenApiOperation| existing.method == op.method && existing.path == op.path)
+        {
+            matched.push(op.clone());
+        }
+    }
+    matched
 }
 
 pub fn kind_for(name: &str) -> &'static str {

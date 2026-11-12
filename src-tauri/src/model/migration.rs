@@ -38,7 +38,7 @@ pub struct DatabaseTable {
     pub columns: Vec<DatabaseColumn>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenApiField {
     pub name: String,
     #[serde(rename = "type")]
@@ -47,7 +47,7 @@ pub struct OpenApiField {
     pub description: Option<String>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OpenApiEntity {
     pub name: String,
@@ -59,11 +59,15 @@ pub struct OpenApiEntity {
     pub server_url: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OpenApiOperation {
     pub method: String,
     pub path: String,
     pub operation_id: Option<String>,
     pub summary: Option<String>,
+    #[serde(default)]
+    pub crud_role: Option<String>,
+    #[serde(default)]
+    pub pattern_style: Option<String>,
 }

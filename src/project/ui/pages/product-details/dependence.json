@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "page-product-details",
+      "name": "PageProductDetails",
+      "entry": {
+        "Svelte": "ui/PageProductDetails.svelte",
+        "React": "ui/PageProductDetails.tsx",
+        "Vue": "ui/PageProductDetails.vue",
+        "Flutter": "ui/PageProductDetails.svelte"
+      },
+      "files": {
+        "Svelte": [
+          "data/types.ts",
+          "shared/product-gallery/data/types.ts",
+          "shared/product-gallery/ui/ProductGallery.svelte",
+          "shared/product-info/data/types.ts",
+          "shared/product-info/ui/ProductInfo.svelte",
+          "shared/product-tabs/data/types.ts",
+          "shared/product-tabs/ui/ProductTabs.svelte",
+          "shared/product-rating/data/types.ts",
+          "shared/product-rating/ui/ProductRating.svelte",
+          "shared/product-similiar/data/types.ts",
+          "shared/product-similiar/ui/ProductSimiliar.svelte"
+        ],
+        "React": [
+          "data/types.ts",
+          "shared/product-gallery/data/types.ts",
+          "shared/product-gallery/ui/ProductGallery.tsx",
+          "shared/product-info/data/types.ts",
+          "shared/product-info/ui/ProductInfo.tsx",
+          "shared/product-tabs/data/types.ts",
+          "shared/product-tabs/ui/ProductTabs.tsx",
+          "shared/product-rating/data/types.ts",
+          "shared/product-rating/ui/ProductRating.tsx",
+          "shared/product-similiar/data/types.ts",
+          "shared/product-similiar/ui/ProductSimiliar.tsx"
+        ],
+        "Vue": [
+          "data/types.ts",
+          "shared/product-gallery/data/types.ts",
+          "shared/product-gallery/ui/ProductGallery.vue",
+          "shared/product-info/data/types.ts",
+          "shared/product-info/ui/ProductInfo.vue",
+          "shared/product-tabs/data/types.ts",
+          "shared/product-tabs/ui/ProductTabs.vue",
+          "shared/product-rating/data/types.ts",
+          "shared/product-rating/ui/ProductRating.vue",
+          "shared/product-similiar/data/types.ts",
+          "shared/product-similiar/ui/ProductSimiliar.vue"
+        ],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": [
+          "breadcrumbs",
+          "menu-simple",
+          "footer",
+          "card-product",
+          "underline-nav",
+          "accordion",
+          "progress"
+        ],
+        "React": [
+          "breadcrumbs",
+          "menu-simple",
+          "footer",
+          "card-product",
+          "underline-nav",
+          "accordion",
+          "progress"
+        ],
+        "Vue": [
+          "breadcrumbs",
+          "menu-simple",
+          "footer",
+          "card-product",
+          "underline-nav",
+          "accordion",
+          "progress"
+        ],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

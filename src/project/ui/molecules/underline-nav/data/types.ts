@@ -5,7 +5,7 @@ export interface UnderlineNavItem {
 }
 
 export interface UnderlineNavProps {
-  items: UnderlineNavItem[];
+  items?: UnderlineNavItem[];
   value?: string;
   onValueChange?: (value: string) => void;
 }

@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Breadcrumbs from "../../../molecules/breadcrumb/ui/Breadcrumbs";
 import DataTable from "../../../organisms/data-table/ui/DataTable";
 import Menu from "../../../organisms/menu/simple/ui/Menu";
 import ModalForm from "../../../organisms/modal/form/ui/ModalForm";
 import Sidebar from "../../../organisms/sidebar/ui/Sidebar";
 import { StyleComponent } from "../../../../data/style.component";
+import type { BreadcrumbProps } from "../../../molecules/breadcrumb/data/types";
 import type { DataTextProps } from "../../../organisms/data-table/data/types";
 import type { AdminProps } from "../data/types";
 
@@ -12,8 +14,9 @@ export default function AdminCrud({
   sidebarProps,
   modalFormProps,
   menuProps,
+  breadcrumb,
+  breadcrumbProps,
   title,
-  breadcrumb = ["Admin Dashboard"],
   addButtonLabel,
   className = "",
   onCreateClick,
@@ -26,6 +29,13 @@ export default function AdminCrud({
   const isModalOpen = modalFormProps?.open ?? internalModalOpen;
   const pageTitle = title ?? datatableProps?.title ?? modalFormProps?.title ?? "Team List";
   const resolvedAddLabel = addButtonLabel ?? datatableProps?.addLabel ?? (modalFormProps ? "ADD NEW" : undefined);
+  const resolvedBreadcrumb: BreadcrumbProps = breadcrumb ??
+    breadcrumbProps ?? {
+      items: [
+        { label: "Admin Dashboard", href: "#admin" },
+        { label: pageTitle, active: true },
+      ],
+    };
 
   const openCreateModal = () => {
     setModalMode("create");
@@ -64,17 +74,9 @@ export default function AdminCrud({
         )}
 
         <div className={S.headerBar}>
-          <div>
+          <div className="space-y-1">
             <h1 className={S.title}>{pageTitle}</h1>
-            <nav className={S.breadcrumb} aria-label="Breadcrumb">
-              {breadcrumb.map((item, idx) => (
-                <span key={idx} className="inline-flex items-center gap-1.5">
-                  <span className={idx === 0 ? S.breadcrumbActive : ""}>{item}</span>
-                  <span aria-hidden>›</span>
-                </span>
-              ))}
-              <span>{pageTitle}</span>
-            </nav>
+            <Breadcrumbs {...resolvedBreadcrumb} />
           </div>
 
           {resolvedAddLabel && (
@@ -106,4 +108,3 @@ export default function AdminCrud({
     </section>
   );
 }
-

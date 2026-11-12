@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "components": [
+    {
+      "id": "footer",
+      "name": "Footer",
+      "entry": {
+        "Svelte": "ui/Footer.svelte",
+        "React": "ui/Footer.tsx",
+        "Vue": "ui/Footer.vue",
+        "Flutter": "ui/Footer.svelte"
+      },
+      "files": {
+        "Svelte": ["data/types.ts"],
+        "React": ["data/types.ts"],
+        "Vue": ["data/types.ts"],
+        "Flutter": []
+      },
+      "dependencies": {
+        "Svelte": ["button", "icon", "image", "text"],
+        "React": ["button", "icon", "image", "text"],
+        "Vue": ["button", "icon", "image", "text"],
+        "Flutter": []
+      },
+      "assets": {
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": []
+      },
+      "props": []
+    }
+  ]
+}

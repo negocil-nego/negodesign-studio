@@ -2,11 +2,15 @@ use crate::{
     model::{
         codegen::{
             ArchitectureMode, FrontendFramework, FullstackCodegenRequest, FullstackCodegenResult,
+            OpenApiFrontendCodegenRequest, OpenApiFrontendCodegenResult,
         },
         project::{ComponentExport, ComponentFile},
     },
     repository::{
-        codegen::{backend::generate_backend_files, frontend::generate_frontend_files},
+        codegen::{
+            backend::generate_backend_files, frontend::generate_frontend_files,
+            openapi::generate_openapi_frontend_files,
+        },
         component_copy::{
             assets::relocate_static_assets, collector::CopyCollector, manifest::ManifestCatalog,
             paths::workspace_root, theme::attach_theme_and_styles,
@@ -33,7 +37,11 @@ pub fn generate_fullstack_crud(
     let frontend_root = PathBuf::from(frontend_path);
 
     let mut summary = Vec::new();
-    let copied_ui_files = install_admin_crud_ui(&frontend_root, &request)?;
+    let copied_ui_files = install_admin_crud_ui_by_framework(
+        &frontend_root,
+        &request.frontend_framework,
+        request.theme.as_deref(),
+    )?;
     summary.push(format!(
         "Copiados {copied_ui_files} ficheiros do componente AdminCrud e dependências para {frontend_path}/negodesign"
     ));
@@ -77,21 +85,64 @@ pub fn generate_fullstack_crud(
     })
 }
 
-fn install_admin_crud_ui(
+pub fn generate_openapi_frontend(
+    request: OpenApiFrontendCodegenRequest,
+) -> Result<OpenApiFrontendCodegenResult, String> {
+    if request.entities.is_empty() {
+        return Err("Nenhuma entidade OpenAPI fornecida para geração.".to_string());
+    }
+    let frontend_path = request.frontend_path.trim();
+    if frontend_path.is_empty() {
+        return Err("Indique o caminho da aplicação frontend.".to_string());
+    }
+    let frontend_root = PathBuf::from(frontend_path);
+
+    let mut summary = Vec::new();
+    let copied_ui_files = install_admin_crud_ui_by_framework(
+        &frontend_root,
+        &request.frontend_framework,
+        request.theme.as_deref(),
+    )?;
+    summary.push(format!(
+        "Copiados {copied_ui_files} ficheiros do componente AdminCrud e dependências para {frontend_path}/negodesign"
+    ));
+
+    let frontend_files = generate_openapi_frontend_files(&request)?;
+    let generated_frontend_files = write_file_map(&frontend_root, &frontend_files)?;
+    let endpoints_count = if request.selected_endpoints.is_empty() {
+        request.entities.len()
+    } else {
+        request.selected_endpoints.len()
+    };
+    summary.push(format!(
+        "Gerados {generated_frontend_files} ficheiros de DTOs, API Client, TanStack Queries e páginas AdminCrud ({:?})",
+        request.frontend_framework
+    ));
+
+    Ok(OpenApiFrontendCodegenResult {
+        generated_frontend_files,
+        copied_ui_files,
+        endpoints_processed: endpoints_count,
+        summary,
+    })
+}
+
+fn install_admin_crud_ui_by_framework(
     frontend_root: &Path,
-    request: &FullstackCodegenRequest,
+    framework: &FrontendFramework,
+    theme: Option<&str>,
 ) -> Result<usize, String> {
     let root = workspace_root()?;
     let catalog = ManifestCatalog::global(&root.join("src"))?;
 
-    let (manifest_lang, project_lang, static_dir) = match request.frontend_framework {
+    let (manifest_lang, project_lang, static_dir) = match framework {
         FrontendFramework::Sveltekit => ("Svelte", "Svelte", Some("static/nego")),
         FrontendFramework::Nuxt => ("Vue", "Nuxt", Some("public")),
         FrontendFramework::Nextjs => ("React", "Nextjs", Some("public")),
     };
 
     let locales = vec!["en".to_string(), "pt".to_string()];
-    let selected_theme = request.theme.as_deref().unwrap_or("default");
+    let selected_theme = theme.unwrap_or("default");
 
     let mut collector = CopyCollector::new(&root, catalog, manifest_lang, &locales);
     collector.collect(

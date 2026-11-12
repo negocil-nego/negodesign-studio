@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../../../molecules/breadcrumb/data/types.dart';
 import '../../../organisms/data-table/data/types.dart';
 import '../../../organisms/menu/simple/data/types.dart';
 import '../../../organisms/sidebar/data/types.dart';
@@ -72,8 +73,8 @@ class AdminProps {
     this.modalFormProps,
     this.sidebarProps,
     this.menuProps,
+    this.breadcrumb,
     this.title,
-    this.breadcrumb = const ['Admin Dashboard'],
     this.addButtonLabel,
   });
 
@@ -81,8 +82,8 @@ class AdminProps {
   final AdminModalFormConfig? modalFormProps;
   final AdminSidebarConfig? sidebarProps;
   final MenuProps? menuProps;
+  final BreadcrumbProps? breadcrumb;
   final String? title;
-  final List<String> breadcrumb;
   final String? addButtonLabel;
 }
 

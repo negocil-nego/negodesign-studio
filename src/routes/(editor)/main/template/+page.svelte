@@ -9,6 +9,8 @@
   import PageRegisterDual from "../../../../project/ui/pages/register/dual-section/ui/PageRegisterDual.svelte";
   import PageOtp from "../../../../project/ui/pages/otp/simple/ui/PageOtp.svelte";
   import PageOtpDual from "../../../../project/ui/pages/otp/dual-section/ui/PageOtpDual.svelte";
+  import PageProductDetails from "../../../../project/ui/pages/product-details/ui/PageProductDetails.svelte";
+  import { productDetailsTemplates } from "../../../../components/local/data/product-details-templates";
 
   const groups = [
     {
@@ -31,6 +33,19 @@
         { name: "PageRegisterDual", component: PageRegisterDual },
         { name: "PageOtp", component: PageOtp },
         { name: "PageOtpDual", component: PageOtpDual },
+      ],
+    },
+    {
+      id: "product-details",
+      name: "Produto · Detalhes",
+      pages: [
+        { name: "PageProductDetails · Sidebar", component: PageProductDetails },
+        { name: "PageProductDetails · Showcase", component: PageProductDetails },
+        { name: "PageProductDetails · Classic", component: PageProductDetails },
+        { name: "PageProductDetails · Minimal", component: PageProductDetails },
+        { name: "PageProductDetails · Related Grid", component: PageProductDetails },
+        { name: "PageProductDetails · Catalog Specs", component: PageProductDetails },
+        { name: "PageProductDetails · Fresh", component: PageProductDetails },
       ],
     },
   ];
@@ -233,9 +248,11 @@
                 class={`relative overflow-hidden bg-blender-base ${
                   page.name === "PageHeroGrid"
                     ? "aspect-[1.05] min-h-80 max-h-170"
-                    : group.id === "hero"
-                      ? "min-h-70 flex-1"
-                      : "aspect-[1.55] min-h-70 max-h-115"
+                    : group.id === "product-details"
+                      ? "max-h-[980px] overflow-y-auto"
+                      : group.id === "hero"
+                        ? "min-h-70 flex-1"
+                        : "aspect-[1.55] min-h-70 max-h-115"
                 }`}
               >
                 <div
@@ -331,6 +348,8 @@
                     />
                   {:else if page.name === "PageHeroGrid"}
                     <PageHeroGrid cards={heroGridCards} />
+                  {:else if productDetailsTemplates[page.name]}
+                    <PageProductDetails {...productDetailsTemplates[page.name]} />
                   {:else}
                     <PreviewComponent />
                   {/if}

@@ -69,6 +69,10 @@ pub fn generate(
                 format!("server/api/{kebab}/index.ts"),
                 build_nuxt_bff_route(base, &kebab),
             );
+            files.insert(
+                format!("server/api/{kebab}/[id].ts"),
+                build_nuxt_bff_item_route(base, &kebab),
+            );
         }
 
         files.insert(
@@ -150,6 +154,24 @@ export default defineEventHandler(async (event) => {{\n\
   }}\n\
   const query = getQuery(event);\n\
   return $fetch(BACKEND_URL, {{ query }});\n\
+}});\n"
+    )
+}
+
+fn build_nuxt_bff_item_route(base_url: &str, kebab: &str) -> String {
+    let base = base_url.trim_end_matches('/');
+    format!(
+        "import {{ defineEventHandler, getRouterParam, readBody }} from \"h3\";\n\n\
+const BACKEND_URL = \"{base}/api/{kebab}\";\n\n\
+export default defineEventHandler(async (event) => {{\n\
+  const id = getRouterParam(event, \"id\") ?? \"\";\n\
+  if (event.method === \"PUT\") {{\n\
+    const body = await readBody(event);\n\
+    return $fetch(`${{BACKEND_URL}}/${{id}}`, {{ method: \"PUT\", body }});\n\
+  }}\n\
+  if (event.method === \"DELETE\") {{\n\
+    return $fetch(`${{BACKEND_URL}}/${{id}}`, {{ method: \"DELETE\" }});\n\
+  }}\n\
 }});\n"
     )
 }

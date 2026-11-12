@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import Breadcrumbs from "../../../molecules/breadcrumb/ui/Breadcrumbs.vue";
 import DataTable from "../../../organisms/data-table/ui/DataTable.vue";
 import Menu from "../../../organisms/menu/simple/ui/Menu.vue";
 import ModalForm from "../../../organisms/modal/form/ui/ModalForm.vue";
 import Sidebar from "../../../organisms/sidebar/ui/Sidebar.vue";
 import { StyleComponent } from "../../../../data/style.component";
+import type { BreadcrumbProps } from "../../../molecules/breadcrumb/data/types";
 import type { DataTextProps } from "../../../organisms/data-table/data/types";
 import type { AdminProps } from "../data/types";
 
 const props = withDefaults(defineProps<AdminProps>(), {
-  breadcrumb: () => ["Admin Dashboard"],
   className: "",
 });
 
@@ -23,6 +24,16 @@ const pageTitle = computed(
 );
 const resolvedAddLabel = computed(
   () => props.addButtonLabel ?? props.datatableProps?.addLabel ?? (props.modalFormProps ? "ADD NEW" : undefined),
+);
+const resolvedBreadcrumb = computed<BreadcrumbProps>(
+  () =>
+    props.breadcrumb ??
+    props.breadcrumbProps ?? {
+      items: [
+        { label: "Admin Dashboard", href: "#admin" },
+        { label: pageTitle.value, active: true },
+      ],
+    },
 );
 
 function openCreateModal() {
@@ -59,15 +70,9 @@ function handleRowAction(action: string, rowIndex: number, row: DataTextProps[])
       </header>
 
       <div :class="S.headerBar">
-        <div>
+        <div class="space-y-1">
           <h1 :class="S.title">{{ pageTitle }}</h1>
-          <nav :class="S.breadcrumb" aria-label="Breadcrumb">
-            <template v-for="(item, idx) in breadcrumb" :key="idx">
-              <span :class="idx === 0 ? S.breadcrumbActive : ''">{{ item }}</span>
-              <span aria-hidden="true">›</span>
-            </template>
-            <span>{{ pageTitle }}</span>
-          </nav>
+          <Breadcrumbs v-bind="resolvedBreadcrumb" />
         </div>
 
         <button v-if="resolvedAddLabel" type="button" :class="S.addButton" @click="openCreateModal">
@@ -93,4 +98,3 @@ function handleRowAction(action: string, rowIndex: number, row: DataTextProps[])
     />
   </section>
 </template>
-

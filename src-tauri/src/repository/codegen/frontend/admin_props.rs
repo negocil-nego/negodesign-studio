@@ -89,10 +89,21 @@ export const {pascal}Columns: DataTextProps[] = [\n{columns_ts}\n];\n\n\
 export function map{pascal}Rows(records: Record<string, any>[]): DataTextProps[] {{\n\
   return records.flatMap((item) => [\n{row_cells_ts}\n  ]);\n\
 }}\n\n\
-export function create{pascal}AdminProps(records: Record<string, any>[] = []): AdminProps {{\n\
+export function create{pascal}AdminProps(\n\
+  records: Record<string, any>[] = [],\n\
+  handlers?: {{\n\
+    onSubmit?: (values?: Record<string, unknown>) => void;\n\
+    onRowAction?: (action: string, rowIndex: number, row: DataTextProps[]) => void;\n\
+  }}\n\
+): AdminProps {{\n\
   return {{\n\
     title: \"{title}\",\n\
-    breadcrumb: [\"Admin Dashboard\"],\n\
+    breadcrumb: {{\n\
+      items: [\n\
+        {{ label: \"Admin Dashboard\", href: \"/admin\" }},\n\
+        {{ label: \"{title}\", active: true }},\n\
+      ],\n\
+    }},\n\
     addButtonLabel: \"ADD {upper_title}\",\n\
     sidebarProps: {{\n\
       variant: \"01\",\n\
@@ -118,12 +129,14 @@ export function create{pascal}AdminProps(records: Record<string, any>[] = []): A
       columns: {pascal}Columns,\n\
       rows: map{pascal}Rows(records),\n\
       addLabel: \"ADD {upper_title}\",\n\
+      onRowAction: handlers?.onRowAction,\n\
     }},\n\
     modalFormProps: {{\n\
       title: \"{title}\",\n\
       form: {{\n\
         style: \"grid\",\n\
         fields: [\n{form_fields_ts}\n        ],\n\
+        onSubmit: handlers?.onSubmit,\n\
       }},\n\
     }},\n\
   }};\n\

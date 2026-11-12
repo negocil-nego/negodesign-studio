@@ -69,6 +69,10 @@ pub fn generate(
                 format!("src/app/api/{kebab}/route.ts"),
                 build_next_bff_collection_route(base, &kebab),
             );
+            files.insert(
+                format!("src/app/api/{kebab}/[id]/route.ts"),
+                build_next_bff_item_route(base, &kebab),
+            );
         }
 
         files.insert(
@@ -155,6 +159,29 @@ export async function POST(request: Request) {{\n\
     body,\n\
   }});\n\
   return NextResponse.json(await res.json(), {{ status: res.status }});\n\
+}}\n"
+    )
+}
+
+fn build_next_bff_item_route(base_url: &str, kebab: &str) -> String {
+    let base = base_url.trim_end_matches('/');
+    format!(
+        "import {{ NextResponse }} from \"next/server\";\n\n\
+const BACKEND_URL = \"{base}/api/{kebab}\";\n\n\
+export async function PUT(request: Request, {{ params }}: {{ params: Promise<{{ id: string }}> }}) {{\n\
+  const {{ id }} = await params;\n\
+  const body = await request.text();\n\
+  const res = await fetch(`${{BACKEND_URL}}/${{id}}`, {{\n\
+    method: \"PUT\",\n\
+    headers: {{ \"Content-Type\": \"application/json\" }},\n\
+    body,\n\
+  }});\n\
+  return NextResponse.json(await res.json(), {{ status: res.status }});\n\
+}}\n\n\
+export async function DELETE(_request: Request, {{ params }}: {{ params: Promise<{{ id: string }}> }}) {{\n\
+  const {{ id }} = await params;\n\
+  const res = await fetch(`${{BACKEND_URL}}/${{id}}`, {{ method: \"DELETE\" }});\n\
+  return new NextResponse(null, {{ status: res.status }});\n\
 }}\n"
     )
 }

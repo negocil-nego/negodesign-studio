@@ -1,4 +1,4 @@
-use crate::model::migration::DatabaseTable;
+use crate::model::migration::{DatabaseTable, OpenApiEntity};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
@@ -73,6 +73,44 @@ pub struct FullstackCodegenResult {
     pub generated_frontend_files: usize,
     pub copied_ui_files: usize,
     pub tables_processed: usize,
+    pub summary: Vec<String>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenApiEndpointSelection {
+    pub entity_name: String,
+    pub method: String,
+    pub path: String,
+    pub operation_id: Option<String>,
+    pub summary: Option<String>,
+    pub kind: String,
+    #[serde(default)]
+    pub crud_role: Option<String>,
+    #[serde(default)]
+    pub pattern_style: Option<String>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenApiFrontendCodegenRequest {
+    pub entities: Vec<OpenApiEntity>,
+    pub selected_endpoints: Vec<OpenApiEndpointSelection>,
+    pub frontend_path: String,
+    pub frontend_framework: FrontendFramework,
+    pub api_call_pattern: ApiCallPattern,
+    pub http_client: HttpClientKind,
+    pub use_tanstack_query: bool,
+    pub backend_base_url: Option<String>,
+    pub theme: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenApiFrontendCodegenResult {
+    pub generated_frontend_files: usize,
+    pub copied_ui_files: usize,
+    pub endpoints_processed: usize,
     pub summary: Vec<String>,
 }
 

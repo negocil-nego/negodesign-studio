@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../data/theme/dart/theme_data.dart';
+import '../../../molecules/breadcrumb/data/types.dart';
+import '../../../molecules/breadcrumb/ui/Breadcrumbs.dart';
 import '../../../organisms/data-table/ui/DataTable.dart';
 import '../../../organisms/menu/simple/ui/Menu.dart';
 import '../../../organisms/modal/form/ui/ModalForm.dart';
@@ -80,9 +82,14 @@ class _AdminCrudState extends State<AdminCrud> {
                                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: NegoThemeData.textPrimary),
                               ),
                               const SizedBox(height: 4),
-                              Text(
-                                '${p.breadcrumb.join(' › ')} › $pageTitle',
-                                style: const TextStyle(fontSize: 12, color: NegoThemeData.textMuted),
+                              Breadcrumbs(
+                                p.breadcrumb ??
+                                    BreadcrumbsProps(
+                                      items: [
+                                        const BreadcrumbItem(label: 'Admin Dashboard', href: '#admin'),
+                                        BreadcrumbItem(label: pageTitle, active: true),
+                                      ],
+                                    ),
                               ),
                             ],
                           ),

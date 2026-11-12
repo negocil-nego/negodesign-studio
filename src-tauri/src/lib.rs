@@ -26,7 +26,8 @@ pub fn run() {
             commands::connect_saved_database,
             commands::fetch_openapi,
             commands::import_openapi_file,
-            commands::generate_fullstack_crud
+            commands::generate_fullstack_crud,
+            commands::generate_openapi_frontend
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

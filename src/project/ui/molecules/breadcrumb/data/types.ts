@@ -5,6 +5,8 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbsProps {
-  items: BreadcrumbItem[];
+  items?: BreadcrumbItem[];
   onSelect?: (item: BreadcrumbItem, index: number) => void;
 }
+
+export type BreadcrumbProps = BreadcrumbsProps;

@@ -72,8 +72,8 @@
 
   const tableProps = $derived({
     title: entity.name,
-    columns: entity.fields.map((field) => ({ key: field.name, label: field.name })),
-    rows: [{ id: "openapi-preview", cells: entity.fields.map((field) => field.type) }],
+    columns: entity.fields.map((field) => ({ text: field.name })),
+    rows: entity.fields.map((field) => ({ text: field.type })),
   });
   const cards = $derived(entity.fields.map((field) => ({
     titleProps: { title: field.name },

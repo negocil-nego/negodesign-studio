@@ -13,7 +13,15 @@ export const AtomsStyle = {
       default: `${DesignTokens.primitives.buttonDefault} btn-primary btn-lg btn-block w-full py-2.5 px-5 text-sm font-semibold text-white shadow-xs hover:opacity-90`,
     },
   },
+  icon: {
+    default: "inline-block leading-none",
+    spinner: "inline-block size-4 animate-spin rounded-full border-2 border-current border-t-transparent",
+  },
+  iconCenterButton: {
+    default: "btn-icon inline-flex size-9 items-center justify-center rounded-lg border border-blender-border bg-blender-surface text-zinc-200 transition-colors hover:bg-blender-hover hover:text-white",
+  },
   avatar: {
+    default: "size-10 rounded-full object-cover",
     root: "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-blender-surface text-zinc-300 select-none border border-blender-border",
     size: {
       sm: "size-8 text-xs",
@@ -22,7 +30,11 @@ export const AtomsStyle = {
       xl: "size-20 text-lg",
     },
   },
+  image: {
+    default: "h-full w-full object-cover",
+  },
   skeleton: {
+    default: "animate-pulse rounded-md bg-blender-hover/80",
     root: "animate-pulse rounded-md bg-blender-hover/80",
   },
   checkbox: {

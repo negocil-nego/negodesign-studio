@@ -30,24 +30,28 @@
       },
       "dependencies": {
         "Svelte": [
+          "breadcrumbs",
           "sidebar",
           "menu-simple",
           "data-table",
           "modal-form"
         ],
         "React": [
+          "breadcrumbs",
           "sidebar",
           "menu-simple",
           "data-table",
           "modal-form"
         ],
         "Vue": [
+          "breadcrumbs",
           "sidebar",
           "menu-simple",
           "data-table",
           "modal-form"
         ],
         "Flutter": [
+          "breadcrumbs",
           "sidebar",
           "menu-simple",
           "data-table",

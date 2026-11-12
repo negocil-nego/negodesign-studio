@@ -1,6 +1,9 @@
 use crate::{
     model::{
-        codegen::{FullstackCodegenRequest, FullstackCodegenResult},
+        codegen::{
+            FullstackCodegenRequest, FullstackCodegenResult, OpenApiFrontendCodegenRequest,
+            OpenApiFrontendCodegenResult,
+        },
         migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
         project::{
             ComponentCopyRequest, ComponentExport, ComponentFile, ComponentInstallResult, Project,
@@ -130,4 +133,11 @@ pub fn generate_fullstack_crud(
     request: FullstackCodegenRequest,
 ) -> Result<FullstackCodegenResult, String> {
     codegen_repository::generate_fullstack_crud(request)
+}
+
+#[tauri::command]
+pub fn generate_openapi_frontend(
+    request: OpenApiFrontendCodegenRequest,
+) -> Result<OpenApiFrontendCodegenResult, String> {
+    codegen_repository::generate_openapi_frontend(request)
 }

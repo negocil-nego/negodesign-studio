@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Breadcrumbs from "../../../molecules/breadcrumb/ui/Breadcrumbs.svelte";
   import DataTable from "../../../organisms/data-table/ui/DataTable.svelte";
   import Menu from "../../../organisms/menu/simple/ui/Menu.svelte";
   import ModalForm from "../../../organisms/modal/form/ui/ModalForm.svelte";
   import Sidebar from "../../../organisms/sidebar/ui/Sidebar.svelte";
   import { StyleComponent } from "../../../../data/style.component";
+  import type { BreadcrumbProps } from "../../../molecules/breadcrumb/data/types";
   import type { DataTextProps } from "../../../organisms/data-table/data/types";
   import type { AdminProps } from "../data/types";
 
@@ -12,8 +14,9 @@
     sidebarProps,
     modalFormProps,
     menuProps,
+    breadcrumb,
+    breadcrumbProps,
     title,
-    breadcrumb = ["Admin Dashboard"],
     addButtonLabel,
     className = "",
     onCreateClick,
@@ -27,6 +30,15 @@
   const isModalOpen = $derived(modalFormProps?.open ?? internalModalOpen);
   const pageTitle = $derived(title ?? datatableProps?.title ?? modalFormProps?.title ?? "Team List");
   const resolvedAddLabel = $derived(addButtonLabel ?? datatableProps?.addLabel ?? (modalFormProps ? "ADD NEW" : undefined));
+  const resolvedBreadcrumb = $derived<BreadcrumbProps>(
+    breadcrumb ??
+      breadcrumbProps ?? {
+        items: [
+          { label: "Admin Dashboard", href: "#admin" },
+          { label: pageTitle, active: true },
+        ],
+      },
+  );
 
   function openCreateModal() {
     modalMode = "create";
@@ -65,15 +77,9 @@
     {/if}
 
     <div class={S.headerBar}>
-      <div>
+      <div class="space-y-1">
         <h1 class={S.title}>{pageTitle}</h1>
-        <nav class={S.breadcrumb} aria-label="Breadcrumb">
-          {#each breadcrumb as item, idx (idx)}
-            <span class={idx === 0 ? S.breadcrumbActive : ""}>{item}</span>
-            <span aria-hidden="true">›</span>
-          {/each}
-          <span>{pageTitle}</span>
-        </nav>
+        <Breadcrumbs {...resolvedBreadcrumb} />
       </div>
 
       {#if resolvedAddLabel}
@@ -103,4 +109,3 @@
     />
   {/if}
 </section>
-
