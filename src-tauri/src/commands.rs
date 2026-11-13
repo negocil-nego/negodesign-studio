@@ -1,9 +1,9 @@
 use crate::{
     model::{
         codegen::{
-            CodegenPath, FullstackCodegenRequest, FullstackCodegenResult,
-            OpenApiFrontendCodegenRequest, OpenApiFrontendCodegenResult, SpringBootProjectRequest,
-            SpringBootProjectResult,
+            CodegenPath, FrontendProjectRequest, FrontendProjectResult, FullstackCodegenRequest,
+            FullstackCodegenResult, OpenApiFrontendCodegenRequest, OpenApiFrontendCodegenResult,
+            SpringBootProjectRequest, SpringBootProjectResult,
         },
         migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
         project::{
@@ -13,8 +13,8 @@ use crate::{
     repository::{
         aspnet_project_creator, codegen_paths_repository, codegen_repository,
         component_copy_repository, database_repository, laravel_project_creator,
-        nestjs_project_creator, openapi_repository, project_repository,
-        spring_boot_project_creator,
+        nestjs_project_creator, nextjs_project_creator, nuxt_project_creator, openapi_repository,
+        project_repository, spring_boot_project_creator, sveltekit_project_creator,
     },
 };
 use tauri::AppHandle;
@@ -214,4 +214,34 @@ pub fn create_aspnet_project(
     request: crate::model::codegen::AspnetProjectRequest,
 ) -> Result<crate::model::codegen::BackendProjectResult, String> {
     aspnet_project_creator::create_aspnet_project(&request)
+}
+
+#[tauri::command]
+pub fn create_sveltekit_project(
+    request: FrontendProjectRequest,
+) -> Result<FrontendProjectResult, String> {
+    sveltekit_project_creator::create(&request)
+}
+
+#[tauri::command]
+pub fn create_nuxt_project(
+    request: FrontendProjectRequest,
+) -> Result<FrontendProjectResult, String> {
+    nuxt_project_creator::create(&request)
+}
+
+#[tauri::command]
+pub fn create_nextjs_project(
+    request: FrontendProjectRequest,
+) -> Result<FrontendProjectResult, String> {
+    nextjs_project_creator::create(&request)
+}
+
+#[tauri::command]
+pub fn detect_spring_package(path: String) -> Result<Option<String>, String> {
+    let p = std::path::Path::new(&path);
+    if !p.exists() {
+        return Ok(None);
+    }
+    Ok(crate::repository::codegen::backend::spring_boot::detect::detect_spring_base_package(p))
 }

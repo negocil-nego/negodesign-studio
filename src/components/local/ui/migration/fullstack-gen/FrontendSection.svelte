@@ -47,7 +47,17 @@
     <div class="block sm:col-span-2">
       <span class={LocalStyleComponent.migration.label}>Caminho da Aplicação Frontend</span>
       <div class="mt-1">
-        <ProjectPathField bind:value={frontendPath} target="frontend" placeholder="/caminho/para/projecto-frontend" required />
+        <ProjectPathField
+          bind:value={frontendPath}
+          target="frontend"
+          placeholder="/caminho/para/projecto-frontend"
+          showCreate
+          {frontendFramework}
+          {apiCallPattern}
+          {httpClient}
+          {useTanstackQuery}
+          required
+        />
       </div>
     </div>
 

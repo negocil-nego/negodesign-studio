@@ -3,8 +3,16 @@
   import { listCodegenPaths, deleteCodegenPath, type CodegenPath } from "./paths";
   import { pickProjectFolder } from "./folder";
   import { LocalStyleComponent } from "../../../data/style.component";
-  import type { BackendFramework, DatabaseEngine, SpringLanguage } from "../../../data/migration";
+  import type {
+    ApiCallPattern,
+    BackendFramework,
+    DatabaseEngine,
+    FrontendFramework,
+    HttpClientKind,
+    SpringLanguage,
+  } from "../../../data/migration";
   import CreateBackendProjectDialog from "./CreateBackendProjectDialog.svelte";
+  import CreateFrontendProjectDialog from "./CreateFrontendProjectDialog.svelte";
 
   let {
     value = $bindable(""),
@@ -12,20 +20,28 @@
     placeholder,
     showCreate = false,
     backendFramework = "spring-boot",
+    frontendFramework = "sveltekit",
     required = false,
     language = "java",
     ormStrategy = "spring-data-jpa",
     databaseEngine = "postgres",
+    apiCallPattern = "bff",
+    httpClient = "native",
+    useTanstackQuery = true,
   }: {
     value?: string;
     target: "frontend" | "backend";
     placeholder?: string;
     showCreate?: boolean;
     backendFramework?: BackendFramework;
+    frontendFramework?: FrontendFramework;
     required?: boolean;
     language?: SpringLanguage;
     ormStrategy?: string;
     databaseEngine?: DatabaseEngine;
+    apiCallPattern?: ApiCallPattern;
+    httpClient?: HttpClientKind;
+    useTanstackQuery?: boolean;
   } = $props();
 
   let history = $state<CodegenPath[]>([]);
@@ -88,17 +104,24 @@
         <div class="absolute z-30 mt-1 w-full rounded-lg border border-blender-border bg-blender-card shadow-xl">
           <p class="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Recentes</p>
           {#each history as p}
-            <button
-              type="button"
-              class="flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs text-zinc-300 hover:bg-blender-hover"
-              onmousedown={() => selectHistory(p)}
-            >
-              <span class="truncate">{p.path}</span>
-              {#if p.label}
-                <span class="shrink-0 rounded bg-zinc-700 px-1.5 py-0.5 text-[9px] text-zinc-400">{p.label}</span>
-              {/if}
-              <span class="shrink-0 text-zinc-600 hover:text-red-400" onmousedown={(e) => removeHistory(e, p.id)}>✕</span>
-            </button>
+            <div class="flex w-full items-center justify-between gap-2 px-3 py-1.5 text-xs text-zinc-300 hover:bg-blender-hover">
+              <button
+                type="button"
+                class="flex min-w-0 flex-1 items-center gap-2 text-left"
+                onmousedown={() => selectHistory(p)}
+              >
+                <span class="truncate">{p.path}</span>
+                {#if p.label}
+                  <span class="shrink-0 rounded bg-zinc-700 px-1.5 py-0.5 text-[9px] text-zinc-400">{p.label}</span>
+                {/if}
+              </button>
+              <button
+                type="button"
+                aria-label="Remover do histórico"
+                class="shrink-0 text-zinc-600 hover:text-red-400"
+                onmousedown={(e) => removeHistory(e, p.id)}
+              >✕</button>
+            </div>
           {/each}
         </div>
       {/if}
@@ -119,13 +142,25 @@
 </div>
 
 {#if showCreateDialog}
-  <CreateBackendProjectDialog
-    targetDir={createDir || "."}
-    framework={backendFramework}
-    {language}
-    {ormStrategy}
-    {databaseEngine}
-    onclose={() => (showCreateDialog = false)}
-    oncreated={onProjectCreated}
-  />
+  {#if target === "frontend"}
+    <CreateFrontendProjectDialog
+      targetDir={createDir || "."}
+      framework={frontendFramework}
+      {apiCallPattern}
+      {httpClient}
+      {useTanstackQuery}
+      onclose={() => (showCreateDialog = false)}
+      oncreated={onProjectCreated}
+    />
+  {:else}
+    <CreateBackendProjectDialog
+      targetDir={createDir || "."}
+      framework={backendFramework}
+      {language}
+      {ormStrategy}
+      {databaseEngine}
+      onclose={() => (showCreateDialog = false)}
+      oncreated={onProjectCreated}
+    />
+  {/if}
 {/if}

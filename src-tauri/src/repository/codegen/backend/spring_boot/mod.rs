@@ -1,3 +1,4 @@
+pub mod detect;
 pub mod jdbc;
 pub mod jpa;
 pub mod kotlin;

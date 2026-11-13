@@ -78,6 +78,26 @@ export async function deleteCodegenPath(id: number): Promise<void> {
   }
 }
 
+export type FrontendProjectResult = {
+  projectDir: string;
+  framework: string;
+  buildTool: string;
+  generatedFiles: number;
+  dependencies: string[];
+  nextSteps: string[];
+};
+
+export type FrontendProjectInput = {
+  targetDir: string;
+  name: string;
+  description: string;
+  framework: "sveltekit" | "nuxt" | "nextjs";
+  apiCallPattern: "bff" | "direct";
+  httpClient: "native" | "axios";
+  useTanstackQuery: boolean;
+  includeTailwind?: boolean;
+};
+
 export async function createSpringBootProject(
   input: SpringBootProjectInput,
 ): Promise<SpringBootProjectResult> {
@@ -102,4 +122,30 @@ export async function createAspnetProject(
   input: GenericBackendInput,
 ): Promise<BackendProjectResult> {
   return invoke<BackendProjectResult>("create_aspnet_project", { request: input });
+}
+
+export async function createSveltekitProject(
+  input: FrontendProjectInput,
+): Promise<FrontendProjectResult> {
+  return invoke<FrontendProjectResult>("create_sveltekit_project", { request: input });
+}
+
+export async function createNuxtProject(
+  input: FrontendProjectInput,
+): Promise<FrontendProjectResult> {
+  return invoke<FrontendProjectResult>("create_nuxt_project", { request: input });
+}
+
+export async function createNextjsProject(
+  input: FrontendProjectInput,
+): Promise<FrontendProjectResult> {
+  return invoke<FrontendProjectResult>("create_nextjs_project", { request: input });
+}
+
+export async function detectSpringPackage(path: string): Promise<string | null> {
+  try {
+    return await invoke<string | null>("detect_spring_package", { path });
+  } catch {
+    return null;
+  }
 }

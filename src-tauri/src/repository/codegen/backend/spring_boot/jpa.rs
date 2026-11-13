@@ -105,7 +105,7 @@ public interface {pascal}JpaRepository extends JpaRepository<{pascal}Entity, {pk
     let base_pkg = full_pkg
         .rsplit_once(".feature.")
         .map(|(b, _)| b)
-        .unwrap_or("com.negocil.negoturismo.admin");
+        .unwrap_or(full_pkg);
 
     let repo_impl = format!(
         "package {full_pkg}.repository;\n\n\

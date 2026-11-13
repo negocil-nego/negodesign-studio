@@ -1,3 +1,4 @@
+pub mod aspnet_project_creator;
 pub mod codegen;
 pub mod codegen_paths_repository;
 pub mod codegen_repository;
@@ -7,9 +8,11 @@ pub mod database;
 pub mod database_repository;
 pub mod laravel_project_creator;
 pub mod nestjs_project_creator;
+pub mod nextjs_project_creator;
+pub mod nuxt_project_creator;
 pub mod openapi;
 pub mod openapi_repository;
 pub mod project;
 pub mod project_repository;
 pub mod spring_boot_project_creator;
-pub mod aspnet_project_creator;
+pub mod sveltekit_project_creator;

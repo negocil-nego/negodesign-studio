@@ -2,6 +2,7 @@
   import { LocalStyleComponent } from "../../../data/style.component";
   import type { BackendFramework, DatabaseEngine, SpringLanguage } from "../../../data/migration";
   import { currentOrmOptions, ormOptionsByBackend } from "./options";
+  import { detectSpringPackage } from "./paths";
   import ProjectPathField from "./ProjectPathField.svelte";
 
   let {
@@ -27,6 +28,16 @@
     backendFramework = fw;
     ormStrategy = ormOptionsByBackend[fw][0].id;
   }
+
+  $effect(() => {
+    if (backendFramework === "spring-boot" && backendPath?.trim()) {
+      detectSpringPackage(backendPath.trim()).then((detected) => {
+        if (detected) {
+          basePackage = detected;
+        }
+      });
+    }
+  });
 </script>
 
 <!-- 4. Configuração do Backend (Split vs Monolith) -->
@@ -90,7 +101,7 @@
 
       <label class="block">
         <span class={LocalStyleComponent.migration.label}>Pacote Base (Feature Package)</span>
-        <input class={LocalStyleComponent.migration.field} bind:value={basePackage} placeholder="com.negocil.negoturismo.admin" />
+        <input class={LocalStyleComponent.migration.field} bind:value={basePackage} placeholder="com.nego.design" />
       </label>
     {/if}
 

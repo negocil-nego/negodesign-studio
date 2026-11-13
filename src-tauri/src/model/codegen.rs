@@ -199,3 +199,33 @@ pub struct AspnetProjectRequest {
     pub include_api_docs: bool,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+#[allow(dead_code)]
+pub struct FrontendProjectRequest {
+    pub target_dir: String,
+    pub name: String,
+    pub description: String,
+    pub framework: FrontendFramework,
+    pub api_call_pattern: ApiCallPattern,
+    pub http_client: HttpClientKind,
+    pub use_tanstack_query: bool,
+    #[serde(default = "default_true")]
+    pub include_tailwind: bool,
+}
+
+fn default_true() -> bool {
+    true
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct FrontendProjectResult {
+    pub project_dir: String,
+    pub framework: String,
+    pub build_tool: String,
+    pub generated_files: usize,
+    pub dependencies: Vec<String>,
+    pub next_steps: Vec<String>,
+}
+

@@ -23,7 +23,7 @@
   let backendBaseUrl = $state("http://localhost:8080");
   let backendFramework = $state<BackendFramework>("spring-boot");
   let backendPath = $state("");
-  let basePackage = $state("com.negocil.negoturismo.admin");
+  let basePackage = $state("");
   let springLanguage = $state<SpringLanguage>("java");
   let ormStrategy = $state("spring-data-jpa");
   let databaseEngine = $state<DatabaseEngine>("postgres");

@@ -44,7 +44,7 @@ pub fn generate_jdbc_repository(
     let base_pkg = full_pkg
         .rsplit_once(".feature.")
         .map(|(b, _)| b)
-        .unwrap_or("com.negocil.negoturismo.admin");
+        .unwrap_or(full_pkg);
 
     let repo_src = format!(
         "package {full_pkg}.repository;\n\n\

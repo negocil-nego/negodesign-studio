@@ -34,7 +34,11 @@ pub fn run() {
             commands::create_spring_boot_project,
             commands::create_nestjs_project,
             commands::create_laravel_project,
-            commands::create_aspnet_project
+            commands::create_aspnet_project,
+            commands::create_sveltekit_project,
+            commands::create_nuxt_project,
+            commands::create_nextjs_project,
+            commands::detect_spring_package
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

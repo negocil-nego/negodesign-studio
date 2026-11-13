@@ -21,34 +21,34 @@
     oncreated: (projectDir: string) => void;
   } = $props();
 
-  const isSpring = framework === "spring-boot";
-  const isNest = framework === "nestjs";
-  const isLaravel = framework === "laravel";
-  const isAspnet = framework === "aspnet-core";
+  const isSpring = $derived(framework === "spring-boot");
+  const isNest = $derived(framework === "nestjs");
+  const isLaravel = $derived(framework === "laravel");
+  const isAspnet = $derived(framework === "aspnet-core");
 
-  const fwLabel = isSpring ? "Spring Boot" : isNest ? "NestJS" : isLaravel ? "Laravel" : "ASP.NET Core";
-  const fwDesc = isSpring ? "Maven" : isNest ? "npm" : isLaravel ? "Composer" : "dotnet";
-  const supportsApiDocs = !isLaravel;
+  const fwLabel = $derived(isSpring ? "Spring Boot" : isNest ? "NestJS" : isLaravel ? "Laravel" : "ASP.NET Core");
+  const fwDesc = $derived(isSpring ? "Maven" : isNest ? "npm" : isLaravel ? "Composer" : "dotnet");
+  const supportsApiDocs = $derived(!isLaravel);
 
   let name = $state("negodesign-api");
   let description = $state("API REST gerada pelo Negodesign");
-  let groupId = $state("com.negodesign");
-  let artifactId = $state("admin-api");
+  let groupId = $state("com.nego");
+  let artifactId = $state("design");
   let includeApiDocs = $state(true);
   let creating = $state(false);
   let error = $state<string | null>(null);
   let result = $state<BackendProjectResult | SpringBootProjectResult | null>(null);
 
-  const dbLabel = databaseEngine === "postgres" ? "PostgreSQL" : databaseEngine === "mysql" ? "MySQL" : "SQLite";
-  const ormLabel = isSpring
+  const dbLabel = $derived(databaseEngine === "postgres" ? "PostgreSQL" : databaseEngine === "mysql" ? "MySQL" : "SQLite");
+  const ormLabel = $derived(isSpring
     ? ormStrategy === "spring-jdbc" ? "Spring JDBC" : "Spring Data JPA"
     : isNest
       ? ormStrategy === "prisma" ? "Prisma ORM" : ormStrategy === "drizzle" ? "Drizzle ORM" : "TypeORM"
       : isLaravel
         ? ormStrategy === "eloquent" ? "Eloquent ORM" : ormStrategy === "query-builder" ? "Query Builder" : "Raw SQL"
-        : ormStrategy === "ef-core" ? "Entity Framework Core" : ormStrategy === "dapper" ? "Dapper" : "Raw SQL (ADO.NET)";
+        : ormStrategy === "ef-core" ? "Entity Framework Core" : ormStrategy === "dapper" ? "Dapper" : "Raw SQL (ADO.NET)");
 
-  const deps: { name: string; desc: string; required: boolean }[] = isSpring
+  const deps = $derived(isSpring
     ? [
         { name: "spring-boot-starter-webmvc", desc: "API REST com Spring MVC — controladores, validação e JSON.", required: true },
         { name: ormStrategy === "spring-jdbc" ? "spring-boot-starter-jdbc" : "spring-boot-starter-data-jpa", desc: `${ormLabel} — persistência e repositórios.`, required: true },
@@ -73,7 +73,7 @@
             { name: ormLabel, desc: `${ormLabel} para acesso à base de dados.`, required: true },
             { name: databaseEngine === "postgres" ? "Npgsql.EntityFrameworkCore.PostgreSQL" : databaseEngine === "mysql" ? "MySql.EntityFrameworkCore" : "Microsoft.EntityFrameworkCore.Sqlite", desc: `Provider para ${dbLabel}.`, required: true },
             { name: "Swashbuckle.AspNetCore", desc: "Swagger UI em /swagger.", required: false },
-          ];
+          ]);
 
   async function handleCreate() {
     error = null;
@@ -109,11 +109,25 @@
     }
   }
 
-  const canCreate = isSpring ? groupId.trim() && artifactId.trim() : name.trim();
+  const canCreate = $derived(
+    isSpring ? Boolean(groupId.trim() && artifactId.trim()) : Boolean(name.trim()),
+  );
 </script>
 
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onclick={onclose}>
-  <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-blender-border bg-blender-card p-6 shadow-2xl" onclick={(e) => e.stopPropagation()}>
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+  role="presentation"
+  onclick={onclose}
+  onkeydown={(e) => e.key === "Escape" && onclose()}
+>
+  <div
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-blender-border bg-blender-card p-6 shadow-2xl"
+    onclick={(e) => e.stopPropagation()}
+    onkeydown={(e) => e.stopPropagation()}
+  >
     <div class="flex items-start justify-between gap-4">
       <div>
         <h2 class="text-xl font-semibold text-zinc-100">Criar Projecto {fwLabel}</h2>

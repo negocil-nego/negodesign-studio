@@ -86,3 +86,14 @@ src-tauri/src/
 | `fetch_openapi` | `url: String` | `Result<Vec<OpenApiEntity>, String>` | Downloads an OpenAPI/Swagger JSON or YAML specification over HTTP(S) and extracts schemas and operations. |
 | `import_openapi_file` | `path: String` | `Result<Vec<OpenApiEntity>, String>` | Reads a local OpenAPI/Swagger JSON or YAML file from disk and extracts schemas and operations. |
 
+### Project Scaffolding Commands (`+ Criar`)
+| Command | Arguments | Returns | Description |
+| :--- | :--- | :--- | :--- |
+| `create_spring_boot_project` | `request: SpringBootProjectRequest` | `Result<SpringBootProjectResult, String>` | Scaffolds Spring Boot 4.1.2 project with Java 25, WebMVC, JPA/JDBC, and database driver. |
+| `create_nestjs_project` | `request: NestjsProjectRequest` | `Result<BackendProjectResult, String>` | Scaffolds NestJS 11 TypeScript project with Prisma/Drizzle/TypeORM and Swagger. |
+| `create_laravel_project` | `request: LaravelProjectRequest` | `Result<BackendProjectResult, String>` | Scaffolds Laravel PHP project with Eloquent/Query Builder and artisan setup. |
+| `create_aspnet_project` | `request: AspnetProjectRequest` | `Result<BackendProjectResult, String>` | Scaffolds ASP.NET Core (.NET 9) project with EF Core/Dapper and Swagger. |
+| `create_sveltekit_project` | `request: FrontendProjectRequest` | `Result<FrontendProjectResult, String>` | Scaffolds SvelteKit 2 + Svelte 5 + Vite project with TailwindCSS and TanStack Query. |
+| `create_nuxt_project` | `request: FrontendProjectRequest` | `Result<FrontendProjectResult, String>` | Scaffolds Nuxt 3 + Vue 3 project with TailwindCSS, auto-routing and TanStack Query. |
+| `create_nextjs_project` | `request: FrontendProjectRequest` | `Result<FrontendProjectResult, String>` | Scaffolds Next.js 15 (App Router) + React 19 project with TailwindCSS and TanStack Query. |
+
