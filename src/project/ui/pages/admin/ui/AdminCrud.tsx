@@ -10,17 +10,8 @@ import type { DataTextProps } from "../../../organisms/data-table/data/types";
 import type { AdminProps } from "../data/types";
 
 export default function AdminCrud({
-  datatableProps,
-  sidebarProps,
-  modalFormProps,
-  menuProps,
-  breadcrumb,
-  breadcrumbProps,
-  title,
-  addButtonLabel,
-  className = "",
-  onCreateClick,
-  onRowAction,
+  datatableProps, sidebarProps, modalFormProps, menuProps, breadcrumb, breadcrumbProps,
+  title, addButtonLabel, className = "", onCreateClick, onRowAction,
 }: AdminProps) {
   const S = StyleComponent.pages.admin;
   const [internalModalOpen, setInternalModalOpen] = useState(false);
@@ -29,13 +20,12 @@ export default function AdminCrud({
   const isModalOpen = modalFormProps?.open ?? internalModalOpen;
   const pageTitle = title ?? datatableProps?.title ?? modalFormProps?.title ?? "Team List";
   const resolvedAddLabel = addButtonLabel ?? datatableProps?.addLabel ?? (modalFormProps ? "ADD NEW" : undefined);
-  const resolvedBreadcrumb: BreadcrumbProps = breadcrumb ??
-    breadcrumbProps ?? {
-      items: [
-        { label: "Admin Dashboard", href: "#admin" },
-        { label: pageTitle, active: true },
-      ],
-    };
+  const resolvedBreadcrumb: BreadcrumbProps = breadcrumb ?? breadcrumbProps ?? {
+    items: [
+      { label: "Admin Dashboard", href: "#admin" },
+      { label: pageTitle, active: true },
+    ],
+  };
 
   const openCreateModal = () => {
     setModalMode("create");
@@ -88,11 +78,7 @@ export default function AdminCrud({
 
         {datatableProps && (
           <main className={S.content}>
-            <DataTable
-              {...datatableProps}
-              onAdd={openCreateModal}
-              onRowAction={handleRowAction}
-            />
+            <DataTable {...datatableProps} onAdd={openCreateModal} onRowAction={handleRowAction} />
           </main>
         )}
       </div>

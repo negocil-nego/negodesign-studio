@@ -11,75 +11,15 @@
         "Flutter": "ui/PageProductDetails.svelte"
       },
       "files": {
-        "Svelte": [
-          "data/types.ts",
-          "shared/product-gallery/data/types.ts",
-          "shared/product-gallery/ui/ProductGallery.svelte",
-          "shared/product-info/data/types.ts",
-          "shared/product-info/ui/ProductInfo.svelte",
-          "shared/product-tabs/data/types.ts",
-          "shared/product-tabs/ui/ProductTabs.svelte",
-          "shared/product-rating/data/types.ts",
-          "shared/product-rating/ui/ProductRating.svelte",
-          "shared/product-similiar/data/types.ts",
-          "shared/product-similiar/ui/ProductSimiliar.svelte"
-        ],
-        "React": [
-          "data/types.ts",
-          "shared/product-gallery/data/types.ts",
-          "shared/product-gallery/ui/ProductGallery.tsx",
-          "shared/product-info/data/types.ts",
-          "shared/product-info/ui/ProductInfo.tsx",
-          "shared/product-tabs/data/types.ts",
-          "shared/product-tabs/ui/ProductTabs.tsx",
-          "shared/product-rating/data/types.ts",
-          "shared/product-rating/ui/ProductRating.tsx",
-          "shared/product-similiar/data/types.ts",
-          "shared/product-similiar/ui/ProductSimiliar.tsx"
-        ],
-        "Vue": [
-          "data/types.ts",
-          "shared/product-gallery/data/types.ts",
-          "shared/product-gallery/ui/ProductGallery.vue",
-          "shared/product-info/data/types.ts",
-          "shared/product-info/ui/ProductInfo.vue",
-          "shared/product-tabs/data/types.ts",
-          "shared/product-tabs/ui/ProductTabs.vue",
-          "shared/product-rating/data/types.ts",
-          "shared/product-rating/ui/ProductRating.vue",
-          "shared/product-similiar/data/types.ts",
-          "shared/product-similiar/ui/ProductSimiliar.vue"
-        ],
+        "Svelte": ["data/types.ts", "shared/product-gallery/data/types.ts", "shared/product-gallery/ui/ProductGallery.svelte", "shared/product-gallery/ui/gallery/BottomThumbs.svelte", "shared/product-gallery/ui/gallery/LeftThumbs.svelte", "shared/product-gallery/ui/gallery/GridGallery.svelte", "shared/product-info/data/types.ts", "shared/product-info/data/section-types.ts", "shared/product-info/ui/ProductInfo.svelte", "shared/product-info/sections/ProductInfoHeader.svelte", "shared/product-info/sections/ProductInfoOptions.svelte", "shared/product-info/sections/ProductInfoActions.svelte", "shared/product-tabs/data/types.ts", "shared/product-tabs/ui/ProductTabs.svelte", "shared/product-rating/data/types.ts", "shared/product-rating/ui/ProductRating.svelte", "shared/product-rating/ui/sections/RatingSummary.svelte", "shared/product-rating/ui/sections/ReviewList.svelte", "shared/product-similiar/data/types.ts", "shared/product-similiar/ui/ProductSimiliar.svelte", "shared/product-similiar/ui/similiar/SimiliarSidebar.svelte", "shared/product-similiar/ui/similiar/SimiliarCarousel.svelte", "shared/product-similiar/ui/similiar/SimiliarGrid.svelte", "ui/layouts/ProductDetailsSidebarLayout.svelte", "ui/layouts/ProductDetailsCatalogLayout.svelte", "ui/layouts/ProductDetailsDefaultLayout.svelte"],
+        "React": ["data/types.ts", "shared/product-gallery/data/types.ts", "shared/product-gallery/ui/ProductGallery.tsx", "shared/product-gallery/ui/gallery/ProductGalleryBottom.tsx", "shared/product-gallery/ui/gallery/ProductGalleryLeft.tsx", "shared/product-gallery/ui/gallery/ProductGalleryGrid.tsx", "shared/product-info/data/types.ts", "shared/product-info/data/section-types.ts", "shared/product-info/ui/ProductInfo.tsx", "shared/product-info/sections/ProductInfoHeader.tsx", "shared/product-info/sections/ProductInfoOptions.tsx", "shared/product-info/sections/ProductInfoActions.tsx", "shared/product-tabs/data/types.ts", "shared/product-tabs/ui/ProductTabs.tsx", "shared/product-rating/data/types.ts", "shared/product-rating/ui/ProductRating.tsx", "shared/product-rating/ui/sections/RatingSummary.tsx", "shared/product-rating/ui/sections/ReviewList.tsx", "shared/product-similiar/data/types.ts", "shared/product-similiar/ui/ProductSimiliar.tsx", "ui/layouts/ProductDetailsSidebarLayout.tsx", "ui/layouts/ProductDetailsCatalogLayout.tsx", "ui/layouts/ProductDetailsDefaultLayout.tsx"],
+        "Vue": ["data/types.ts", "shared/product-gallery/data/types.ts", "shared/product-gallery/ui/ProductGallery.vue", "shared/product-info/data/types.ts", "shared/product-info/data/section-types.ts", "shared/product-info/ui/ProductInfo.vue", "shared/product-info/sections/ProductInfoHeader.vue", "shared/product-info/sections/ProductInfoOptions.vue", "shared/product-info/sections/ProductInfoActions.vue", "shared/product-tabs/data/types.ts", "shared/product-tabs/ui/ProductTabs.vue", "shared/product-rating/data/types.ts", "shared/product-rating/ui/ProductRating.vue", "shared/product-similiar/data/types.ts", "shared/product-similiar/ui/ProductSimiliar.vue", "ui/layouts/ProductDetailsSidebarLayout.vue", "ui/layouts/ProductDetailsCatalogLayout.vue", "ui/layouts/ProductDetailsDefaultLayout.vue"],
         "Flutter": []
       },
       "dependencies": {
-        "Svelte": [
-          "breadcrumbs",
-          "menu-simple",
-          "footer",
-          "card-product",
-          "underline-nav",
-          "accordion",
-          "progress"
-        ],
-        "React": [
-          "breadcrumbs",
-          "menu-simple",
-          "footer",
-          "card-product",
-          "underline-nav",
-          "accordion",
-          "progress"
-        ],
-        "Vue": [
-          "breadcrumbs",
-          "menu-simple",
-          "footer",
-          "card-product",
-          "underline-nav",
-          "accordion",
-          "progress"
-        ],
+        "Svelte": ["breadcrumbs", "menu-simple", "footer", "card-product", "underline-nav", "accordion", "progress"],
+        "React": ["breadcrumbs", "menu-simple", "footer", "card-product", "underline-nav", "accordion", "progress"],
+        "Vue": ["breadcrumbs", "menu-simple", "footer", "card-product", "underline-nav", "accordion", "progress"],
         "Flutter": []
       },
       "assets": {

@@ -1,23 +1,27 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import Icon from "../../../atoms/icon/ui/Icon.vue";
 import Breadcrumbs from "../../../molecules/breadcrumb/ui/Breadcrumbs.vue";
 import Footer from "../../../organisms/footer/ui/Footer.vue";
 import Menu from "../../../organisms/menu/simple/ui/Menu.vue";
-import GridCardMedia from "../../../organisms/section/grid/card/media/ui/GridCardMedia.vue";
 import { StyleComponent } from "../../../../data/style.component";
 import type { PageProductDetailsProps } from "../data/types";
-import ProductGallery from "../shared/product-gallery/ui/ProductGallery.vue";
-import ProductInfo from "../shared/product-info/ui/ProductInfo.vue";
-import ProductRating from "../shared/product-rating/ui/ProductRating.vue";
-import ProductSimiliar from "../shared/product-similiar/ui/ProductSimiliar.vue";
-import ProductTabs from "../shared/product-tabs/ui/ProductTabs.vue";
+import ProductDetailsSidebarLayout from "./layouts/ProductDetailsSidebarLayout.vue";
+import ProductDetailsDefaultLayout from "./layouts/ProductDetailsDefaultLayout.vue";
 
-withDefaults(defineProps<PageProductDetailsProps>(), {
+const props = withDefaults(defineProps<PageProductDetailsProps>(), {
   variant: "sidebar",
   className: "",
 });
 
 const S = StyleComponent.pages.productDetails;
+const sectionProps = computed(() => ({
+  productGalleryProps: props.productGalleryProps,
+  productInfoProps: props.productInfoProps,
+  productTabsProps: props.productTabsProps,
+  productRatingProps: props.productRatingProps,
+  productSimiliarProps: props.productSimiliarProps,
+}));
 </script>
 
 <template>
@@ -52,57 +56,8 @@ const S = StyleComponent.pages.productDetails;
     </div>
 
     <main :class="S.container">
-      <template v-if="variant === 'sidebar'">
-        <section :class="S.heroGrid">
-          <div :class="S.galleryCol">
-            <ProductGallery v-if="productGalleryProps" v-bind="productGalleryProps" />
-          </div>
-          <div :class="S.infoCol">
-            <ProductInfo v-if="productInfoProps" v-bind="productInfoProps" />
-          </div>
-        </section>
-
-        <div :class="S.sidebarLayout">
-          <div :class="S.mainCol">
-            <section v-if="productTabsProps" :class="S.sectionCard">
-              <ProductTabs v-bind="productTabsProps" />
-            </section>
-            <section v-if="productRatingProps" :class="S.sectionCard">
-              <ProductRating v-bind="productRatingProps" />
-            </section>
-          </div>
-          <div :class="S.sideCol">
-            <ProductSimiliar v-if="productSimiliarProps" v-bind="productSimiliarProps" variant="sidebar" />
-          </div>
-        </div>
-      </template>
-
-      <template v-else>
-        <section :class="S.heroGrid">
-          <div :class="S.galleryCol">
-            <ProductGallery v-if="productGalleryProps" v-bind="productGalleryProps" />
-          </div>
-          <div :class="S.infoCol">
-            <ProductInfo v-if="productInfoProps" v-bind="productInfoProps" />
-          </div>
-        </section>
-
-        <section v-if="featureCardsProps" :class="S.sectionCard">
-          <GridCardMedia v-bind="featureCardsProps" />
-        </section>
-
-        <section v-if="productTabsProps && variant !== 'minimal'" :class="S.sectionCard">
-          <ProductTabs v-bind="productTabsProps" />
-        </section>
-
-        <section v-if="productRatingProps && variant !== 'minimal'" :class="S.sectionCard">
-          <ProductRating v-bind="productRatingProps" />
-        </section>
-
-        <section v-if="productSimiliarProps" :class="S.sectionCard">
-          <ProductSimiliar v-bind="productSimiliarProps" />
-        </section>
-      </template>
+      <ProductDetailsSidebarLayout v-if="variant === 'sidebar'" v-bind="sectionProps" />
+      <ProductDetailsDefaultLayout v-else v-bind="sectionProps" :variant="variant" :feature-cards-props="featureCardsProps" />
     </main>
 
     <Footer v-if="footerProps" v-bind="footerProps" />

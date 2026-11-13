@@ -15,3 +15,28 @@ export interface ProductSimiliarProps {
 }
 
 export type ProductSimilarProps = ProductSimiliarProps;
+
+export interface SimiliarSidebarProps {
+  titleProps?: CardTitleProps;
+  items: CardProductProps[];
+  moreButtonProps?: CardButtonProps;
+  className?: string;
+}
+
+export interface SimiliarCarouselProps {
+  titleProps?: CardTitleProps;
+  descriptionProps?: CardDescriptionProps;
+  items: CardProductProps[];
+  moreButtonProps?: CardButtonProps;
+  className?: string;
+}
+
+export interface SimiliarGridProps {
+  headerAlign?: "left" | "center";
+  titleProps?: CardTitleProps;
+  descriptionProps?: CardDescriptionProps;
+  columns?: 3 | 4 | 5;
+  items: CardProductProps[];
+  moreButtonProps?: CardButtonProps;
+  className?: string;
+}

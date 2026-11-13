@@ -15,20 +15,16 @@
     specsStyle = "inline",
     className = "",
   }: ProductTabsProps = $props();
-
   const defaultNavItems = [
     { value: "description", label: "Description" },
     { value: "reviews", label: "Reviews (150)" },
     { value: "support", label: "Support" },
   ];
-
   const navItems = $derived(underlineNavProps?.items ?? defaultNavItems);
   let activeTab = $state("");
-
   const resolvedTab = $derived(
     activeTab || underlineNavProps?.value || navItems[0]?.value || "description",
   );
-
   const activeContent = $derived(
     tabContents.find((t) => t.value === resolvedTab),
   );

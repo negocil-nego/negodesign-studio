@@ -48,3 +48,25 @@ export interface FooterProps {
   copyrightText?: string;
   className?: string;
 }
+
+export interface FooterMainProps {
+  variant?: "01" | "02" | "03";
+  logoProps?: ImageProps;
+  logoText?: string;
+  logoSubtitle?: string;
+  descriptionProps?: TextProps;
+  openingHours?: string[];
+  contactItems?: FooterContactItem[];
+  columns?: FooterColumnProps[];
+  newsletterProps?: FooterNewsletterProps;
+  socialLinks?: FooterSocialItem[];
+  email?: string;
+  onEmailChange?: (email: string) => void;
+  onSubmit?: (event: SubmitEvent) => void;
+}
+
+export interface FooterBottomProps {
+  paymentBadges?: string[];
+  bottomLinks?: FooterLinkItem[];
+  copyrightText?: string;
+}

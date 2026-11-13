@@ -11,9 +11,9 @@
         "Flutter": "ui/Footer.svelte"
       },
       "files": {
-        "Svelte": ["data/types.ts"],
-        "React": ["data/types.ts"],
-        "Vue": ["data/types.ts"],
+        "Svelte": ["data/types.ts", "ui/FooterMain.svelte", "ui/FooterBottom.svelte"],
+        "React": ["data/types.ts", "ui/FooterMain.tsx", "ui/FooterBottom.tsx"],
+        "Vue": ["data/types.ts", "ui/FooterMain.vue", "ui/FooterBottom.vue"],
         "Flutter": []
       },
       "dependencies": {

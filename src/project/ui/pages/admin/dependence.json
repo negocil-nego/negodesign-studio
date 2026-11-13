@@ -11,92 +11,28 @@
         "Flutter": "ui/AdminCrud.dart"
       },
       "files": {
-        "Svelte": [
-          "data/types.ts",
-          "ui/Admin.svelte"
-        ],
-        "React": [
-          "data/types.ts",
-          "ui/Admin.tsx"
-        ],
-        "Vue": [
-          "data/types.ts",
-          "ui/Admin.vue"
-        ],
-        "Flutter": [
-          "data/types.dart",
-          "ui/Admin.dart"
-        ]
+        "Svelte": ["data/types.ts", "ui/Admin.svelte"],
+        "React": ["data/types.ts", "ui/Admin.tsx"],
+        "Vue": ["data/types.ts", "ui/Admin.vue"],
+        "Flutter": ["data/types.dart", "ui/Admin.dart", "ui/AdminCrudHeader.dart"]
       },
       "dependencies": {
-        "Svelte": [
-          "breadcrumbs",
-          "sidebar",
-          "menu-simple",
-          "data-table",
-          "modal-form"
-        ],
-        "React": [
-          "breadcrumbs",
-          "sidebar",
-          "menu-simple",
-          "data-table",
-          "modal-form"
-        ],
-        "Vue": [
-          "breadcrumbs",
-          "sidebar",
-          "menu-simple",
-          "data-table",
-          "modal-form"
-        ],
-        "Flutter": [
-          "breadcrumbs",
-          "sidebar",
-          "menu-simple",
-          "data-table",
-          "modal-form"
-        ]
+        "Svelte": ["breadcrumbs", "sidebar", "menu-simple", "data-table", "modal-form"],
+        "React": ["breadcrumbs", "sidebar", "menu-simple", "data-table", "modal-form"],
+        "Vue": ["breadcrumbs", "sidebar", "menu-simple", "data-table", "modal-form"],
+        "Flutter": ["breadcrumbs", "sidebar", "menu-simple", "data-table", "modal-form"]
       },
       "assets": {
-        "Svelte": [
-          "project/data/style.component.ts"
-        ],
-        "React": [
-          "project/data/style.component.ts"
-        ],
-        "Vue": [
-          "project/data/style.component.ts"
-        ],
-        "Flutter": [
-          "project/data/theme/theme_data.dart"
-        ]
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": ["project/data/theme/theme_data.dart"]
       },
       "props": [
-        {
-          "name": "datatableProps",
-          "type": "DataTableProps",
-          "required": false,
-          "description": "Configuração da tabela paginada com badges e coluna dropdown de acção."
-        },
-        {
-          "name": "sidebarProps",
-          "type": "SidebarProps",
-          "required": false,
-          "description": "Navegação lateral com os menus correspondentes às tabelas."
-        },
-        {
-          "name": "modalFormProps",
-          "type": "ModalFormProps",
-          "required": false,
-          "description": "Formulário em modal para criação e edição de registos."
-        },
-        {
-          "name": "menuProps",
-          "type": "MenuProps",
-          "required": false,
-          "description": "Barra de navegação superior da página administrativa."
-        }
+        { "name": "datatableProps", "type": "DataTableProps", "required": false, "description": "Configuração da tabela paginada com badges e coluna dropdown de acção." },
+        { "name": "sidebarProps", "type": "SidebarProps", "required": false, "description": "Navegação lateral com os menus correspondentes às tabelas." },
+        { "name": "modalFormProps", "type": "ModalFormProps", "required": false, "description": "Formulário em modal para criação e edição de registos." },
+        { "name": "menuProps", "type": "MenuProps", "required": false, "description": "Barra de navegação superior da página administrativa." }
       ]
     },
     {
@@ -109,53 +45,19 @@
         "Flutter": "ui/Admin.dart"
       },
       "files": {
-        "Svelte": [
-          "data/types.ts",
-          "ui/AdminCrud.svelte"
-        ],
-        "React": [
-          "data/types.ts",
-          "ui/AdminCrud.tsx"
-        ],
-        "Vue": [
-          "data/types.ts",
-          "ui/AdminCrud.vue"
-        ],
-        "Flutter": [
-          "data/types.dart",
-          "ui/AdminCrud.dart"
-        ]
+        "Svelte": ["data/types.ts", "ui/AdminCrud.svelte"],
+        "React": ["data/types.ts", "ui/AdminCrud.tsx"],
+        "Vue": ["data/types.ts", "ui/AdminCrud.vue"],
+        "Flutter": ["data/types.dart", "ui/AdminCrud.dart", "ui/AdminCrudHeader.dart"]
       },
-      "dependencies": {
-        "Svelte": [
-          "admin-crud"
-        ],
-        "React": [
-          "admin-crud"
-        ],
-        "Vue": [
-          "admin-crud"
-        ],
-        "Flutter": [
-          "admin-crud"
-        ]
-      },
+      "dependencies": { "Svelte": ["admin-crud"], "React": ["admin-crud"], "Vue": ["admin-crud"], "Flutter": ["admin-crud"] },
       "assets": {
-        "Svelte": [
-          "project/data/style.component.ts"
-        ],
-        "React": [
-          "project/data/style.component.ts"
-        ],
-        "Vue": [
-          "project/data/style.component.ts"
-        ],
-        "Flutter": [
-          "project/data/theme/theme_data.dart"
-        ]
+        "Svelte": ["project/data/style.component.ts"],
+        "React": ["project/data/style.component.ts"],
+        "Vue": ["project/data/style.component.ts"],
+        "Flutter": ["project/data/theme/theme_data.dart"]
       },
       "props": []
     }
   ]
 }
-

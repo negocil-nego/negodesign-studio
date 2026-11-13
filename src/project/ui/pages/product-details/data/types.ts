@@ -24,6 +24,19 @@ export type PageProductDetailsVariant =
   | "catalog"
   | "fresh";
 
+export interface ProductDetailsLayoutProps {
+  productGalleryProps?: ProductGalleryProps;
+  productInfoProps?: ProductInfoProps;
+  productTabsProps?: ProductTabsProps;
+  productRatingProps?: ProductRatingProps;
+  productSimiliarProps?: ProductSimiliarProps;
+}
+
+export interface ProductDetailsDefaultLayoutProps extends ProductDetailsLayoutProps {
+  variant?: PageProductDetailsVariant;
+  featureCardsProps?: GridCardMediaProps;
+}
+
 export interface PageProductDetailsProps {
   variant?: PageProductDetailsVariant;
   topBarText?: string;

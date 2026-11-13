@@ -10,17 +10,8 @@
   import type { AdminProps } from "../data/types";
 
   let {
-    datatableProps,
-    sidebarProps,
-    modalFormProps,
-    menuProps,
-    breadcrumb,
-    breadcrumbProps,
-    title,
-    addButtonLabel,
-    className = "",
-    onCreateClick,
-    onRowAction,
+    datatableProps, sidebarProps, modalFormProps, menuProps, breadcrumb, breadcrumbProps,
+    title, addButtonLabel, className = "", onCreateClick, onRowAction,
   }: AdminProps = $props();
 
   const S = StyleComponent.pages.admin;
@@ -31,13 +22,12 @@
   const pageTitle = $derived(title ?? datatableProps?.title ?? modalFormProps?.title ?? "Team List");
   const resolvedAddLabel = $derived(addButtonLabel ?? datatableProps?.addLabel ?? (modalFormProps ? "ADD NEW" : undefined));
   const resolvedBreadcrumb = $derived<BreadcrumbProps>(
-    breadcrumb ??
-      breadcrumbProps ?? {
-        items: [
-          { label: "Admin Dashboard", href: "#admin" },
-          { label: pageTitle, active: true },
-        ],
-      },
+    breadcrumb ?? breadcrumbProps ?? {
+      items: [
+        { label: "Admin Dashboard", href: "#admin" },
+        { label: pageTitle, active: true },
+      ],
+    },
   );
 
   function openCreateModal() {
@@ -64,16 +54,12 @@
 
 <section class={`${S.root} ${className}`}>
   {#if sidebarProps}
-    <div class={S.sidebarWrap}>
-      <Sidebar {...sidebarProps} />
-    </div>
+    <div class={S.sidebarWrap}><Sidebar {...sidebarProps} /></div>
   {/if}
 
   <div class={S.mainWrap}>
     {#if menuProps}
-      <header class={S.topBar}>
-        <Menu {...menuProps} />
-      </header>
+      <header class={S.topBar}><Menu {...menuProps} /></header>
     {/if}
 
     <div class={S.headerBar}>
@@ -81,7 +67,6 @@
         <h1 class={S.title}>{pageTitle}</h1>
         <Breadcrumbs {...resolvedBreadcrumb} />
       </div>
-
       {#if resolvedAddLabel}
         <button type="button" class={S.addButton} onclick={openCreateModal}>
           <span>+ {resolvedAddLabel}</span>
@@ -91,11 +76,7 @@
 
     {#if datatableProps}
       <main class={S.content}>
-        <DataTable
-          {...datatableProps}
-          onAdd={openCreateModal}
-          onRowAction={handleRowAction}
-        />
+        <DataTable {...datatableProps} onAdd={openCreateModal} onRowAction={handleRowAction} />
       </main>
     {/if}
   </div>

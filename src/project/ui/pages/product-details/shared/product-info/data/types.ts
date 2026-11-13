@@ -43,6 +43,12 @@ export interface ProductAccordionItem {
   open?: boolean;
 }
 
+export type {
+  ProductInfoActionsProps,
+  ProductInfoHeaderProps,
+  ProductInfoOptionsProps,
+} from "./section-types";
+
 export interface ProductInfoProps {
   category?: string;
   badge?: string;
