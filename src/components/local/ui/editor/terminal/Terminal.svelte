@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { activeProject } from "../../../data/projects";
+  import { open } from "@tauri-apps/plugin-dialog";
+  import { activeProject, loadActiveProject, saveProject } from "../../../data/projects";
   import { componentCatalog, type ComponentDefinition } from "../../../data/components";
   import ComponentCopyDialog from "../shared/ComponentCopyDialog.svelte";
 
@@ -345,12 +346,31 @@
 
   let dialogComponent = $state<ComponentDefinition | null>(null);
 
-  function copyToProject() {
+  async function copyToProject() {
     if (!info) return;
+    if (!(await ensureActiveProject())) return;
     const targetDef =
       componentCatalog.find((c) => c.id === info.componentId) ?? catalogMatch;
     if (targetDef) {
       dialogComponent = targetDef;
+    }
+  }
+
+  async function ensureActiveProject(): Promise<boolean> {
+    if ($activeProject && $activeProject.language !== "Unknown") return true;
+    const selected = await open({
+      directory: true,
+      multiple: false,
+      title: "Seleccione a pasta do projecto de destino",
+    });
+    if (typeof selected !== "string" || !selected.trim()) return false;
+    try {
+      await saveProject(selected);
+      await loadActiveProject();
+      return true;
+    } catch (err) {
+      copyMessage = err instanceof Error ? err.message : String(err);
+      return false;
     }
   }
 
@@ -383,12 +403,12 @@
         type="button"
         class="shrink-0 rounded bg-blue-600 px-3 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
         onclick={copyToProject}
-        disabled={!$activeProject || $activeProject.language === "Unknown" || copying}
-        title={!$activeProject
-          ? "Seleccione um projecto activo"
-          : $activeProject.language === "Unknown"
+        disabled={copying}
+        title={$activeProject
+          ? $activeProject.language === "Unknown"
             ? "A linguagem do projecto não foi identificada"
-            : `Copiar para ${$activeProject.name}`}
+            : `Copiar para ${$activeProject.name}`
+          : "Seleccione um projecto de destino"}
       >{copying ? "A copiar…" : "Copiar para projecto"}</button>{/if}
     </div>
   {/if}

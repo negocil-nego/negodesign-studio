@@ -31,7 +31,10 @@ pub fn run() {
             commands::list_codegen_paths,
             commands::save_codegen_path,
             commands::delete_codegen_path,
-            commands::create_spring_boot_project
+            commands::create_spring_boot_project,
+            commands::create_nestjs_project,
+            commands::create_laravel_project,
+            commands::create_aspnet_project
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

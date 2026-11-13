@@ -32,6 +32,18 @@ export function setActiveProject(id: number): Promise<ProjectRecord> {
   return invoke<ProjectRecord>("set_active_project", { id });
 }
 
+export async function loadActiveProject(): Promise<ProjectRecord | null> {
+  try {
+    const projects = await listProjects();
+    const active = projects.find((project) => project.active) ?? null;
+    activeProject.set(active);
+    return active;
+  } catch (err) {
+    console.error("Erro ao carregar projecto activo:", err);
+    return null;
+  }
+}
+
 export type ProjectSourceFile = { path: string; content: string };
 export type ComponentExport = { id: string; name: string; entry: string };
 export type ComponentInstallResult = { copiedFiles: number; exportedComponents: number };

@@ -3,14 +3,16 @@
   import { listCodegenPaths, deleteCodegenPath, type CodegenPath } from "./paths";
   import { pickProjectFolder } from "./folder";
   import { LocalStyleComponent } from "../../../data/style.component";
-  import type { DatabaseEngine, SpringLanguage } from "../../../data/migration";
-  import CreateSpringBootDialog from "./CreateSpringBootDialog.svelte";
+  import type { BackendFramework, DatabaseEngine, SpringLanguage } from "../../../data/migration";
+  import CreateBackendProjectDialog from "./CreateBackendProjectDialog.svelte";
 
   let {
     value = $bindable(""),
     target,
     placeholder,
-    showCreateSpring,
+    showCreate = false,
+    backendFramework = "spring-boot",
+    required = false,
     language = "java",
     ormStrategy = "spring-data-jpa",
     databaseEngine = "postgres",
@@ -18,7 +20,9 @@
     value?: string;
     target: "frontend" | "backend";
     placeholder?: string;
-    showCreateSpring?: boolean;
+    showCreate?: boolean;
+    backendFramework?: BackendFramework;
+    required?: boolean;
     language?: SpringLanguage;
     ormStrategy?: string;
     databaseEngine?: DatabaseEngine;
@@ -26,7 +30,7 @@
 
   let history = $state<CodegenPath[]>([]);
   let showHistory = $state(false);
-  let showCreate = $state(false);
+  let showCreateDialog = $state(false);
   let createDir = $state("");
 
   onMount(async () => {
@@ -58,34 +62,31 @@
 
   function openCreateDialog() {
     createDir = value || "";
-    showCreate = true;
+    showCreateDialog = true;
   }
 
   function onProjectCreated(dir: string) {
     value = dir;
-    showCreate = false;
+    showCreateDialog = false;
     refreshHistory();
   }
-
-  const inputId = `path-input-${target}`;
 </script>
 
 <div class="relative">
   <div class="flex gap-2">
     <div class="relative flex-1">
       <input
-        id={inputId}
+        id={`path-input-${target}`}
         class={LocalStyleComponent.migration.field}
         bind:value
-        placeholder={placeholder}
+        {placeholder}
+        {required}
         onfocus={() => (showHistory = history.length > 0)}
         onblur={() => setTimeout(() => (showHistory = false), 200)}
       />
       {#if showHistory && history.length > 0}
         <div class="absolute z-30 mt-1 w-full rounded-lg border border-blender-border bg-blender-card shadow-xl">
-          <p class="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-            Recentes
-          </p>
+          <p class="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Recentes</p>
           {#each history as p}
             <button
               type="button"
@@ -106,28 +107,25 @@
       type="button"
       class="shrink-0 rounded-lg border border-blender-border bg-blender-card px-3 py-2 text-xs font-medium text-zinc-200 transition hover:bg-blender-hover"
       onclick={handlePick}
-    >
-      Procurar...
-    </button>
-    {#if showCreateSpring}
+    >Procurar...</button>
+    {#if showCreate}
       <button
         type="button"
         class="shrink-0 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-500"
         onclick={openCreateDialog}
-      >
-        + Criar
-      </button>
+      >+ Criar</button>
     {/if}
   </div>
 </div>
 
-{#if showCreate}
-  <CreateSpringBootDialog
+{#if showCreateDialog}
+  <CreateBackendProjectDialog
     targetDir={createDir || "."}
+    framework={backendFramework}
     {language}
     {ormStrategy}
     {databaseEngine}
-    onclose={() => (showCreate = false)}
+    onclose={() => (showCreateDialog = false)}
     oncreated={onProjectCreated}
   />
 {/if}

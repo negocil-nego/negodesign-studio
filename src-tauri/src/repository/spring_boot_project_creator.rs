@@ -1,36 +1,112 @@
 use crate::model::codegen::{
     DatabaseEngine, SpringBootProjectRequest, SpringBootProjectResult, SpringLanguage,
 };
-use std::{
-    fs,
-    path::PathBuf,
-};
+use std::{fs, path::PathBuf};
 
-const SPRING_BOOT_VERSION: &str = "3.4.1";
-const SPRINGDOC_VERSION: &str = "2.6.0";
+const SPRING_BOOT_VERSION: &str = "4.1.2";
+const SPRINGDOC_VERSION: &str = "2.8.6";
+const SQLITE_JDBC_VERSION: &str = "3.47.1.0";
 
-/// Resolve o driver JDBC e a dependência Maven conforme o motor de base de dados.
-fn db_dependency(engine: &DatabaseEngine) -> (&'static str, &'static str, &'static str) {
+/// Dependência Maven. `version: None` significa que é gerida pelo parent do Spring Boot.
+struct Dependency {
+    group: &'static str,
+    artifact: &'static str,
+    version: Option<&'static str>,
+    scope: Option<&'static str>,
+}
+
+fn orm_dependencies(orm_strategy: &str) -> Vec<Dependency> {
+    let mut deps = Vec::new();
+    let is_jdbc = orm_strategy == "spring-jdbc" || orm_strategy == "jdbc";
+    if is_jdbc {
+        deps.push(Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-jdbc",
+            version: None,
+            scope: None,
+        });
+    } else {
+        deps.push(Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-data-jpa",
+            version: None,
+            scope: None,
+        });
+        deps.push(Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-jdbc",
+            version: None,
+            scope: None,
+        });
+    }
+    deps
+}
+
+fn db_dependency(engine: &DatabaseEngine) -> Dependency {
     match engine {
-        DatabaseEngine::Postgres => (
-            "org.postgresql",
-            "postgresql",
-            "runtime",
-        ),
-        DatabaseEngine::Mysql => (
-            "com.mysql",
-            "mysql-connector-j",
-            "runtime",
-        ),
-        DatabaseEngine::Sqlite => (
-            "org.xerial",
-            "sqlite-jdbc",
-            "runtime",
-        ),
+        DatabaseEngine::Postgres => Dependency {
+            group: "org.postgresql",
+            artifact: "postgresql",
+            version: None,
+            scope: Some("runtime"),
+        },
+        DatabaseEngine::Mysql => Dependency {
+            group: "com.mysql",
+            artifact: "mysql-connector-j",
+            version: None,
+            scope: Some("runtime"),
+        },
+        DatabaseEngine::Sqlite => Dependency {
+            group: "org.xerial",
+            artifact: "sqlite-jdbc",
+            version: Some(SQLITE_JDBC_VERSION),
+            scope: Some("runtime"),
+        },
     }
 }
 
-/// Resolve as propriedades `application.properties` para a base de dados.
+fn dependencies(req: &SpringBootProjectRequest) -> Vec<Dependency> {
+    let mut deps = vec![Dependency {
+        group: "org.springframework.boot",
+        artifact: "spring-boot-starter-webmvc",
+        version: None,
+        scope: None,
+    }];
+    deps.extend(orm_dependencies(&req.orm_strategy));
+    deps.push(db_dependency(&req.database_engine));
+    if req.include_api_docs {
+        deps.push(Dependency {
+            group: "org.springdoc",
+            artifact: "springdoc-openapi-starter-webmvc-ui",
+            version: Some(SPRINGDOC_VERSION),
+            scope: None,
+        });
+    }
+    // Test starters (mirror the runtime starters)
+    deps.push(Dependency {
+        group: "org.springframework.boot",
+        artifact: "spring-boot-starter-webmvc-test",
+        version: None,
+        scope: Some("test"),
+    });
+    if req.orm_strategy == "spring-jdbc" || req.orm_strategy == "jdbc" {
+        deps.push(Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-jdbc-test",
+            version: None,
+            scope: Some("test"),
+        });
+    } else {
+        deps.push(Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-data-jpa-test",
+            version: None,
+            scope: Some("test"),
+        });
+    }
+    deps
+}
+
 fn db_properties(engine: &DatabaseEngine) -> String {
     match engine {
         DatabaseEngine::Postgres => [
@@ -57,34 +133,21 @@ fn db_properties(engine: &DatabaseEngine) -> String {
     }
 }
 
-fn orm_dependency(orm_strategy: &str) -> (&'static str, &'static str, &'static str) {
-    match orm_strategy {
-        "spring-jdbc" | "jdbc" => (
-            "org.springframework.boot",
-            "spring-boot-starter-jdbc",
-            "compile",
-        ),
-        _ => (
-            "org.springframework.boot",
-            "spring-boot-starter-data-jpa",
-            "compile",
-        ),
-    }
-}
-
-fn pom_xml(req: &SpringBootProjectRequest, deps: &[String]) -> String {
+fn pom_xml(req: &SpringBootProjectRequest, deps: &[Dependency]) -> String {
     let dep_blocks = deps
         .iter()
         .map(|d| {
-            let parts: Vec<&str> = d.split(':').collect();
-            let (group, artifact, scope) = (parts[0], parts[1], parts[2]);
-            let scope_block = if scope == "runtime" {
-                "        <scope>runtime</scope>\n"
-            } else {
-                ""
-            };
+            let version = d
+                .version
+                .map(|v| format!("            <version>{v}</version>\n"))
+                .unwrap_or_default();
+            let scope = d
+                .scope
+                .map(|s| format!("            <scope>{s}</scope>\n"))
+                .unwrap_or_default();
             format!(
-                "        <dependency>\n            <groupId>{group}</groupId>\n            <artifactId>{artifact}</artifactId>\n{scope_block}        </dependency>"
+                "        <dependency>\n            <groupId>{}</groupId>\n            <artifactId>{}</artifactId>\n{version}{scope}        </dependency>",
+                d.group, d.artifact
             )
         })
         .collect::<Vec<_>>()
@@ -111,8 +174,7 @@ fn pom_xml(req: &SpringBootProjectRequest, deps: &[String]) -> String {
     <description>{description}</description>
 
     <properties>
-        <java.version>21</java.version>
-        <springdoc.version>{SPRINGDOC_VERSION}</springdoc.version>
+        <java.version>25</java.version>
     </properties>
 
     <dependencies>
@@ -188,18 +250,15 @@ fn application_properties(req: &SpringBootProjectRequest) -> String {
     )
 }
 
-fn readme_md(req: &SpringBootProjectRequest, deps: &[String]) -> String {
+fn readme_md(req: &SpringBootProjectRequest, deps: &[Dependency]) -> String {
     let deps_list = deps
         .iter()
-        .map(|d| {
-            let parts: Vec<&str> = d.split(':').collect();
-            format!("- `{}:{}` — {}", parts[0], parts[1], dep_description(d))
-        })
+        .map(|d| format!("- `{}:{}` — {}", d.group, d.artifact, dep_description(d.artifact)))
         .collect::<Vec<_>>()
         .join("\n");
 
     format!(
-        "# {name}\n\n{description}\n\n## Stack técnica\n\n- **Spring Boot** {SPRING_BOOT_VERSION}\n- **Linguagem**: {lang}\n- **ORM**: {orm}\n- **Base de dados**: {db}\n{api_docs_line}\n\n## Dependências incluídas\n\n{deps_list}\n\n## Como executar\n\n```bash\n./mvnw spring-boot:run\n```\n\nA aplicação arranca em `http://localhost:8080`.\n\n{swagger_block}\n## Próximos passos\n\n1. Configure a ligação à base de dados em `src/main/resources/application.properties`.\n2. Execute `./mvnw spring-boot:run` para iniciar o servidor.\n3. Use o Negodesign para gerar os endpoints CRUD a partir das tabelas da base de dados.\n",
+        "# {name}\n\n{description}\n\n## Stack técnica\n\n- **Spring Boot** {SPRING_BOOT_VERSION}\n- **Linguagem**: {lang}\n- **ORM**: {orm}\n- **Base de dados**: {db}\n{api_docs_line}\n\n## Dependências incluídas\n\n{deps_list}\n\n## Como executar\n\n```bash\nmvn spring-boot:run\n```\n\nA aplicação arranca em `http://localhost:8080`.\n\n{swagger_block}## Próximos passos\n\n1. Configure a ligação à base de dados em `src/main/resources/application.properties`.\n2. Execute `mvn spring-boot:run` para iniciar o servidor.\n3. Use o Negodesign para gerar os endpoints CRUD a partir das tabelas da base de dados.\n",
         name = req.name,
         description = req.description,
         lang = if matches!(req.language, SpringLanguage::Kotlin) { "Kotlin" } else { "Java" },
@@ -218,25 +277,25 @@ fn readme_md(req: &SpringBootProjectRequest, deps: &[String]) -> String {
     )
 }
 
-fn dep_description(dep: &str) -> &'static str {
-    if dep.contains("spring-boot-starter-web") {
+fn dep_description(artifact: &str) -> &'static str {
+    if artifact.contains("spring-boot-starter-webmvc") && !artifact.contains("test") {
         "API REST com Spring MVC (controladores, validação, JSON)."
-    } else if dep.contains("spring-boot-starter-data-jpa") {
+    } else if artifact.contains("spring-boot-starter-data-jpa") && !artifact.contains("test") {
         "Persistência com entidades Jakarta Persistence e JpaRepository paginado."
-    } else if dep.contains("spring-boot-starter-jdbc") {
+    } else if artifact.contains("spring-boot-starter-jdbc") && !artifact.contains("test") {
         "Acesso a dados com Spring JDBC e a nova API fluente JdbcClient."
-    } else if dep.contains("postgresql") {
+    } else if artifact.contains("postgresql") {
         "Driver JDBC para PostgreSQL."
-    } else if dep.contains("mysql-connector-j") {
+    } else if artifact.contains("mysql-connector-j") {
         "Driver JDBC para MySQL."
-    } else if dep.contains("sqlite-jdbc") {
+    } else if artifact.contains("sqlite-jdbc") {
         "Driver JDBC para SQLite."
-    } else if dep.contains("springdoc-openapi") {
+    } else if artifact.contains("springdoc-openapi") {
         "Geração automática de documentação OpenAPI 3 e Swagger UI."
-    } else if dep.contains("lombok") {
+    } else if artifact.contains("lombok") {
         "Anotações que reduzem código boilerplate (getters, setters, builders)."
-    } else if dep.contains("spring-boot-starter-test") {
-        "Dependências de teste (JUnit 5, Mockito, AssertJ)."
+    } else if artifact.contains("-test") {
+        "Dependências de teste para o starter correspondente."
     } else {
         "Dependência do Spring Boot."
     }
@@ -254,32 +313,15 @@ pub fn create_spring_boot_project(
         SpringLanguage::Java => target.join("src/main/java").join(&package_path),
     };
     fs::create_dir_all(&src_root).map_err(|e| e.to_string())?;
-    fs::create_dir_all(target.join("src/main/resources"))
-        .map_err(|e| e.to_string())?;
+    fs::create_dir_all(target.join("src/main/resources")).map_err(|e| e.to_string())?;
     fs::create_dir_all(target.join("src/test/java")).map_err(|e| e.to_string())?;
 
-    let mut deps: Vec<String> = vec![
-        "org.springframework.boot:spring-boot-starter-web:compile".to_string(),
-    ];
-    let (orm_g, orm_a, orm_s) = orm_dependency(&req.orm_strategy);
-    deps.push(format!("{orm_g}:{orm_a}:{orm_s}"));
-    let (db_g, db_a, db_s) = db_dependency(&req.database_engine);
-    deps.push(format!("{db_g}:{db_a}:{db_s}"));
-    if req.include_api_docs {
-        deps.push(format!(
-            "org.springdoc:springdoc-openapi-starter-webmvc-ui:{}",
-            SPRINGDOC_VERSION
-        ));
-    }
-    deps.push("org.springframework.boot:spring-boot-starter-test:test".to_string());
-
+    let deps = dependencies(req);
     let mut generated = 0usize;
 
-    // pom.xml
     fs::write(target.join("pom.xml"), pom_xml(req, &deps)).map_err(|e| e.to_string())?;
     generated += 1;
 
-    // mvnw + mvnw.cmd (placeholders to remind user; real wrapper would need binary)
     fs::write(
         target.join(".gitignore"),
         "target/\n*.class\n*.jar\n*.log\n.idea/\n.vscode/\n*.iml\n.DS_Store\n",
@@ -287,7 +329,6 @@ pub fn create_spring_boot_project(
     .map_err(|e| e.to_string())?;
     generated += 1;
 
-    // application.properties
     fs::write(
         target.join("src/main/resources/application.properties"),
         application_properties(req),
@@ -295,26 +336,21 @@ pub fn create_spring_boot_project(
     .map_err(|e| e.to_string())?;
     generated += 1;
 
-    // Main class
     let (file_name, content) = main_class(&req.group_id, &req.language, &req.name);
     fs::write(src_root.join(&file_name), content).map_err(|e| e.to_string())?;
     generated += 1;
 
-    // README
     fs::write(target.join("README.md"), readme_md(req, &deps)).map_err(|e| e.to_string())?;
     generated += 1;
 
     let dep_display = deps
         .iter()
-        .map(|d| {
-            let parts: Vec<&str> = d.split(':').collect();
-            format!("{}:{}", parts[0], parts[1])
-        })
+        .map(|d| format!("{}:{}", d.group, d.artifact))
         .collect();
 
     let next_steps = vec![
         format!("cd {}", req.artifact_id),
-        "./mvnw spring-boot:run".to_string(),
+        "mvn spring-boot:run".to_string(),
         "Abrir http://localhost:8080".to_string(),
     ];
 

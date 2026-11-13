@@ -2,6 +2,7 @@
   import { LocalStyleComponent } from "../../../data/style.component";
   import type { ApiCallPattern, ArchitectureMode, FrontendFramework, HttpClientKind } from "../../../data/migration";
   import { nativeHttpClientLabel, tanstackPackageLabel } from "./options";
+  import ProjectPathField from "./ProjectPathField.svelte";
 
   let {
     architectureMode = "split",
@@ -10,8 +11,7 @@
     apiCallPattern = $bindable<ApiCallPattern>("bff"),
     httpClient = $bindable<HttpClientKind>("native"),
     useTanstackQuery = $bindable(true),
-    onpickfolder,
-  }: { architectureMode?: ArchitectureMode; frontendFramework?: FrontendFramework; frontendPath?: string; apiCallPattern?: ApiCallPattern; httpClient?: HttpClientKind; useTanstackQuery?: boolean; onpickfolder: () => void } = $props();
+  }: { architectureMode?: ArchitectureMode; frontendFramework?: FrontendFramework; frontendPath?: string; apiCallPattern?: ApiCallPattern; httpClient?: HttpClientKind; useTanstackQuery?: boolean } = $props();
 
   const tanstackLabel = $derived(tanstackPackageLabel(frontendFramework));
   const nativeLabel = $derived(nativeHttpClientLabel(frontendFramework));
@@ -44,13 +44,12 @@
   </div>
 
   <div class="grid gap-4 sm:grid-cols-2">
-    <label class="block sm:col-span-2">
+    <div class="block sm:col-span-2">
       <span class={LocalStyleComponent.migration.label}>Caminho da Aplicação Frontend</span>
-      <div class="mt-1 flex gap-2">
-        <input class={LocalStyleComponent.migration.field} bind:value={frontendPath} placeholder="/caminho/para/projecto-frontend" required />
-        <button type="button" class="shrink-0 rounded-lg border border-blender-border bg-blender-card px-3 py-2 text-xs font-medium text-zinc-200 hover:bg-blender-hover" onclick={onpickfolder}>Procurar…</button>
+      <div class="mt-1">
+        <ProjectPathField bind:value={frontendPath} target="frontend" placeholder="/caminho/para/projecto-frontend" required />
       </div>
-    </label>
+    </div>
 
     {#if architectureMode === "split"}
       <div>

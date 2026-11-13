@@ -29,6 +29,23 @@ export type SpringBootProjectInput = {
   includeApiDocs: boolean;
 };
 
+export type BackendProjectResult = {
+  projectDir: string;
+  buildTool: string;
+  generatedFiles: number;
+  dependencies: string[];
+  nextSteps: string[];
+};
+
+export type GenericBackendInput = {
+  targetDir: string;
+  name: string;
+  description: string;
+  ormStrategy: string;
+  databaseEngine: "postgres" | "mysql" | "sqlite";
+  includeApiDocs: boolean;
+};
+
 export async function listCodegenPaths(
   target: "frontend" | "backend",
 ): Promise<CodegenPath[]> {
@@ -67,4 +84,22 @@ export async function createSpringBootProject(
   return invoke<SpringBootProjectResult>("create_spring_boot_project", {
     request: input,
   });
+}
+
+export async function createNestjsProject(
+  input: GenericBackendInput,
+): Promise<BackendProjectResult> {
+  return invoke<BackendProjectResult>("create_nestjs_project", { request: input });
+}
+
+export async function createLaravelProject(
+  input: Omit<GenericBackendInput, "includeApiDocs">,
+): Promise<BackendProjectResult> {
+  return invoke<BackendProjectResult>("create_laravel_project", { request: input });
+}
+
+export async function createAspnetProject(
+  input: GenericBackendInput,
+): Promise<BackendProjectResult> {
+  return invoke<BackendProjectResult>("create_aspnet_project", { request: input });
 }

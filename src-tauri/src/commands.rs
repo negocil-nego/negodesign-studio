@@ -11,8 +11,10 @@ use crate::{
         },
     },
     repository::{
-        codegen_paths_repository, codegen_repository, component_copy_repository,
-        database_repository, openapi_repository, project_repository, spring_boot_project_creator,
+        aspnet_project_creator, codegen_paths_repository, codegen_repository,
+        component_copy_repository, database_repository, laravel_project_creator,
+        nestjs_project_creator, openapi_repository, project_repository,
+        spring_boot_project_creator,
     },
 };
 use tauri::AppHandle;
@@ -191,4 +193,25 @@ pub fn create_spring_boot_project(
     request: SpringBootProjectRequest,
 ) -> Result<SpringBootProjectResult, String> {
     spring_boot_project_creator::create_spring_boot_project(&request)
+}
+
+#[tauri::command]
+pub fn create_nestjs_project(
+    request: crate::model::codegen::NestjsProjectRequest,
+) -> Result<crate::model::codegen::BackendProjectResult, String> {
+    nestjs_project_creator::create_nestjs_project(&request)
+}
+
+#[tauri::command]
+pub fn create_laravel_project(
+    request: crate::model::codegen::LaravelProjectRequest,
+) -> Result<crate::model::codegen::BackendProjectResult, String> {
+    laravel_project_creator::create_laravel_project(&request)
+}
+
+#[tauri::command]
+pub fn create_aspnet_project(
+    request: crate::model::codegen::AspnetProjectRequest,
+) -> Result<crate::model::codegen::BackendProjectResult, String> {
+    aspnet_project_creator::create_aspnet_project(&request)
 }

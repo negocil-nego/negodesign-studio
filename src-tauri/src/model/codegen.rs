@@ -157,3 +157,45 @@ pub struct SpringBootProjectResult {
     pub next_steps: Vec<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct NestjsProjectRequest {
+    pub target_dir: String,
+    pub name: String,
+    pub description: String,
+    pub orm_strategy: String,
+    pub database_engine: DatabaseEngine,
+    pub include_api_docs: bool,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct BackendProjectResult {
+    pub project_dir: String,
+    pub build_tool: String,
+    pub generated_files: usize,
+    pub dependencies: Vec<String>,
+    pub next_steps: Vec<String>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct LaravelProjectRequest {
+    pub target_dir: String,
+    pub name: String,
+    pub description: String,
+    pub orm_strategy: String,
+    pub database_engine: DatabaseEngine,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AspnetProjectRequest {
+    pub target_dir: String,
+    pub name: String,
+    pub description: String,
+    pub orm_strategy: String,
+    pub database_engine: DatabaseEngine,
+    pub include_api_docs: bool,
+}
+

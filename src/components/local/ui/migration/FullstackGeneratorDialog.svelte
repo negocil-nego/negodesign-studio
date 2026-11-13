@@ -2,7 +2,6 @@
   import { LocalStyleComponent } from "../../data/style.component";
   import { activeProject } from "../../data/projects";
   import type { ApiCallPattern, ArchitectureMode, BackendFramework, DatabaseEngine, DatabaseTable, FrontendFramework, FullstackCodegenResult, HttpClientKind, SpringLanguage } from "../../data/migration";
-  import { pickProjectFolder } from "./fullstack-gen/folder";
   import { initialTableSelection, runFullstackGeneration } from "./fullstack-gen/generate";
   import TopologySection from "./fullstack-gen/TopologySection.svelte";
   import TableSelectionSection from "./fullstack-gen/TableSelectionSection.svelte";
@@ -31,13 +30,6 @@
   let generating = $state(false);
   let errorMessage = $state("");
   let result = $state<FullstackCodegenResult | null>(null);
-
-  async function pickFolder(target: "frontend" | "backend") {
-    const selected = await pickProjectFolder(target);
-    if (!selected) return;
-    if (target === "frontend") frontendPath = selected;
-    else backendPath = selected;
-  }
 
   async function handleGenerate(event: SubmitEvent) {
     event.preventDefault();
@@ -68,10 +60,10 @@
       <div class="flex-1 space-y-6 overflow-y-auto p-6">
         <TopologySection bind:architectureMode />
         <TableSelectionSection {tables} bind:selectedTableNames />
-        <FrontendSection {architectureMode} bind:frontendFramework bind:frontendPath bind:apiCallPattern bind:httpClient bind:useTanstackQuery onpickfolder={() => pickFolder("frontend")} />
+        <FrontendSection {architectureMode} bind:frontendFramework bind:frontendPath bind:apiCallPattern bind:httpClient bind:useTanstackQuery />
         <!-- 4. Configuração do Backend (Split vs Monolith) -->
         {#if architectureMode === "split"}
-          <BackendSection bind:backendFramework bind:backendPath bind:basePackage bind:springLanguage bind:backendBaseUrl bind:ormStrategy onpickfolder={() => pickFolder("backend")} />
+          <BackendSection bind:backendFramework bind:backendPath bind:basePackage bind:springLanguage bind:backendBaseUrl bind:ormStrategy bind:databaseEngine />
         {:else}
           <DatabaseEngineSection {frontendFramework} bind:databaseEngine />
         {/if}

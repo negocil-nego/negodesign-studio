@@ -1,7 +1,8 @@
 <script lang="ts">
   import { LocalStyleComponent } from "../../../data/style.component";
-  import type { BackendFramework, SpringLanguage } from "../../../data/migration";
+  import type { BackendFramework, DatabaseEngine, SpringLanguage } from "../../../data/migration";
   import { currentOrmOptions, ormOptionsByBackend } from "./options";
+  import ProjectPathField from "./ProjectPathField.svelte";
 
   let {
     backendFramework = $bindable<BackendFramework>("spring-boot"),
@@ -10,8 +11,8 @@
     springLanguage = $bindable<SpringLanguage>("java"),
     backendBaseUrl = $bindable(""),
     ormStrategy = $bindable("spring-data-jpa"),
-    onpickfolder,
-  }: { backendFramework?: BackendFramework; backendPath?: string; basePackage?: string; springLanguage?: SpringLanguage; backendBaseUrl?: string; ormStrategy?: string; onpickfolder: () => void } = $props();
+    databaseEngine = $bindable<DatabaseEngine>("postgres"),
+  }: { backendFramework?: BackendFramework; backendPath?: string; basePackage?: string; springLanguage?: SpringLanguage; backendBaseUrl?: string; ormStrategy?: string; databaseEngine?: DatabaseEngine } = $props();
 
   const ormOptions = $derived(currentOrmOptions(backendFramework));
 
@@ -50,13 +51,22 @@
   </div>
 
   <div class="grid gap-4 sm:grid-cols-2">
-    <label class="block sm:col-span-2">
+    <div class="block sm:col-span-2">
       <span class={LocalStyleComponent.migration.label}>Caminho da Aplicação Backend</span>
-      <div class="mt-1 flex gap-2">
-        <input class={LocalStyleComponent.migration.field} bind:value={backendPath} placeholder="/caminho/para/projecto-backend" required />
-        <button type="button" class="shrink-0 rounded-lg border border-blender-border bg-blender-card px-3 py-2 text-xs font-medium text-zinc-200 hover:bg-blender-hover" onclick={onpickfolder}>Procurar…</button>
+      <div class="mt-1">
+        <ProjectPathField
+          bind:value={backendPath}
+          target="backend"
+          placeholder="/caminho/para/projecto-backend"
+          showCreate
+          backendFramework={backendFramework}
+          required
+          language={springLanguage}
+          {ormStrategy}
+          {databaseEngine}
+        />
       </div>
-    </label>
+    </div>
 
     {#if backendFramework === "spring-boot"}
       <label class="block">

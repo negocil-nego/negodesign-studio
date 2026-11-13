@@ -1,7 +1,14 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import type { Snippet } from "svelte";
   import MenuNavigation from "../../components/local/ui/MenuNavigation.svelte";
+  import { loadActiveProject } from "../../components/local/data/projects";
 
-  let { children } = $props();
+  let { children }: { children: Snippet } = $props();
+
+  onMount(() => {
+    void loadActiveProject();
+  });
 </script>
 
 <div
