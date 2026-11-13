@@ -1,5 +1,5 @@
 use super::{
-    admin_props::build_admin_config_ts,
+    admin_props::{build_admin_config_ts, build_admin_sidebar_ts},
     fullstack_db::{build_db_client_ts, build_direct_table_repository_ts},
     http_client::build_api_client_ts,
     tanstack_query::build_tanstack_query_ts,
@@ -27,6 +27,11 @@ pub fn generate(
     tables: &[DatabaseTable],
 ) -> Result<BTreeMap<String, String>, String> {
     let mut files = BTreeMap::new();
+
+    files.insert(
+        "src/lib/navigation/admin-sidebar.ts".to_string(),
+        build_admin_sidebar_ts(tables),
+    );
 
     if req.architecture_mode == ArchitectureMode::Monolith {
         files.insert(

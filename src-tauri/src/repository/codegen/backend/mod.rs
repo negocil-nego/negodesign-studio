@@ -40,7 +40,15 @@ pub fn generate_backend_files(
                 .spring_language
                 .clone()
                 .unwrap_or(SpringLanguage::Java);
-            spring_boot::generate(tables, &pkg, orm, &language)
+            spring_boot::generate(
+                tables,
+                &pkg,
+                orm,
+                &language,
+                req.database_connection.as_ref(),
+                &req.database_engine,
+                &req.frontend_framework,
+            )
         }
         BackendFramework::Nestjs => nestjs::generate(tables, orm),
         BackendFramework::Laravel => laravel::generate(tables, orm),

@@ -62,6 +62,12 @@ pub fn generate_jpa_module(
         }
     }
 
+    let all_args = if own_cols.is_empty() {
+        ""
+    } else {
+        "@AllArgsConstructor\n"
+    };
+
     let entity_code = format!(
         r#"package {module_pkg}.model;
 
@@ -74,8 +80,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder(toBuilder = true)
+{all_args}@SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = ConcreteTableModel.{upper_snake})
 public class {pascal} extends ConcreteModel {{
@@ -106,9 +111,8 @@ public interface {pascal}Repository extends ConcreteRepository<{pascal}> {{
 import {module_pkg}.model.{pascal};
 import {module_pkg}.repository.{pascal}Repository;
 import {base_package}.shared.service.ConcreteService;
-import org.springframework.stereotype.Service;
 
-@Service
+@org.springframework.stereotype.Service
 public class {pascal}Service extends ConcreteService<{pascal}> {{
     public {pascal}Service({pascal}Repository repository) {{
         super(repository);

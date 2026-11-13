@@ -44,6 +44,7 @@
   let name = $state("negodesign-app");
   let description = $state("Aplicação frontend gerada pelo Negodesign");
   let includeTailwind = $state(true);
+  // svelte-ignore state_referenced_locally
   let includeTanstack = $state(Boolean(useTanstackQuery));
   let creating = $state(false);
   let error = $state<string | null>(null);

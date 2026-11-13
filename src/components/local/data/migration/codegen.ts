@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { DatabaseTable } from "./database";
+import type { DatabaseConnection, DatabaseTable } from "./database";
 import type { OpenApiCrudRole, OpenApiPatternStyle } from "./classification";
 import type { OpenApiEntity } from "./openapi";
 
@@ -27,6 +27,7 @@ export type FullstackCodegenRequest = {
   databaseEngine: DatabaseEngine;
   backendBaseUrl?: string;
   theme?: string;
+  databaseConnection?: DatabaseConnection;
 };
 
 export type FullstackCodegenResult = {

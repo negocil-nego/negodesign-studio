@@ -31,11 +31,13 @@ export type DatabaseTable = {
 };
 
 export const databaseTables = writable<DatabaseTable[]>([]);
+export const activeDatabaseConnection = writable<DatabaseConnection | null>(null);
 
 export async function connectDatabase(
   connection: DatabaseConnection,
 ): Promise<DatabaseTable[]> {
   const tables = await invoke<DatabaseTable[]>("connect_database", { connection });
+  activeDatabaseConnection.set(connection);
   databaseTables.set(tables);
   return tables;
 }

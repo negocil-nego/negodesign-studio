@@ -45,6 +45,13 @@ public class CommonModel {{
     @UpdateTimestamp
     @Column(nullable = false)
     protected Instant updatedAt;
+
+    public long getId() {{ return id; }}
+    public void setId(long id) {{ this.id = id; }}
+    public Instant getCreatedAt() {{ return createdAt; }}
+    public void setCreatedAt(Instant createdAt) {{ this.createdAt = createdAt; }}
+    public Instant getUpdatedAt() {{ return updatedAt; }}
+    public void setUpdatedAt(Instant updatedAt) {{ this.updatedAt = updatedAt; }}
 }}
 "#
         ),
@@ -90,6 +97,17 @@ public class ConcreteModel extends CommonModel {{
             uuid = UUID.randomUUID();
         }}
     }}
+
+    public UUID getUuid() {{ return uuid; }}
+    public void setUuid(UUID uuid) {{ this.uuid = uuid; }}
+    public UUID getCreatedBy() {{ return createdBy; }}
+    public void setCreatedBy(UUID createdBy) {{ this.createdBy = createdBy; }}
+    public UUID getUpdatedBy() {{ return updatedBy; }}
+    public void setUpdatedBy(UUID updatedBy) {{ this.updatedBy = updatedBy; }}
+    public UUID getDeletedBy() {{ return deletedBy; }}
+    public void setDeletedBy(UUID deletedBy) {{ this.deletedBy = deletedBy; }}
+    public Instant getDeletedAt() {{ return deletedAt; }}
+    public void setDeletedAt(Instant deletedAt) {{ this.deletedAt = deletedAt; }}
 }}
 "#
         ),
@@ -230,9 +248,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-@AllArgsConstructor
 public abstract class CommonService<T extends CommonModel> {{
     private final CommonRepository<T> repository;
+
+    public CommonService(CommonRepository<T> repository) {{
+        this.repository = repository;
+    }}
 
     public T findById(long id) {{
         return repository.findById(id).orElseThrow(() -> new NotFoundException(id));

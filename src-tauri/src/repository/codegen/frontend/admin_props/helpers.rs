@@ -6,26 +6,72 @@ use crate::{
     },
 };
 
-pub(super) fn build_sidebar_items(table: &DatabaseTable, all_tables: &[DatabaseTable]) -> String {
-    let current_kebab = to_kebab_case(&table.name);
-    all_tables
+pub fn is_audit_column(name: &str) -> bool {
+    let lower = name.to_ascii_lowercase().replace(['_', '-', ' '], "");
+    matches!(
+        lower.as_str(),
+        "createdat" | "createdby" | "updatedat" | "updatedby" | "deletedat" | "deletedby"
+    )
+}
+
+pub fn build_admin_sidebar_ts(all_tables: &[DatabaseTable]) -> String {
+    let items = all_tables
         .iter()
         .map(|t| {
             let k = to_kebab_case(&t.name);
             let label = to_title_label(&t.name);
-            let active = k == current_kebab;
-            format!(
-                "        {{ label: \"{label}\", href: \"/admin/{k}\", icon: \"Layout04\", active: {active} }}"
-            )
+            format!("  {{ label: \"{label}\", href: \"/admin/{k}\", icon: \"Layout04\" }}")
         })
         .collect::<Vec<_>>()
-        .join(",\n")
+        .join(",\n");
+
+    format!(
+        r#"export interface AdminSidebarItem {{
+  label: string;
+  href: string;
+  icon: string;
+  active?: boolean;
+}}
+
+export interface AdminSidebarSection {{
+  title: string;
+  items: AdminSidebarItem[];
+}}
+
+export const adminSidebarItems: AdminSidebarItem[] = [
+{items}
+];
+
+export function getAdminSidebarSections(activeKebab?: string): AdminSidebarSection[] {{
+  const currentPath = activeKebab ? `/admin/${{activeKebab}}` : "";
+  return [
+    {{
+      title: "Database Tables",
+      items: adminSidebarItems.map((item) => ({{
+        ...item,
+        active: item.href === currentPath,
+      }})),
+    }},
+  ];
+}}
+
+export function getAdminSidebarProps(activeKebab?: string) {{
+  return {{
+    variant: "01" as const,
+    theme: "dark" as const,
+    brand: "Admin Panel",
+    sections: getAdminSidebarSections(activeKebab),
+  }};
+}}
+"#
+    )
 }
 
 pub(super) fn build_columns_ts(table: &DatabaseTable) -> String {
     table
         .columns
         .iter()
+        .filter(|c| !is_audit_column(&c.name))
         .map(|c| {
             let label = to_title_label(&c.name);
             if is_badge_column(c) {
@@ -46,6 +92,7 @@ pub(super) fn build_row_cells_ts(table: &DatabaseTable) -> String {
     table
         .columns
         .iter()
+        .filter(|c| !is_audit_column(&c.name))
         .map(|c| {
             let camel = to_camel_case(&c.name);
             let raw = &c.name;
@@ -67,6 +114,7 @@ pub(super) fn build_row_cells_ts(table: &DatabaseTable) -> String {
 pub(super) fn build_form_fields_ts(table: &DatabaseTable) -> String {
     editable_columns(table)
         .iter()
+        .filter(|c| !is_audit_column(&c.name))
         .map(|c| {
             let (comp, input_type) = infer_form_component(c);
             let label = to_title_label(&c.name);

@@ -1,5 +1,7 @@
+import { get } from "svelte/store";
 import { bootswatchUi } from "../../../data/bootswatch-ui.svelte";
 import {
+  activeDatabaseConnection,
   generateFullstackCrud,
   type ApiCallPattern,
   type ArchitectureMode,
@@ -85,6 +87,7 @@ export async function runFullstackGeneration(
       databaseEngine: input.databaseEngine,
       backendBaseUrl: input.backendBaseUrl,
       theme: bootswatchUi.theme,
+      databaseConnection: get(activeDatabaseConnection) ?? undefined,
     });
     return { result, errorMessage: "" };
   } catch (err) {

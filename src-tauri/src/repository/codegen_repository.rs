@@ -63,6 +63,23 @@ pub fn generate_fullstack_crud(
             .ok_or_else(|| "Indique o caminho da aplicação backend.".to_string())?;
         let backend_root = PathBuf::from(backend_path);
         let backend_files = generate_backend_files(&request, &request.tables)?;
+
+        // Se for projecto Spring Boot existente com pom.xml, adiciona apenas dependências em falta sem sobrescrever
+        if matches!(
+            request.backend_framework,
+            Some(crate::model::codegen::BackendFramework::SpringBoot)
+        ) {
+            let pom_path = backend_root.join("pom.xml");
+            if pom_path.exists() {
+                if let Ok(true) = crate::repository::codegen::backend::spring_boot::pom_merger::ensure_pom_dependencies(
+                    &pom_path,
+                    &request.database_engine,
+                ) {
+                    summary.push("Adicionadas dependências em falta ao pom.xml existente sem sobrescrever a configuração do projecto".to_string());
+                }
+            }
+        }
+
         generated_backend_files = write_file_map(&backend_root, &backend_files)?;
         let lang_note = match (&request.backend_framework, &request.spring_language) {
             (Some(crate::model::codegen::BackendFramework::SpringBoot), Some(lang)) => {
@@ -190,6 +207,9 @@ fn write_file_map(base_dir: &Path, files: &BTreeMap<String, String>) -> Result<u
     for (rel_path, content) in files {
         let valid_rel = validate_relative_path(rel_path)?;
         let full_path = base_dir.join(valid_rel);
+        if rel_path == "pom.xml" && full_path.exists() {
+            continue;
+        }
         if let Some(parent) = full_path.parent() {
             fs::create_dir_all(parent).map_err(|e| e.to_string())?;
         }

@@ -73,7 +73,6 @@ pub fn ensure_pom_dependencies(pom_path: &Path, engine: &DatabaseEngine) -> Resu
 
     let mut missing_xml = Vec::new();
     for dep in required {
-        // If web is present (either web or webmvc), or springdoc is present, don't duplicate
         if dep.artifact == "springdoc-openapi-starter-webmvc-scalar" && content.contains("springdoc-openapi") {
             continue;
         }
@@ -82,22 +81,51 @@ pub fn ensure_pom_dependencies(pom_path: &Path, engine: &DatabaseEngine) -> Resu
         }
     }
 
-    if missing_xml.is_empty() {
-        return Ok(false);
+    let mut modified = false;
+    let mut new_content = content;
+
+    if !missing_xml.is_empty() {
+        if let Some(pos) = new_content.rfind("</dependencies>") {
+            let mut buf = String::with_capacity(new_content.len() + 1024);
+            buf.push_str(&new_content[..pos]);
+            for xml in missing_xml {
+                buf.push_str(xml);
+                buf.push('\n');
+            }
+            buf.push_str(&new_content[pos..]);
+            new_content = buf;
+            modified = true;
+        }
     }
 
-    if let Some(pos) = content.rfind("</dependencies>") {
-        let mut new_content = String::with_capacity(content.len() + 1024);
-        new_content.push_str(&content[..pos]);
-        for xml in missing_xml {
-            new_content.push_str(xml);
-            new_content.push('\n');
+    if !new_content.contains("annotationProcessorPaths") {
+        let compiler_plugin_xml = r#"			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+"#;
+        if let Some(pos) = new_content.rfind("</plugins>") {
+            let mut buf = String::with_capacity(new_content.len() + 512);
+            buf.push_str(&new_content[..pos]);
+            buf.push_str(compiler_plugin_xml);
+            buf.push_str(&new_content[pos..]);
+            new_content = buf;
+            modified = true;
         }
-        new_content.push_str(&content[pos..]);
+    }
+
+    if modified {
         fs::write(pom_path, new_content).map_err(|e| e.to_string())?;
         Ok(true)
     } else {
         Ok(false)
     }
 }
-

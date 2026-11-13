@@ -187,7 +187,7 @@ public class PermissionController {{
     @Operation(operationId = "getPermissionByUuid", summary = "Obter permissão por UUID")
     @CanPermission("PERMISSION:READ")
     public ResponseEntity<PermissionResponse> findByUuid(@PathVariable UUID uuid) {{
-        return ResponseEntity.ok(PermissionResponse::of.apply(service.findByUuid(uuid)));
+        return ResponseEntity.ok(PermissionResponse.of(service.findByUuid(uuid)));
     }}
 
     @PostMapping
