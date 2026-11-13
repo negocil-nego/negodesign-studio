@@ -1,8 +1,12 @@
 pub mod jdbc;
 pub mod jpa;
+pub mod kotlin;
 
 use crate::{
-    model::migration::DatabaseTable,
+    model::{
+        codegen::SpringLanguage,
+        migration::DatabaseTable,
+    },
     repository::codegen::naming::{
         editable_columns, primary_key_column, sql_to_java_type, to_camel_case, to_kebab_case,
         to_pascal_case, to_snake_case,
@@ -11,6 +15,18 @@ use crate::{
 use std::collections::BTreeMap;
 
 pub fn generate(
+    tables: &[DatabaseTable],
+    base_package: &str,
+    orm_strategy: &str,
+    language: &SpringLanguage,
+) -> Result<BTreeMap<String, String>, String> {
+    match language {
+        SpringLanguage::Kotlin => kotlin::generate(tables, base_package, orm_strategy),
+        SpringLanguage::Java => generate_java(tables, base_package, orm_strategy),
+    }
+}
+
+fn generate_java(
     tables: &[DatabaseTable],
     base_package: &str,
     orm_strategy: &str,

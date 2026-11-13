@@ -9,6 +9,7 @@ import {
   type FrontendFramework,
   type FullstackCodegenResult,
   type HttpClientKind,
+  type SpringLanguage,
 } from "../../../data/migration";
 
 export type FullstackGenerationInput = {
@@ -23,6 +24,7 @@ export type FullstackGenerationInput = {
   backendPath: string;
   backendFramework: BackendFramework;
   basePackage: string;
+  springLanguage: SpringLanguage;
   ormStrategy: string;
   databaseEngine: DatabaseEngine;
   backendBaseUrl: string;
@@ -75,6 +77,10 @@ export async function runFullstackGeneration(
       basePackage:
         input.architectureMode === "split" && input.backendFramework === "spring-boot"
           ? input.basePackage
+          : undefined,
+      springLanguage:
+        input.architectureMode === "split" && input.backendFramework === "spring-boot"
+          ? input.springLanguage
           : undefined,
       databaseEngine: input.databaseEngine,
       backendBaseUrl: input.backendBaseUrl,

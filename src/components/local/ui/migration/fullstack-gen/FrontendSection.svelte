@@ -15,6 +15,12 @@
 
   const tanstackLabel = $derived(tanstackPackageLabel(frontendFramework));
   const nativeLabel = $derived(nativeHttpClientLabel(frontendFramework));
+
+  const frontendLogos: Record<FrontendFramework, string> = {
+    sveltekit: "/langs/svelte.svg",
+    nuxt: "/langs/nuxt-js.svg",
+    nextjs: "/langs/nextjs-light.svg",
+  };
 </script>
 
 <!-- 3. Aplicação Frontend -->
@@ -27,9 +33,12 @@
       { id: "nuxt", label: "Nuxt", desc: "Páginas Vue 3, useFetch & AdminCrud.vue" },
       { id: "nextjs", label: "Next.js", desc: "App Router React & AdminCrud.tsx" },
     ] as fw (fw.id)}
-      <button type="button" class={`rounded-lg border p-3 text-left transition ${frontendFramework === fw.id ? "border-blue-500 bg-blue-500/15 text-zinc-100" : "border-blender-border bg-blender-card text-zinc-400 hover:border-zinc-600"}`} onclick={() => (frontendFramework = fw.id as FrontendFramework)}>
-        <span class="block text-xs font-semibold text-zinc-100">{fw.label}</span>
-        <span class="mt-0.5 block text-[11px] text-zinc-400">{fw.desc}</span>
+      <button type="button" class={`flex items-center gap-3 rounded-lg border p-3 text-left transition ${frontendFramework === fw.id ? "border-blue-500 bg-blue-500/15 text-zinc-100" : "border-blender-border bg-blender-card text-zinc-400 hover:border-zinc-600"}`} onclick={() => (frontendFramework = fw.id as FrontendFramework)}>
+        <img src={frontendLogos[fw.id as FrontendFramework]} alt={fw.label} class="size-7 shrink-0 object-contain" />
+        <div class="min-w-0">
+          <span class="block truncate text-xs font-semibold text-zinc-100">{fw.label}</span>
+          <span class="mt-0.5 block text-[11px] text-zinc-400">{fw.desc}</span>
+        </div>
       </button>
     {/each}
   </div>

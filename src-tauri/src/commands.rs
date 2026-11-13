@@ -1,8 +1,9 @@
 use crate::{
     model::{
         codegen::{
-            FullstackCodegenRequest, FullstackCodegenResult, OpenApiFrontendCodegenRequest,
-            OpenApiFrontendCodegenResult,
+            CodegenPath, FullstackCodegenRequest, FullstackCodegenResult,
+            OpenApiFrontendCodegenRequest, OpenApiFrontendCodegenResult, SpringBootProjectRequest,
+            SpringBootProjectResult,
         },
         migration::{DatabaseConnection, DatabaseTable, OpenApiEntity, SavedDatabaseConnection},
         project::{
@@ -10,8 +11,8 @@ use crate::{
         },
     },
     repository::{
-        codegen_repository, component_copy_repository, database_repository, openapi_repository,
-        project_repository,
+        codegen_paths_repository, codegen_repository, component_copy_repository,
+        database_repository, openapi_repository, project_repository, spring_boot_project_creator,
     },
 };
 use tauri::AppHandle;
@@ -130,9 +131,29 @@ pub fn import_openapi_file(path: String) -> Result<Vec<OpenApiEntity>, String> {
 
 #[tauri::command]
 pub fn generate_fullstack_crud(
+    app: AppHandle,
     request: FullstackCodegenRequest,
 ) -> Result<FullstackCodegenResult, String> {
-    codegen_repository::generate_fullstack_crud(request)
+    let result = codegen_repository::generate_fullstack_crud(request.clone())?;
+    let _ = codegen_paths_repository::save_path(
+        &app,
+        "frontend",
+        &request.frontend_path,
+        Some(format!("{:?}", request.frontend_framework).as_str()),
+    );
+    if let (true, Some(backend_path), Some(backend_framework)) = (
+        matches!(request.architecture_mode, crate::model::codegen::ArchitectureMode::Split),
+        request.backend_path.as_deref(),
+        request.backend_framework.as_ref(),
+    ) {
+        let _ = codegen_paths_repository::save_path(
+            &app,
+            "backend",
+            backend_path,
+            Some(format!("{backend_framework:?}").as_str()),
+        );
+    }
+    Ok(result)
 }
 
 #[tauri::command]
@@ -140,4 +161,34 @@ pub fn generate_openapi_frontend(
     request: OpenApiFrontendCodegenRequest,
 ) -> Result<OpenApiFrontendCodegenResult, String> {
     codegen_repository::generate_openapi_frontend(request)
+}
+
+#[tauri::command]
+pub fn list_codegen_paths(
+    app: AppHandle,
+    target: String,
+) -> Result<Vec<CodegenPath>, String> {
+    codegen_paths_repository::list_paths(&app, &target)
+}
+
+#[tauri::command]
+pub fn save_codegen_path(
+    app: AppHandle,
+    target: String,
+    path: String,
+    label: Option<String>,
+) -> Result<CodegenPath, String> {
+    codegen_paths_repository::save_path(&app, &target, &path, label.as_deref())
+}
+
+#[tauri::command]
+pub fn delete_codegen_path(app: AppHandle, id: i64) -> Result<(), String> {
+    codegen_paths_repository::delete_path(&app, id)
+}
+
+#[tauri::command]
+pub fn create_spring_boot_project(
+    request: SpringBootProjectRequest,
+) -> Result<SpringBootProjectResult, String> {
+    spring_boot_project_creator::create_spring_boot_project(&request)
 }

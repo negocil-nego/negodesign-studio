@@ -47,6 +47,13 @@ pub enum DatabaseEngine {
     Sqlite,
 }
 
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum SpringLanguage {
+    Java,
+    Kotlin,
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FullstackCodegenRequest {
@@ -61,6 +68,7 @@ pub struct FullstackCodegenRequest {
     pub backend_framework: Option<BackendFramework>,
     pub orm_strategy: Option<String>,
     pub base_package: Option<String>,
+    pub spring_language: Option<SpringLanguage>,
     pub database_engine: DatabaseEngine,
     pub backend_base_url: Option<String>,
     pub theme: Option<String>,
@@ -112,5 +120,40 @@ pub struct OpenApiFrontendCodegenResult {
     pub copied_ui_files: usize,
     pub endpoints_processed: usize,
     pub summary: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CodegenPath {
+    pub id: i64,
+    pub target: String,
+    pub path: String,
+    pub label: Option<String>,
+    pub last_used: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SpringBootProjectRequest {
+    pub target_dir: String,
+    pub group_id: String,
+    pub artifact_id: String,
+    pub name: String,
+    pub description: String,
+    pub language: SpringLanguage,
+    pub orm_strategy: String,
+    pub database_engine: DatabaseEngine,
+    pub include_api_docs: bool,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SpringBootProjectResult {
+    pub project_dir: String,
+    pub build_tool: String,
+    pub spring_boot_version: String,
+    pub generated_files: usize,
+    pub dependencies: Vec<String>,
+    pub next_steps: Vec<String>,
 }
 

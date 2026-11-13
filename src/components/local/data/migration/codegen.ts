@@ -6,6 +6,7 @@ import type { OpenApiEntity } from "./openapi";
 export type ArchitectureMode = "split" | "monolith";
 export type FrontendFramework = "sveltekit" | "nuxt" | "nextjs";
 export type BackendFramework = "spring-boot" | "nestjs" | "laravel" | "aspnet-core";
+export type SpringLanguage = "java" | "kotlin";
 export type ApiCallPattern = "bff" | "direct";
 export type HttpClientKind = "native" | "axios";
 export type DatabaseEngine = "postgres" | "mysql" | "sqlite";
@@ -22,6 +23,7 @@ export type FullstackCodegenRequest = {
   backendFramework?: BackendFramework;
   ormStrategy?: string;
   basePackage?: string;
+  springLanguage?: SpringLanguage;
   databaseEngine: DatabaseEngine;
   backendBaseUrl?: string;
   theme?: string;

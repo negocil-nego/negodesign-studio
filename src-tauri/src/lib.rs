@@ -27,7 +27,11 @@ pub fn run() {
             commands::fetch_openapi,
             commands::import_openapi_file,
             commands::generate_fullstack_crud,
-            commands::generate_openapi_frontend
+            commands::generate_openapi_frontend,
+            commands::list_codegen_paths,
+            commands::save_codegen_path,
+            commands::delete_codegen_path,
+            commands::create_spring_boot_project
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

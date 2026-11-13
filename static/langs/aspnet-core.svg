@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#512BD4"/>
+  <text x="12" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">A</text>
+  <path d="M12 2L21 7L21 17L12 22L3 17L3 7Z" stroke="#7B68EE" stroke-width="1" fill="none"/>
+</svg>

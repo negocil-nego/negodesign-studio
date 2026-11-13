@@ -15,7 +15,8 @@
         "title": "negodesign-desktop",
         "minHeight": 900,
         "minWidth": 1200,
-        "maximized": true
+        "maximized": true,
+        "backgroundColor": "#18181b"
       }
     ],
     "security": {

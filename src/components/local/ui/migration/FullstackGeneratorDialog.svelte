@@ -1,7 +1,7 @@
 <script lang="ts">
   import { LocalStyleComponent } from "../../data/style.component";
   import { activeProject } from "../../data/projects";
-  import type { ApiCallPattern, ArchitectureMode, BackendFramework, DatabaseEngine, DatabaseTable, FrontendFramework, FullstackCodegenResult, HttpClientKind } from "../../data/migration";
+  import type { ApiCallPattern, ArchitectureMode, BackendFramework, DatabaseEngine, DatabaseTable, FrontendFramework, FullstackCodegenResult, HttpClientKind, SpringLanguage } from "../../data/migration";
   import { pickProjectFolder } from "./fullstack-gen/folder";
   import { initialTableSelection, runFullstackGeneration } from "./fullstack-gen/generate";
   import TopologySection from "./fullstack-gen/TopologySection.svelte";
@@ -25,6 +25,7 @@
   let backendFramework = $state<BackendFramework>("spring-boot");
   let backendPath = $state("");
   let basePackage = $state("com.negocil.negoturismo.admin");
+  let springLanguage = $state<SpringLanguage>("java");
   let ormStrategy = $state("spring-data-jpa");
   let databaseEngine = $state<DatabaseEngine>("postgres");
   let generating = $state(false);
@@ -44,7 +45,7 @@
     result = null;
     generating = true;
     try {
-      const outcome = await runFullstackGeneration({ architectureMode, tables, selectedTableNames, frontendPath, frontendFramework, apiCallPattern, httpClient, useTanstackQuery, backendPath, backendFramework, basePackage, ormStrategy, databaseEngine, backendBaseUrl });
+      const outcome = await runFullstackGeneration({ architectureMode, tables, selectedTableNames, frontendPath, frontendFramework, apiCallPattern, httpClient, useTanstackQuery, backendPath, backendFramework, basePackage, springLanguage, ormStrategy, databaseEngine, backendBaseUrl });
       result = outcome.result;
       errorMessage = outcome.errorMessage;
     } finally {
@@ -70,7 +71,7 @@
         <FrontendSection {architectureMode} bind:frontendFramework bind:frontendPath bind:apiCallPattern bind:httpClient bind:useTanstackQuery onpickfolder={() => pickFolder("frontend")} />
         <!-- 4. Configuração do Backend (Split vs Monolith) -->
         {#if architectureMode === "split"}
-          <BackendSection bind:backendFramework bind:backendPath bind:basePackage bind:backendBaseUrl bind:ormStrategy onpickfolder={() => pickFolder("backend")} />
+          <BackendSection bind:backendFramework bind:backendPath bind:basePackage bind:springLanguage bind:backendBaseUrl bind:ormStrategy onpickfolder={() => pickFolder("backend")} />
         {:else}
           <DatabaseEngineSection {frontendFramework} bind:databaseEngine />
         {/if}

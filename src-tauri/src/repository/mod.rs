@@ -1,4 +1,5 @@
 pub mod codegen;
+pub mod codegen_paths_repository;
 pub mod codegen_repository;
 pub mod component_copy;
 pub mod component_copy_repository;
@@ -8,3 +9,4 @@ pub mod openapi;
 pub mod openapi_repository;
 pub mod project;
 pub mod project_repository;
+pub mod spring_boot_project_creator;

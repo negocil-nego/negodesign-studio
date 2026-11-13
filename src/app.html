@@ -5,6 +5,27 @@
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tauri + SvelteKit + Typescript App</title>
+    <script>
+      // Aplica o tema e o fundo ANTES da primeira pintura (evita o flash
+      // branco/caixa branca da app em modo SPA, onde o JS ainda não carregou).
+      (function () {
+        try {
+          var mode = localStorage.getItem("negodesign-theme");
+          var theme = mode === "dark" ? "dark" : "light";
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          var style = document.createElement("style");
+          style.id = "negodesign-boot";
+          style.textContent =
+            "html,body{margin:0;min-height:100%;background-color:" +
+            (theme === "dark" ? "#18181b" : "#f4f6f9") +
+            "}";
+          document.head.appendChild(style);
+        } catch (error) {
+          /* localStorage indisponível — segue o tema por omissão */
+        }
+      })();
+    </script>
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">

@@ -69,7 +69,7 @@
             ]}
           />
 
-          <MenuGroup
+          <!-- <MenuGroup
             name="Configurações"
             items={[
               {
@@ -83,9 +83,9 @@
                 icon: IconNamed.Security,
               },
             ]}
-          />
+          /> -->
 
-          <MenuGroup
+          <!-- <MenuGroup
             name="Página"
             items={[
               {
@@ -99,9 +99,9 @@
                 icon: IconNamed.HelpSquare,
               },
             ]}
-          />
+          /> -->
 
-          <MenuGroup name="Projectos Recentes" items={[]} />
+          <!-- <MenuGroup name="Projectos Recentes" items={[]} /> -->
         </div>
       </div>
 

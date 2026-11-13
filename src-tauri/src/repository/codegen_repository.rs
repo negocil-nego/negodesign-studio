@@ -64,10 +64,17 @@ pub fn generate_fullstack_crud(
         let backend_root = PathBuf::from(backend_path);
         let backend_files = generate_backend_files(&request, &request.tables)?;
         generated_backend_files = write_file_map(&backend_root, &backend_files)?;
+        let lang_note = match (&request.backend_framework, &request.spring_language) {
+            (Some(crate::model::codegen::BackendFramework::SpringBoot), Some(lang)) => {
+                format!(", linguagem: {lang:?}")
+            }
+            _ => String::new(),
+        };
         summary.push(format!(
-            "Gerados {generated_backend_files} ficheiros no projecto backend ({:?}, ORM: {})",
+            "Gerados {generated_backend_files} ficheiros no projecto backend ({:?}, ORM: {}{})",
             request.backend_framework,
-            request.orm_strategy.as_deref().unwrap_or("default")
+            request.orm_strategy.as_deref().unwrap_or("default"),
+            lang_note
         ));
     } else {
         summary.push(format!(
