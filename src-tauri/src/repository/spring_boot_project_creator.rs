@@ -1,10 +1,12 @@
 use crate::model::codegen::{
     DatabaseEngine, SpringBootProjectRequest, SpringBootProjectResult, SpringLanguage,
 };
+use crate::repository::codegen::backend::spring_boot::resources::{
+    RSA_PRIVATE_KEY_PEM, RSA_PUBLIC_KEY_PEM,
+};
 use std::{fs, path::PathBuf};
 
 const SPRING_BOOT_VERSION: &str = "4.1.2";
-const SPRINGDOC_VERSION: &str = "2.8.6";
 const SQLITE_JDBC_VERSION: &str = "3.47.1.0";
 
 /// Dependência Maven. `version: None` significa que é gerida pelo parent do Spring Boot.
@@ -66,19 +68,57 @@ fn db_dependency(engine: &DatabaseEngine) -> Dependency {
 }
 
 fn dependencies(req: &SpringBootProjectRequest) -> Vec<Dependency> {
-    let mut deps = vec![Dependency {
-        group: "org.springframework.boot",
-        artifact: "spring-boot-starter-webmvc",
-        version: None,
-        scope: None,
-    }];
+    let mut deps = vec![
+        Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-webmvc",
+            version: None,
+            scope: None,
+        },
+        Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-security",
+            version: None,
+            scope: None,
+        },
+        Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-security-oauth2-resource-server",
+            version: None,
+            scope: None,
+        },
+        Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-starter-validation",
+            version: None,
+            scope: None,
+        },
+        Dependency {
+            group: "org.springframework.boot",
+            artifact: "spring-boot-devtools",
+            version: None,
+            scope: Some("runtime"),
+        },
+        Dependency {
+            group: "org.projectlombok",
+            artifact: "lombok",
+            version: None,
+            scope: None,
+        },
+        Dependency {
+            group: "org.bouncycastle",
+            artifact: "bcprov-jdk18on",
+            version: Some("1.84"),
+            scope: Some("compile"),
+        },
+    ];
     deps.extend(orm_dependencies(&req.orm_strategy));
     deps.push(db_dependency(&req.database_engine));
     if req.include_api_docs {
         deps.push(Dependency {
             group: "org.springdoc",
-            artifact: "springdoc-openapi-starter-webmvc-ui",
-            version: Some(SPRINGDOC_VERSION),
+            artifact: "springdoc-openapi-starter-webmvc-scalar",
+            version: Some("3.2.0"),
             scope: None,
         });
     }
@@ -86,6 +126,18 @@ fn dependencies(req: &SpringBootProjectRequest) -> Vec<Dependency> {
     deps.push(Dependency {
         group: "org.springframework.boot",
         artifact: "spring-boot-starter-webmvc-test",
+        version: None,
+        scope: Some("test"),
+    });
+    deps.push(Dependency {
+        group: "org.springframework.boot",
+        artifact: "spring-boot-starter-security-test",
+        version: None,
+        scope: Some("test"),
+    });
+    deps.push(Dependency {
+        group: "org.springframework.boot",
+        artifact: "spring-boot-starter-security-oauth2-resource-server-test",
         version: None,
         scope: Some("test"),
     });
@@ -105,32 +157,6 @@ fn dependencies(req: &SpringBootProjectRequest) -> Vec<Dependency> {
         });
     }
     deps
-}
-
-fn db_properties(engine: &DatabaseEngine) -> String {
-    match engine {
-        DatabaseEngine::Postgres => [
-            "spring.datasource.url=jdbc:postgresql://localhost:5432/negodesign",
-            "spring.datasource.username=postgres",
-            "spring.datasource.password=postgres",
-            "spring.datasource.driver-class-name=org.postgresql.Driver",
-        ]
-        .join("\n"),
-        DatabaseEngine::Mysql => [
-            "spring.datasource.url=jdbc:mysql://localhost:3306/negodesign?useSSL=false&serverTimezone=UTC",
-            "spring.datasource.username=root",
-            "spring.datasource.password=root",
-            "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver",
-        ]
-        .join("\n"),
-        DatabaseEngine::Sqlite => [
-            "spring.datasource.url=jdbc:sqlite:negodesign.db",
-            "spring.datasource.username=",
-            "spring.datasource.password=",
-            "spring.datasource.driver-class-name=org.sqlite.JDBC",
-        ]
-        .join("\n"),
-    }
 }
 
 fn pom_xml(req: &SpringBootProjectRequest, deps: &[Dependency]) -> String {
@@ -232,24 +258,6 @@ public class {class_name} {{\n\
     }
 }
 
-fn application_properties(req: &SpringBootProjectRequest) -> String {
-    let db = db_properties(&req.database_engine);
-    let jpa = if req.orm_strategy != "spring-jdbc" && req.orm_strategy != "jdbc" {
-        "\n# JPA / Hibernate\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=true\nspring.jpa.properties.hibernate.format_sql=true\nspring.jpa.open-in-view=false"
-    } else {
-        ""
-    };
-    let api_docs = if req.include_api_docs {
-        "\n\n# SpringDoc OpenAPI / Swagger UI\nspringdoc.api-docs.path=/v3/api-docs\nspringdoc.swagger-ui.path=/swagger-ui.html\nspringdoc.swagger-ui.operationsSorter=method"
-    } else {
-        ""
-    };
-    format!(
-        "# Aplicação Spring Boot gerada pelo Negodesign\nspring.application.name={name}\nserver.port=8080\n\n# Base de dados\n{db}{jpa}{api_docs}\n",
-        name = req.name
-    )
-}
-
 fn readme_md(req: &SpringBootProjectRequest, deps: &[Dependency]) -> String {
     let deps_list = deps
         .iter()
@@ -313,7 +321,10 @@ pub fn create_spring_boot_project(
         SpringLanguage::Java => target.join("src/main/java").join(&package_path),
     };
     fs::create_dir_all(&src_root).map_err(|e| e.to_string())?;
-    fs::create_dir_all(target.join("src/main/resources")).map_err(|e| e.to_string())?;
+    let res_dir = target.join("src/main/resources");
+    fs::create_dir_all(&res_dir).map_err(|e| e.to_string())?;
+    let certs_dir = res_dir.join("certs/rsa");
+    fs::create_dir_all(&certs_dir).map_err(|e| e.to_string())?;
     fs::create_dir_all(target.join("src/test/java")).map_err(|e| e.to_string())?;
 
     let deps = dependencies(req);
@@ -329,11 +340,89 @@ pub fn create_spring_boot_project(
     .map_err(|e| e.to_string())?;
     generated += 1;
 
-    fs::write(
-        target.join("src/main/resources/application.properties"),
-        application_properties(req),
-    )
-    .map_err(|e| e.to_string())?;
+    let app_yaml = format!(
+        r#"server:
+  port: ${{PORT:8080}}
+  error:
+    include-stacktrace: never
+    include-binding-errors: always
+    include-message: always
+
+spring:
+  application:
+    name: {name}
+  profiles:
+    active: ${{SPRING_PROFILES_ACTIVE:local}}
+  threads:
+    virtual:
+      enabled: true
+  mvc:
+    problem-details:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+springdoc:
+  pathsToMatch: /api/v1/admin/**,/api/v1/pub/**
+
+scalar:
+  enabled: true
+
+rsa:
+  private-key: ${{RSA_PRIVATE_KEY:classpath:certs/rsa/private.pem}}
+  public-key: ${{RSA_PUBLIC_KEY:classpath:certs/rsa/public.pem}}
+
+app:
+  cors:
+    allowed-origins: ${{APP_CORS_ALLOWED_ORIGINS:http://localhost:5173}}
+"#,
+        name = req.name
+    );
+
+    let app_local_yml = match req.database_engine {
+        DatabaseEngine::Postgres => r#"spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/negodesign}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+"#,
+        DatabaseEngine::Mysql => r#"spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/negodesign?useSSL=false&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+"#,
+        DatabaseEngine::Sqlite => r#"spring:
+  datasource:
+    url: ${DB_URL:jdbc:sqlite:negodesign.db}
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+"#,
+    };
+
+    fs::write(res_dir.join("application.yaml"), app_yaml).map_err(|e| e.to_string())?;
+    generated += 1;
+
+    fs::write(res_dir.join("application-local.yml"), app_local_yml).map_err(|e| e.to_string())?;
+    generated += 1;
+
+    fs::write(certs_dir.join("private.pem"), RSA_PRIVATE_KEY_PEM).map_err(|e| e.to_string())?;
+    generated += 1;
+
+    fs::write(certs_dir.join("public.pem"), RSA_PUBLIC_KEY_PEM).map_err(|e| e.to_string())?;
     generated += 1;
 
     let (file_name, content) = main_class(&req.group_id, &req.language, &req.name);

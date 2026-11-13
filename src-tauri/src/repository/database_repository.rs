@@ -119,3 +119,31 @@ pub fn inspect_saved_connection(app: &AppHandle, id: i64) -> Result<Vec<Database
         .map_err(|e| e.to_string())?;
     inspect_and_save(app, &connection)
 }
+
+pub fn get_latest_connection(app: &AppHandle) -> Result<Option<DatabaseConnection>, String> {
+    let db = open_saved_connections(app)?;
+    let mut statement = db
+        .prepare(
+            "SELECT driver, host, port, database_name, username, password
+             FROM TB_DATABASE_CONNECTIONS ORDER BY last_connected DESC, id DESC LIMIT 1",
+        )
+        .map_err(|e| e.to_string())?;
+    let mut rows = statement
+        .query_map([], |row| {
+            Ok(DatabaseConnection {
+                driver: row.get(0)?,
+                host: row.get(1)?,
+                port: row.get(2)?,
+                database: row.get(3)?,
+                user: row.get(4)?,
+                password: row.get(5)?,
+            })
+        })
+        .map_err(|e| e.to_string())?;
+
+    if let Some(row) = rows.next() {
+        row.map(Some).map_err(|e| e.to_string())
+    } else {
+        Ok(None)
+    }
+}

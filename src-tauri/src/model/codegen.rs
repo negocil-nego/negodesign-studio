@@ -72,6 +72,7 @@ pub struct FullstackCodegenRequest {
     pub database_engine: DatabaseEngine,
     pub backend_base_url: Option<String>,
     pub theme: Option<String>,
+    pub database_connection: Option<crate::model::migration::DatabaseConnection>,
 }
 
 #[derive(Debug, Clone, Serialize)]

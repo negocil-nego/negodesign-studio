@@ -2,11 +2,15 @@ pub mod detect;
 pub mod jdbc;
 pub mod jpa;
 pub mod kotlin;
+pub mod pom_merger;
+pub mod rbac;
+pub mod resources;
+pub mod shared_classes;
 
 use crate::{
     model::{
-        codegen::SpringLanguage,
-        migration::DatabaseTable,
+        codegen::{DatabaseEngine, FrontendFramework, SpringLanguage},
+        migration::{DatabaseConnection, DatabaseTable},
     },
     repository::codegen::naming::{
         editable_columns, primary_key_column, sql_to_java_type, to_camel_case, to_kebab_case,
@@ -20,10 +24,15 @@ pub fn generate(
     base_package: &str,
     orm_strategy: &str,
     language: &SpringLanguage,
+    db_conn: Option<&DatabaseConnection>,
+    db_engine: &DatabaseEngine,
+    frontend_framework: &FrontendFramework,
 ) -> Result<BTreeMap<String, String>, String> {
     match language {
         SpringLanguage::Kotlin => kotlin::generate(tables, base_package, orm_strategy),
-        SpringLanguage::Java => generate_java(tables, base_package, orm_strategy),
+        SpringLanguage::Java => {
+            generate_java(tables, base_package, orm_strategy, db_conn, db_engine, frontend_framework)
+        }
     }
 }
 
@@ -31,11 +40,28 @@ fn generate_java(
     tables: &[DatabaseTable],
     base_package: &str,
     orm_strategy: &str,
+    db_conn: Option<&DatabaseConnection>,
+    db_engine: &DatabaseEngine,
+    frontend_framework: &FrontendFramework,
 ) -> Result<BTreeMap<String, String>, String> {
     let mut files = BTreeMap::new();
-    let pkg_path = base_package.replace('.', "/");
     let use_jdbc = orm_strategy == "spring-jdbc" || orm_strategy == "jdbc";
 
+    if !use_jdbc {
+        // Negoturismo-based Architecture: CommonModel, ConcreteModel, RBAC, Resources
+        shared_classes::generate_shared_classes(&mut files, base_package, tables);
+        rbac::generate_rbac_module(&mut files, base_package);
+        resources::generate_resources(&mut files, "api", db_conn, db_engine, frontend_framework);
+
+        for table in tables {
+            jpa::generate_jpa_module(&mut files, base_package, table);
+        }
+
+        return Ok(files);
+    }
+
+    // Fallback: Spring JDBC implementation
+    let pkg_path = base_package.replace('.', "/");
     files.insert(
         format!("src/main/java/{pkg_path}/shared/PageResponse.java"),
         format!(
@@ -63,11 +89,7 @@ fn generate_java(
             build_response_dto(&full_pkg, &pascal, table),
         );
 
-        if use_jdbc {
-            jdbc::generate_jdbc_repository(&mut files, &base_dir, &full_pkg, &pascal, table);
-        } else {
-            jpa::generate_jpa_repository(&mut files, &base_dir, &full_pkg, &pascal, table);
-        }
+        jdbc::generate_jdbc_repository(&mut files, &base_dir, &full_pkg, &pascal, table);
 
         files.insert(
             format!("{base_dir}/service/{pascal}Service.java"),
@@ -205,4 +227,3 @@ public class {pascal}Controller {{\n\
 }}\n"
     )
 }
-

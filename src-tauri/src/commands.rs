@@ -134,8 +134,11 @@ pub fn import_openapi_file(path: String) -> Result<Vec<OpenApiEntity>, String> {
 #[tauri::command]
 pub fn generate_fullstack_crud(
     app: AppHandle,
-    request: FullstackCodegenRequest,
+    mut request: FullstackCodegenRequest,
 ) -> Result<FullstackCodegenResult, String> {
+    if request.database_connection.is_none() {
+        request.database_connection = database_repository::get_latest_connection(&app).ok().flatten();
+    }
     let result = codegen_repository::generate_fullstack_crud(request.clone())?;
     let _ = codegen_paths_repository::save_path(
         &app,
