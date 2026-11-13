@@ -2,7 +2,98 @@ use crate::{
     model::migration::DatabaseTable,
     repository::codegen::naming::to_snake_case,
 };
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
+
+/// Nome real da tabela RBAC na BD (ex.: "tb_roles"), ou o default legado.
+fn rbac_table_name(tables: &[DatabaseTable], stems: &[&str], default: &str) -> String {
+    tables
+        .iter()
+        .find(|table| stems.contains(&to_snake_case(&table.name).as_str()))
+        .map(|table| table.name.clone())
+        .unwrap_or_else(|| default.to_string())
+}
+
+/// Valida que todas as referências `ConcreteTableModel.X` existem mesmo na
+/// classe gerada — evita entidades a usar variáveis que não foram definidas
+/// (ex.: `ConcreteTableModel.USERS` sem a constante `USERS`).
+///
+/// Quando a constante em falta corresponde a uma tabela real, completa o
+/// `ConcreteTableModel` automaticamente; se não corresponder a nenhuma,
+/// devolve um erro claro em vez de gerar código que não compila.
+pub fn validate_table_model_references(
+    files: &mut BTreeMap<String, String>,
+    tables: &[DatabaseTable],
+) -> Result<(), String> {
+    const MODEL_SUFFIX: &str = "shared/utils/ConcreteTableModel.java";
+    let Some(model_key) = files
+        .keys()
+        .find(|key| key.ends_with(MODEL_SUFFIX))
+        .cloned()
+    else {
+        return Ok(());
+    };
+
+    let mut defined: Vec<String> = files[&model_key]
+        .lines()
+        .filter_map(|line| line.trim().strip_prefix("public static final String "))
+        .filter_map(|rest| rest.split('=').next())
+        .map(|name| name.trim().to_string())
+        .collect();
+
+    let mut missing: BTreeSet<String> = BTreeSet::new();
+    for (path, content) in files.iter() {
+        if *path == model_key || !path.ends_with(".java") {
+            continue;
+        }
+        let mut rest = content.as_str();
+        while let Some(index) = rest.find("ConcreteTableModel.") {
+            rest = &rest[index + "ConcreteTableModel.".len()..];
+            let name: String = rest
+                .chars()
+                .take_while(|c| c.is_ascii_uppercase() || *c == '_')
+                .collect();
+            if !name.is_empty() && !defined.iter().any(|item| item == &name) {
+                missing.insert(name);
+            }
+        }
+    }
+
+    if missing.is_empty() {
+        return Ok(());
+    }
+
+    let mut source = files[&model_key].clone();
+    let mut unresolved: Vec<String> = Vec::new();
+    for name in missing {
+        match tables
+            .iter()
+            .find(|table| to_snake_case(&table.name).to_ascii_uppercase() == name)
+        {
+            Some(table) => {
+                let line = format!(
+                    "    public static final String {name} = \"{}\";\n",
+                    table.name
+                );
+                match source.rfind('}') {
+                    Some(index) => source.insert_str(index, &line),
+                    None => source.push_str(&line),
+                }
+                defined.push(name);
+            }
+            None => unresolved.push(name),
+        }
+    }
+
+    if !unresolved.is_empty() {
+        return Err(format!(
+            "ConcreteTableModel: constantes referenciadas sem definição e sem tabela correspondente: {}",
+            unresolved.join(", ")
+        ));
+    }
+
+    files.insert(model_key, source);
+    Ok(())
+}
 
 pub fn generate_shared_classes(
     files: &mut BTreeMap<String, String>,
@@ -114,14 +205,42 @@ public class ConcreteModel extends CommonModel {{
     );
 
     // 3. ConcreteTableModel.java
+    //
+    // As constantes RBAC vêm do nome REAL da tabela na BD quando ela existe
+    // (ex.: "tb_roles" em vez do default "TB_ROLES"); sem tabela seleccionada,
+    // mantêm-se os defaults do esquema legado.
+    let role_table = rbac_table_name(tables, &["role", "roles"], "TB_ROLES");
+    let permission_table = rbac_table_name(
+        tables,
+        &["permission", "permissions"],
+        "TB_PERMISSIONS",
+    );
+    let user_table = rbac_table_name(tables, &["user", "users"], "TB_USERS");
+
     let mut table_constants = String::new();
-    table_constants.push_str("    public static final String ROLE = \"TB_ROLES\";\n");
-    table_constants.push_str("    public static final String PERMISSION = \"TB_PERMISSIONS\";\n");
-    table_constants.push_str("    public static final String USER = \"TB_USERS\";\n");
+    table_constants.push_str(&format!(
+        "    public static final String ROLE = \"{role_table}\";\n"
+    ));
+    table_constants.push_str(&format!(
+        "    public static final String PERMISSION = \"{permission_table}\";\n"
+    ));
+    table_constants.push_str(&format!(
+        "    public static final String USER = \"{user_table}\";\n"
+    ));
 
     for t in tables {
         let upper_snake = to_snake_case(&t.name).to_ascii_uppercase();
-        if upper_snake != "ROLES" && upper_snake != "PERMISSIONS" && upper_snake != "USERS" && upper_snake != "ROLE" && upper_snake != "PERMISSION" && upper_snake != "USER" {
+        // Exclui apenas nomes que colidem com as constantes RBAC acima (ROLE,
+        // PERMISSION, USER) ou cujas entidades não são geradas (role/permission
+        // são geradas pelo módulo rbac). USERS NÃO é excluído: a entidade
+        // gerada pelo jpa referencia ConcreteTableModel.USERS e a constante
+        // tem de existir.
+        if upper_snake != "ROLES"
+            && upper_snake != "PERMISSIONS"
+            && upper_snake != "ROLE"
+            && upper_snake != "PERMISSION"
+            && upper_snake != "USER"
+        {
             table_constants.push_str(&format!(
                 "    public static final String {} = \"{}\";\n",
                 upper_snake, t.name
@@ -527,5 +646,104 @@ public class SecurityConfig {{
 "#
         ),
     );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::migration::DatabaseColumn;
+
+    fn table(name: &str) -> DatabaseTable {
+        DatabaseTable {
+            name: name.to_string(),
+            columns: vec![DatabaseColumn {
+                name: "id".to_string(),
+                data_type: "bigint".to_string(),
+                nullable: false,
+                primary_key: true,
+            }],
+        }
+    }
+
+    fn model_source(files: &BTreeMap<String, String>) -> &str {
+        files
+            .iter()
+            .find(|(key, _)| key.ends_with("shared/utils/ConcreteTableModel.java"))
+            .map(|(_, content)| content.as_str())
+            .expect("ConcreteTableModel.java deve ser gerado")
+    }
+
+    #[test]
+    fn rbac_constants_come_from_real_tables() {
+        let tables = vec![
+            table("TB_ROLES"),
+            table("tb_permissions"),
+            table("TB_USERS"),
+        ];
+        let mut files = BTreeMap::new();
+        generate_shared_classes(&mut files, "com.nego.design", &tables);
+
+        let model = model_source(&files);
+        assert!(model.contains("ROLE = \"TB_ROLES\";"));
+        assert!(model.contains("PERMISSION = \"tb_permissions\";"));
+        assert!(model.contains("USER = \"TB_USERS\";"));
+        // USERS deixa de ser excluído: a entidade de utilizadores referencia-o.
+        assert!(model.contains("USERS = \"TB_USERS\";"));
+    }
+
+    #[test]
+    fn rbac_constants_fall_back_to_defaults_without_tables() {
+        let mut files = BTreeMap::new();
+        generate_shared_classes(&mut files, "com.nego.design", &[]);
+
+        let model = model_source(&files);
+        assert!(model.contains("ROLE = \"TB_ROLES\";"));
+        assert!(model.contains("PERMISSION = \"TB_PERMISSIONS\";"));
+        assert!(model.contains("USER = \"TB_USERS\";"));
+        assert!(!model.contains("USERS ="));
+    }
+
+    #[test]
+    fn validation_resolves_missing_constant_from_tables() {
+        let mut files = BTreeMap::new();
+        generate_shared_classes(&mut files, "com.nego.design", &[]);
+        files.insert(
+            "src/main/java/com/nego/design/modules/x/model/X.java".to_string(),
+            "@Table(name = ConcreteTableModel.MESSAGES)\n".to_string(),
+        );
+
+        validate_table_model_references(&mut files, &[table("messages")])
+            .expect("MESSAGES deve ser resolvida a partir da tabela");
+
+        assert!(model_source(&files).contains("MESSAGES = \"messages\";"));
+    }
+
+    #[test]
+    fn validation_fails_for_unknown_reference() {
+        let mut files = BTreeMap::new();
+        generate_shared_classes(&mut files, "com.nego.design", &[]);
+        files.insert(
+            "src/main/java/com/nego/design/modules/x/model/X.java".to_string(),
+            "@Table(name = ConcreteTableModel.NAO_EXISTE)\n".to_string(),
+        );
+
+        let error = validate_table_model_references(&mut files, &[])
+            .expect_err("sem tabela correspondente deve falhar");
+        assert!(error.contains("NAO_EXISTE"));
+    }
+
+    #[test]
+    fn validation_accepts_defined_references() {
+        let mut files = BTreeMap::new();
+        generate_shared_classes(&mut files, "com.nego.design", &[table("TB_USERS")]);
+        files.insert(
+            "src/main/java/com/nego/design/modules/users/model/User.java".to_string(),
+            "@Table(name = ConcreteTableModel.USER)\n@Table(name = ConcreteTableModel.USERS)\n"
+                .to_string(),
+        );
+
+        validate_table_model_references(&mut files, &[table("TB_USERS")])
+            .expect("USER e USERS estão definidas");
+    }
 }
 

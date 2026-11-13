@@ -20,19 +20,34 @@ pub fn generate_jpa_module(
     base_package: &str,
     table: &DatabaseTable,
 ) {
-    let lower_name = table.name.to_ascii_lowercase();
+    // Role/Permission são geradas pelo módulo rbac (classes singulares).
+    // Compara pelo stem normalizado para apanhar "tb_roles", "TB_ROLES", etc.
+    let stem = to_snake_case(&table.name);
     if matches!(
-        lower_name.as_str(),
-        "role" | "roles" | "tb_roles" | "permission" | "permissions" | "tb_permissions"
+        stem.as_str(),
+        "role" | "roles" | "permission" | "permissions"
     ) {
         return;
     }
 
     let pkg_path = base_package.replace('.', "/");
-    let feature_name = to_snake_case(&table.name);
-    let pascal = to_pascal_case(&table.name);
+    let feature_name = stem.clone();
+    let is_user_table = matches!(stem.as_str(), "user" | "users");
+    // A entidade de utilizadores usa nome singular (User), como Role/Permission.
+    let pascal = if is_user_table {
+        "User".to_string()
+    } else {
+        to_pascal_case(&table.name)
+    };
     let kebab = to_kebab_case(&table.name);
-    let upper_snake = to_snake_case(&table.name).to_ascii_uppercase();
+    let upper_snake = stem.to_ascii_uppercase();
+    // Usa a constante singular USER (sempre definida no ConcreteTableModel)
+    // em vez de USERS, que pode não existir.
+    let table_constant = if is_user_table {
+        "USER".to_string()
+    } else {
+        upper_snake.clone()
+    };
 
     let module_pkg = format!("{base_package}.modules.{feature_name}");
     let module_dir = format!("src/main/java/{pkg_path}/modules/{feature_name}");
@@ -82,7 +97,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 {all_args}@SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(name = ConcreteTableModel.{upper_snake})
+@Table(name = ConcreteTableModel.{table_constant})
 public class {pascal} extends ConcreteModel {{
 {fields_str}}}
 "#

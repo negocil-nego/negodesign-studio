@@ -57,6 +57,9 @@ fn generate_java(
             jpa::generate_jpa_module(&mut files, base_package, table);
         }
 
+        // Garante que nenhuma classe referencia ConcreteTableModel.X inexistente.
+        shared_classes::validate_table_model_references(&mut files, tables)?;
+
         return Ok(files);
     }
 

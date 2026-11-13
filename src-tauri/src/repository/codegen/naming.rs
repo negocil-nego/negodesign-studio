@@ -6,25 +6,43 @@ pub fn clean_table_stem(raw: &str) -> String {
     for prefix in ["tb_", "tbl_", "t_"] {
         if let Some(stripped) = lower.strip_prefix(prefix) {
             if !stripped.is_empty() {
-                return stripped.to_string();
+                // Preserva o caso original do resto do nome para que
+                // split_words ainda consiga detectar fronteiras camelCase
+                // (ex.: "TbAnnualBilling" → "AnnualBilling").
+                return trimmed.get(prefix.len()..).unwrap_or(trimmed).to_string();
             }
         }
     }
-    lower
+    trimmed.to_string()
 }
 
 pub fn split_words(input: &str) -> Vec<String> {
-    let mut words = Vec::new();
+    let mut words: Vec<String> = Vec::new();
     let mut current = String::new();
-    for ch in input.chars() {
+    let chars: Vec<char> = input.chars().collect();
+    for (index, &ch) in chars.iter().enumerate() {
         if ch == '_' || ch == '-' || ch == ' ' {
             if !current.is_empty() {
                 words.push(current.to_ascii_lowercase());
                 current.clear();
             }
-        } else if ch.is_ascii_uppercase() && !current.is_empty() {
-            words.push(current.to_ascii_lowercase());
-            current.clear();
+        } else if ch.is_ascii_uppercase() {
+            let prev_is_upper = current
+                .chars()
+                .last()
+                .is_some_and(|c| c.is_ascii_uppercase());
+            let next_is_lower = chars
+                .get(index + 1)
+                .is_some_and(|c| c.is_ascii_lowercase());
+            // Fronteira quando a maiúscula segue uma minúscula ("AgentAddress"),
+            // ou quando termina um acrónimo seguido de palavra ("HTMLParser").
+            // "FAQ" e "IPv4" mantêm-se numa só palavra.
+            if !current.is_empty()
+                && (!prev_is_upper || (next_is_lower && current.chars().count() > 1))
+            {
+                words.push(current.to_ascii_lowercase());
+                current.clear();
+            }
             current.push(ch);
         } else {
             current.push(ch);
@@ -216,6 +234,57 @@ pub fn infer_form_component(col: &DatabaseColumn) -> (&'static str, &'static str
         ("input-number", "number")
     } else {
         ("input-text", "text")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn clean_table_stem_preserves_original_case() {
+        assert_eq!(clean_table_stem("AnnualBilling"), "AnnualBilling");
+        assert_eq!(clean_table_stem("Tb_AnnualBilling"), "AnnualBilling");
+        assert_eq!(clean_table_stem("tb_roles"), "roles");
+        assert_eq!(clean_table_stem("  address  "), "address");
+    }
+
+    #[test]
+    fn snake_case_splits_camel_and_keeps_snake() {
+        assert_eq!(to_snake_case("AgentAddress"), "agent_address");
+        assert_eq!(to_snake_case("agent_address"), "agent_address");
+        assert_eq!(to_snake_case("LogsActions"), "logs_actions");
+        assert_eq!(to_snake_case("AnnualBilling"), "annual_billing");
+        assert_eq!(to_snake_case("address"), "address");
+        assert_eq!(to_snake_case("_prisma_migrations"), "prisma_migrations");
+        assert_eq!(to_snake_case("TB_ROLES"), "roles");
+    }
+
+    #[test]
+    fn snake_case_keeps_acronyms_together() {
+        assert_eq!(to_snake_case("FAQ"), "faq");
+        assert_eq!(to_snake_case("FaqItem"), "faq_item");
+        assert_eq!(to_snake_case("IPv4"), "ipv4");
+        assert_eq!(to_snake_case("HTMLParser"), "html_parser");
+    }
+
+    #[test]
+    fn pascal_case_round_trips() {
+        assert_eq!(to_pascal_case("AnnualBilling"), "AnnualBilling");
+        assert_eq!(to_pascal_case("address"), "Address");
+        assert_eq!(to_pascal_case("agent_address"), "AgentAddress");
+        assert_eq!(to_camel_case("agent_address"), "agentAddress");
+    }
+
+    #[test]
+    fn case_variant_tables_share_the_same_key() {
+        // "Address" e "address" têm de colidir na mesma chave canónica
+        // para que a dedupe os una antes de gerar as classes.
+        assert_eq!(to_snake_case("Address"), to_snake_case("address"));
+        assert_eq!(
+            to_snake_case("AgentAddress"),
+            to_snake_case("agent_address")
+        );
     }
 }
 
