@@ -19,6 +19,7 @@ pub fn generate_jpa_module(
     files: &mut BTreeMap<String, String>,
     base_package: &str,
     table: &DatabaseTable,
+    feature_pkg: &str,
 ) {
     // Role/Permission são geradas pelo módulo rbac (classes singulares).
     // Compara pelo stem normalizado para apanhar "tb_roles", "TB_ROLES", etc.
@@ -31,7 +32,6 @@ pub fn generate_jpa_module(
     }
 
     let pkg_path = base_package.replace('.', "/");
-    let feature_name = stem.clone();
     let is_user_table = matches!(stem.as_str(), "user" | "users");
     // A entidade de utilizadores usa nome singular (User), como Role/Permission.
     let pascal = if is_user_table {
@@ -49,8 +49,8 @@ pub fn generate_jpa_module(
         upper_snake.clone()
     };
 
-    let module_pkg = format!("{base_package}.modules.{feature_name}");
-    let module_dir = format!("src/main/java/{pkg_path}/modules/{feature_name}");
+    let module_pkg = format!("{base_package}.modules.{feature_pkg}");
+    let module_dir = format!("src/main/java/{pkg_path}/modules/{feature_pkg}");
 
     // Filter columns not inherited from ConcreteModel
     let own_cols: Vec<_> = table
@@ -126,8 +126,9 @@ public interface {pascal}Repository extends ConcreteRepository<{pascal}> {{
 import {module_pkg}.model.{pascal};
 import {module_pkg}.repository.{pascal}Repository;
 import {base_package}.shared.service.ConcreteService;
+import org.springframework.stereotype.Service;
 
-@org.springframework.stereotype.Service
+@Service
 public class {pascal}Service extends ConcreteService<{pascal}> {{
     public {pascal}Service({pascal}Repository repository) {{
         super(repository);

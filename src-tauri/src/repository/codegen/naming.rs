@@ -1,4 +1,5 @@
 use crate::model::migration::{DatabaseColumn, DatabaseTable};
+use std::collections::{BTreeMap, BTreeSet};
 
 pub fn clean_table_stem(raw: &str) -> String {
     let trimmed = raw.trim();
@@ -96,6 +97,85 @@ pub fn to_title_label(input: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join(" ")
+}
+
+/// Agrupa kebab-cases pelo primeiro segmento — as features relacionadas ficam
+/// todas na mesma pasta/package: `agent`, `agent-address`, `agent-assignment`
+/// → chave `agent`; `company-users` → `company`.
+///
+/// Quando nenhuma outra entrada partilha o primeiro segmento, a chave é o
+/// próprio kebab (ex.: `prisma-migrations`, `messages`).
+///
+/// Se existirem **os dois** grupos de um par singular/plural, unificam-se no
+/// singular: `roles` → `role`, `needs` → `need`, `addresses` → `address`
+/// (assim nunca se criam `need/` e `needs/` ou `role/` e `roles/` em paralelo).
+/// A unificação só acontece quando ambos já existem — nunca se parte uma
+/// palavra que esteja sozinha (`messages` fica `messages`).
+///
+/// É a mesma regra usada pelo frontend (`src/lib/features/<grupo>/`) e pelo
+/// backend Spring (`modules.<grupo>` / `feature.<grupo>`), para os nomes
+/// ficarem alinhados dos dois lados.
+pub fn feature_group_keys(kebabs: &[String]) -> BTreeMap<String, String> {
+    let mut first_segment_counts: BTreeMap<&str, usize> = BTreeMap::new();
+    for kebab in kebabs {
+        let first = kebab.split('-').next().unwrap_or(kebab);
+        *first_segment_counts.entry(first).or_insert(0) += 1;
+    }
+
+    let mut keys: BTreeMap<String, String> = kebabs
+        .iter()
+        .map(|kebab| {
+            let first = kebab.split('-').next().unwrap_or(kebab);
+            let key = if first_segment_counts.get(first).copied().unwrap_or(0) > 1 {
+                first.to_string()
+            } else {
+                kebab.clone()
+            };
+            (kebab.clone(), key)
+        })
+        .collect();
+
+    // Unifica pares singular/plural quando ambos os grupos existem.
+    // Tenta primeiro a forma em "-es" (addresses → address) e depois a em
+    // "-s" (roles → role, needs → need).
+    let distinct: BTreeSet<String> = keys.values().cloned().collect();
+    let mut remap: BTreeMap<String, String> = BTreeMap::new();
+    for key in &distinct {
+        for candidate in [key.strip_suffix("es"), key.strip_suffix('s')]
+            .into_iter()
+            .flatten()
+        {
+            if !candidate.is_empty() && distinct.contains(candidate) {
+                remap.insert(key.clone(), candidate.to_string());
+                break;
+            }
+        }
+    }
+
+        // Resolve encadeamentos até ponto fixo ("xies" → "xie" → …).
+        // As arestas encurtam sempre o nome, por isso o ciclo termina.
+    loop {
+        let snapshot = remap.clone();
+        let mut changed = false;
+        for (from, to) in remap.iter_mut() {
+            if let Some(next) = snapshot.get(to) {
+                if next != from {
+                    *to = next.clone();
+                    changed = true;
+                }
+            }
+        }
+        if !changed {
+            break;
+        }
+    }
+
+    for key in keys.values_mut() {
+        if let Some(target) = remap.get(key) {
+            *key = target.clone();
+        }
+    }
+    keys
 }
 
 pub fn primary_key_column(table: &DatabaseTable) -> DatabaseColumn {
@@ -279,12 +359,85 @@ mod tests {
     #[test]
     fn case_variant_tables_share_the_same_key() {
         // "Address" e "address" têm de colidir na mesma chave canónica
-        // para que a dedupe os una antes de gerar as classes.
+        // para que a dedupe os unir antes de gerar as classes.
         assert_eq!(to_snake_case("Address"), to_snake_case("address"));
         assert_eq!(
             to_snake_case("AgentAddress"),
             to_snake_case("agent_address")
         );
+    }
+
+    #[test]
+    fn feature_group_keys_group_related_tables() {
+        let kebabs: Vec<String> = [
+            "agent",
+            "agent-address",
+            "agent-assignment",
+            "annual-billing",
+            "annual-billing-tier",
+            "company",
+            "company-users",
+            "messages",
+            "prisma-migrations",
+        ]
+        .iter()
+        .map(|value| value.to_string())
+        .collect();
+
+        let groups = feature_group_keys(&kebabs);
+
+        // Relacionadas ficam todas na mesma feature
+        assert_eq!(groups["agent"], "agent");
+        assert_eq!(groups["agent-address"], "agent");
+        assert_eq!(groups["agent-assignment"], "agent");
+        assert_eq!(groups["annual-billing"], "annual");
+        assert_eq!(groups["annual-billing-tier"], "annual");
+        assert_eq!(groups["company"], "company");
+        assert_eq!(groups["company-users"], "company");
+
+        // Sem partilhas do primeiro segmento, mantêm o kebab completo
+        assert_eq!(groups["messages"], "messages");
+        assert_eq!(groups["prisma-migrations"], "prisma-migrations");
+    }
+
+    #[test]
+    fn feature_group_keys_unifies_plural_and_singular() {
+        let kebabs: Vec<String> = [
+            "need",
+            "need-read",
+            "need-response",
+            "needs",
+            "role",
+            "roles",
+            "address",
+            "addresses",
+            "messages",
+            "company",
+            "product",
+            "products",
+        ]
+        .iter()
+        .map(|value| value.to_string())
+        .collect();
+
+        let groups = feature_group_keys(&kebabs);
+
+        // Pares singular/plural unificam-se no singular — nunca pastas
+        // "need/" e "needs/" ou "role/" e "roles/" em paralelo.
+        assert_eq!(groups["need"], "need");
+        assert_eq!(groups["needs"], "need");
+        assert_eq!(groups["need-read"], "need");
+        assert_eq!(groups["need-response"], "need");
+        assert_eq!(groups["role"], "role");
+        assert_eq!(groups["roles"], "role");
+        assert_eq!(groups["address"], "address");
+        assert_eq!(groups["addresses"], "address");
+        assert_eq!(groups["product"], "product");
+        assert_eq!(groups["products"], "product");
+
+        // Sem contraparte singular, mantém o nome original
+        assert_eq!(groups["messages"], "messages");
+        assert_eq!(groups["company"], "company");
     }
 }
 

@@ -4,7 +4,8 @@ use crate::{
         db::{map_project, open_database},
         detect::detect_language,
         installer::{
-            build_index, validate_export_name, validate_relative_path, write_project_files,
+            build_index, package_root, validate_export_name, validate_relative_path,
+            write_project_files,
         },
     },
 };
@@ -203,7 +204,7 @@ pub fn install_component(
         .map_err(|e| e.to_string())?;
     drop(statement);
 
-    let package_root = project_root.join("negodesign");
+    let package_root = package_root(&project_root, &language);
     let index = build_index(&language, &mut installed)?;
     let index_name = if language == "Flutter" {
         "index.dart"

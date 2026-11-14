@@ -5,38 +5,44 @@ use crate::{
 
 pub fn build_db_client_ts(engine: &DatabaseEngine) -> String {
     match engine {
-        DatabaseEngine::Postgres => String::from(
-            "import { Pool } from \"pg\";\n\n\
-export const pool = new Pool({\n\
-  connectionString: process.env.DATABASE_URL ?? \"postgresql://postgres:postgres@localhost:5432/app\",\n\
-});\n\n\
-export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {\n\
-  const { rows } = await pool.query(sql, params);\n\
-  return rows as T[];\n\
-}\n",
-        ),
-        DatabaseEngine::Mysql => String::from(
-            "import mysql from \"mysql2/promise\";\n\n\
-export const pool = mysql.createPool(\n\
-  process.env.DATABASE_URL ?? \"mysql://root:root@localhost:3306/app\",\n\
-);\n\n\
-export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {\n\
-  const [rows] = await pool.execute(sql, params);\n\
-  return (Array.isArray(rows) ? rows : []) as T[];\n\
-}\n",
-        ),
-        DatabaseEngine::Sqlite => String::from(
-            "import Database from \"better-sqlite3\";\n\n\
-const db = new Database(process.env.SQLITE_PATH ?? \"./database.sqlite\");\n\n\
-export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {\n\
-  const stmt = db.prepare(sql);\n\
-  if (sql.trim().toUpperCase().startsWith(\"SELECT\")) {\n\
-    return stmt.all(...params) as T[];\n\
-  }\n\
-  stmt.run(...params);\n\
-  return [] as T[];\n\
-}\n",
-        ),
+        DatabaseEngine::Postgres => r#"import { Pool } from "pg";
+
+export const pool = new Pool({
+  connectionString: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/app",
+});
+
+export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {
+  const { rows } = await pool.query(sql, params);
+  return rows as T[];
+}
+"#
+        .to_string(),
+        DatabaseEngine::Mysql => r#"import mysql from "mysql2/promise";
+
+export const pool = mysql.createPool(
+  process.env.DATABASE_URL ?? "mysql://root:root@localhost:3306/app",
+);
+
+export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {
+  const [rows] = await pool.execute(sql, params);
+  return (Array.isArray(rows) ? rows : []) as T[];
+}
+"#
+        .to_string(),
+        DatabaseEngine::Sqlite => r#"import Database from "better-sqlite3";
+
+const db = new Database(process.env.SQLITE_PATH ?? "./database.sqlite");
+
+export async function queryDb<T = any>(sql: string, params: any[] = []): Promise<T[]> {
+  const stmt = db.prepare(sql);
+  if (sql.trim().toUpperCase().startsWith("SELECT")) {
+    return stmt.all(...params) as T[];
+  }
+  stmt.run(...params);
+  return [] as T[];
+}
+"#
+        .to_string(),
     }
 }
 
@@ -96,47 +102,48 @@ pub fn build_direct_table_repository_ts(
         .join(", ");
 
     format!(
-        "import {{ queryDb }} from \"{db_import_path}\";\n\n\
-export const {pascal}ServerRepository = {{\n\
-  async findAll(page = 0, size = 10) {{\n\
-    const offset = Math.max(0, page) * Math.max(1, size);\n\
-    const data = await queryDb(\n\
-      \"SELECT * FROM {table_name} LIMIT {page_placeholders}\",\n\
-      [size, offset],\n\
-    );\n\
-    const [countRow] = await queryDb<{{ total: number }}>(\n\
-      \"SELECT COUNT(*) as total FROM {table_name}\",\n\
-    );\n\
-    return {{ data, total: Number(countRow?.total ?? data.length), page, size }};\n\
-  }},\n\
-  async insert(payload: Record<string, any>) {{\n\
-    await queryDb(\n\
-      \"INSERT INTO {table_name} ({cols_sql}) VALUES ({placeholders})\",\n\
-      [{payload_vals}],\n\
-    );\n\
-    const [created] = await queryDb(\n\
-      \"SELECT * FROM {table_name} ORDER BY {pk_col} DESC LIMIT 1\",\n\
-    );\n\
-    return created ?? payload;\n\
-  }},\n\
-  async update(id: string | number, payload: Record<string, any>) {{\n\
-    await queryDb(\n\
-      \"UPDATE {table_name} SET {set_clause} WHERE {pk_col} = {id_placeholder}\",\n\
-      [{payload_vals}, id],\n\
-    );\n\
-    const [updated] = await queryDb(\n\
-      \"SELECT * FROM {table_name} WHERE {pk_col} = {pk_single_placeholder}\",\n\
-      [id],\n\
-    );\n\
-    return updated ?? {{ ...payload, {pk_col}: id }};\n\
-  }},\n\
-  async delete(id: string | number) {{\n\
-    await queryDb(\n\
-      \"DELETE FROM {table_name} WHERE {pk_col} = {pk_single_placeholder}\",\n\
-      [id],\n\
-    );\n\
-  }},\n\
-}};\n"
+        r#"import {{ queryDb }} from "{db_import_path}";
+
+export const {pascal}ServerRepository = {{
+  async findAll(page = 0, size = 10) {{
+    const offset = Math.max(0, page) * Math.max(1, size);
+    const data = await queryDb(
+      "SELECT * FROM {table_name} LIMIT {page_placeholders}",
+      [size, offset],
+    );
+    const [countRow] = await queryDb<{{ total: number }}>(
+      "SELECT COUNT(*) as total FROM {table_name}",
+    );
+    return {{ data, total: Number(countRow?.total ?? data.length), page, size }};
+  }},
+  async insert(payload: Record<string, any>) {{
+    await queryDb(
+      "INSERT INTO {table_name} ({cols_sql}) VALUES ({placeholders})",
+      [{payload_vals}],
+    );
+    const [created] = await queryDb(
+      "SELECT * FROM {table_name} ORDER BY {pk_col} DESC LIMIT 1",
+    );
+    return created ?? payload;
+  }},
+  async update(id: string | number, payload: Record<string, any>) {{
+    await queryDb(
+      "UPDATE {table_name} SET {set_clause} WHERE {pk_col} = {id_placeholder}",
+      [{payload_vals}, id],
+    );
+    const [updated] = await queryDb(
+      "SELECT * FROM {table_name} WHERE {pk_col} = {pk_single_placeholder}",
+      [id],
+    );
+    return updated ?? {{ ...payload, {pk_col}: id }};
+  }},
+  async delete(id: string | number) {{
+    await queryDb(
+      "DELETE FROM {table_name} WHERE {pk_col} = {pk_single_placeholder}",
+      [id],
+    );
+  }},
+}};
+"#
     )
 }
-

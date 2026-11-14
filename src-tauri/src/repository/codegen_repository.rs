@@ -17,7 +17,9 @@ use crate::{
             assets::relocate_static_assets, collector::CopyCollector, manifest::ManifestCatalog,
             paths::workspace_root, theme::attach_theme_and_styles,
         },
-        project::installer::{build_index, validate_relative_path, write_project_files},
+        project::installer::{
+            build_index, package_root, validate_relative_path, write_project_files,
+        },
     },
 };
 use std::{
@@ -126,6 +128,12 @@ pub fn generate_fullstack_crud(
     ));
 
     let frontend_files = generate_frontend_files(&request, &request.tables)?;
+    // Para Svelte, remove features/rotas gerados que já não fazem parte da
+    // geração actual (pastas antigas tipo `features/agentaddress`, estrutura
+    // plana anterior a `features/<grupo>/{api,repo,data}`, etc.).
+    if matches!(request.frontend_framework, FrontendFramework::Sveltekit) {
+        remove_stale_frontend_dirs(&frontend_root, &frontend_files);
+    }
     let generated_frontend_files = write_file_map(&frontend_root, &frontend_files)?;
     summary.push(format!(
         "Gerados {generated_frontend_files} ficheiros de páginas e integração no projecto frontend ({:?})",
@@ -281,7 +289,7 @@ fn install_admin_crud_ui_by_framework(
     let mut components: Vec<ComponentExport> = collector.exported_by_id.into_values().collect();
 
     let copied = write_project_files(frontend_root, project_lang, files)?;
-    let package_root = frontend_root.join("negodesign");
+    let package_root = package_root(frontend_root, project_lang);
     let index = build_index(project_lang, &mut components)?;
     fs::create_dir_all(&package_root).map_err(|e| e.to_string())?;
     fs::write(package_root.join("index.ts"), index).map_err(|e| e.to_string())?;
@@ -329,6 +337,44 @@ fn remove_stale_generated_dirs(root: &Path, files: &BTreeMap<String, String>) {
         let path = root.join(dir);
         if path.is_dir() {
             let _ = fs::remove_dir_all(path);
+        }
+    }
+}
+
+/// Limpa directórios frontend gerados que já não fazem parte da geração
+/// actual do SvelteKit:
+///
+/// - `src/lib/features` — totalmente gerado, é removido por inteiro antes de
+///   reescrever (acaba com as estruturas antigas, ex.: `features/agentaddress`
+///   e a estrutura plana `<kebab>/<kebab>.admin.ts`);
+/// - `src/routes/admin` — remove apenas os subdirectórios não gerados
+///   (rotas obsoletas), preservando ficheiros na raiz (ex.: um `+page.svelte`
+///   de dashboard escrito à mão).
+fn remove_stale_frontend_dirs(root: &Path, files: &BTreeMap<String, String>) {
+    let features = root.join("src/lib/features");
+    if features.is_dir() {
+        let _ = fs::remove_dir_all(&features);
+    }
+
+    let admin = root.join("src/routes/admin");
+    if !admin.is_dir() {
+        return;
+    }
+    let generated: Vec<&String> = files
+        .keys()
+        .filter(|key| key.starts_with("src/routes/admin/"))
+        .collect();
+    let Ok(entries) = admin.read_dir() else {
+        return;
+    };
+    for entry in entries.flatten() {
+        if !entry.path().is_dir() {
+            continue;
+        }
+        let name = entry.file_name().to_string_lossy().to_string();
+        let prefix = format!("src/routes/admin/{name}/");
+        if !generated.iter().any(|key| key.starts_with(&prefix)) {
+            let _ = fs::remove_dir_all(entry.path());
         }
     }
 }
@@ -587,6 +633,26 @@ mod tests {
             .expect("MessagesRequest.java deve ser gerado");
         let request_components = record_components(request, "MessagesRequest");
         assert_unique(&request_components, "MessagesRequest.java");
+
+        // O serviço importa o @Service como as restantes classes geradas
+        let service = files
+            .get("src/main/java/com/nego/design/modules/messages/service/MessagesService.java")
+            .expect("MessagesService.java deve ser gerado");
+        assert!(
+            service.contains("import org.springframework.stereotype.Service;\n"),
+            "falta o import de Service: {service}"
+        );
+        assert!(
+            !service.contains("@org.springframework.stereotype.Service"),
+            "a anotação deve ser @Service, não totalmente qualificada: {service}"
+        );
+        assert!(service.contains("\n@Service\npublic class MessagesService"));
+        // O import fica no bloco de imports, acima da anotação
+        let import_index = service
+            .find("import org.springframework.stereotype.Service;")
+            .expect("import");
+        let annotation_index = service.find("@Service").expect("anotação");
+        assert!(import_index < annotation_index, "o import deve vir acima da anotação");
     }
 
     #[test]
@@ -624,6 +690,132 @@ mod tests {
             .expect("ConcreteTableModel.java deve ser gerado");
         assert!(model.contains("USER = \"TB_USERS\";"));
         assert!(model.contains("USERS = \"TB_USERS\";"));
+    }
+
+    #[test]
+    fn spring_features_group_related_tables_into_one_module() {
+        use crate::model::codegen::{DatabaseEngine, SpringLanguage};
+        use crate::repository::codegen::backend::spring_boot;
+
+        let tables = dedupe_tables(vec![
+            table("Agent"),
+            table("AgentAddress"),
+            table("AgentAssignment"),
+            table("AnnualBilling"),
+            table("annual_billing_tier"),
+            table("_prisma_migrations"),
+        ]);
+
+        // JPA: todas as relacionadas ficam no mesmo módulo (package)
+        let files = spring_boot::generate(
+            &tables,
+            "com.nego.design",
+            "spring-data-jpa",
+            &SpringLanguage::Java,
+            None,
+            &DatabaseEngine::Postgres,
+            &FrontendFramework::Sveltekit,
+        )
+        .expect("a geração Spring Boot deve suceder");
+
+        for path in [
+            "src/main/java/com/nego/design/modules/agent/model/Agent.java",
+            "src/main/java/com/nego/design/modules/agent/model/AgentAddress.java",
+            "src/main/java/com/nego/design/modules/agent/model/AgentAssignment.java",
+            "src/main/java/com/nego/design/modules/agent/controller/AgentAddressController.java",
+            "src/main/java/com/nego/design/modules/agent/dto/AgentAssignmentResponse.java",
+            "src/main/java/com/nego/design/modules/annual/model/AnnualBilling.java",
+            "src/main/java/com/nego/design/modules/annual/model/AnnualBillingTier.java",
+            "src/main/java/com/nego/design/modules/prisma_migrations/model/PrismaMigrations.java",
+        ] {
+            assert!(files.contains_key(path), "ficheiro em falta: {path}");
+        }
+
+        // Sem módulos isolados para as tabelas que ficaram agrupadas
+        let stray: Vec<&String> = files
+            .keys()
+            .filter(|key| {
+                key.contains("modules/agent_")
+                    || key.contains("modules/annual_billing")
+                    || key.contains("modules/prisma-migrations")
+            })
+            .collect();
+        assert!(
+            stray.is_empty(),
+            "módulos em falta de agrupamento: {stray:?}"
+        );
+
+        // Package coerente com o módulo agrupado
+        let agent_address = &files["src/main/java/com/nego/design/modules/agent/model/AgentAddress.java"];
+        assert!(agent_address.starts_with("package com.nego.design.modules.agent.model;"));
+        let controller = &files
+            ["src/main/java/com/nego/design/modules/agent/controller/AgentAddressController.java"];
+        assert!(controller.starts_with("package com.nego.design.modules.agent.controller;"));
+        // A rota continua por tabela (kebab próprio), não pelo grupo
+        assert!(controller.contains("/api/v1/admin/agent-address"));
+
+        // Fallback JDBC usa a mesma regra: feature/agent/*
+        let jdbc_files = spring_boot::generate(
+            &tables,
+            "com.nego.design",
+            "jdbc",
+            &SpringLanguage::Java,
+            None,
+            &DatabaseEngine::Postgres,
+            &FrontendFramework::Sveltekit,
+        )
+        .expect("a geração JDBC deve suceder");
+        assert!(jdbc_files
+            .contains_key("src/main/java/com/nego/design/feature/agent/dto/AgentAddressRequest.java"));
+        assert!(!jdbc_files
+            .keys()
+            .any(|key| key.contains("feature/agent_address") || key.contains("feature/annual-billing")));
+    }
+
+    #[test]
+    fn stale_frontend_dirs_are_removed_before_regeneration() {
+        let root =
+            std::env::temp_dir().join(format!("negodesign-frontend-stale-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+
+        fs::create_dir_all(root.join("src/lib/features/agentaddress")).expect("criar feature velha");
+        fs::create_dir_all(root.join("src/routes/admin/agent")).expect("criar rota gerada");
+        fs::create_dir_all(root.join("src/routes/admin/agentaddress")).expect("criar rota velha");
+        fs::write(root.join("src/routes/admin/+page.svelte"), "<index />").expect("índice");
+        fs::write(root.join("src/routes/admin/agent/+page.svelte"), "<old />").expect("rota");
+        fs::write(root.join("src/routes/admin/agentaddress/+page.svelte"), "<old />")
+            .expect("rota velha");
+
+        let mut files = BTreeMap::new();
+        files.insert(
+            "src/lib/features/agent/api/agent.api.ts".to_string(),
+            "// nova estrutura".to_string(),
+        );
+        files.insert(
+            "src/routes/admin/agent/+page.svelte".to_string(),
+            "<new />".to_string(),
+        );
+
+        remove_stale_frontend_dirs(&root, &files);
+
+        assert!(
+            !root.join("src/lib/features").exists(),
+            "src/lib/features é totalmente gerado e é reescrito de seguida"
+        );
+        assert!(
+            !root.join("src/routes/admin/agentaddress").exists(),
+            "as rotas obsoletas devem ser removidas"
+        );
+        assert!(
+            root.join("src/routes/admin/agent").exists(),
+            "as rotas geradas nesta ronda mantêm-se (são reescritas)"
+        );
+        assert!(
+            root.join("src/routes/admin/+page.svelte").exists(),
+            "ficheiros na raiz de routes/admin são preservados"
+        );
+
+        let _ = fs::remove_dir_all(&root);
     }
 }
 

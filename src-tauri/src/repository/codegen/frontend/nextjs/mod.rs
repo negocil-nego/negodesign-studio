@@ -46,7 +46,9 @@ pub fn generate(
 
         files.insert(
             format!("src/features/{kebab}/{kebab}.admin.ts"),
-            build_admin_config_ts(table, tables),
+            // O negodesign fica na raiz do projecto Next; a config está em
+            // src/features/<kebab>/, logo são 3 níveis para a raiz.
+            build_admin_config_ts(table, tables, "../../../negodesign", "../../navigation/admin-sidebar"),
         );
         files.insert(
             format!("src/features/{kebab}/{kebab}.api.ts"),
@@ -56,7 +58,7 @@ pub fn generate(
         if req.use_tanstack_query {
             files.insert(
                 format!("src/features/{kebab}/{kebab}.query.ts"),
-                build_tanstack_query_ts(&req.frontend_framework, table),
+                build_tanstack_query_ts(&req.frontend_framework, table, &format!("./{kebab}.api")),
             );
         }
 

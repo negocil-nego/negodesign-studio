@@ -90,12 +90,37 @@ pub fn decode_base64(input: &str) -> Result<Vec<u8>, String> {
     Ok(decoded)
 }
 
+/// Raiz da pasta `negodesign` dentro do projecto activo.
+///
+/// - **Svelte**: a pasta vive em `src/negodesign`, porque todos os imports
+///   gerados são relativos a `src/` (ex.: `src/lib/features/...` →
+///   `../../../negodesign`). Se existir uma instalação anterior na raiz do
+///   projecto (`negodesign/`), é migrada para `src/negodesign`.
+/// - **Restantes linguagens**: mantém-se na raiz do projecto.
+pub fn package_root(project_root: &Path, language: &str) -> PathBuf {
+    if language != "Svelte" {
+        return project_root.join("negodesign");
+    }
+
+    let new_root = project_root.join("src").join("negodesign");
+    let legacy_root = project_root.join("negodesign");
+    if !new_root.exists() && legacy_root.is_dir() {
+        if let Some(parent) = new_root.parent() {
+            let _ = fs::create_dir_all(parent);
+        }
+        // Se a migração falhar (ficheiro em uso), os novos ficheiros são
+        // na mesma escritos em src/negodesign — os imports continuam válidos.
+        let _ = fs::rename(&legacy_root, &new_root);
+    }
+    new_root
+}
+
 pub fn write_project_files(
     project_root: &Path,
     language: &str,
     files: Vec<ComponentFile>,
 ) -> Result<usize, String> {
-    let package_root = project_root.join("negodesign");
+    let package_root = package_root(project_root, language);
     let public_root = match language {
         "Svelte" => project_root.join("static"),
         "Flutter" => project_root.join("assets"),
@@ -185,4 +210,36 @@ fn ensure_flutter_icons(project_root: &Path) -> Result<bool, String> {
     }
     fs::write(pubspec_path, format!("{}\n", lines.join("\n"))).map_err(|e| e.to_string())?;
     Ok(true)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn package_root_svelte_lives_in_src_and_migrates_legacy_copy() {
+        let root = std::env::temp_dir().join(format!("negodesign-installer-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        let legacy = root.join("negodesign");
+        fs::create_dir_all(&legacy).expect("criar pasta legada");
+        fs::write(legacy.join("marker.txt"), "x").expect("escrever marker");
+
+        let resolved = package_root(&root, "Svelte");
+        assert_eq!(resolved, root.join("src").join("negodesign"));
+        assert!(
+            resolved.join("marker.txt").exists(),
+            "a cópia legada na raiz deve ser migrada para src/negodesign"
+        );
+
+        let _ = fs::remove_dir_all(&root);
+    }
+
+    #[test]
+    fn package_root_other_languages_stay_at_project_root() {
+        let root = std::env::temp_dir().join("negodesign-installer-other");
+        assert_eq!(package_root(&root, "React"), root.join("negodesign"));
+        assert_eq!(package_root(&root, "Vue"), root.join("negodesign"));
+        assert_eq!(package_root(&root, "Nuxt"), root.join("negodesign"));
+        assert_eq!(package_root(&root, "Flutter"), root.join("negodesign"));
+    }
 }

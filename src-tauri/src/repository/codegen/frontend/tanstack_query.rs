@@ -3,7 +3,13 @@ use crate::{
     repository::codegen::naming::{to_kebab_case, to_pascal_case},
 };
 
-pub fn build_tanstack_query_ts(framework: &FrontendFramework, table: &DatabaseTable) -> String {
+/// `api_import` é o specifier do ficheiro `.api` da mesma tabela — depende da
+/// estrutura de pastas (SvelteKit: `../api/<kebab>.api`; Nuxt/Next: `./<kebab>.api`).
+pub fn build_tanstack_query_ts(
+    framework: &FrontendFramework,
+    table: &DatabaseTable,
+    api_import: &str,
+) -> String {
     let pascal = to_pascal_case(&table.name);
     let kebab = to_kebab_case(&table.name);
 
@@ -19,37 +25,42 @@ pub fn build_tanstack_query_ts(framework: &FrontendFramework, table: &DatabaseTa
     };
 
     format!(
-        "import {{ {query_fn}, {mutation_fn}, useQueryClient }} from \"{pkg}\";\n\
-import {{ {pascal}Api }} from \"./{kebab}.api\";\n\n\
-export const {pascal}QueryKey = [\"{kebab}\"] as const;\n\n\
-export function use{pascal}ListQuery(page = 0, size = 10) {{\n\
-  return {query_fn}({{\n\
-    queryKey: [...{pascal}QueryKey, page, size],\n\
-    queryFn: () => {pascal}Api.findAll(page, size),\n\
-  }});\n\
-}}\n\n\
-export function useInsert{pascal}Mutation() {{\n\
-  const queryClient = useQueryClient();\n\
-  return {mutation_fn}({{\n\
-    mutationFn: (payload: Record<string, any>) => {pascal}Api.insert(payload),\n\
-    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),\n\
-  }});\n\
-}}\n\n\
-export function useUpdate{pascal}Mutation() {{\n\
-  const queryClient = useQueryClient();\n\
-  return {mutation_fn}({{\n\
-    mutationFn: ({{ id, payload }}: {{ id: string | number; payload: Record<string, any> }}) =>\n\
-      {pascal}Api.update(id, payload),\n\
-    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),\n\
-  }});\n\
-}}\n\n\
-export function useDelete{pascal}Mutation() {{\n\
-  const queryClient = useQueryClient();\n\
-  return {mutation_fn}({{\n\
-    mutationFn: (id: string | number) => {pascal}Api.delete(id),\n\
-    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),\n\
-  }});\n\
-}}\n"
+        r#"import {{ {query_fn}, {mutation_fn}, useQueryClient }} from "{pkg}";
+import {{ {pascal}Api }} from "{api_import}";
+
+export const {pascal}QueryKey = ["{kebab}"] as const;
+
+export function use{pascal}ListQuery(page = 0, size = 10) {{
+  return {query_fn}({{
+    queryKey: [...{pascal}QueryKey, page, size],
+    queryFn: () => {pascal}Api.findAll(page, size),
+  }});
+}}
+
+export function useInsert{pascal}Mutation() {{
+  const queryClient = useQueryClient();
+  return {mutation_fn}({{
+    mutationFn: (payload: Record<string, any>) => {pascal}Api.insert(payload),
+    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),
+  }});
+}}
+
+export function useUpdate{pascal}Mutation() {{
+  const queryClient = useQueryClient();
+  return {mutation_fn}({{
+    mutationFn: ({{ id, payload }}: {{ id: string | number; payload: Record<string, any> }}) =>
+      {pascal}Api.update(id, payload),
+    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),
+  }});
+}}
+
+export function useDelete{pascal}Mutation() {{
+  const queryClient = useQueryClient();
+  return {mutation_fn}({{
+    mutationFn: (id: string | number) => {pascal}Api.delete(id),
+    onSuccess: () => queryClient.invalidateQueries({{ queryKey: {pascal}QueryKey }}),
+  }});
+}}
+"#
     )
 }
-

@@ -14,6 +14,7 @@ use sveltekit::generate_sveltekit_bff_routes;
 
 pub(super) struct BffRouteCtx<'a> {
     pub kebab: &'a str,
+    pub backend_base: &'a str,
     pub list_url: &'a str,
     pub create_url: &'a str,
     pub get_id_svelte: &'a str,
@@ -69,6 +70,7 @@ pub fn generate_bff_routes(
 
     let ctx = BffRouteCtx {
         kebab: &kebab,
+        backend_base,
         list_url: &list_url,
         create_url: &create_url,
         get_id_svelte: &get_id_svelte,

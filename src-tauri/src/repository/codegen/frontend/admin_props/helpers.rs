@@ -98,14 +98,14 @@ pub(super) fn build_row_cells_ts(table: &DatabaseTable) -> String {
             let raw = &c.name;
             if is_badge_column(c) {
                 format!(
-                    "      {{\n        text: String(item.{camel} ?? item[\"{raw}\"] ?? \"Active\"),\n        type: \"badge\",\n        badgeVariant: (item.{camel} ?? item[\"{raw}\"]) === false ? \"danger\" : \"success\",\n        dot: true,\n      }}"
+                    "    {{\n      text: String(item.{camel} ?? item[\"{raw}\"] ?? \"Active\"),\n      type: \"badge\",\n      badgeVariant: (item.{camel} ?? item[\"{raw}\"]) === false ? \"danger\" : \"success\",\n      dot: true,\n    }}"
                 )
             } else {
-                format!("      {{ text: String(item.{camel} ?? item[\"{raw}\"] ?? \"\") }}")
+                format!("    {{ text: String(item.{camel} ?? item[\"{raw}\"] ?? \"\") }}")
             }
         })
         .chain(std::iter::once(
-            "      {\n        text: \"\",\n        type: \"dropdown\",\n        actions: [\n          { label: \"Edit\", value: \"edit\", icon: \"Edit02\" },\n          { label: \"Delete\", value: \"delete\", icon: \"Delete02\", variant: \"danger\" },\n        ],\n      }".to_string(),
+            "    {\n      text: \"\",\n      type: \"dropdown\",\n      actions: [\n        { label: \"Edit\", value: \"edit\", icon: \"Edit02\" },\n        { label: \"Delete\", value: \"delete\", icon: \"Delete02\", variant: \"danger\" },\n      ],\n    }".to_string(),
         ))
         .collect::<Vec<_>>()
         .join(",\n")
@@ -122,11 +122,11 @@ pub(super) fn build_form_fields_ts(table: &DatabaseTable) -> String {
             let req = !c.nullable;
             if comp.starts_with("input-") {
                 format!(
-                    "      {{\n        id: \"{name}\",\n        name: \"{name}\",\n        component: \"{comp}\",\n        labelProps: {{ label: \"{label}\", for: \"{name}\" }},\n        inputProps: {{ id: \"{name}\", name: \"{name}\", type: \"{input_type}\", required: {req}, placeholder: \"Enter {label}...\" }},\n      }}"
+                    "          {{\n            id: \"{name}\",\n            name: \"{name}\",\n            component: \"{comp}\",\n            labelProps: {{ label: \"{label}\", for: \"{name}\" }},\n            inputProps: {{ id: \"{name}\", name: \"{name}\", type: \"{input_type}\", required: {req}, placeholder: \"Enter {label}...\" }},\n          }}"
                 )
             } else {
                 format!(
-                    "      {{\n        id: \"{name}\",\n        name: \"{name}\",\n        component: \"{comp}\",\n        label: \"{label}\",\n        required: {req},\n      }}"
+                    "          {{\n            id: \"{name}\",\n            name: \"{name}\",\n            component: \"{comp}\",\n            label: \"{label}\",\n            required: {req},\n          }}"
                 )
             }
         })

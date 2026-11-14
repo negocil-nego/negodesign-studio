@@ -46,7 +46,7 @@ pub fn generate(
 
         files.insert(
             format!("composables/features/{kebab}/{kebab}.admin.ts"),
-            build_admin_config_ts(table, tables),
+            build_admin_config_ts(table, tables, "../../negodesign", "../../navigation/admin-sidebar"),
         );
         files.insert(
             format!("composables/features/{kebab}/{kebab}.api.ts"),
@@ -56,7 +56,7 @@ pub fn generate(
         if req.use_tanstack_query {
             files.insert(
                 format!("composables/features/{kebab}/{kebab}.query.ts"),
-                build_tanstack_query_ts(&req.frontend_framework, table),
+                build_tanstack_query_ts(&req.frontend_framework, table, &format!("./{kebab}.api")),
             );
         }
 

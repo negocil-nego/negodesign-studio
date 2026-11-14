@@ -1,8 +1,8 @@
 use crate::{
     model::migration::DatabaseTable,
     repository::codegen::naming::{
-        editable_columns, primary_key_column, sql_to_java_type, to_camel_case, to_kebab_case,
-        to_pascal_case, to_snake_case,
+        editable_columns, feature_group_keys, primary_key_column, sql_to_java_type, to_camel_case,
+        to_kebab_case, to_pascal_case, to_snake_case,
     },
 };
 use std::collections::BTreeMap;
@@ -44,10 +44,20 @@ pub fn generate(
         ),
     );
 
-    for table in tables {
-        let feature_pkg = to_snake_case(&table.name);
+    // Agrupamento por domínio (mesma regra do backend Java e do frontend):
+    // agent + agent_address + … → feature "agent".
+    let kebabs: Vec<String> = tables.iter().map(|t| to_kebab_case(&t.name)).collect();
+    let feature_groups = feature_group_keys(&kebabs);
+
+    for (table, table_kebab) in tables.iter().zip(kebabs.iter()) {
+        let feature_pkg = to_snake_case(
+            feature_groups
+                .get(table_kebab)
+                .map(String::as_str)
+                .unwrap_or(table_kebab),
+        );
         let pascal = to_pascal_case(&table.name);
-        let kebab = to_kebab_case(&table.name);
+        let kebab = table_kebab.clone();
         let full_pkg = format!("{base_package}.feature.{feature_pkg}");
         let base_dir = format!("src/main/kotlin/{pkg_path}/feature/{feature_pkg}");
 

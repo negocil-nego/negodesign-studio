@@ -13,8 +13,8 @@ use crate::{
         migration::{DatabaseConnection, DatabaseTable},
     },
     repository::codegen::naming::{
-        editable_columns, primary_key_column, sql_to_java_type, to_camel_case, to_kebab_case,
-        to_pascal_case, to_snake_case,
+        editable_columns, feature_group_keys, primary_key_column, sql_to_java_type, to_camel_case,
+        to_kebab_case, to_pascal_case, to_snake_case,
     },
 };
 use std::collections::BTreeMap;
@@ -47,14 +47,23 @@ fn generate_java(
     let mut files = BTreeMap::new();
     let use_jdbc = orm_strategy == "spring-jdbc" || orm_strategy == "jdbc";
 
+    // Agrupamento por domínio: todas as tabelas relacionadas ficam na mesma
+    // feature (agent + agent_address + … → modules.agent / feature.agent).
+    let kebabs: Vec<String> = tables.iter().map(|t| to_kebab_case(&t.name)).collect();
+    let feature_groups = feature_group_keys(&kebabs);
+    let feature_pkg_for = |kebab: &str| -> String {
+        to_snake_case(feature_groups.get(kebab).map(String::as_str).unwrap_or(kebab))
+    };
+
     if !use_jdbc {
         // Negoturismo-based Architecture: CommonModel, ConcreteModel, RBAC, Resources
         shared_classes::generate_shared_classes(&mut files, base_package, tables);
         rbac::generate_rbac_module(&mut files, base_package);
         resources::generate_resources(&mut files, "api", db_conn, db_engine, frontend_framework);
 
-        for table in tables {
-            jpa::generate_jpa_module(&mut files, base_package, table);
+        for (table, kebab) in tables.iter().zip(kebabs.iter()) {
+            let feature_pkg = feature_pkg_for(kebab);
+            jpa::generate_jpa_module(&mut files, base_package, table, &feature_pkg);
         }
 
         // Garante que nenhuma classe referencia ConcreteTableModel.X inexistente.
@@ -72,10 +81,10 @@ fn generate_java(
         ),
     );
 
-    for table in tables {
-        let feature_pkg = to_snake_case(&table.name);
+    for (table, table_kebab) in tables.iter().zip(kebabs.iter()) {
+        let feature_pkg = feature_pkg_for(table_kebab);
         let pascal = to_pascal_case(&table.name);
-        let kebab = to_kebab_case(&table.name);
+        let kebab = table_kebab.clone();
         let full_pkg = format!("{base_package}.feature.{feature_pkg}");
         let base_dir = format!("src/main/java/{pkg_path}/feature/{feature_pkg}");
 

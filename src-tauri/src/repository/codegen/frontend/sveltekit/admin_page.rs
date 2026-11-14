@@ -1,48 +1,56 @@
-pub(super) fn build_svelte_admin_page(kebab: &str, pascal: &str) -> String {
+/// `folder` é a pasta da feature dentro de `src/lib/features/` (agrupamento
+/// por domínio: `agent`, `messages`, …).
+pub(super) fn build_svelte_admin_page(kebab: &str, pascal: &str, folder: &str) -> String {
     format!(
-        "<script lang=\"ts\">\n\
-  import {{ onMount }} from \"svelte\";\n\
-  import AdminCrud from \"../../../../negodesign/project/ui/pages/admin/ui/AdminCrud.svelte\";\n\
-  import type {{ AdminProps }} from \"../../../../negodesign/project/ui/pages/admin/data/types\";\n\
-  import {{ {pascal}Api }} from \"$lib/features/{kebab}/{kebab}.api\";\n\
-  import {{ create{pascal}AdminProps }} from \"$lib/features/{kebab}/{kebab}.admin\";\n\n\
-  let records = $state<Record<string, any>[]>([]);\n\
-  let editingItem = $state<Record<string, any> | null>(null);\n\n\
-  async function loadRecords() {{\n\
-    try {{\n\
-      const res = await {pascal}Api.findAll(0, 10);\n\
-      records = Array.isArray(res?.data) ? res.data : (Array.isArray(res) ? res : []);\n\
-    }} catch (err) {{\n\
-      console.error(\"Failed to load {kebab}:\", err);\n\
-    }}\n\
-  }}\n\n\
-  let adminProps: AdminProps = $derived(\n\
-    create{pascal}AdminProps(records, {{\n\
-      onRowAction: async (action, rowIndex) => {{\n\
-        const target = records[rowIndex];\n\
-        if (!target) return;\n\
-        if (action.toLowerCase() === \"edit\") {{\n\
-          editingItem = target;\n\
-        }} else if (action.toLowerCase() === \"delete\") {{\n\
-          await {pascal}Api.delete(target.id);\n\
-          await loadRecords();\n\
-        }}\n\
-      }},\n\
-      onSubmit: async (values) => {{\n\
-        if (!values) return;\n\
-        if (editingItem?.id != null) {{\n\
-          await {pascal}Api.update(editingItem.id, values as Record<string, any>);\n\
-          editingItem = null;\n\
-        }} else {{\n\
-          await {pascal}Api.insert(values as Record<string, any>);\n\
-        }}\n\
-        await loadRecords();\n\
-      }},\n\
-    }})\n\
-  );\n\
-  let {{ datatableProps, sidebarProps, modalFormProps, menuProps }}: AdminProps = $derived(adminProps);\n\n\
-  onMount(loadRecords);\n\
-</script>\n\n\
-<AdminCrud {{datatableProps}} {{sidebarProps}} {{modalFormProps}} {{menuProps}} />\n"
+        r#"<script lang="ts">
+  import {{ onMount }} from "svelte";
+  import AdminCrud from "../../../negodesign/project/ui/pages/admin/ui/AdminCrud.svelte";
+  import type {{ AdminProps }} from "../../../negodesign/project/ui/pages/admin/data/types";
+  import {{ {pascal}Api }} from "$lib/features/{folder}/api/{kebab}.api";
+  import {{ create{pascal}AdminProps }} from "$lib/features/{folder}/data/{kebab}.admin";
+
+  let records = $state<Record<string, any>[]>([]);
+  let editingItem = $state<Record<string, any> | null>(null);
+
+  async function loadRecords() {{
+    try {{
+      const res = await {pascal}Api.findAll(0, 10);
+      records = Array.isArray(res?.data) ? res.data : (Array.isArray(res) ? res : []);
+    }} catch (err) {{
+      console.error("Failed to load {kebab}:", err);
+    }}
+  }}
+
+  let adminProps: AdminProps = $derived(
+    create{pascal}AdminProps(records, {{
+      onRowAction: async (action, rowIndex) => {{
+        const target = records[rowIndex];
+        if (!target) return;
+        if (action.toLowerCase() === "edit") {{
+          editingItem = target;
+        }} else if (action.toLowerCase() === "delete") {{
+          await {pascal}Api.delete(target.id);
+          await loadRecords();
+        }}
+      }},
+      onSubmit: async (values) => {{
+        if (!values) return;
+        if (editingItem?.id != null) {{
+          await {pascal}Api.update(editingItem.id, values as Record<string, any>);
+          editingItem = null;
+        }} else {{
+          await {pascal}Api.insert(values as Record<string, any>);
+        }}
+        await loadRecords();
+      }},
+    }})
+  );
+  let {{ datatableProps, sidebarProps, modalFormProps, menuProps }}: AdminProps = $derived(adminProps);
+
+  onMount(loadRecords);
+</script>
+
+<AdminCrud {{datatableProps}} {{sidebarProps}} {{modalFormProps}} {{menuProps}} />
+"#
     )
 }

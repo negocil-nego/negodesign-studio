@@ -28,77 +28,81 @@ pub fn build_api_client_ts(req: &FullstackCodegenRequest, table: &DatabaseTable)
 
     if req.http_client == HttpClientKind::Axios {
         return format!(
-            "import axios from \"axios\";\n\n\
-const api = axios.create({{ baseURL: \"{endpoint}\" }});\n\n\
-export const {pascal}Api = {{\n\
-  async findAll(page = 0, size = 10) {{\n\
-    const {{ data }} = await api.get(\"\", {{ params: {{ page, size }} }});\n\
-    return data;\n\
-  }},\n\
-  async insert(payload: Record<string, any>) {{\n\
-    const {{ data }} = await api.post(\"\", payload);\n\
-    return data;\n\
-  }},\n\
-  async update(id: string | number, payload: Record<string, any>) {{\n\
-    const {{ data }} = await api.put(`/${{id}}`, payload);\n\
-    return data;\n\
-  }},\n\
-  async delete(id: string | number) {{\n\
-    await api.delete(`/${{id}}`);\n\
-  }},\n\
-}};\n"
+            r#"import axios from "axios";
+
+const api = axios.create({{ baseURL: "{endpoint}" }});
+
+export const {pascal}Api = {{
+  async findAll(page = 0, size = 10) {{
+    const {{ data }} = await api.get("", {{ params: {{ page, size }} }});
+    return data;
+  }},
+  async insert(payload: Record<string, any>) {{
+    const {{ data }} = await api.post("", payload);
+    return data;
+  }},
+  async update(id: string | number, payload: Record<string, any>) {{
+    const {{ data }} = await api.put(`/${{id}}`, payload);
+    return data;
+  }},
+  async delete(id: string | number) {{
+    await api.delete(`/${{id}}`);
+  }},
+}};
+"#
         );
     }
 
     if req.frontend_framework == FrontendFramework::Nuxt {
         return format!(
-            "export const {pascal}Api = {{\n\
-  findAll(page = 0, size = 10) {{\n\
-    return useFetch(\"{endpoint}\", {{ query: {{ page, size }} }});\n\
-  }},\n\
-  async insert(payload: Record<string, any>) {{\n\
-    return await $fetch(\"{endpoint}\", {{ method: \"POST\", body: payload }});\n\
-  }},\n\
-  async update(id: string | number, payload: Record<string, any>) {{\n\
-    return await $fetch(`{endpoint}/${{id}}`, {{ method: \"PUT\", body: payload }});\n\
-  }},\n\
-  async delete(id: string | number) {{\n\
-    return await $fetch(`{endpoint}/${{id}}`, {{ method: \"DELETE\" }});\n\
-  }},\n\
-}};\n"
+            r#"export const {pascal}Api = {{
+  findAll(page = 0, size = 10) {{
+    return useFetch("{endpoint}", {{ query: {{ page, size }} }});
+  }},
+  async insert(payload: Record<string, any>) {{
+    return await $fetch("{endpoint}", {{ method: "POST", body: payload }});
+  }},
+  async update(id: string | number, payload: Record<string, any>) {{
+    return await $fetch(`{endpoint}/${{id}}`, {{ method: "PUT", body: payload }});
+  }},
+  async delete(id: string | number) {{
+    return await $fetch(`{endpoint}/${{id}}`, {{ method: "DELETE" }});
+  }},
+}};
+"#
         );
     }
 
     format!(
-        "export const {pascal}Api = {{\n\
-  async findAll(page = 0, size = 10) {{\n\
-    const res = await fetch(`{endpoint}?page=${{page}}&size=${{size}}`);\n\
-    if (!res.ok) throw new Error(`Failed to fetch {kebab}: ${{res.status}}`);\n\
-    return res.json();\n\
-  }},\n\
-  async insert(payload: Record<string, any>) {{\n\
-    const res = await fetch(\"{endpoint}\", {{\n\
-      method: \"POST\",\n\
-      headers: {{ \"Content-Type\": \"application/json\" }},\n\
-      body: JSON.stringify(payload),\n\
-    }});\n\
-    if (!res.ok) throw new Error(`Failed to insert {kebab}: ${{res.status}}`);\n\
-    return res.json();\n\
-  }},\n\
-  async update(id: string | number, payload: Record<string, any>) {{\n\
-    const res = await fetch(`{endpoint}/${{id}}`, {{\n\
-      method: \"PUT\",\n\
-      headers: {{ \"Content-Type\": \"application/json\" }},\n\
-      body: JSON.stringify(payload),\n\
-    }});\n\
-    if (!res.ok) throw new Error(`Failed to update {kebab}: ${{res.status}}`);\n\
-    return res.json();\n\
-  }},\n\
-  async delete(id: string | number) {{\n\
-    const res = await fetch(`{endpoint}/${{id}}`, {{ method: \"DELETE\" }});\n\
-    if (!res.ok) throw new Error(`Failed to delete {kebab}: ${{res.status}}`);\n\
-  }},\n\
-}};\n"
+        r#"export const {pascal}Api = {{
+  async findAll(page = 0, size = 10) {{
+    const res = await fetch(`{endpoint}?page=${{page}}&size=${{size}}`);
+    if (!res.ok) throw new Error(`Failed to fetch {kebab}: ${{res.status}}`);
+    return res.json();
+  }},
+  async insert(payload: Record<string, any>) {{
+    const res = await fetch("{endpoint}", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify(payload),
+    }});
+    if (!res.ok) throw new Error(`Failed to insert {kebab}: ${{res.status}}`);
+    return res.json();
+  }},
+  async update(id: string | number, payload: Record<string, any>) {{
+    const res = await fetch(`{endpoint}/${{id}}`, {{
+      method: "PUT",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify(payload),
+    }});
+    if (!res.ok) throw new Error(`Failed to update {kebab}: ${{res.status}}`);
+    return res.json();
+  }},
+  async delete(id: string | number) {{
+    const res = await fetch(`{endpoint}/${{id}}`, {{ method: "DELETE" }});
+    if (!res.ok) throw new Error(`Failed to delete {kebab}: ${{res.status}}`);
+  }},
+}};
+"#
     )
 }
-

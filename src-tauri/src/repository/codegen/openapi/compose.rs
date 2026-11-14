@@ -4,7 +4,7 @@ mod redirect;
 use super::dtos;
 use self::entity::insert_entity_files;
 use self::redirect::insert_admin_index;
-use crate::model::codegen::{FrontendFramework, OpenApiFrontendCodegenRequest};
+use crate::model::codegen::{ApiCallPattern, FrontendFramework, OpenApiFrontendCodegenRequest};
 use crate::model::migration::OpenApiEntity;
 use std::collections::BTreeMap;
 
@@ -39,6 +39,34 @@ pub fn generate_openapi_frontend_files(
 
     if active_entities.is_empty() {
         return Err("Nenhuma entidade OpenAPI seleccionada para integração.".to_string());
+    }
+
+    // 2.5 Base URL única do backend para as rotas BFF em src/routes/api.
+    // As rotas importam BACKEND_BASE_URL daqui — a URL do backend muda num só sítio.
+    if matches!(req.frontend_framework, FrontendFramework::Sveltekit)
+        && req.api_call_pattern == ApiCallPattern::Bff
+    {
+        let base = req
+            .backend_base_url
+            .as_deref()
+            .filter(|s| !s.trim().is_empty())
+            .or_else(|| {
+                active_entities
+                    .first()
+                    .and_then(|entity| entity.server_url.as_deref())
+            })
+            .unwrap_or("http://localhost:8080")
+            .trim_end_matches('/')
+            .to_string();
+        files.insert(
+            "src/lib/server/backend.ts".to_string(),
+            format!(
+                r#"// Base URL do backend (BFF) — fonte única para as rotas em src/routes/api.
+// Actualize apenas aqui quando o backend mudar de URL.
+export const BACKEND_BASE_URL = "{base}";
+"#
+            ),
+        );
     }
 
     // 3. For each active entity: API client, TanStack queries, BFF routes, Admin Config, and Admin Page
